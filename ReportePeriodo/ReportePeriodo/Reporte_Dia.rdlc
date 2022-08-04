@@ -433,10 +433,70 @@
           <DataField>DEC</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="COLOR_ILCA">
+          <DataField>COLOR_ILCA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_IC">
+          <DataField>COLOR_IC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PRECIOL">
+          <DataField>COLOR_PRECIOL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_MH">
+          <DataField>COLOR_MH</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PORCMS">
+          <DataField>COLOR_PORCMS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_MS">
+          <DataField>COLOR_MS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_COSTOPROD">
+          <DataField>COLOR_COSTOPROD</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PRECIOKGMS">
+          <DataField>COLOR_PRECIOKGMS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_LECHE">
+          <DataField>COLOR_LECHE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_MEDIA">
+          <DataField>COLOR_MEDIA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_TOTAL">
+          <DataField>COLOR_TOTAL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_SES1">
+          <DataField>COLOR_SES1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_SES2">
+          <DataField>COLOR_SES2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_SES3">
+          <DataField>COLOR_SES3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_CTD">
+          <DataField>COLOR_CTD</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DS_Dia_Empresa</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\DS_Dia_Empresa.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\ReportePeriodo\ReportePeriodo\DS_Dia_Empresa.xsd</rd:SchemaPath>
         <rd:TableName>DataTable1</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -649,10 +709,130 @@
           <DataField>METARETO</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="COLOR_MH_CRECIMIENTO">
+          <DataField>COLOR_MH_CRECIMIENTO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PORCMS_CRECIMIENTO">
+          <DataField>COLOR_PORCMS_CRECIMIENTO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_MS_CRECIMIENTO">
+          <DataField>COLOR_MS_CRECIMIENTO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PRECIOKGMS_CRECIMIENTO">
+          <DataField>COLOR_PRECIOKGMS_CRECIMIENTO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_COSTO_CRECIMIENTO">
+          <DataField>COLOR_COSTO_CRECIMIENTO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_MH_DESARROLLO">
+          <DataField>COLOR_MH_DESARROLLO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PORCMS_DESARROLLO">
+          <DataField>COLOR_PORCMS_DESARROLLO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_MS_DESARROLLO">
+          <DataField>COLOR_MS_DESARROLLO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PRECIOKGMS_DESARROLLO">
+          <DataField>COLOR_PRECIOKGMS_DESARROLLO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_COSTO_DESARROLLO">
+          <DataField>COLOR_COSTO_DESARROLLO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_MH_VAQUILLAS">
+          <DataField>COLOR_MH_VAQUILLAS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PORCMS_VAQUILLAS">
+          <DataField>COLOR_PORCMS_VAQUILLAS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_MS_VAQUILLAS">
+          <DataField>COLOR_MS_VAQUILLAS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PRECIOKGMS_VAQUILLAS">
+          <DataField>COLOR_PRECIOKGMS_VAQUILLAS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_COSTO_VAQUILLAS">
+          <DataField>COLOR_COSTO_VAQUILLAS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_MH_SECAS">
+          <DataField>COLOR_MH_SECAS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PORCMS_SECAS">
+          <DataField>COLOR_PORCMS_SECAS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_MS_SECAS">
+          <DataField>COLOR_MS_SECAS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PRECIOKGMS_SECAS">
+          <DataField>COLOR_PRECIOKGMS_SECAS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_COSTO_SECAS">
+          <DataField>COLOR_COSTO_SECAS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_MH_RETO">
+          <DataField>COLOR_MH_RETO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PORCMS_RETO">
+          <DataField>COLOR_PORCMS_RETO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_MS_RETO">
+          <DataField>COLOR_MS_RETO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_COSTO_RETO">
+          <DataField>COLOR_COSTO_RETO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PRECIOKGMS_RETO">
+          <DataField>COLOR_PRECIOKGMS_RETO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_IXA">
+          <DataField>COLOR_IXA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_CXA">
+          <DataField>COLOR_CXA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PORCENTAJEC">
+          <DataField>COLOR_PORCENTAJEC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_UXA">
+          <DataField>COLOR_UXA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COLOR_PORCENTAJEU">
+          <DataField>COLOR_PORCENTAJEU</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DS_Dia_Empresa</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\DS_Dia_Empresa.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\ReportePeriodo\ReportePeriodo\DS_Dia_Empresa.xsd</rd:SchemaPath>
         <rd:TableName>DataTable2</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -802,7 +982,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox125</rd:DefaultName>
-            <Top>0.79572cm</Top>
+            <Top>0.75461cm</Top>
             <Left>0.29434cm</Left>
             <Height>0.6cm</Height>
             <Width>3.03266cm</Width>
@@ -1432,7 +1612,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                                   <Style>
                                     <FontSize>4pt</FontSize>
                                     <FontWeight>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Bold","Default")</FontWeight>
-                                    <Format>=IIF(Fields!DIA.Value Like "DIF %","#,0\%","#,0.00")</Format>
+                                    <Format>=IIF(Fields!DIA.Value Like "DIF %","#,0\%","#,0")</Format>
                                     <Language>es-MX</Language>
                                   </Style>
                                 </TextRun>
@@ -1503,7 +1683,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_CTD.Value &lt;&gt; "", Fields!COLOR_CTD.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1617,7 +1798,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <RightBorder>
                               <Style>None</Style>
                             </RightBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_LECHE.Value &lt;&gt; "", Fields!COLOR_LECHE.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1721,7 +1903,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_MEDIA.Value &lt;&gt; "", Fields!COLOR_MEDIA.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1768,7 +1951,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_TOTAL.Value &lt;&gt; "", Fields!COLOR_TOTAL.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2017,10 +2201,11 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             </LeftBorder>
                             <BackgroundColor>=IIF((IsNumeric(Fields!DIA.Value) OR (Fields!DIA.Value Like "PROM")) AND IsNumeric(Fields!EA.Value),
 	SWITCH(
-		(Fields!EA.Value &gt;= 1.42 and Fields!EA.Value &lt;= 1.48), "#deedd3",
-		(Fields!EA.Value &gt;= 1.4 and Fields!EA.Value &lt;= 1.5), "#f2f2f2",
-		(Fields!EA.Value &gt;= 1.36 and Fields!EA.Value &lt;= 1.54), "#fff5d9",
-		(Fields!EA.Value &lt;&gt; 0), "#ffc9c9"
+		((Fields!EA.Value &gt;= 1.4 and Fields!EA.Value &lt; 1.5)), "#deedd3",
+		((Fields!EA.Value &gt;= 1.35 and Fields!EA.Value &lt; 1.4) OR (Fields!EA.Value &gt;= 1.5 and Fields!EA.Value &lt; 1.55)), "#f2f2f2",
+		((Fields!EA.Value &gt;= 1.25 and Fields!EA.Value &lt; 1.35) OR (Fields!EA.Value &gt;= 1.55 and Fields!EA.Value &lt; 1.65)), "#fff5d9",
+		(Fields!EA.Value  &lt; 1.25 OR Fields!EA.Value  &gt; 1.65), "#ffc9c9"
+
 		),
 IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
 )</BackgroundColor>
@@ -2070,7 +2255,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_ILCA.Value &lt;&gt; "", Fields!COLOR_ILCA.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2117,7 +2303,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_IC.Value &lt;&gt; "", Fields!COLOR_IC.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2164,7 +2351,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PRECIOL.Value &lt;&gt; "", Fields!COLOR_PRECIOL.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2211,7 +2399,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_MH.Value &lt;&gt; "", Fields!COLOR_MH.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2258,7 +2447,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PORCMS.Value &lt;&gt; "", Fields!COLOR_PORCMS.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2305,15 +2495,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF((IsNumeric(Fields!DIA.Value) OR (Fields!DIA.Value Like "PROM")) AND IsNumeric(Fields!MS.Value) AND IsNumeric(Fields!METAMS.Value),
-	SWITCH(
-		(Fields!MS.Value &gt;= (Fields!METAMS.Value * 1.08) OR Fields!MS.Value &lt;= (Fields!METAMS.Value * .92)), "#ffc9c9",
-		(Fields!MS.Value &lt;= (Fields!METAMS.Value * .96) OR Fields!MS.Value &gt;= (Fields!METAMS.Value * 1.04)), "#fff5d9",
-		(Fields!MS.Value &gt;= (Fields!METAMS.Value * 1.02) OR Fields!MS.Value &lt;= (Fields!METAMS.Value * .98)), "#f2f2f2",
-		(Fields!MS.Value &gt; (Fields!METAMS.Value * 1.02) OR Fields!MS.Value &lt; (Fields!METAMS.Value * 1.02)), "#deedd3"
-		),
-IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
-)</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_MS.Value &lt;&gt; "", Fields!COLOR_MS.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2474,10 +2657,10 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             </BottomBorder>
                             <BackgroundColor>=IIF((IsNumeric(Fields!DIA.Value) OR (Fields!DIA.Value Like "PROM")) AND IsNumeric(Fields!EAS.Value),
 	SWITCH(
-		(Fields!EAS.Value &gt;= 1.42 and Fields!EAS.Value &lt;= 1.48), "#deedd3",
-		(Fields!EAS.Value &gt;= 1.4 and Fields!EAS.Value &lt;= 1.5), "#f2f2f2",
-		(Fields!EAS.Value &gt;= 1.36 and Fields!EAS.Value &lt;= 1.54), "#fff5d9",
-		(Fields!EAS.Value &lt;&gt; 0), "#ffc9c9"
+		((Fields!EAS.Value &gt;= 1.4 and Fields!EAS.Value &lt; 1.5)), "#deedd3",
+		((Fields!EAS.Value &gt;= 1.35 and Fields!EAS.Value &lt; 1.4) OR (Fields!EAS.Value &gt;= 1.5 and Fields!EAS.Value &lt; 1.55)), "#f2f2f2",
+		((Fields!EAS.Value &gt;= 1.25 and Fields!EAS.Value &lt; 1.35) OR (Fields!EAS.Value &gt;= 1.55 and Fields!EAS.Value &lt; 1.65)), "#fff5d9",
+		(Fields!EAS.Value  &lt; 1.25 OR Fields!EAS.Value  &gt; 1.65), "#ffc9c9"
 		),
 IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
 )</BackgroundColor>
@@ -2582,15 +2765,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF((IsNumeric(Fields!DIA.Value) OR (Fields!DIA.Value Like "PROM")) AND IsNumeric(Fields!PRECIOPROD.Value) AND IsNumeric(Fields!METAPROD.Value),
-	SWITCH(
-		(Fields!PRECIOPROD.Value &gt;= (Fields!METAPROD.Value * 1.08) OR Fields!PRECIOPROD.Value &lt;= (Fields!METAPROD.Value * .92)), "#ffc9c9",
-		(Fields!PRECIOPROD.Value &lt;= (Fields!METAPROD.Value * .96) OR Fields!PRECIOPROD.Value &gt;= (Fields!METAPROD.Value * 1.04)), "#fff5d9",
-		(Fields!PRECIOPROD.Value &gt;= (Fields!METAPROD.Value * 1.02) OR Fields!PRECIOPROD.Value &lt;= (Fields!METAPROD.Value * .98)), "#f2f2f2",
-		(Fields!PRECIOPROD.Value &gt; (Fields!METAPROD.Value * 1.02) OR Fields!PRECIOPROD.Value &lt; (Fields!METAPROD.Value * 1.02)), "#deedd3"
-		),
-IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
-)</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_COSTOPROD.Value &lt;&gt; "", Fields!COLOR_COSTOPROD.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2642,7 +2818,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PRECIOKGMS.Value &lt;&gt; "", Fields!COLOR_PRECIOKGMS.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2882,7 +3059,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_SES1.Value &lt;&gt; "", Fields!COLOR_SES1.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2929,7 +3107,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_SES2.Value &lt;&gt; "", Fields!COLOR_SES2.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2981,7 +3160,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_SES3.Value &lt;&gt; "", Fields!COLOR_SES3.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -5559,7 +5739,8 @@ Parameters!DEC_TRES.Value &gt;= 3.3, "#fff5d9"
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_MH_CRECIMIENTO.Value &lt;&gt; "",Fields!COLOR_MH_CRECIMIENTO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -5606,15 +5787,8 @@ Parameters!DEC_TRES.Value &gt;= 3.3, "#fff5d9"
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF((IsNumeric(Fields!DIA.Value) OR (Fields!DIA.Value Like "PROM")) AND IsNumeric(Fields!PRECIO2.Value) AND IsNumeric(Fields!METABEC1.Value),
-	SWITCH(
-		(Fields!PRECIO2.Value &gt;= (Fields!METABEC1.Value * 1.08) OR Fields!PRECIO2.Value &lt;= (Fields!METABEC1.Value * .92)), "#ffc9c9",
-		(Fields!PRECIO2.Value &lt;= (Fields!METABEC1.Value * .96) OR Fields!PRECIO2.Value &gt;= (Fields!METABEC1.Value * 1.04)), "#fff5d9",
-		(Fields!PRECIO2.Value &gt;= (Fields!METABEC1.Value * 1.02) OR Fields!PRECIO2.Value &lt;= (Fields!METABEC1.Value * .98)), "#f2f2f2",
-		(Fields!PRECIO2.Value &gt; (Fields!METABEC1.Value * 1.02) OR Fields!PRECIO2.Value &lt; (Fields!METABEC1.Value * 1.02)), "#deedd3"
-		),
-IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
-)</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_COSTO_CRECIMIENTO.Value &lt;&gt; "", Fields!COLOR_COSTO_CRECIMIENTO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -5661,7 +5835,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>= IIF(Fields!COLOR_PORCMS_CRECIMIENTO.Value &lt;&gt; "", Fields!COLOR_PORCMS_CRECIMIENTO.Value,IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -5708,7 +5882,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <BottomBorder>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>= IIF(Fields!COLOR_MS_CRECIMIENTO.Value &lt;&gt; "", Fields!COLOR_MS_CRECIMIENTO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -5762,7 +5937,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>Solid</Style>
                             </RightBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PRECIOKGMS_CRECIMIENTO.Value &lt;&gt; "", Fields!COLOR_PRECIOKGMS_CRECIMIENTO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -5866,7 +6042,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_MH_DESARROLLO.Value &lt;&gt; "", Fields!COLOR_MH_DESARROLLO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -5916,15 +6093,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF((IsNumeric(Fields!DIA.Value) OR (Fields!DIA.Value Like "PROM")) AND IsNumeric(Fields!PRECIO7.Value) AND IsNumeric(Fields!METABEC2.Value) ,
-	SWITCH(
-		(Fields!PRECIO7.Value &gt;= (Fields!METABEC2.Value * 1.08) OR Fields!PRECIO7.Value &lt;= (Fields!METABEC2.Value * .92)), "#ffc9c9",
-		(Fields!PRECIO7.Value &lt;= (Fields!METABEC2.Value * .96) OR Fields!PRECIO7.Value &gt;= (Fields!METABEC2.Value * 1.04)), "#fff5d9",
-		(Fields!PRECIO7.Value &gt;= (Fields!METABEC2.Value * 1.02) OR Fields!PRECIO7.Value &lt;= (Fields!METABEC2.Value * .98)), "#f2f2f2",
-		(Fields!PRECIO7.Value &gt; (Fields!METABEC2.Value * 1.02) OR Fields!PRECIO7.Value &lt; (Fields!METABEC2.Value * 1.02)), "#deedd3"
-		),
-IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
-)</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_COSTO_DESARROLLO.Value &lt;&gt; "", Fields!COLOR_COSTO_DESARROLLO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -5974,7 +6144,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>= IIF(Fields!COLOR_PORCMS_DESARROLLO.Value &lt;&gt; "", Fields!COLOR_PORCMS_DESARROLLO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6024,7 +6195,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_MS_DESARROLLO.Value &lt;&gt; "", Fields!COLOR_MS_DESARROLLO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6078,7 +6250,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>Solid</Style>
                             </RightBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PRECIOKGMS_DESARROLLO.Value &lt;&gt; "", Fields!COLOR_PRECIOKGMS_DESARROLLO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6182,7 +6355,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_MH_VAQUILLAS.Value &lt;&gt; "", Fields!COLOR_MH_VAQUILLAS.Value, 
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6201,7 +6375,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(Fields!INV13.Value LIKE "NA", "",Fields!PORCMS13.Value)</Value>
+                                  <Value>=IIF(Fields!INV13.Value LIKE "NA", "",Fields!PRECIO13.Value)</Value>
                                   <Style>
                                     <FontSize>4pt</FontSize>
                                     <FontWeight>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","SemiBold","Thin")</FontWeight>
@@ -6232,15 +6406,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF((IsNumeric(Fields!DIA.Value) OR (Fields!DIA.Value Like "PROM")) AND IsNumeric(Fields!PRECIO13.Value) AND IsNumeric(Fields!METAVP.Value),
-	SWITCH(
-		(Fields!PRECIO13.Value &gt;= (Fields!METAVP.Value * 1.08) OR Fields!PRECIO13.Value &lt;= (Fields!METAVP.Value * .92)), "#ffc9c9",
-		(Fields!PRECIO13.Value &lt;= (Fields!METAVP.Value * .96) OR Fields!PRECIO13.Value &gt;= (Fields!METAVP.Value * 1.04)), "#fff5d9",
-		(Fields!PRECIO13.Value &gt;= (Fields!METAVP.Value * 1.02) OR Fields!PRECIO13.Value &lt;= (Fields!METAVP.Value * .98)), "#f2f2f2",
-		(Fields!PRECIO13.Value &gt; (Fields!METAVP.Value * 1.02) OR Fields!PRECIO13.Value &lt; (Fields!METAVP.Value * 1.02)), "#deedd3"
-		),
-IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
-)</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_COSTO_VAQUILLAS.Value &lt;&gt; "", Fields!COLOR_COSTO_VAQUILLAS.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6259,7 +6426,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(Fields!INV13.Value LIKE "NA", "",Fields!PRECIO13.Value)</Value>
+                                  <Value>=IIF(Fields!INV13.Value LIKE "NA", "",Fields!PORCMS13.Value)</Value>
                                   <Style>
                                     <FontSize>4pt</FontSize>
                                     <FontWeight>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","SemiBold","Thin")</FontWeight>
@@ -6290,7 +6457,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PORCMS_VAQUILLAS.Value &lt;&gt; "", Fields!COLOR_PORCMS_VAQUILLAS.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6340,7 +6508,9 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF( Fields!COLOR_MS_VAQUILLAS.Value &lt;&gt; "",
+Fields!COLOR_MS_VAQUILLAS.Value, 
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6394,7 +6564,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>Solid</Style>
                             </RightBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PRECIOKGMS_VAQUILLAS.Value &lt;&gt; "", Fields!COLOR_PRECIOKGMS_VAQUILLAS.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6498,7 +6669,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_MH_SECAS.Value &lt;&gt; "", Fields!COLOR_MH_SECAS.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6548,7 +6720,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PORCMS_SECAS.Value &lt;&gt; "", Fields!COLOR_PORCMS_SECAS.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6598,7 +6771,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_MS_SECAS.Value &lt;&gt; "", Fields!COLOR_MS_SECAS.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6798,13 +6972,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF((IsNumeric(Fields!DIA.Value) OR (Fields!DIA.Value Like "PROM")) AND IsNumeric(Fields!PRECIOSECAS.Value) AND IsNumeric(Fields!METASECAS.Value),
-	SWITCH(
-		(Fields!PRECIOSECAS.Value &gt;= (Fields!METASECAS.Value * 1.08) OR Fields!PRECIOSECAS.Value &lt;= (Fields!METASECAS.Value * .92)), "#ffc9c9",
-		(Fields!PRECIOSECAS.Value &lt;= (Fields!METASECAS.Value * .96) OR Fields!PRECIOSECAS.Value &gt;= (Fields!METASECAS.Value * 1.04)), "#fff5d9",
-		(Fields!PRECIOSECAS.Value &gt;= (Fields!METASECAS.Value * 1.02) OR Fields!PRECIOSECAS.Value &lt;= (Fields!METASECAS.Value * .98)), "#f2f2f2",
-		(Fields!PRECIOSECAS.Value &gt; (Fields!METASECAS.Value * 1.02) OR Fields!PRECIOSECAS.Value &lt; (Fields!METASECAS.Value * 1.02)), "#deedd3"
-		),
+                            <BackgroundColor>=IIF(Fields!COLOR_COSTO_SECAS.Value &lt;&gt; "",Fields!COLOR_COSTO_SECAS.Value ,
 IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
 )</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
@@ -6860,7 +7028,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>Solid</Style>
                             </RightBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PRECIOKGMS_SECAS.Value &lt;&gt; "", Fields!COLOR_PRECIOKGMS_SECAS.Value
+,IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6964,7 +7133,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_MH_RETO.Value &lt;&gt; "", Fields!COLOR_MH_RETO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6976,7 +7146,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PORCMSRETO">
+                        <Textbox Name="PRECIOMS71">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -6997,7 +7167,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PORCMSRETO</rd:DefaultName>
+                          <rd:DefaultName>PRECIOMS71</rd:DefaultName>
                           <Visibility>
                             <Hidden>=IIf(Fields!DIA.Value Like "X",True,False)</Hidden>
                           </Visibility>
@@ -7014,7 +7184,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PORCMS_RETO.Value &lt;&gt; "", Fields!COLOR_PORCMS_RETO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -7064,7 +7235,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_MS_RETO.Value &lt;&gt; "", Fields!COLOR_MS_RETO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -7264,13 +7436,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF((IsNumeric(Fields!DIA.Value) OR (Fields!DIA.Value Like "PROM")) AND IsNumeric(Fields!PRECIORETO.Value) AND IsNumeric(Fields!METARETO.Value),
-	SWITCH(
-		(Fields!PRECIORETO.Value &gt;= (Fields!METARETO.Value * 1.08) OR Fields!PRECIORETO.Value &lt;= (Fields!METARETO.Value * .92)), "#ffc9c9",
-		(Fields!PRECIORETO.Value &lt;= (Fields!METARETO.Value * .96) OR Fields!PRECIORETO.Value &gt;= (Fields!METARETO.Value * 1.04)), "#fff5d9",
-		(Fields!PRECIORETO.Value &gt;= (Fields!METARETO.Value * 1.02) OR Fields!PRECIORETO.Value &lt;= (Fields!METARETO.Value * .98)), "#f2f2f2",
-		(Fields!PRECIORETO.Value &gt; (Fields!METARETO.Value * 1.02) OR Fields!PRECIORETO.Value &lt; (Fields!METARETO.Value * 1.02)), "#deedd3"
-		),
+                            <BackgroundColor>=IIF(Fields!COLOR_COSTO_RETO.Value &lt;&gt; "",Fields!COLOR_COSTO_RETO.Value,
 IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
 )</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
@@ -7326,7 +7492,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>Solid</Style>
                             </RightBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PRECIOKGMS_RETO.Value &lt;&gt; "", Fields!COLOR_PRECIOKGMS_RETO.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -7380,7 +7547,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>Solid</Style>
                             </LeftBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>= IIF(Fields!COLOR_IXA.Value &lt;&gt; "", Fields!COLOR_IXA.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -7430,7 +7598,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_CXA.Value &lt;&gt; "", Fields!COLOR_CXA.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -7480,7 +7649,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PORCENTAJEC.Value &lt;&gt; "", Fields!COLOR_PORCENTAJEC.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -7580,7 +7750,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                               <Color>Black</Color>
                               <Style>=IIF(Fields!DIA.Value="TOTAL" OR Fields!DIA.Value="PROM" OR Fields!DIA.Value="AÑO ANT" OR Fields!DIA.Value="DIF %" OR Fields!DIA.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_UXA.Value &lt;&gt; "", Fields!COLOR_UXA.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -7635,7 +7806,8 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <RightBorder>
                               <Color>Black</Color>
                             </RightBorder>
-                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <BackgroundColor>=IIF(Fields!COLOR_PORCENTAJEU.Value &lt;&gt; "", Fields!COLOR_PORCENTAJEU.Value,
+IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -17121,7 +17293,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>MS ≥ 2 y ≤ 6</Value>
+                    <Value>MS ≥ 2 y ≤ 8</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontSize>5pt</FontSize>
@@ -17160,7 +17332,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>MS ≥ 6 y ≤ 9</Value>
+                    <Value>MS ≥ 6 y ≤ 11</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontSize>5pt</FontSize>
@@ -17199,7 +17371,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>MS ≥ 8 y ≤ 13</Value>
+                    <Value>MS ≥ 8 y ≤ 15</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontSize>5pt</FontSize>
@@ -17238,7 +17410,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>MS ≥ 10 y ≤ 18</Value>
+                    <Value>MS ≥ 10 y ≤ 19</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontSize>5pt</FontSize>
@@ -17277,7 +17449,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>MS ≥ 9 y ≤ 17</Value>
+                    <Value>MS ≥ 9 y ≤ 19</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontSize>5pt</FontSize>

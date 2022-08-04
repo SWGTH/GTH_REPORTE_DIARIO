@@ -484,6 +484,66 @@ namespace ReportePeriodo {
             
             private global::System.Data.DataColumn columnMETARETO;
             
+            private global::System.Data.DataColumn columnCOLOR_MH_CRECIMIENTO;
+            
+            private global::System.Data.DataColumn columnCOLOR_PORCMS_CRECIMIENTO;
+            
+            private global::System.Data.DataColumn columnCOLOR_MS_CRECIMIENTO;
+            
+            private global::System.Data.DataColumn columnCOLOR_PRECIOKGMS_CRECIMIENTO;
+            
+            private global::System.Data.DataColumn columnCOLOR_COSTO_CRECIMIENTO;
+            
+            private global::System.Data.DataColumn columnCOLOR_MH_DESARROLLO;
+            
+            private global::System.Data.DataColumn columnCOLOR_PORCMS_DESARROLLO;
+            
+            private global::System.Data.DataColumn columnCOLOR_MS_DESARROLLO;
+            
+            private global::System.Data.DataColumn columnCOLOR_PRECIOKGMS_DESARROLLO;
+            
+            private global::System.Data.DataColumn columnCOLOR_COSTO_DESARROLLO;
+            
+            private global::System.Data.DataColumn columnCOLOR_MH_VAQUILLAS;
+            
+            private global::System.Data.DataColumn columnCOLOR_PORCMS_VAQUILLAS;
+            
+            private global::System.Data.DataColumn columnCOLOR_MS_VAQUILLAS;
+            
+            private global::System.Data.DataColumn columnCOLOR_PRECIOKGMS_VAQUILLAS;
+            
+            private global::System.Data.DataColumn columnCOLOR_COSTO_VAQUILLAS;
+            
+            private global::System.Data.DataColumn columnCOLOR_MH_SECAS;
+            
+            private global::System.Data.DataColumn columnCOLOR_PORCMS_SECAS;
+            
+            private global::System.Data.DataColumn columnCOLOR_MS_SECAS;
+            
+            private global::System.Data.DataColumn columnCOLOR_PRECIOKGMS_SECAS;
+            
+            private global::System.Data.DataColumn columnCOLOR_COSTO_SECAS;
+            
+            private global::System.Data.DataColumn columnCOLOR_MH_RETO;
+            
+            private global::System.Data.DataColumn columnCOLOR_PORCMS_RETO;
+            
+            private global::System.Data.DataColumn columnCOLOR_MS_RETO;
+            
+            private global::System.Data.DataColumn columnCOLOR_COSTO_RETO;
+            
+            private global::System.Data.DataColumn columnCOLOR_PRECIOKGMS_RETO;
+            
+            private global::System.Data.DataColumn columnCOLOR_IXA;
+            
+            private global::System.Data.DataColumn columnCOLOR_CXA;
+            
+            private global::System.Data.DataColumn columnCOLOR_PORCENTAJEC;
+            
+            private global::System.Data.DataColumn columnCOLOR_UXA;
+            
+            private global::System.Data.DataColumn columnCOLOR_PORCENTAJEU;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DataTable2DataTable() {
@@ -919,6 +979,246 @@ namespace ReportePeriodo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MH_CRECIMIENTOColumn {
+                get {
+                    return this.columnCOLOR_MH_CRECIMIENTO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PORCMS_CRECIMIENTOColumn {
+                get {
+                    return this.columnCOLOR_PORCMS_CRECIMIENTO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MS_CRECIMIENTOColumn {
+                get {
+                    return this.columnCOLOR_MS_CRECIMIENTO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PRECIOKGMS_CRECIMIENTOColumn {
+                get {
+                    return this.columnCOLOR_PRECIOKGMS_CRECIMIENTO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_COSTO_CRECIMIENTOColumn {
+                get {
+                    return this.columnCOLOR_COSTO_CRECIMIENTO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MH_DESARROLLOColumn {
+                get {
+                    return this.columnCOLOR_MH_DESARROLLO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PORCMS_DESARROLLOColumn {
+                get {
+                    return this.columnCOLOR_PORCMS_DESARROLLO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MS_DESARROLLOColumn {
+                get {
+                    return this.columnCOLOR_MS_DESARROLLO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PRECIOKGMS_DESARROLLOColumn {
+                get {
+                    return this.columnCOLOR_PRECIOKGMS_DESARROLLO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_COSTO_DESARROLLOColumn {
+                get {
+                    return this.columnCOLOR_COSTO_DESARROLLO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MH_VAQUILLASColumn {
+                get {
+                    return this.columnCOLOR_MH_VAQUILLAS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PORCMS_VAQUILLASColumn {
+                get {
+                    return this.columnCOLOR_PORCMS_VAQUILLAS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MS_VAQUILLASColumn {
+                get {
+                    return this.columnCOLOR_MS_VAQUILLAS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PRECIOKGMS_VAQUILLASColumn {
+                get {
+                    return this.columnCOLOR_PRECIOKGMS_VAQUILLAS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_COSTO_VAQUILLASColumn {
+                get {
+                    return this.columnCOLOR_COSTO_VAQUILLAS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MH_SECASColumn {
+                get {
+                    return this.columnCOLOR_MH_SECAS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PORCMS_SECASColumn {
+                get {
+                    return this.columnCOLOR_PORCMS_SECAS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MS_SECASColumn {
+                get {
+                    return this.columnCOLOR_MS_SECAS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PRECIOKGMS_SECASColumn {
+                get {
+                    return this.columnCOLOR_PRECIOKGMS_SECAS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_COSTO_SECASColumn {
+                get {
+                    return this.columnCOLOR_COSTO_SECAS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MH_RETOColumn {
+                get {
+                    return this.columnCOLOR_MH_RETO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PORCMS_RETOColumn {
+                get {
+                    return this.columnCOLOR_PORCMS_RETO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MS_RETOColumn {
+                get {
+                    return this.columnCOLOR_MS_RETO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_COSTO_RETOColumn {
+                get {
+                    return this.columnCOLOR_COSTO_RETO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PRECIOKGMS_RETOColumn {
+                get {
+                    return this.columnCOLOR_PRECIOKGMS_RETO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_IXAColumn {
+                get {
+                    return this.columnCOLOR_IXA;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_CXAColumn {
+                get {
+                    return this.columnCOLOR_CXA;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PORCENTAJECColumn {
+                get {
+                    return this.columnCOLOR_PORCENTAJEC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_UXAColumn {
+                get {
+                    return this.columnCOLOR_UXA;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PORCENTAJEUColumn {
+                get {
+                    return this.columnCOLOR_PORCENTAJEU;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1004,7 +1304,37 @@ namespace ReportePeriodo {
                         string METABEC2, 
                         string METAVP, 
                         string METASECAS, 
-                        string METARETO) {
+                        string METARETO, 
+                        string COLOR_MH_CRECIMIENTO, 
+                        string COLOR_PORCMS_CRECIMIENTO, 
+                        string COLOR_MS_CRECIMIENTO, 
+                        string COLOR_PRECIOKGMS_CRECIMIENTO, 
+                        string COLOR_COSTO_CRECIMIENTO, 
+                        string COLOR_MH_DESARROLLO, 
+                        string COLOR_PORCMS_DESARROLLO, 
+                        string COLOR_MS_DESARROLLO, 
+                        string COLOR_PRECIOKGMS_DESARROLLO, 
+                        string COLOR_COSTO_DESARROLLO, 
+                        string COLOR_MH_VAQUILLAS, 
+                        string COLOR_PORCMS_VAQUILLAS, 
+                        string COLOR_MS_VAQUILLAS, 
+                        string COLOR_PRECIOKGMS_VAQUILLAS, 
+                        string COLOR_COSTO_VAQUILLAS, 
+                        string COLOR_MH_SECAS, 
+                        string COLOR_PORCMS_SECAS, 
+                        string COLOR_MS_SECAS, 
+                        string COLOR_PRECIOKGMS_SECAS, 
+                        string COLOR_COSTO_SECAS, 
+                        string COLOR_MH_RETO, 
+                        string COLOR_PORCMS_RETO, 
+                        string COLOR_MS_RETO, 
+                        string COLOR_COSTO_RETO, 
+                        string COLOR_PRECIOKGMS_RETO, 
+                        string COLOR_IXA, 
+                        string COLOR_CXA, 
+                        string COLOR_PORCENTAJEC, 
+                        string COLOR_UXA, 
+                        string COLOR_PORCENTAJEU) {
                 DataTable2Row rowDataTable2Row = ((DataTable2Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         DIA,
@@ -1056,7 +1386,37 @@ namespace ReportePeriodo {
                         METABEC2,
                         METAVP,
                         METASECAS,
-                        METARETO};
+                        METARETO,
+                        COLOR_MH_CRECIMIENTO,
+                        COLOR_PORCMS_CRECIMIENTO,
+                        COLOR_MS_CRECIMIENTO,
+                        COLOR_PRECIOKGMS_CRECIMIENTO,
+                        COLOR_COSTO_CRECIMIENTO,
+                        COLOR_MH_DESARROLLO,
+                        COLOR_PORCMS_DESARROLLO,
+                        COLOR_MS_DESARROLLO,
+                        COLOR_PRECIOKGMS_DESARROLLO,
+                        COLOR_COSTO_DESARROLLO,
+                        COLOR_MH_VAQUILLAS,
+                        COLOR_PORCMS_VAQUILLAS,
+                        COLOR_MS_VAQUILLAS,
+                        COLOR_PRECIOKGMS_VAQUILLAS,
+                        COLOR_COSTO_VAQUILLAS,
+                        COLOR_MH_SECAS,
+                        COLOR_PORCMS_SECAS,
+                        COLOR_MS_SECAS,
+                        COLOR_PRECIOKGMS_SECAS,
+                        COLOR_COSTO_SECAS,
+                        COLOR_MH_RETO,
+                        COLOR_PORCMS_RETO,
+                        COLOR_MS_RETO,
+                        COLOR_COSTO_RETO,
+                        COLOR_PRECIOKGMS_RETO,
+                        COLOR_IXA,
+                        COLOR_CXA,
+                        COLOR_PORCENTAJEC,
+                        COLOR_UXA,
+                        COLOR_PORCENTAJEU};
                 rowDataTable2Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDataTable2Row);
                 return rowDataTable2Row;
@@ -1129,6 +1489,36 @@ namespace ReportePeriodo {
                 this.columnMETAVP = base.Columns["METAVP"];
                 this.columnMETASECAS = base.Columns["METASECAS"];
                 this.columnMETARETO = base.Columns["METARETO"];
+                this.columnCOLOR_MH_CRECIMIENTO = base.Columns["COLOR_MH_CRECIMIENTO"];
+                this.columnCOLOR_PORCMS_CRECIMIENTO = base.Columns["COLOR_PORCMS_CRECIMIENTO"];
+                this.columnCOLOR_MS_CRECIMIENTO = base.Columns["COLOR_MS_CRECIMIENTO"];
+                this.columnCOLOR_PRECIOKGMS_CRECIMIENTO = base.Columns["COLOR_PRECIOKGMS_CRECIMIENTO"];
+                this.columnCOLOR_COSTO_CRECIMIENTO = base.Columns["COLOR_COSTO_CRECIMIENTO"];
+                this.columnCOLOR_MH_DESARROLLO = base.Columns["COLOR_MH_DESARROLLO"];
+                this.columnCOLOR_PORCMS_DESARROLLO = base.Columns["COLOR_PORCMS_DESARROLLO"];
+                this.columnCOLOR_MS_DESARROLLO = base.Columns["COLOR_MS_DESARROLLO"];
+                this.columnCOLOR_PRECIOKGMS_DESARROLLO = base.Columns["COLOR_PRECIOKGMS_DESARROLLO"];
+                this.columnCOLOR_COSTO_DESARROLLO = base.Columns["COLOR_COSTO_DESARROLLO"];
+                this.columnCOLOR_MH_VAQUILLAS = base.Columns["COLOR_MH_VAQUILLAS"];
+                this.columnCOLOR_PORCMS_VAQUILLAS = base.Columns["COLOR_PORCMS_VAQUILLAS"];
+                this.columnCOLOR_MS_VAQUILLAS = base.Columns["COLOR_MS_VAQUILLAS"];
+                this.columnCOLOR_PRECIOKGMS_VAQUILLAS = base.Columns["COLOR_PRECIOKGMS_VAQUILLAS"];
+                this.columnCOLOR_COSTO_VAQUILLAS = base.Columns["COLOR_COSTO_VAQUILLAS"];
+                this.columnCOLOR_MH_SECAS = base.Columns["COLOR_MH_SECAS"];
+                this.columnCOLOR_PORCMS_SECAS = base.Columns["COLOR_PORCMS_SECAS"];
+                this.columnCOLOR_MS_SECAS = base.Columns["COLOR_MS_SECAS"];
+                this.columnCOLOR_PRECIOKGMS_SECAS = base.Columns["COLOR_PRECIOKGMS_SECAS"];
+                this.columnCOLOR_COSTO_SECAS = base.Columns["COLOR_COSTO_SECAS"];
+                this.columnCOLOR_MH_RETO = base.Columns["COLOR_MH_RETO"];
+                this.columnCOLOR_PORCMS_RETO = base.Columns["COLOR_PORCMS_RETO"];
+                this.columnCOLOR_MS_RETO = base.Columns["COLOR_MS_RETO"];
+                this.columnCOLOR_COSTO_RETO = base.Columns["COLOR_COSTO_RETO"];
+                this.columnCOLOR_PRECIOKGMS_RETO = base.Columns["COLOR_PRECIOKGMS_RETO"];
+                this.columnCOLOR_IXA = base.Columns["COLOR_IXA"];
+                this.columnCOLOR_CXA = base.Columns["COLOR_CXA"];
+                this.columnCOLOR_PORCENTAJEC = base.Columns["COLOR_PORCENTAJEC"];
+                this.columnCOLOR_UXA = base.Columns["COLOR_UXA"];
+                this.columnCOLOR_PORCENTAJEU = base.Columns["COLOR_PORCENTAJEU"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1234,6 +1624,66 @@ namespace ReportePeriodo {
                 base.Columns.Add(this.columnMETASECAS);
                 this.columnMETARETO = new global::System.Data.DataColumn("METARETO", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMETARETO);
+                this.columnCOLOR_MH_CRECIMIENTO = new global::System.Data.DataColumn("COLOR_MH_CRECIMIENTO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MH_CRECIMIENTO);
+                this.columnCOLOR_PORCMS_CRECIMIENTO = new global::System.Data.DataColumn("COLOR_PORCMS_CRECIMIENTO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PORCMS_CRECIMIENTO);
+                this.columnCOLOR_MS_CRECIMIENTO = new global::System.Data.DataColumn("COLOR_MS_CRECIMIENTO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MS_CRECIMIENTO);
+                this.columnCOLOR_PRECIOKGMS_CRECIMIENTO = new global::System.Data.DataColumn("COLOR_PRECIOKGMS_CRECIMIENTO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PRECIOKGMS_CRECIMIENTO);
+                this.columnCOLOR_COSTO_CRECIMIENTO = new global::System.Data.DataColumn("COLOR_COSTO_CRECIMIENTO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_COSTO_CRECIMIENTO);
+                this.columnCOLOR_MH_DESARROLLO = new global::System.Data.DataColumn("COLOR_MH_DESARROLLO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MH_DESARROLLO);
+                this.columnCOLOR_PORCMS_DESARROLLO = new global::System.Data.DataColumn("COLOR_PORCMS_DESARROLLO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PORCMS_DESARROLLO);
+                this.columnCOLOR_MS_DESARROLLO = new global::System.Data.DataColumn("COLOR_MS_DESARROLLO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MS_DESARROLLO);
+                this.columnCOLOR_PRECIOKGMS_DESARROLLO = new global::System.Data.DataColumn("COLOR_PRECIOKGMS_DESARROLLO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PRECIOKGMS_DESARROLLO);
+                this.columnCOLOR_COSTO_DESARROLLO = new global::System.Data.DataColumn("COLOR_COSTO_DESARROLLO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_COSTO_DESARROLLO);
+                this.columnCOLOR_MH_VAQUILLAS = new global::System.Data.DataColumn("COLOR_MH_VAQUILLAS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MH_VAQUILLAS);
+                this.columnCOLOR_PORCMS_VAQUILLAS = new global::System.Data.DataColumn("COLOR_PORCMS_VAQUILLAS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PORCMS_VAQUILLAS);
+                this.columnCOLOR_MS_VAQUILLAS = new global::System.Data.DataColumn("COLOR_MS_VAQUILLAS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MS_VAQUILLAS);
+                this.columnCOLOR_PRECIOKGMS_VAQUILLAS = new global::System.Data.DataColumn("COLOR_PRECIOKGMS_VAQUILLAS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PRECIOKGMS_VAQUILLAS);
+                this.columnCOLOR_COSTO_VAQUILLAS = new global::System.Data.DataColumn("COLOR_COSTO_VAQUILLAS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_COSTO_VAQUILLAS);
+                this.columnCOLOR_MH_SECAS = new global::System.Data.DataColumn("COLOR_MH_SECAS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MH_SECAS);
+                this.columnCOLOR_PORCMS_SECAS = new global::System.Data.DataColumn("COLOR_PORCMS_SECAS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PORCMS_SECAS);
+                this.columnCOLOR_MS_SECAS = new global::System.Data.DataColumn("COLOR_MS_SECAS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MS_SECAS);
+                this.columnCOLOR_PRECIOKGMS_SECAS = new global::System.Data.DataColumn("COLOR_PRECIOKGMS_SECAS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PRECIOKGMS_SECAS);
+                this.columnCOLOR_COSTO_SECAS = new global::System.Data.DataColumn("COLOR_COSTO_SECAS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_COSTO_SECAS);
+                this.columnCOLOR_MH_RETO = new global::System.Data.DataColumn("COLOR_MH_RETO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MH_RETO);
+                this.columnCOLOR_PORCMS_RETO = new global::System.Data.DataColumn("COLOR_PORCMS_RETO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PORCMS_RETO);
+                this.columnCOLOR_MS_RETO = new global::System.Data.DataColumn("COLOR_MS_RETO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MS_RETO);
+                this.columnCOLOR_COSTO_RETO = new global::System.Data.DataColumn("COLOR_COSTO_RETO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_COSTO_RETO);
+                this.columnCOLOR_PRECIOKGMS_RETO = new global::System.Data.DataColumn("COLOR_PRECIOKGMS_RETO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PRECIOKGMS_RETO);
+                this.columnCOLOR_IXA = new global::System.Data.DataColumn("COLOR_IXA", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_IXA);
+                this.columnCOLOR_CXA = new global::System.Data.DataColumn("COLOR_CXA", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_CXA);
+                this.columnCOLOR_PORCENTAJEC = new global::System.Data.DataColumn("COLOR_PORCENTAJEC", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PORCENTAJEC);
+                this.columnCOLOR_UXA = new global::System.Data.DataColumn("COLOR_UXA", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_UXA);
+                this.columnCOLOR_PORCENTAJEU = new global::System.Data.DataColumn("COLOR_PORCENTAJEU", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PORCENTAJEU);
                 this.columnINV7.Caption = "DOS_INV";
                 this.columnMH7.Caption = "DOS_MH";
                 this.columnPRECIO7.Caption = "DOS_$";
@@ -1472,6 +1922,36 @@ namespace ReportePeriodo {
             private global::System.Data.DataColumn columnSES3;
             
             private global::System.Data.DataColumn columnDEC;
+            
+            private global::System.Data.DataColumn columnCOLOR_ILCA;
+            
+            private global::System.Data.DataColumn columnCOLOR_IC;
+            
+            private global::System.Data.DataColumn columnCOLOR_PRECIOL;
+            
+            private global::System.Data.DataColumn columnCOLOR_MH;
+            
+            private global::System.Data.DataColumn columnCOLOR_PORCMS;
+            
+            private global::System.Data.DataColumn columnCOLOR_MS;
+            
+            private global::System.Data.DataColumn columnCOLOR_COSTOPROD;
+            
+            private global::System.Data.DataColumn columnCOLOR_PRECIOKGMS;
+            
+            private global::System.Data.DataColumn columnCOLOR_LECHE;
+            
+            private global::System.Data.DataColumn columnCOLOR_MEDIA;
+            
+            private global::System.Data.DataColumn columnCOLOR_TOTAL;
+            
+            private global::System.Data.DataColumn columnCOLOR_SES1;
+            
+            private global::System.Data.DataColumn columnCOLOR_SES2;
+            
+            private global::System.Data.DataColumn columnCOLOR_SES3;
+            
+            private global::System.Data.DataColumn columnCOLOR_CTD;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -1844,6 +2324,126 @@ namespace ReportePeriodo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_ILCAColumn {
+                get {
+                    return this.columnCOLOR_ILCA;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_ICColumn {
+                get {
+                    return this.columnCOLOR_IC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PRECIOLColumn {
+                get {
+                    return this.columnCOLOR_PRECIOL;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MHColumn {
+                get {
+                    return this.columnCOLOR_MH;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PORCMSColumn {
+                get {
+                    return this.columnCOLOR_PORCMS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MSColumn {
+                get {
+                    return this.columnCOLOR_MS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_COSTOPRODColumn {
+                get {
+                    return this.columnCOLOR_COSTOPROD;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_PRECIOKGMSColumn {
+                get {
+                    return this.columnCOLOR_PRECIOKGMS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_LECHEColumn {
+                get {
+                    return this.columnCOLOR_LECHE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_MEDIAColumn {
+                get {
+                    return this.columnCOLOR_MEDIA;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_TOTALColumn {
+                get {
+                    return this.columnCOLOR_TOTAL;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_SES1Column {
+                get {
+                    return this.columnCOLOR_SES1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_SES2Column {
+                get {
+                    return this.columnCOLOR_SES2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_SES3Column {
+                get {
+                    return this.columnCOLOR_SES3;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_CTDColumn {
+                get {
+                    return this.columnCOLOR_CTD;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1921,7 +2521,22 @@ namespace ReportePeriodo {
                         string SES1, 
                         string SES2, 
                         string SES3, 
-                        string DEC) {
+                        string DEC, 
+                        string COLOR_ILCA, 
+                        string COLOR_IC, 
+                        string COLOR_PRECIOL, 
+                        string COLOR_MH, 
+                        string COLOR_PORCMS, 
+                        string COLOR_MS, 
+                        string COLOR_COSTOPROD, 
+                        string COLOR_PRECIOKGMS, 
+                        string COLOR_LECHE, 
+                        string COLOR_MEDIA, 
+                        string COLOR_TOTAL, 
+                        string COLOR_SES1, 
+                        string COLOR_SES2, 
+                        string COLOR_SES3, 
+                        string COLOR_CTD) {
                 DataTable1Row rowDataTable1Row = ((DataTable1Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         DIA,
@@ -1965,7 +2580,22 @@ namespace ReportePeriodo {
                         SES1,
                         SES2,
                         SES3,
-                        DEC};
+                        DEC,
+                        COLOR_ILCA,
+                        COLOR_IC,
+                        COLOR_PRECIOL,
+                        COLOR_MH,
+                        COLOR_PORCMS,
+                        COLOR_MS,
+                        COLOR_COSTOPROD,
+                        COLOR_PRECIOKGMS,
+                        COLOR_LECHE,
+                        COLOR_MEDIA,
+                        COLOR_TOTAL,
+                        COLOR_SES1,
+                        COLOR_SES2,
+                        COLOR_SES3,
+                        COLOR_CTD};
                 rowDataTable1Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDataTable1Row);
                 return rowDataTable1Row;
@@ -2030,6 +2660,21 @@ namespace ReportePeriodo {
                 this.columnSES2 = base.Columns["SES2"];
                 this.columnSES3 = base.Columns["SES3"];
                 this.columnDEC = base.Columns["DEC"];
+                this.columnCOLOR_ILCA = base.Columns["COLOR_ILCA"];
+                this.columnCOLOR_IC = base.Columns["COLOR_IC"];
+                this.columnCOLOR_PRECIOL = base.Columns["COLOR_PRECIOL"];
+                this.columnCOLOR_MH = base.Columns["COLOR_MH"];
+                this.columnCOLOR_PORCMS = base.Columns["COLOR_PORCMS"];
+                this.columnCOLOR_MS = base.Columns["COLOR_MS"];
+                this.columnCOLOR_COSTOPROD = base.Columns["COLOR_COSTOPROD"];
+                this.columnCOLOR_PRECIOKGMS = base.Columns["COLOR_PRECIOKGMS"];
+                this.columnCOLOR_LECHE = base.Columns["COLOR_LECHE"];
+                this.columnCOLOR_MEDIA = base.Columns["COLOR_MEDIA"];
+                this.columnCOLOR_TOTAL = base.Columns["COLOR_TOTAL"];
+                this.columnCOLOR_SES1 = base.Columns["COLOR_SES1"];
+                this.columnCOLOR_SES2 = base.Columns["COLOR_SES2"];
+                this.columnCOLOR_SES3 = base.Columns["COLOR_SES3"];
+                this.columnCOLOR_CTD = base.Columns["COLOR_CTD"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2119,6 +2764,36 @@ namespace ReportePeriodo {
                 base.Columns.Add(this.columnSES3);
                 this.columnDEC = new global::System.Data.DataColumn("DEC", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDEC);
+                this.columnCOLOR_ILCA = new global::System.Data.DataColumn("COLOR_ILCA", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_ILCA);
+                this.columnCOLOR_IC = new global::System.Data.DataColumn("COLOR_IC", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_IC);
+                this.columnCOLOR_PRECIOL = new global::System.Data.DataColumn("COLOR_PRECIOL", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PRECIOL);
+                this.columnCOLOR_MH = new global::System.Data.DataColumn("COLOR_MH", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MH);
+                this.columnCOLOR_PORCMS = new global::System.Data.DataColumn("COLOR_PORCMS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PORCMS);
+                this.columnCOLOR_MS = new global::System.Data.DataColumn("COLOR_MS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MS);
+                this.columnCOLOR_COSTOPROD = new global::System.Data.DataColumn("COLOR_COSTOPROD", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_COSTOPROD);
+                this.columnCOLOR_PRECIOKGMS = new global::System.Data.DataColumn("COLOR_PRECIOKGMS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_PRECIOKGMS);
+                this.columnCOLOR_LECHE = new global::System.Data.DataColumn("COLOR_LECHE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_LECHE);
+                this.columnCOLOR_MEDIA = new global::System.Data.DataColumn("COLOR_MEDIA", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_MEDIA);
+                this.columnCOLOR_TOTAL = new global::System.Data.DataColumn("COLOR_TOTAL", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_TOTAL);
+                this.columnCOLOR_SES1 = new global::System.Data.DataColumn("COLOR_SES1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_SES1);
+                this.columnCOLOR_SES2 = new global::System.Data.DataColumn("COLOR_SES2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_SES2);
+                this.columnCOLOR_SES3 = new global::System.Data.DataColumn("COLOR_SES3", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_SES3);
+                this.columnCOLOR_CTD = new global::System.Data.DataColumn("COLOR_CTD", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_CTD);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4340,6 +5015,499 @@ namespace ReportePeriodo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MH_CRECIMIENTO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_MH_CRECIMIENTOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MH_CRECIMIENTO\' de la tabla \'DataTable2\' es DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_MH_CRECIMIENTOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PORCMS_CRECIMIENTO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_PORCMS_CRECIMIENTOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PORCMS_CRECIMIENTO\' de la tabla \'DataTable2\' es DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_PORCMS_CRECIMIENTOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MS_CRECIMIENTO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_MS_CRECIMIENTOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MS_CRECIMIENTO\' de la tabla \'DataTable2\' es DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_MS_CRECIMIENTOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PRECIOKGMS_CRECIMIENTO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_PRECIOKGMS_CRECIMIENTOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PRECIOKGMS_CRECIMIENTO\' de la tabla \'DataTable2\' es" +
+                                " DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_PRECIOKGMS_CRECIMIENTOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_COSTO_CRECIMIENTO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_COSTO_CRECIMIENTOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_COSTO_CRECIMIENTO\' de la tabla \'DataTable2\' es DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_COSTO_CRECIMIENTOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MH_DESARROLLO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_MH_DESARROLLOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MH_DESARROLLO\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_MH_DESARROLLOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PORCMS_DESARROLLO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_PORCMS_DESARROLLOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PORCMS_DESARROLLO\' de la tabla \'DataTable2\' es DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_PORCMS_DESARROLLOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MS_DESARROLLO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_MS_DESARROLLOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MS_DESARROLLO\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_MS_DESARROLLOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PRECIOKGMS_DESARROLLO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_PRECIOKGMS_DESARROLLOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PRECIOKGMS_DESARROLLO\' de la tabla \'DataTable2\' es " +
+                                "DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_PRECIOKGMS_DESARROLLOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_COSTO_DESARROLLO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_COSTO_DESARROLLOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_COSTO_DESARROLLO\' de la tabla \'DataTable2\' es DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_COSTO_DESARROLLOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MH_VAQUILLAS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_MH_VAQUILLASColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MH_VAQUILLAS\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_MH_VAQUILLASColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PORCMS_VAQUILLAS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_PORCMS_VAQUILLASColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PORCMS_VAQUILLAS\' de la tabla \'DataTable2\' es DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_PORCMS_VAQUILLASColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MS_VAQUILLAS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_MS_VAQUILLASColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MS_VAQUILLAS\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_MS_VAQUILLASColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PRECIOKGMS_VAQUILLAS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_PRECIOKGMS_VAQUILLASColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PRECIOKGMS_VAQUILLAS\' de la tabla \'DataTable2\' es D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_PRECIOKGMS_VAQUILLASColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_COSTO_VAQUILLAS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_COSTO_VAQUILLASColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_COSTO_VAQUILLAS\' de la tabla \'DataTable2\' es DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_COSTO_VAQUILLASColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MH_SECAS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_MH_SECASColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MH_SECAS\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_MH_SECASColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PORCMS_SECAS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_PORCMS_SECASColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PORCMS_SECAS\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_PORCMS_SECASColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MS_SECAS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_MS_SECASColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MS_SECAS\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_MS_SECASColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PRECIOKGMS_SECAS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_PRECIOKGMS_SECASColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PRECIOKGMS_SECAS\' de la tabla \'DataTable2\' es DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_PRECIOKGMS_SECASColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_COSTO_SECAS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_COSTO_SECASColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_COSTO_SECAS\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_COSTO_SECASColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MH_RETO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_MH_RETOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MH_RETO\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_MH_RETOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PORCMS_RETO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_PORCMS_RETOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PORCMS_RETO\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_PORCMS_RETOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MS_RETO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_MS_RETOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MS_RETO\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_MS_RETOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_COSTO_RETO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_COSTO_RETOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_COSTO_RETO\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_COSTO_RETOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PRECIOKGMS_RETO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_PRECIOKGMS_RETOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PRECIOKGMS_RETO\' de la tabla \'DataTable2\' es DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_PRECIOKGMS_RETOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_IXA {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_IXAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_IXA\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_IXAColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_CXA {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_CXAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_CXA\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_CXAColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PORCENTAJEC {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_PORCENTAJECColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PORCENTAJEC\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_PORCENTAJECColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_UXA {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_UXAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_UXA\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_UXAColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PORCENTAJEU {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable2.COLOR_PORCENTAJEUColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PORCENTAJEU\' de la tabla \'DataTable2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable2.COLOR_PORCENTAJEUColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsDIANull() {
                 return this.IsNull(this.tableDataTable2.DIAColumn);
             }
@@ -4936,6 +6104,366 @@ namespace ReportePeriodo {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetMETARETONull() {
                 this[this.tableDataTable2.METARETOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MH_CRECIMIENTONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_MH_CRECIMIENTOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MH_CRECIMIENTONull() {
+                this[this.tableDataTable2.COLOR_MH_CRECIMIENTOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PORCMS_CRECIMIENTONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_PORCMS_CRECIMIENTOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PORCMS_CRECIMIENTONull() {
+                this[this.tableDataTable2.COLOR_PORCMS_CRECIMIENTOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MS_CRECIMIENTONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_MS_CRECIMIENTOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MS_CRECIMIENTONull() {
+                this[this.tableDataTable2.COLOR_MS_CRECIMIENTOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PRECIOKGMS_CRECIMIENTONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_PRECIOKGMS_CRECIMIENTOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PRECIOKGMS_CRECIMIENTONull() {
+                this[this.tableDataTable2.COLOR_PRECIOKGMS_CRECIMIENTOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_COSTO_CRECIMIENTONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_COSTO_CRECIMIENTOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_COSTO_CRECIMIENTONull() {
+                this[this.tableDataTable2.COLOR_COSTO_CRECIMIENTOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MH_DESARROLLONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_MH_DESARROLLOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MH_DESARROLLONull() {
+                this[this.tableDataTable2.COLOR_MH_DESARROLLOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PORCMS_DESARROLLONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_PORCMS_DESARROLLOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PORCMS_DESARROLLONull() {
+                this[this.tableDataTable2.COLOR_PORCMS_DESARROLLOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MS_DESARROLLONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_MS_DESARROLLOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MS_DESARROLLONull() {
+                this[this.tableDataTable2.COLOR_MS_DESARROLLOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PRECIOKGMS_DESARROLLONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_PRECIOKGMS_DESARROLLOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PRECIOKGMS_DESARROLLONull() {
+                this[this.tableDataTable2.COLOR_PRECIOKGMS_DESARROLLOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_COSTO_DESARROLLONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_COSTO_DESARROLLOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_COSTO_DESARROLLONull() {
+                this[this.tableDataTable2.COLOR_COSTO_DESARROLLOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MH_VAQUILLASNull() {
+                return this.IsNull(this.tableDataTable2.COLOR_MH_VAQUILLASColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MH_VAQUILLASNull() {
+                this[this.tableDataTable2.COLOR_MH_VAQUILLASColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PORCMS_VAQUILLASNull() {
+                return this.IsNull(this.tableDataTable2.COLOR_PORCMS_VAQUILLASColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PORCMS_VAQUILLASNull() {
+                this[this.tableDataTable2.COLOR_PORCMS_VAQUILLASColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MS_VAQUILLASNull() {
+                return this.IsNull(this.tableDataTable2.COLOR_MS_VAQUILLASColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MS_VAQUILLASNull() {
+                this[this.tableDataTable2.COLOR_MS_VAQUILLASColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PRECIOKGMS_VAQUILLASNull() {
+                return this.IsNull(this.tableDataTable2.COLOR_PRECIOKGMS_VAQUILLASColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PRECIOKGMS_VAQUILLASNull() {
+                this[this.tableDataTable2.COLOR_PRECIOKGMS_VAQUILLASColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_COSTO_VAQUILLASNull() {
+                return this.IsNull(this.tableDataTable2.COLOR_COSTO_VAQUILLASColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_COSTO_VAQUILLASNull() {
+                this[this.tableDataTable2.COLOR_COSTO_VAQUILLASColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MH_SECASNull() {
+                return this.IsNull(this.tableDataTable2.COLOR_MH_SECASColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MH_SECASNull() {
+                this[this.tableDataTable2.COLOR_MH_SECASColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PORCMS_SECASNull() {
+                return this.IsNull(this.tableDataTable2.COLOR_PORCMS_SECASColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PORCMS_SECASNull() {
+                this[this.tableDataTable2.COLOR_PORCMS_SECASColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MS_SECASNull() {
+                return this.IsNull(this.tableDataTable2.COLOR_MS_SECASColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MS_SECASNull() {
+                this[this.tableDataTable2.COLOR_MS_SECASColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PRECIOKGMS_SECASNull() {
+                return this.IsNull(this.tableDataTable2.COLOR_PRECIOKGMS_SECASColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PRECIOKGMS_SECASNull() {
+                this[this.tableDataTable2.COLOR_PRECIOKGMS_SECASColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_COSTO_SECASNull() {
+                return this.IsNull(this.tableDataTable2.COLOR_COSTO_SECASColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_COSTO_SECASNull() {
+                this[this.tableDataTable2.COLOR_COSTO_SECASColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MH_RETONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_MH_RETOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MH_RETONull() {
+                this[this.tableDataTable2.COLOR_MH_RETOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PORCMS_RETONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_PORCMS_RETOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PORCMS_RETONull() {
+                this[this.tableDataTable2.COLOR_PORCMS_RETOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MS_RETONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_MS_RETOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MS_RETONull() {
+                this[this.tableDataTable2.COLOR_MS_RETOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_COSTO_RETONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_COSTO_RETOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_COSTO_RETONull() {
+                this[this.tableDataTable2.COLOR_COSTO_RETOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PRECIOKGMS_RETONull() {
+                return this.IsNull(this.tableDataTable2.COLOR_PRECIOKGMS_RETOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PRECIOKGMS_RETONull() {
+                this[this.tableDataTable2.COLOR_PRECIOKGMS_RETOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_IXANull() {
+                return this.IsNull(this.tableDataTable2.COLOR_IXAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_IXANull() {
+                this[this.tableDataTable2.COLOR_IXAColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_CXANull() {
+                return this.IsNull(this.tableDataTable2.COLOR_CXAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_CXANull() {
+                this[this.tableDataTable2.COLOR_CXAColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PORCENTAJECNull() {
+                return this.IsNull(this.tableDataTable2.COLOR_PORCENTAJECColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PORCENTAJECNull() {
+                this[this.tableDataTable2.COLOR_PORCENTAJECColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_UXANull() {
+                return this.IsNull(this.tableDataTable2.COLOR_UXAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_UXANull() {
+                this[this.tableDataTable2.COLOR_UXAColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PORCENTAJEUNull() {
+                return this.IsNull(this.tableDataTable2.COLOR_PORCENTAJEUColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PORCENTAJEUNull() {
+                this[this.tableDataTable2.COLOR_PORCENTAJEUColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -5627,6 +7155,246 @@ namespace ReportePeriodo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_ILCA {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_ILCAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_ILCA\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_ILCAColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_IC {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_ICColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_IC\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_ICColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PRECIOL {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_PRECIOLColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PRECIOL\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_PRECIOLColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MH {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_MHColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MH\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_MHColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PORCMS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_PORCMSColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PORCMS\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_PORCMSColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_MSColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MS\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_MSColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_COSTOPROD {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_COSTOPRODColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_COSTOPROD\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_COSTOPRODColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_PRECIOKGMS {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_PRECIOKGMSColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_PRECIOKGMS\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_PRECIOKGMSColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_LECHE {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_LECHEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_LECHE\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_LECHEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_MEDIA {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_MEDIAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_MEDIA\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_MEDIAColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_TOTAL {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_TOTALColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_TOTAL\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_TOTALColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_SES1 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_SES1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_SES1\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_SES1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_SES2 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_SES2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_SES2\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_SES2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_SES3 {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_SES3Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_SES3\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_SES3Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_CTD {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_CTDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_CTD\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_CTDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsDIANull() {
                 return this.IsNull(this.tableDataTable1.DIAColumn);
             }
@@ -6127,6 +7895,186 @@ namespace ReportePeriodo {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetDECNull() {
                 this[this.tableDataTable1.DECColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_ILCANull() {
+                return this.IsNull(this.tableDataTable1.COLOR_ILCAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_ILCANull() {
+                this[this.tableDataTable1.COLOR_ILCAColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_ICNull() {
+                return this.IsNull(this.tableDataTable1.COLOR_ICColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_ICNull() {
+                this[this.tableDataTable1.COLOR_ICColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PRECIOLNull() {
+                return this.IsNull(this.tableDataTable1.COLOR_PRECIOLColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PRECIOLNull() {
+                this[this.tableDataTable1.COLOR_PRECIOLColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MHNull() {
+                return this.IsNull(this.tableDataTable1.COLOR_MHColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MHNull() {
+                this[this.tableDataTable1.COLOR_MHColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PORCMSNull() {
+                return this.IsNull(this.tableDataTable1.COLOR_PORCMSColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PORCMSNull() {
+                this[this.tableDataTable1.COLOR_PORCMSColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MSNull() {
+                return this.IsNull(this.tableDataTable1.COLOR_MSColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MSNull() {
+                this[this.tableDataTable1.COLOR_MSColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_COSTOPRODNull() {
+                return this.IsNull(this.tableDataTable1.COLOR_COSTOPRODColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_COSTOPRODNull() {
+                this[this.tableDataTable1.COLOR_COSTOPRODColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_PRECIOKGMSNull() {
+                return this.IsNull(this.tableDataTable1.COLOR_PRECIOKGMSColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_PRECIOKGMSNull() {
+                this[this.tableDataTable1.COLOR_PRECIOKGMSColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_LECHENull() {
+                return this.IsNull(this.tableDataTable1.COLOR_LECHEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_LECHENull() {
+                this[this.tableDataTable1.COLOR_LECHEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_MEDIANull() {
+                return this.IsNull(this.tableDataTable1.COLOR_MEDIAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_MEDIANull() {
+                this[this.tableDataTable1.COLOR_MEDIAColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_TOTALNull() {
+                return this.IsNull(this.tableDataTable1.COLOR_TOTALColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_TOTALNull() {
+                this[this.tableDataTable1.COLOR_TOTALColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_SES1Null() {
+                return this.IsNull(this.tableDataTable1.COLOR_SES1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_SES1Null() {
+                this[this.tableDataTable1.COLOR_SES1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_SES2Null() {
+                return this.IsNull(this.tableDataTable1.COLOR_SES2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_SES2Null() {
+                this[this.tableDataTable1.COLOR_SES2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_SES3Null() {
+                return this.IsNull(this.tableDataTable1.COLOR_SES3Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_SES3Null() {
+                this[this.tableDataTable1.COLOR_SES3Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_CTDNull() {
+                return this.IsNull(this.tableDataTable1.COLOR_CTDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_CTDNull() {
+                this[this.tableDataTable1.COLOR_CTDColumn] = global::System.Convert.DBNull;
             }
         }
         

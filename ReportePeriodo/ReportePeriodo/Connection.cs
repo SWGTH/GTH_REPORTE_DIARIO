@@ -109,6 +109,33 @@ namespace ReportePeriodo
             return ran_id;
         }
 
+        public bool GetPesadores()
+        {
+            bool pesadores = false;
+            try 
+            {
+                ConnIIE.Open();
+                DataTable dt;
+                string query = @"SELECT r.pesadores
+                                FROM rancholocal rl
+                                LEFT JOIN ranchos r on rl.rancholocal = r.Clave";
+                OleDbDataAdapter da = new OleDbDataAdapter(query, ConnIIE);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                dt = ds.Tables[0];
+                if (dt.Rows.Count > 0)
+                    pesadores = Convert.ToBoolean(dt.Rows[0]["pesadores"]);
+
+            }
+            catch (DbException ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            finally
+            {
+                ConnIIE.Close();
+            }
+            return pesadores;
+        }
+
         public void QueryAlimento(string query, out DataTable dt)
         {
             dt = new DataTable();

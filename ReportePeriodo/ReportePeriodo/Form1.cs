@@ -16,7 +16,8 @@ using System.Data.OleDb;
 using System.Configuration;
 using LibreriaAlimentacion;
 using bendiciones = LibreriaAlimentacion.Entidad;
-
+using ReportePeriodo.Entidad;
+using ReportePeriodo.Controlador;
 
 namespace ReportePeriodo
 {
@@ -33,18 +34,52 @@ namespace ReportePeriodo
         string ruta;
         bool origen;
         string ranNumero, ranCadena, emp_nombre, emp_codigo;
-
-
+        bendiciones.IndicadorReportePeriodo prom_ordeño;
+        bendiciones.IndicadorReportePeriodo prom_secas;
+        bendiciones.IndicadorReportePeriodo prom_reto;
+        bendiciones.IndicadorReportePeriodo prom_destete1;
+        bendiciones.IndicadorReportePeriodo prom_destete2;
+        bendiciones.IndicadorReportePeriodo prom_vquillas;
+        List<DatosTeorico> listaProduccion;
+        List<DatosTeorico> listaSecas;
+        List<DatosTeorico> listaReto;
+        List<DatosTeorico> listaDestet1;
+        List<DatosTeorico> listaDestete2;
+        List<DatosTeorico> listaVaquillas;
+        Controlador1 controlador1;
+        DateTime fechaFinDTP;
+        int timeShifTracker;
+        bool pesadores;
+        DatosProduccion datosProd;
+        Utilidad utilidad;
+        List<LecheBacteriologia> listaBacteriologia;
 
         public Form1()
         {
             InitializeComponent();
+            prom_ordeño = new bendiciones.IndicadorReportePeriodo();
+            prom_secas = new bendiciones.IndicadorReportePeriodo();
+            prom_reto = new bendiciones.IndicadorReportePeriodo();
+            prom_destete1 = new bendiciones.IndicadorReportePeriodo();
+            prom_destete2 = new bendiciones.IndicadorReportePeriodo();
+            prom_vquillas = new bendiciones.IndicadorReportePeriodo();
+            listaProduccion = new List<DatosTeorico>();
+            listaSecas = new List<DatosTeorico>();
+            listaReto = new List<DatosTeorico>();
+            listaDestet1 = new List<DatosTeorico>();
+            listaDestete2 = new List<DatosTeorico>();
+            listaVaquillas = new List<DatosTeorico>();
+            controlador1 = new Controlador1();
+            timeShifTracker = 0;
+            utilidad = new Utilidad();
+            listaBacteriologia = new List<LecheBacteriologia>();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             conn.Iniciar();
             ran_id = conn.GetRancho();
+            pesadores = conn.GetPesadores();
             //ran_sie = conn.RanchoSie(ran_id); Descomentar en caso de emergencia 
             monthCalendar1.Cursor = Cursors.Hand;
             int _fecha;
@@ -72,6 +107,7 @@ namespace ReportePeriodo
                 {
                     File.Delete(@"C:\MOVGANADOAUT\Reportes SIO\DIA.pdf");
                 }
+                fechaFinDTP = DateTime.Today;
                 Reporte(fecha_inicio, DateTime.Now.Date, Horas());
                 Close();
             }
@@ -102,6 +138,7 @@ namespace ReportePeriodo
             Cursor = Cursors.WaitCursor;
             fecha_fin = monthCalendar1.SelectionRange.End;
             fecha_inicio = new DateTime(fecha_fin.Year, fecha_fin.Month, 1);
+            fechaFinDTP = fecha_fin;
             Reporte(fecha_inicio, fecha_fin, Horas());
             Cursor = Cursors.Default;
             Close();
@@ -116,13 +153,15 @@ namespace ReportePeriodo
         private int Horas()
         {
             int horas = 0;
-            if (ran_id != 33 && ran_id != 39) //Se agrega el if para covadonga y cañada que no contienen traker 
-            {
-                DataTable dt;
-                string query = "select paramvalue from bedrijf_params where name = 'DSTimeShift' ";
-                conn.QueryTracker(query, out dt);
-                horas = dt.Rows[0][0] != DBNull.Value ? Convert.ToInt32(dt.Rows[0][0]) : 0;
-            }
+            /*if (ran_id != 33 && ran_id != 39) //Se agrega el if para covadonga y cañada que no contienen traker 
+            {*/
+            DataTable dt;
+            string query = "select paramvalue from bedrijf_params where name = 'DSTimeShift' ";
+            conn.QueryTracker(query, out dt);
+            horas = dt.Rows[0][0] != DBNull.Value ? Convert.ToInt32(dt.Rows[0][0]) : 0;
+            //}
+
+
             return horas;
 
         }
@@ -168,6 +207,7 @@ namespace ReportePeriodo
             GetInfo(origen);
             fecha_fin = monthCalendar1.SelectionRange.End;
             fecha_inicio = new DateTime(fecha_fin.Year, fecha_fin.Month, 1);
+
             double dec1 = 0, dec2 = 0, dec3 = 0, _ContadorDec1 = 0, _ContadorDec2 = 0, _ContadorDec3 = 0;
             int dif = 24 + horas, _vacasAux = 0, _vaquillasAux = 0; ;
             int julianaI = ConvertToJulian(inicio);
@@ -183,20 +223,20 @@ namespace ReportePeriodo
             //Se saca una segunda tabla de la primera hoja para poder sacar los ultimos renglones 
             Hoja1(_FechaInicialEnJulianaAñoAnt, _FechaFinalEnJulianaAñoAnt, out dtH1AUX);
 
-            if (ran_id != 33 && ran_id != 39)// validamos que no sea ni covadonga ni la cañada ya que busca valores de SQL
+            //if (ran_id != 33 && ran_id != 39)// validamos que no sea ni covadonga ni la cañada ya que busca valores de SQL
+            //{
+            if (origen)
             {
-                if (origen)
-                {
-                    ValoresConsisitentesAlimentacion(fin);
-                }
-                if (fin >= new DateTime(2021, 01, 01))
-                {
-                    ValoresReporteDiarioProduccion(inicio, fin, dtH1);
-                    //ValoresReporteDiarioProduccion(inicio.AddYears(-1), fin.AddYears(-1), dtH1AUX); /*(Descomentar en tres meses 17 / 12 / 2021)*/
-                }
-
-
+                ValoresConsisitentesAlimentacion(fin);
             }
+            if (fin >= new DateTime(2021, 01, 01))
+            {
+                ValoresReporteDiarioProduccion(inicio, fin, dtH1);
+                //ValoresReporteDiarioProduccion(inicio.AddYears(-1), fin.AddYears(-1), dtH1AUX); /*(Descomentar en tres meses 17 / 12 / 2021)*/
+            }
+
+
+            //}
 
             for (int i = 0; i < 31; i++)
             {
@@ -293,14 +333,14 @@ namespace ReportePeriodo
             //por lo que solo hay que ir por los valores y hacer las operaciones.
             Hoja2(julianaI, julianaF, out dtH2);
             Hoja2(_FechaInicialEnJulianaAñoAnt, _FechaFinalEnJulianaAñoAnt, out dtH2AUX);
-            if (ran_id != 33 && ran_id != 39)// validamos que no sea ni covadonga ni la cañada ya que busca valores de SQL
+            //if (ran_id != 33 && ran_id != 39)// validamos que no sea ni covadonga ni la cañada ya que busca valores de SQL
+            //{
+            if (fin >= new DateTime(2021, 01, 01))
             {
-                if (fin >= new DateTime(2021, 01, 01))
-                {
-                    ValoresReporteDiarioHojaDos(inicio, fin, dtH2);
-                    //ValoresReporteDiarioHojaDos(inicio.AddYears(-1), fin.AddYears(-1), dtH2AUX); /*(Descomentar en tres meses 17 / 12 / 2021)*/
-                }
+                ValoresReporteDiarioHojaDos(inicio, fin, dtH2);
+                //ValoresReporteDiarioHojaDos(inicio.AddYears(-1), fin.AddYears(-1), dtH2AUX); /*(Descomentar en tres meses 17 / 12 / 2021)*/
             }
+            //}
             for (int i = 1; i < 50; i++)
             {
                 dtH2.Rows[33][i] = dtH2AUX.Rows[32][i];
@@ -399,6 +439,13 @@ namespace ReportePeriodo
                 precioBase = (indicadoresProduccion.IC_PRODUCCION + indicadoresProduccion.COSTO) / indicadoresProduccion.MEDIA;
             }
 
+            Console.WriteLine("Ordeño: " + prom_ordeño.MS.ToString());
+            Console.WriteLine("Secas: " + prom_secas.MS.ToString());
+            Console.WriteLine("Reto: " + prom_reto.MS.ToString());
+            Console.WriteLine("Destete1: " + prom_destete1.MS.ToString());
+            Console.WriteLine("Destete2: " + prom_destete2.MS.ToString());
+            Console.WriteLine("Vaquillas: " + prom_vquillas.MS.ToString());
+
             string[] meses = new string[] { "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE" };
             ReportParameter[] parameters = new ReportParameter[8];
             parameters[0] = new ReportParameter("EMPRESA", Convert.ToString(DtEstablo.Rows[0][0]), true);
@@ -410,12 +457,21 @@ namespace ReportePeriodo
             parameters[6] = new ReportParameter("VACAS", _Vacas.ToString(), true);
             parameters[7] = new ReportParameter("PRECIO_LECHE", "VENTA (PRECIO DE LA LECHE: " + precioBase.ToString("C3") + ")", true);
 
+            LlenarListas(fecha_inicio, fecha_fin, horas);
+            string mensaje = string.Empty;
+            listaBacteriologia = controlador1.ListaLecheBacteriologia(fecha_inicio, fecha_fin, ref mensaje);
+            datosProd = controlador1.DatosProduccion(fecha_inicio, fecha_fin, ref mensaje);
+            DataTable dtHoja1Colorimetria = DTHoja1ConColorimetria(dtH1);
+            DataTable dtHoja2Colirometria = DTHoja2ConColorimetria(dtH2);
+
             //try
             //{
             reportViewer1.LocalReport.DataSources.Clear();
-            ReportDataSource sour = new ReportDataSource("DataSet1", dtH1);
+            //ReportDataSource sour = new ReportDataSource("DataSet1", dtH1);
+            ReportDataSource sour = new ReportDataSource("DataSet1", dtHoja1Colorimetria);
             reportViewer1.LocalReport.DataSources.Add(sour);
-            sour = new ReportDataSource("DataSet2", dtH2);
+            //sour = new ReportDataSource("DataSet2", dtH2);
+            sour = new ReportDataSource("DataSet2", dtHoja2Colirometria);
             reportViewer1.LocalReport.DataSources.Add(sour);
             sour = new ReportDataSource("DataSet3", _DtAux);
             reportViewer1.LocalReport.DataSources.Add(sour);
@@ -591,7 +647,7 @@ namespace ReportePeriodo
             query = @"DELETE FROM ValConAlimPeriodo";
             conn.QueryMovsio(query);
 
-
+            int promOrd = 0, promSecas = 0, promReto = 0, promDest1 = 0, promDest2 = 0, promVP = 0;
             for (int i = 0; i < 36; i++)
             {
                 EAProdValor = MsProdValor = MsCrecimientosValor = MsDesarolloValor = MsVaquillasValor = MsSecasValor = MsRetoValor = 0;
@@ -616,6 +672,42 @@ namespace ReportePeriodo
                              .Replace("@Ran_ID", ran_id.ToString());
                 DataTable dtAnimalesEtapas = new DataTable();
                 conn.QueryAlimento(query, out dtAnimalesEtapas);
+
+                query = @"SELECT  ROUND(AVG(d1))  AS Dest1
+                               ,ROUND(AVG(d2))  AS Dest2
+                               ,ROUND(AVG(v))  AS VP
+                               ,ROUND(AVG(s)) AS SECAS
+                               ,ROUND(AVG(o)) AS ORD
+                               ,ROUND(AVG(r)) AS RETO
+                        FROM
+                        (
+	                        SELECT  IIF(destetadas IS NOT NULL,destetadas ,0)             AS d1
+	                               ,IIF(destetadas2 IS NOT NULL,destetadas2,0)            AS d2
+	                               ,IIF(vaquillas IS NOT NULL,vaquillas,0)                AS v
+	                               ,IIF(vacassecas IS NOT NULL,vacassecas,0)              AS s
+	                               ,IIF(vacasordeña IS NOT NULL,vacasordeña,0)            AS o
+	                               ,IIF((vqreto + vcreto) IS NOT NULL ,vqreto + vcreto,0) AS r
+	                        FROM INVENTARIOAFIXDIA i
+	                        WHERE FECHA BETWEEN @fechaI AND @fechaF
+                        ) Tabla";
+                query = query.Replace("@fechaI", ConvertToJulian(FFinal.AddDays(-i - 4)).ToString()).Replace("@fechaF", ConvertToJulian(FFinal.AddDays(-i - 1)).ToString());
+                DataTable dtAnimalesPromedios = new DataTable();
+                conn.QueryMovsio(query, out dtAnimalesPromedios);
+
+                if (dtAnimalesPromedios.Rows.Count > 0)
+                {
+                    Int32.TryParse(dtAnimalesPromedios.Rows[0]["ORD"].ToString(), out promOrd);
+                    Int32.TryParse(dtAnimalesPromedios.Rows[0]["SECAS"].ToString(), out promSecas);
+                    Int32.TryParse(dtAnimalesPromedios.Rows[0]["RETO"].ToString(), out promReto);
+                    Int32.TryParse(dtAnimalesPromedios.Rows[0]["Dest1"].ToString(), out promDest1);
+                    Int32.TryParse(dtAnimalesPromedios.Rows[0]["Dest2"].ToString(), out promDest2);
+                    Int32.TryParse(dtAnimalesPromedios.Rows[0]["VP"].ToString(), out promVP);
+                }
+                else
+                {
+                    promOrd = 0; promSecas = 0; promReto = 0; promDest1 = 0; promDest2 = 0; promVP = 0;
+                }
+
                 /*
                 query = @" SELECT AVG(EA)
                                  ,AVG(MS)
@@ -636,22 +728,24 @@ namespace ReportePeriodo
                                 ,IIF(SUM(CONTR) > 0,SUM(R) / SUM(CONTR),0)       AS R2
                         FROM
                         (
-	                        SELECT  EA
-	                                ,IIF(EA > 0,1,0)                AS CONTEA
-	                                ,MS
-	                                ,IIF(MS > 0,1,0)                AS CONTMS
-	                                ,MS_DI * MH_DI                  AS DI
-	                                ,IIF((MS_DI * MH_DI) > 0,1,0)   AS CONTDI
-	                                ,MS_DII * MH_DII                AS DII
-	                                ,IIF((MS_DII * MH_DII) > 0,1,0) AS CONTDII
-	                                ,MS_VQ * MH_VQ                  AS VQ
-	                                ,IIF((MS_VQ * MH_VQ ) > 0,1,0)  AS CONTVQ
-	                                ,MS_S * MH_S                    AS S
-	                                ,IIF((MS_S * MH_S) > 0,1,0)     AS CONTS
-	                                ,MS_R * MH_R                    AS R
-	                                ,IIF((MS_R * MH_R) > 0,1,0)     AS CONTR
-	                        FROM MPRODUC
-	                        WHERE fecha BETWEEN " + ConvertToJulian(FFinal.AddDays(-i - 4)) + " AND " + ConvertToJulian(FFinal.AddDays(-i - 1))
+	                      SELECT  m.EA
+                               ,IIF(m.EA > 0,1,0)                    AS CONTEA
+                               ,m.MS
+                               ,IIF(MS > 0,1,IIF(i.VACASORDEÑA > 0,1,0)) AS CONTMS
+                               ,MS_DI * MH_DI                         AS DI
+                               ,IIF((MS_DI * MH_DI) > 0,1,IIF(i.destetadas > 0,1,0))          AS CONTDI
+                               ,MS_DII * MH_DII                       AS DII
+                               ,IIF((MS_DII * MH_DII) > 0,1,IIF(i.destetadas2 > 0,1,0))        AS CONTDII
+                               ,MS_VQ * MH_VQ                         AS VQ
+                               ,IIF((MS_VQ * MH_VQ ) > 0,1,IIF(i.vaquillas > 0,1,0))         AS CONTVQ
+                               ,MS_S * MH_S                           AS S
+                               ,IIF((MS_S * MH_S) > 0,1,IIF(i.vacassecas > 0,1,0))            AS CONTS
+                               ,MS_R * MH_R                           AS R
+                               ,IIF((MS_R * MH_R) > 0,1,IIF((i.vqreto + i.vcreto ) > 0,1,0))            AS CONTR
+                        FROM MPRODUC m
+                        INNER JOIN INVENTARIOAFIXDIA i
+                        ON m.FECHA = i.FECHA
+                        WHERE m.FECHA BETWEEN " + ConvertToJulian(FFinal.AddDays(-i - 4)) + " AND " + ConvertToJulian(FFinal.AddDays(-i - 1))
                         + " ) Tabla";
                 DataTable dtInfoValConAlimPeriodo;
                 conn.QueryMovsio(query, out dtInfoValConAlimPeriodo);
@@ -667,85 +761,103 @@ namespace ReportePeriodo
                     MsRetoValor = Convert.ToDouble(dtInfoValConAlimPeriodo.Rows[0][6].ToString());
                 }
 
-                if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["Ordeño"]) == 0)
+                if (dtAnimalesEtapas.Rows.Count > 0)
                 {
-                    EAProd = true;
-                    EAProdValor = 0;
+                    if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["Ordeño"]) == 0)
+                    {
+                        EAProd = true;
+                        EAProdValor = 0;
+                    }
+                    else
+                    {
+                        EAProd = promOrd > 0 ? (EAProdValor >= 1.2 && EAProdValor <= 1.8) ? true : false : true;
+                    }
+                    //Evaluación de MS Producción
+                    if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["Ordeño"]) == 0)
+                    {
+                        MsProd = true;
+                        MsProdValor = 0;
+                    }
+                    else
+                    {
+                        MsProd = promOrd > 0 ? (MsProdValor >= 18 && MsProdValor <= 30) ? true : false : true;
+                    }
+                    //Evaluación de MS Destetadas Uno 
+                    if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["DesteteUno"]) == 0)
+                    {
+                        MsCrecimiento = true;
+                        MsCrecimientosValor = 0;
+                    }
+                    else
+                    {
+                        MsCrecimiento = promDest1 > 0 ? (MsCrecimientosValor >= 2 && MsCrecimientosValor <= 8) ? true : false : true;
+                    }
+                    //Evaluación de Ms Destete Dos
+                    if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["DesteteDos"]) == 0)
+                    {
+                        MsDesarollo = true;
+                        MsDesarolloValor = 0;
+                    }
+                    else
+                    {
+                        MsDesarollo = promDest2 > 0 ? (MsDesarolloValor >= 6 && MsDesarolloValor <= 11) ? true : false : true;
+                    }
+                    //Evaluación de Ms Vaquillas
+                    if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["Vaquillas"]) == 0)
+                    {
+                        MsVaquillas = true;
+                        MsVaquillasValor = 0;
+                    }
+                    else
+                    {
+                        MsVaquillas = promVP != 0 ? (MsVaquillasValor >= 8 && MsVaquillasValor <= 15) ? true : false : true;
+                    }
+                    //Evaluación de MS Secas
+                    if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["Secas"]) == 0)
+                    {
+                        MsSecas = true;
+                        MsSecasValor = 0;
+                    }
+                    else
+                    {
+                        MsSecas = promSecas > 0 ? (MsSecasValor >= 10 && MsSecasValor <= 19) ? true : false : true;
+                    }
+                    //Evaluación de MS Reto
+                    if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["Reto"]) == 0)
+                    {
+                        MsReto = true;
+                        MsRetoValor = 0;
+                    }
+                    else
+                    {
+                        MsReto = promReto > 0 ? (MsRetoValor >= 9 && MsRetoValor <= 19) ? true : false : true;
+
+                    }
+                    //Evaluación de todas la etapas
+                    if (EAProd && MsProd && MsCrecimiento && MsDesarollo && MsVaquillas && MsSecas && MsReto)
+                    {
+                        ValConsisitentes = true;
+                    }
+                    else
+                    {
+                        ValConsisitentes = false;
+                    }
                 }
                 else
                 {
                     EAProd = (EAProdValor >= 1.2 && EAProdValor <= 1.8) ? true : false;
-                }
-                //Evaluación de MS Producción
-                if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["Ordeño"]) == 0)
-                {
-                    MsProd = true;
-                    MsProdValor = 0;
-                }
-                else
-                {
                     MsProd = (MsProdValor >= 18 && MsProdValor <= 30) ? true : false;
-                }
-                //Evaluación de MS Destetadas Uno 
-                if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["DesteteUno"]) == 0)
-                {
-                    MsCrecimiento = true;
-                    MsCrecimientosValor = 0;
-                }
-                else
-                {
                     MsCrecimiento = (MsCrecimientosValor >= 2 && MsCrecimientosValor <= 8) ? true : false;
-                }
-                //Evaluación de Ms Destete Dos
-                if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["DesteteDos"]) == 0)
-                {
-                    MsDesarollo = true;
-                    MsDesarolloValor = 0;
-                }
-                else
-                {
                     MsDesarollo = (MsDesarolloValor >= 6 && MsDesarolloValor <= 11) ? true : false;
-                }
-                //Evaluación de Ms Vaquillas
-                if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["Vaquillas"]) == 0)
-                {
-                    MsVaquillas = true;
-                    MsVaquillasValor = 0;
-                }
-                else
-                {
                     MsVaquillas = (MsVaquillasValor >= 8 && MsVaquillasValor <= 15) ? true : false;
-                }
-                //Evaluación de MS Secas
-                if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["Secas"]) == 0)
-                {
-                    MsSecas = true;
-                    MsSecasValor = 0;
-                }
-                else
-                {
                     MsSecas = (MsSecasValor >= 10 && MsSecasValor <= 19) ? true : false;
-                }
-                //Evaluación de MS Reto
-                if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["Reto"]) == 0)
-                {
-                    MsReto = true;
-                    MsRetoValor = 0;
-                }
-                else
-                {
                     MsReto = (MsRetoValor >= 9 && MsRetoValor <= 19) ? true : false;
+                    if (EAProd && MsProd && MsCrecimiento && MsDesarollo && MsVaquillas && MsSecas && MsReto)
+                        ValConsisitentes = true;
+                    else
+                        ValConsisitentes = false;
+                }
 
-                }
-                //Evaluación de todas la etapas
-                if (EAProd && MsProd && MsCrecimiento && MsDesarollo && MsVaquillas && MsSecas && MsReto)
-                {
-                    ValConsisitentes = true;
-                }
-                else
-                {
-                    ValConsisitentes = false;
-                }
 
                 query = "Insert into ValConAlimPeriodo values (@Id, #@Fecha#, @EAProd, @MsProd, @MsCrecimiento, @MsDesarollo, @MsVaquillas, @MsSecas, @MsReto, @ValConsisitentes, @ValEAProd, @ValMsProd, @ValMsCrecimiento, @ValMsDesarollo, @ValMsVaquillas, @ValMsSecas, @ValMsReto)";
                 query = query.Replace("@Id", ran_id.ToString())
@@ -778,10 +890,10 @@ namespace ReportePeriodo
         }
         private void Hoja1(int julianaI, int julianaF, out DataTable dt)
         {
-            if (ran_id != 33 && ran_id != 39)// si es covadonga o cañada nos quedamos con las fechas dadas por el calendario 
-            {
-                HoraCorte(out fecha_inicio, out fecha_fin);
-            }
+            //if (ran_id != 33 && ran_id != 39)// si es covadonga o cañada nos quedamos con las fechas dadas por el calendario 
+            //{
+            HoraCorte(out fecha_inicio, out fecha_fin);
+            //}
             ColumnasDTH1(out dt);
             DataTable dtA;
             string query = @"SELECT  CDATE(T2.FECHA)
@@ -1094,30 +1206,31 @@ namespace ReportePeriodo
             DateTime inicio, fin;
             int julianaI = ConvertToJulian(fecha_inicio);
             int julianaF = ConvertToJulian(fecha_fin);
-            if (ran_id != 33 && ran_id != 39) //Se agregara para covadonga y cañada
-            {
-                HoraCorte(out inicio, out fin);
-                DataTable dtI, dtV;
-                Indicadores("10,11,12,13", "ia_vacas_ord", inicio, fin, fecha_inicio, fecha_fin, out dtI);
-                VentaProduccion(julianaI, julianaF, out dtV);
-                AddPromedioH1("PROM", dt, dtI, dtV);
+            /*  if (ran_id != 33 && ran_id != 39) //Se agregara para covadonga y cañada
+              {*/
+            HoraCorte(out inicio, out fin);
+            DataTable dtI, dtV;
+            Indicadores("10,11,12,13", "ia_vacas_ord", inicio, fin, fecha_inicio, fecha_fin, out dtI);
+            VentaProduccion(julianaI, julianaF, out dtV);
+            AddPromedioH1("PROM", dt, dtI, dtV);
 
-                int julianaIAnt = ConvertToJulian(inicio.AddYears(-1));
-                int julianaFAnt = ConvertToJulian(fin.AddYears(-1));
-                Indicadores("10,11,12,13", "ia_vacas_ord", inicio.AddYears(-1), fin.AddYears(-1), fecha_inicio.AddYears(-1), fecha_fin.AddYears(-1), out dtI);
-                VentaProduccion(julianaIAnt, julianaFAnt, out dtV);
-                AddPromedioH1("AÑO ANT", dt, dtI, dtV);
-
-            }
-            else
-            {
-                DataRow row = dt.NewRow();
-                row[0] = "PROM";
-                dt.Rows.Add(row);
-                DataRow rows = dt.NewRow();
-                rows[0] = "AÑO ANT";
-                dt.Rows.Add(rows);
-            }
+            int julianaIAnt = ConvertToJulian(inicio.AddYears(-1));
+            int julianaFAnt = ConvertToJulian(fin.AddYears(-1));
+            Indicadores("10,11,12,13", "ia_vacas_ord", inicio.AddYears(-1), fin.AddYears(-1), fecha_inicio.AddYears(-1), fecha_fin.AddYears(-1), out dtI);
+            VentaProduccion(julianaIAnt, julianaFAnt, out dtV);
+            AddPromedioH1("AÑO ANT", dt, dtI, dtV);
+            /*
+                        }
+                        else
+                        {
+                            DataRow row = dt.NewRow();
+                            row[0] = "PROM";
+                            dt.Rows.Add(row);
+                            DataRow rows = dt.NewRow();
+                            rows[0] = "AÑO ANT";
+                            dt.Rows.Add(rows);
+                        }
+            */
         }
 
         private void AddPromedioH1(string titulo, DataTable dt, DataTable dtI, DataTable dtV)
@@ -2200,7 +2313,7 @@ namespace ReportePeriodo
             }
 
             string query = "SELECT T.FECHA, T.IJAULAS, T.JAULAS, T.DESTETADAS, T.MH_DI, T.BEC1, T.PMSBEC1, T.MSBEC1, T.PRECMSBEC1, p.BECERRAS1, "
-                         + " T.DESTETADAS2, T.MH_DII, T.BEC2, T.PMSBEC2,T.MSBEC2, T.PRECMSBEC2, p.BECERRAS2, T.VAQUILLAS, T.MH_VQ, T.PMSVAQ,T.VAQ,T.MSVAQ, T.PRECMSVAQ, p.PREÑADAS, "
+                         + " T.DESTETADAS2, T.MH_DII, T.BEC2, T.PMSBEC2,T.MSBEC2, T.PRECMSBEC2, p.BECERRAS2, T.VAQUILLAS, T.MH_VQ, T.VAQ,T.PMSVAQ,T.MSVAQ, T.PRECMSVAQ, p.PREÑADAS, "
                         + " T.VACASSECAS, T.MH_S, T.PMSSEC, T.MSSEC, T.SASEC, T.MSSSEC, T.PSSEC, T.SEC, T.PRECMSSEC, p.SECAS, T.IRETO, T.MH_R, T.PMSRETO, T.MSRETO, T.SARETO, T.MSSRETO, T.PSRETO, T.RETO, T.PRECMSRETO, p.RETO, "
                         + " T.IXA, T.CXA , IIF(T.IXA > 0, T.CXA / T.IXA * 100, 0) , T.IT, T.IXA - T.CXA,  IIF(T.IXA > 0, (T.IXA - T.CXA) / T.IXA * 100, 0) "
                         + " FROM( "
@@ -2469,7 +2582,18 @@ namespace ReportePeriodo
             dt.Rows[32][46] = (Convert.ToDouble(dt.Rows[32][45]) / Convert.ToDouble(dt.Rows[32][44])) * 100;
             dt.Rows[32][48] = Convert.ToDouble(dt.Rows[32][44]) - Convert.ToDouble(dt.Rows[32][45]);
             dt.Rows[32][49] = (Convert.ToDouble(dt.Rows[32][48]) / Convert.ToDouble(dt.Rows[32][44])) * 100;
+
+            DateTime fecha = ConvertToNormal(julianaF);
+            if (fecha.Year == fechaFinDTP.Year)
+            {
+                utilidad.IXA = Convert.ToDecimal(dt.Rows[32][44]);
+                utilidad.CXA = Convert.ToDecimal(dt.Rows[32][45]);
+                utilidad.PORCENTAJE_C = Convert.ToDecimal(dt.Rows[32][46]);
+                utilidad.UXA = Convert.ToDecimal(dt.Rows[32][48]);
+                utilidad.PORCENTAJE_U = Convert.ToDecimal(dt.Rows[32][49]);
+            }
         }
+
         private void ColumnasDTH1(out DataTable dt)
         {
             dt = new DataTable();
@@ -3427,7 +3551,6 @@ namespace ReportePeriodo
 
         }
 
-
         private void InfoSR(out DataTable _DtSR)
         {
             fecha_fin = monthCalendar1.SelectionRange.End;
@@ -3618,13 +3741,52 @@ namespace ReportePeriodo
             for (int i = 0; i < _DtSR.Rows.Count; i++)
             {
                 //Validamos que no sean espacios vacios 
+                try
+                {
+                    int pren = _DtSR.Rows[i][13] != DBNull.Value ? Convert.ToInt32(_DtSR.Rows[i][13]) : 0;
+                    int vacias = _DtSR.Rows[i][15] != DBNull.Value ? Convert.ToInt32(_DtSR.Rows[i][15]) : 0;
+                    int diag = pren + vacias;
+                    decimal porcPren = diag > 0 ? Math.Round(Convert.ToDecimal(pren) / Convert.ToDecimal(diag) * 100) : 0;
+                    decimal porcVacias = diag > 0 ? Convert.ToDecimal(vacias) / Convert.ToDecimal(diag) * 100 : 0;
+                    string s_pren = pren == 0 ? "" : pren.ToString();
+                    string s_vacias = vacias == 0 ? "" : vacias.ToString();
+                    string s_diag = diag == 0 ? "" : diag.ToString();
+                    string s_porcPren = porcPren == 0 ? "" : porcPren.ToString();
+                    string s_porcVacias = porcVacias == 0 ? "" : porcVacias.ToString();
+                    
+                    _DtSR.Rows[i][13] = s_pren;
+                    _DtSR.Rows[i][15] = s_vacias;
+
+                    if (s_diag != "")
+                        _DtSR.Rows[i][12] = diag;
+                    else
+                        _DtSR.Rows[i][12] = DBNull.Value;
+
+                    if (porcPren != 0)
+                        _DtSR.Rows[i][14] = porcPren;
+                    else
+                        _DtSR.Rows[i][14] = DBNull.Value;
+
+                    if (porcVacias != 0)
+                        _DtSR.Rows[i][16] = porcVacias;
+                    else
+                        _DtSR.Rows[i][16] = DBNull.Value;
+                }
+                catch(Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+
+                }
+
+                /* Forma Cañez
                 if (_DtSR.Rows[i][13] == DBNull.Value) { }
                 else
                 {
                     // si son ceros los ponemos como espacios vacios para que no se vea mal en el reporte 
                     if (Convert.ToInt32(_DtSR.Rows[i][13]) == 0)
                     {
-                        _DtSR.Rows[i][13] = ""; _DtSR.Rows[i][15] = "";
+                        _DtSR.Rows[i][13] = ""; //_DtSR.Rows[i][15] = "";
                     }
                     else
                     {
@@ -3637,6 +3799,47 @@ namespace ReportePeriodo
                     }
 
                 }
+                */
+
+                try 
+                {
+                    int pren = _DtSR.Rows[i][18] != DBNull.Value ? Convert.ToInt32(_DtSR.Rows[i][18]) : 0;
+                    int vacias = _DtSR.Rows[i][20] != DBNull.Value ? Convert.ToInt32(_DtSR.Rows[i][20]) : 0;
+                    int diag = pren + vacias;
+                    decimal porcPren = diag > 0 ? Math.Round(Convert.ToDecimal(pren) / Convert.ToDecimal(diag) * 100) : 0;
+                    decimal porcVacias = diag > 0 ? Convert.ToDecimal(vacias) / Convert.ToDecimal(diag) * 100 : 0;
+                    string s_pren = pren == 0 ? "" : pren.ToString();
+                    string s_vacias = vacias == 0 ? "" : vacias.ToString();
+                    string s_diag = diag == 0 ? "" : diag.ToString();
+                    string s_porcPren = porcPren == 0 ? "" : porcPren.ToString();
+                    string s_porcVacias = porcVacias == 0 ? "" : porcVacias.ToString();
+
+                    //_DtSR.Rows[i][17] = s_diag;
+                    _DtSR.Rows[i][18] = s_pren;
+                    _DtSR.Rows[i][20] = s_vacias;
+
+                    if (s_diag != "")
+                        _DtSR.Rows[i][17] = diag;
+                    else
+                        _DtSR.Rows[i][17] = DBNull.Value;
+
+                    if (porcPren != 0)
+                        _DtSR.Rows[i][19] = porcPren;
+                    else
+                        _DtSR.Rows[i][19] = DBNull.Value;
+
+                    if (porcVacias != 0)
+                        _DtSR.Rows[i][21] = porcVacias;
+                    else
+                        _DtSR.Rows[i][21] = DBNull.Value;
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+
+                }
+                /*Forma cañez
                 if (_DtSR.Rows[i][18] == DBNull.Value) { }
                 else
                 {
@@ -3653,6 +3856,7 @@ namespace ReportePeriodo
                         _DtSR.Rows[i][21] = Math.Round((Convert.ToDecimal(_DtSR.Rows[i][20]) / Convert.ToDecimal(_DtSR.Rows[i][17]) * 100));
                     }
                 }
+                */
             }
 
             //Sacamos al renglon AñoAnt haciendo las mismas consultas pero con respecto al año anterior 
@@ -4126,6 +4330,9 @@ namespace ReportePeriodo
             bendiciones.IndicadorReportePeriodo indicadores = new bendiciones.IndicadorReportePeriodo();
             GTH.ReportePeriodo(ran_id.ToString(), horas, "10,11,12,13", Finicio.AddDays(1).Date, FFinal.Date, out listaIngredientes, out indicadores, out sobrante);
 
+            if (FFinal.Year == fechaFinDTP.Year)
+                prom_ordeño = indicadores;
+
             try
             {
                 dt1.Rows[32]["X"] = indicadores.MEDIA;
@@ -4171,6 +4378,18 @@ namespace ReportePeriodo
             GTH.ReportePeriodo(ran_id.ToString(), horas, "33", Finicio.AddDays(1).Date, FFinal.Date, out listaIngredientes, out indicadoresDesteteDos, out sobrante);
             GTH.ReportePeriodo(ran_id.ToString(), horas, "21", Finicio.AddDays(1).Date, FFinal.Date, out listaIngredientes, out indicadoresSecas, out sobrante);
             GTH.ReportePeriodo(ran_id.ToString(), horas, "34", Finicio.AddDays(1).Date, FFinal.Date, out listaIngredientes, out indicadoresVaquillas, out sobrante);
+
+            //Guardar
+            if (FFinal.Year == fechaFinDTP.Year)
+            {
+                prom_reto = indicadoresReto;
+                prom_secas = indicadoresSecas;
+                prom_destete1 = indicadoresDesteteUno;
+                prom_destete2 = indicadoresDesteteDos;
+                prom_vquillas = indicadoresVaquillas;
+            }
+
+            //Asignar a variables de promedios
             //Jaulas
             dt.Rows[32]["PRECIOJ"] = indicadoresJaulas.COSTO;
             //Destete uno
@@ -4187,8 +4406,8 @@ namespace ReportePeriodo
             dt.Rows[32]["PRECIOMS7"] = indicadoresDesteteDos.PRECIOKGMS;
             //Vaquillas
             dt.Rows[32]["MH13"] = indicadoresVaquillas.MH;
-            dt.Rows[32]["PRECIO13"] = indicadoresVaquillas.PORCENTAJEMS;
-            dt.Rows[32]["PORCMS13"] = indicadoresVaquillas.COSTO;
+            dt.Rows[32]["PRECIO13"] = indicadoresVaquillas.COSTO;
+            dt.Rows[32]["PORCMS13"] = indicadoresVaquillas.PORCENTAJEMS;
             dt.Rows[32]["MS13"] = indicadoresVaquillas.MS;
             dt.Rows[32]["PRECIOMS13"] = indicadoresVaquillas.PRECIOKGMS;
             //Secas
@@ -4258,5 +4477,807 @@ namespace ReportePeriodo
             horas = Convert.ToInt32(dt.Rows[0][0]);
             hcorte = horas > 0 ? horas : 24 + horas;
         }
+
+        #region ajustes con colorimetria
+        private DataTable DtColorometriaHoja1()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("DIA").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("TOTALVTA").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("ORDENO").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("SECAS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("HATO").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCLACT").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCPROT").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("UREA").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCGRA").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("CCS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("CTD").DataType = System.Type.GetType("System.Double");
+            //PROD
+            dt.Columns.Add("LECHE").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("ANTIB").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("X").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("TOTALPROD").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("DEL").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("ANT").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("METAPROD").DataType = System.Type.GetType("System.Double");
+            //VENTA
+            dt.Columns.Add("ILCAVTA").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("ICVTA").DataType = System.Type.GetType("System.Double");
+            //ALIMENTACION PRODUCCION
+            dt.Columns.Add("EA").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("ILCAPROD").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("ICPROD").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIOL").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("MH").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCMS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("MS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("SA").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("MSS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("EAS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIOPROD").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIOMS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("METAMS").DataType = System.Type.GetType("System.Double");
+            //CRIBAS
+            dt.Columns.Add("N1").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("N2").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("N3").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("N4").DataType = System.Type.GetType("System.Double");
+            //NO ID
+            dt.Columns.Add("SES1").DataType = System.Type.GetType("System.Int32");
+            dt.Columns.Add("SES2").DataType = System.Type.GetType("System.Int32");
+            dt.Columns.Add("SES3").DataType = System.Type.GetType("System.Int32");
+            //DEC 
+            dt.Columns.Add("DEC").DataType = System.Type.GetType("System.Double");
+            //Colores
+            dt.Columns.Add("COLOR_ILCA").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_IC").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PRECIOL").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_MH").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PORCMS").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_MS").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_COSTOPROD").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PRECIOKGMS").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_LECHE").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_MEDIA").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_TOTAL").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_SES1").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_SES2").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_SES3").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_CTD").DataType = System.Type.GetType("System.String");
+
+            /*Columnas nuevas
+            dt.Columns.Add("COLOR_MSS").DataType = System.Type.GetType("System.String");
+            */
+
+            return dt;
+        }
+        private DataTable DtColorometriaHoja2()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("DIA").DataType = System.Type.GetType("System.String");
+            //Jaulas
+            dt.Columns.Add("INV").DataType = System.Type.GetType("System.Int32");
+            dt.Columns.Add("PRECIOJ").DataType = System.Type.GetType("System.Double");
+            // 2/7
+            dt.Columns.Add("INV2").DataType = System.Type.GetType("System.Int32");
+            dt.Columns.Add("MH2").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIO2").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCMS2").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("MS2").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIOMS2").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("METABEC1").DataType = System.Type.GetType("System.Double");
+            // 7/13
+            dt.Columns.Add("INV7").DataType = System.Type.GetType("System.Int32");
+            dt.Columns.Add("MH7").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIO7").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCMS7").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("MS7").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIOMS7").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("METABEC2").DataType = System.Type.GetType("System.Double");
+            // 13 a Mas
+            dt.Columns.Add("INV13").DataType = System.Type.GetType("System.Int32");
+            dt.Columns.Add("MH13").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIO13").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCMS13").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("MS13").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIOMS13").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("METAVP").DataType = System.Type.GetType("System.Double");
+            //Secas
+            dt.Columns.Add("INVSECAS").DataType = System.Type.GetType("System.Int32");
+            dt.Columns.Add("MHSECAS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCMSSECAS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("MSSECAS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("SASECAS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("MSSSECAS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCSSECAS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIOSECAS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIOMSSECAS").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("METASECAS").DataType = System.Type.GetType("System.Double");
+            //Reto
+            dt.Columns.Add("INVRETO").DataType = System.Type.GetType("System.Int32");
+            dt.Columns.Add("MHRETO").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCMSRETO").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("MSRETO").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("SARETO").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("MSSRETO").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCSRETO").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIORETO").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PRECIOMSRETO").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("METARETO").DataType = System.Type.GetType("System.Double");
+            //Utilidad Por Animal
+            dt.Columns.Add("IXA").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("CXA").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCENTAJE1").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("IT").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("UXA").DataType = System.Type.GetType("System.Double");
+            dt.Columns.Add("PORCENTAJE2").DataType = System.Type.GetType("System.Double");
+            //Colores            
+            dt.Columns.Add("COLOR_MH_CRECIMIENTO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PORCMS_CRECIMIENTO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_MS_CRECIMIENTO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PRECIOKGMS_CRECIMIENTO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_COSTO_CRECIMIENTO").DataType = System.Type.GetType("System.String");
+
+            dt.Columns.Add("COLOR_MH_DESARROLLO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PORCMS_DESARROLLO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_MS_DESARROLLO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PRECIOKGMS_DESARROLLO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_COSTO_DESARROLLO").DataType = System.Type.GetType("System.String");
+
+            dt.Columns.Add("COLOR_MH_VAQUILLAS").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PORCMS_VAQUILLAS").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_MS_VAQUILLAS").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PRECIOKGMS_VAQUILLAS").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_COSTO_VAQUILLAS").DataType = System.Type.GetType("System.String");
+
+            dt.Columns.Add("COLOR_MH_SECAS").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PORCMS_SECAS").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_MS_SECAS").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PRECIOKGMS_SECAS").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_COSTO_SECAS").DataType = System.Type.GetType("System.String");
+
+            dt.Columns.Add("COLOR_MH_RETO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PORCMS_RETO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_MS_RETO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PRECIOKGMS_RETO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_COSTO_RETO").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_IXA").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_CXA").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PORCENTAJEC").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_UXA").DataType = System.Type.GetType("System.String");
+            dt.Columns.Add("COLOR_PORCENTAJEU").DataType = System.Type.GetType("System.String");
+
+            return dt;
+        }
+
+        private DataTable DTHoja1ConColorimetria(DataTable dtHoja1)
+        {
+            DataTable dt = DtColorometriaHoja1();
+
+            foreach (DataRow row in dtHoja1.Rows)
+            {
+                DataRow newRow = dt.NewRow();
+                newRow["DIA"] = row["DIA"];
+                newRow["TOTALVTA"] = row["TOTALVTA"];
+                newRow["ORDENO"] = row["ORDENO"];
+                newRow["SECAS"] = row["SECAS"];
+                newRow["HATO"] = row["HATO"];
+                newRow["PORCPROT"] = row["PORCPROT"];
+                newRow["PORCLACT"] = row["PORCLACT"];
+                newRow["UREA"] = row["UREA"];
+                newRow["PORCGRA"] = row["PORCGRA"];
+                newRow["CCS"] = row["CCS"];
+                newRow["CTD"] = row["CTD"];
+                newRow["LECHE"] = row["LECHE"];
+                newRow["ANTIB"] = row["ANTIB"];
+                newRow["X"] = row["X"];
+                newRow["TOTALPROD"] = row["TOTALPROD"];
+                newRow["DEL"] = row["DEL"];
+                newRow["ANT"] = row["ANT"];
+                newRow["METAPROD"] = row["METAPROD"];
+                newRow["ILCAVTA"] = row["ILCAVTA"];
+                newRow["ICVTA"] = row["ICVTA"];
+                newRow["EA"] = row["EA"];
+                newRow["ILCAPROD"] = row["ILCAPROD"];
+                newRow["ICPROD"] = row["ICPROD"];
+                newRow["PRECIOL"] = row["PRECIOL"];
+                newRow["MH"] = row["MH"];
+                newRow["PORCMS"] = row["PORCMS"];
+                newRow["MS"] = row["MS"];
+                newRow["SA"] = row["SA"];
+                newRow["MSS"] = row["MSS"];
+                newRow["EAS"] = row["EAS"];
+                newRow["PORCS"] = row["PORCS"];
+                newRow["PRECIOPROD"] = row["PRECIOPROD"];
+                newRow["PRECIOMS"] = row["PRECIOMS"];
+                newRow["METAMS"] = row["METAMS"];
+                newRow["N1"] = row["N1"];
+                newRow["N2"] = row["N2"];
+                newRow["N3"] = row["N3"];
+                newRow["N4"] = row["N4"];
+                newRow["SES1"] = row["SES1"];
+                newRow["SES2"] = row["SES2"];
+                newRow["SES3"] = row["SES3"];
+                newRow["DEC"] = row["DEC"];
+                //colores
+                if (row["DIA"].ToString() != "TOTAL" && row["DIA"].ToString() != "PROM" && row["DIA"].ToString() != "AÑO ANT" &&
+                    row["DIA"].ToString() != "DIF %" && row["DIA"].ToString() != "DIF #" && row["DIA"].ToString() != "NA")
+                {
+                    if (row["ILCAPROD"] != DBNull.Value)
+                        newRow["COLOR_ILCA"] = Color1Hoja1(Convert.ToDecimal(row["ILCAPROD"].ToString()), Convert.ToDecimal(prom_ordeño.ILCA_PRODUCCION));
+                    else
+                        newRow["COLOR_ILCA"] = "";
+
+                    if (row["ICPROD"] != DBNull.Value)
+                        newRow["COLOR_IC"] = Color1Hoja1(Convert.ToDecimal(row["ICPROD"].ToString()), Convert.ToDecimal(prom_ordeño.IC_PRODUCCION));
+                    else
+                        newRow["COLOR_IC"] = "";
+
+                    if (row["PRECIOL"] != DBNull.Value)
+                        newRow["COLOR_PRECIOL"] = Color2Hoja1(Convert.ToDecimal(row["PRECIOL"].ToString()), Convert.ToDecimal(prom_ordeño.PRECIOL));
+                    else
+                        newRow["COLOR_PRECIOL"] = "";
+
+                    if (row["LECHE"] != DBNull.Value)
+                        newRow["COLOR_LECHE"] = Color1Hoja1(Convert.ToDecimal(row["LECHE"].ToString()), datosProd.LECHE);
+                    else
+                        newRow["COLOR_LECHE"] = "";
+
+                    if (row["X"] != DBNull.Value)
+                        newRow["COLOR_MEDIA"] = Color1Hoja1(Convert.ToDecimal(row["X"].ToString()), datosProd.MEDIA);
+                    else
+                        newRow["COLOR_MEDIA"] = "";
+
+                    if (row["TOTALPROD"] != DBNull.Value)
+                        newRow["COLOR_TOTAL"] = Color1Hoja1(Convert.ToDecimal(row["TOTALPROD"].ToString()), datosProd.TOTAL);
+                    else
+                        newRow["COLOR_TOTAL"] = "";
+
+                    if (row["SES1"] != DBNull.Value)
+                        newRow["COLOR_SES1"] = ColorSes(Convert.ToInt32(row["ORDENO"]), Convert.ToInt32(row["SES1"]));
+                    else
+                        newRow["COLOR_SES1"] = "";
+
+                    if (row["SES2"] != DBNull.Value)
+                        newRow["COLOR_SES2"] = ColorSes(Convert.ToInt32(row["ORDENO"]), Convert.ToInt32(row["SES2"]));
+                    else
+                        newRow["COLOR_SES2"] = "";
+
+                    if (row["SES3"] != DBNull.Value)
+                        newRow["COLOR_SES3"] = ColorSes(Convert.ToInt32(row["ORDENO"]), Convert.ToInt32(row["SES3"]));
+                    else
+                        newRow["COLOR_SES3"] = "";
+
+                    if (row["DIA"] != DBNull.Value && row["DIA"].ToString() != "")
+                    {
+                        DateTime dia = new DateTime(fechaFinDTP.Year, fechaFinDTP.Month, Convert.ToInt32(row["DIA"].ToString()));
+                        List<DatosTeorico> busquedaProd = (from x in listaProduccion where x.FECHA == dia select x).ToList();
+                        List<LecheBacteriologia> busquedaBacteorologia = (from x in listaBacteriologia where x.FECHA == dia select x).ToList();
+
+                        if (busquedaProd.Count > 0)
+                        {
+                            if (row["MH"].ToString() != "")
+                                newRow["COLOR_MH"] = ColorDato(Convert.ToDecimal(row["MH"].ToString()), busquedaProd[0].MH);
+                            else
+                                newRow["COLOR_MH"] = "";
+
+                            if (row["PORCMS"].ToString() != "")
+                                newRow["COLOR_PORCMS"] = ColorDato(Convert.ToDecimal(row["PORCMS"].ToString()), busquedaProd[0].PORCENTAJE_MS);
+                            else
+                                newRow["COLOR_PORCMS"] = "";
+
+                            if (row["MS"].ToString() != "")
+                                newRow["COLOR_MS"] = ColorDato(Convert.ToDecimal(row["MS"].ToString()), busquedaProd[0].MS);
+                            else
+                                newRow["COLOR_MS"] = "";
+
+                            if (row["PRECIOPROD"].ToString() != "")
+                                newRow["COLOR_COSTOPROD"] = ColorDato(Convert.ToDecimal(row["PRECIOPROD"].ToString()), busquedaProd[0].COSTO);
+                            else
+                                newRow["COLOR_COSTOPROD"] = "";
+
+                            if (row["PRECIOMS"].ToString() != "")
+                                newRow["COLOR_PRECIOKGMS"] = ColorDato(Convert.ToDecimal(row["PRECIOMS"].ToString()), busquedaProd[0].KGMS);
+                            else
+                                newRow["COLOR_PRECIOKGMS"] = "";
+
+                        }
+                        else
+                        {
+                            newRow["COLOR_ILCA"] = "";
+                            newRow["COLOR_IC"] = "";
+                            newRow["COLOR_PRECIOL"] = "";
+                            newRow["COLOR_MH"] = "";
+                            newRow["COLOR_PORCMS"] = "";
+                            newRow["COLOR_MS"] = "";
+                            newRow["COLOR_COSTOPROD"] = "";
+                            newRow["COLOR_PRECIOKGMS"] = "";
+                        }
+
+                        if (busquedaBacteorologia.Count > 0)
+                        {
+                            if (busquedaBacteorologia[0].BACTEROLOGIA < 0.2M)
+                                newRow["COLOR_CTD"] = "#FFC9C9";
+                            else
+                                newRow["COLOR_CTD"] = "##F2F2F2";
+                        }
+                        else
+                            newRow["COLOR_CTD"] = "";
+                    }
+
+
+
+                }
+                else
+                {
+                    newRow["COLOR_ILCA"] = "";
+                    newRow["COLOR_IC"] = "";
+                    newRow["COLOR_PRECIOL"] = "";
+                    newRow["COLOR_MH"] = "";
+                    newRow["COLOR_PORCMS"] = "";
+                    newRow["COLOR_MS"] = "";
+                    newRow["COLOR_COSTOPROD"] = "";
+                    newRow["COLOR_PRECIOKGMS"] = "";
+                    newRow["COLOR_LECHE"] = "";
+                    newRow["COLOR_MEDIA"] = "";
+                    newRow["COLOR_TOTAL"] = "";
+                    newRow["COLOR_CTD"] = "";
+                    newRow["COLOR_SES1"] = "";
+                    newRow["COLOR_SES2"] = "";
+                    newRow["COLOR_SES3"] = "";
+                }
+                dt.Rows.Add(newRow);
+            }
+
+            return dt;
+        }
+
+        private DataTable DTHoja2ConColorimetria(DataTable dtHoja2)
+        {
+            DataTable dt = DtColorometriaHoja2();
+
+            foreach (DataRow row in dtHoja2.Rows)
+            {
+                DataRow newRow = dt.NewRow();
+                newRow["DIA"] = row["DIA"];
+                newRow["INV"] = row["INV"];
+                newRow["PRECIOJ"] = row["PRECIOJ"];
+                newRow["INV2"] = row["INV2"];
+                newRow["MH2"] = row["MH2"];
+                newRow["PRECIO2"] = row["PRECIO2"];
+                newRow["PORCMS2"] = row["PORCMS2"];
+                newRow["MS2"] = row["MS2"];
+                newRow["PRECIOMS2"] = row["PRECIOMS2"];
+                newRow["METABEC1"] = row["METABEC1"];
+                newRow["INV7"] = row["INV7"];
+                newRow["MH7"] = row["MH7"];
+                newRow["PRECIO7"] = row["PRECIO7"];
+                newRow["PORCMS7"] = row["PORCMS7"];
+                newRow["MS7"] = row["MS7"];
+                newRow["PRECIOMS7"] = row["PRECIOMS7"];
+                newRow["METABEC2"] = row["METABEC2"];
+                newRow["INV13"] = row["INV13"];
+                newRow["MH13"] = row["MH13"];
+                newRow["PRECIO13"] = row["PRECIO13"];
+                newRow["PORCMS13"] = row["PORCMS13"]; //Covenant lucido cambio los campos               
+                newRow["MS13"] = row["MS13"];
+                newRow["PRECIOMS13"] = row["PRECIOMS13"]; //Covenant lucido cambio los campos
+                newRow["METAVP"] = row["METAVP"];
+                newRow["INVSECAS"] = row["INVSECAS"];
+                newRow["MHSECAS"] = row["MHSECAS"];
+                newRow["PORCMSSECAS"] = row["PORCMSSECAS"];
+                newRow["MSSECAS"] = row["MSSECAS"];
+                newRow["SASECAS"] = row["SASECAS"];
+                newRow["MSSSECAS"] = row["MSSSECAS"];
+                newRow["PORCSSECAS"] = row["PORCSSECAS"];
+                newRow["PRECIOSECAS"] = row["PRECIOSECAS"];
+                newRow["PRECIOMSSECAS"] = row["PRECIOMSSECAS"];
+                newRow["METASECAS"] = row["METASECAS"];
+                newRow["INVRETO"] = row["INVRETO"];
+                newRow["MHRETO"] = row["MHRETO"];
+                newRow["PORCMSRETO"] = row["PORCMSRETO"];
+                newRow["MSRETO"] = row["MSRETO"];
+                newRow["SARETO"] = row["SARETO"];
+                newRow["MSSRETO"] = row["MSSRETO"];
+                newRow["PORCSRETO"] = row["PORCSRETO"];
+                newRow["PRECIORETO"] = row["PRECIORETO"];
+                newRow["PRECIOMSRETO"] = row["PRECIOMSRETO"];
+                newRow["METARETO"] = row["METARETO"];
+                newRow["IXA"] = row["IXA"];
+                newRow["CXA"] = row["CXA"];
+                newRow["PORCENTAJE1"] = row["PORCENTAJE1"];
+                newRow["IT"] = row["IT"];
+                newRow["UXA"] = row["UXA"];
+                newRow["PORCENTAJE2"] = row["PORCENTAJE2"];
+
+                if (row["DIA"].ToString() != "TOTAL" && row["DIA"].ToString() != "PROM" && row["DIA"].ToString() != "AÑO ANT" &&
+                    row["DIA"].ToString() != "DIF %" && row["DIA"].ToString() != "DIF #" && row["DIA"].ToString() != "NA")
+                {
+                    if (row["DIA"] != DBNull.Value && row["DIA"].ToString() != "")
+                    {
+                        DateTime dia = new DateTime(fechaFinDTP.Year, fechaFinDTP.Month, Convert.ToInt32(row["DIA"].ToString()));
+                        List<DatosTeorico> busquedaCrecimiento = (from x in listaDestet1 where x.FECHA == dia select x).ToList();
+                        List<DatosTeorico> busquedaDesarrollo = (from x in listaDestete2 where x.FECHA == dia select x).ToList();
+                        List<DatosTeorico> busquedaVaquillas = (from x in listaVaquillas where x.FECHA == dia select x).ToList();
+                        List<DatosTeorico> busquedaSecas = (from x in listaSecas where x.FECHA == dia select x).ToList();
+                        List<DatosTeorico> busquedaReto = (from x in listaReto where x.FECHA == dia select x).ToList();
+
+                        if (busquedaCrecimiento.Count > 0)
+                        {
+                            newRow["COLOR_MH_CRECIMIENTO"] = row["MH2"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MH2"].ToString()), busquedaCrecimiento[0].MH) : "";
+                            newRow["COLOR_PORCMS_CRECIMIENTO"] = row["PORCMS2"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PORCMS2"].ToString()), busquedaCrecimiento[0].PORCENTAJE_MS) : "";
+                            newRow["COLOR_MS_CRECIMIENTO"] = row["MS2"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MS2"].ToString()), busquedaCrecimiento[0].MS) : "";
+                            newRow["COLOR_PRECIOKGMS_CRECIMIENTO"] = row["PRECIOMS2"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIOMS2"].ToString()), busquedaCrecimiento[0].KGMS) : "";
+                            newRow["COLOR_COSTO_CRECIMIENTO"] = row["PRECIO2"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIO2"].ToString()), busquedaCrecimiento[0].COSTO) : "";
+                        }
+                        else
+                        {
+                            newRow["COLOR_MH_CRECIMIENTO"] = "";
+                            newRow["COLOR_PORCMS_CRECIMIENTO"] = "";
+                            newRow["COLOR_MS_CRECIMIENTO"] = "";
+                            newRow["COLOR_PRECIOKGMS_CRECIMIENTO"] = "";
+                            newRow["COLOR_COSTO_CRECIMIENTO"] = "";
+                        }
+
+                        if (busquedaDesarrollo.Count > 0)
+                        {
+                            newRow["COLOR_MH_DESARROLLO"] = row["MH7"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MH7"].ToString()), busquedaDesarrollo[0].MH) : "";
+                            newRow["COLOR_PORCMS_DESARROLLO"] = row["PORCMS7"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PORCMS7"].ToString()), busquedaDesarrollo[0].PORCENTAJE_MS) : "";
+                            newRow["COLOR_MS_DESARROLLO"] = row["MS7"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MS7"].ToString()), busquedaDesarrollo[0].MS) : "";
+                            newRow["COLOR_PRECIOKGMS_DESARROLLO"] = row["PRECIOMS7"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIOMS7"].ToString()), busquedaDesarrollo[0].KGMS) : "";
+                            newRow["COLOR_COSTO_DESARROLLO"] = row["PRECIO7"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIO7"].ToString()), busquedaDesarrollo[0].COSTO) : "";
+                        }
+                        else
+                        {
+                            newRow["COLOR_MH_DESARROLLO"] = "";
+                            newRow["COLOR_PORCMS_DESARROLLO"] = "";
+                            newRow["COLOR_MS_DESARROLLO"] = "";
+                            newRow["COLOR_PRECIOKGMS_DESARROLLO"] = "";
+                            newRow["COLOR_COSTO_DESARROLLO"] = "";
+                        }
+
+                        if (busquedaVaquillas.Count > 0)
+                        {
+                            newRow["COLOR_MH_VAQUILLAS"] = row["MH13"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MH13"].ToString()), busquedaVaquillas[0].MH) : "";
+                            newRow["COLOR_PORCMS_VAQUILLAS"] = row["PORCMS13"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PORCMS13"].ToString()), busquedaVaquillas[0].PORCENTAJE_MS) : "";
+                            newRow["COLOR_MS_VAQUILLAS"] = row["MS13"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MS13"].ToString()), busquedaVaquillas[0].MS) : "";
+                            newRow["COLOR_PRECIOKGMS_VAQUILLAS"] = row["PRECIOMS13"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIOMS13"].ToString()), busquedaVaquillas[0].KGMS) : "";
+                            newRow["COLOR_COSTO_VAQUILLAS"] = row["PRECIO13"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIO13"].ToString()), busquedaVaquillas[0].COSTO) : "";
+                        }
+                        else
+                        {
+                            newRow["COLOR_MH_VAQUILLAS"] = "";
+                            newRow["COLOR_PORCMS_VAQUILLAS"] = "";
+                            newRow["COLOR_MS_VAQUILLAS"] = "";
+                            newRow["COLOR_PRECIOKGMS_VAQUILLAS"] = "";
+                            newRow["COLOR_COSTO_VAQUILLAS"] = "";
+                        }
+
+                        if (busquedaSecas.Count > 0)
+                        {
+                            newRow["COLOR_MH_SECAS"] = row["MHSECAS"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MHSECAS"].ToString()), busquedaSecas[0].MH) : "";
+                            newRow["COLOR_PORCMS_SECAS"] = row["PORCMSSECAS"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PORCMSSECAS"].ToString()), busquedaSecas[0].PORCENTAJE_MS) : "";
+                            newRow["COLOR_MS_SECAS"] = row["MSSECAS"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MSSECAS"].ToString()), busquedaSecas[0].MS) : "";
+                            newRow["COLOR_PRECIOKGMS_SECAS"] = row["PRECIOMSSECAS"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIOMSSECAS"].ToString()), busquedaSecas[0].KGMS) : "";
+                            newRow["COLOR_COSTO_SECAS"] = row["PRECIOSECAS"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIOSECAS"].ToString()), busquedaSecas[0].COSTO) : "";
+                        }
+                        else
+                        {
+                            newRow["COLOR_MH_SECAS"] = "";
+                            newRow["COLOR_PORCMS_SECAS"] = "";
+                            newRow["COLOR_MS_SECAS"] = "";
+                            newRow["COLOR_PRECIOKGMS_SECAS"] = "";
+                            newRow["COLOR_COSTO_SECAS"] = "";
+                        }
+
+                        if (busquedaReto.Count > 0)
+                        {
+                            newRow["COLOR_MH_RETO"] = row["MHRETO"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MHRETO"].ToString()), busquedaReto[0].MH) : "";
+                            newRow["COLOR_PORCMS_RETO"] = row["PORCMSRETO"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PORCMSRETO"].ToString()), busquedaReto[0].PORCENTAJE_MS) : "";
+                            newRow["COLOR_MS_RETO"] = row["MSRETO"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MSRETO"].ToString()), busquedaReto[0].MS) : "";
+                            newRow["COLOR_PRECIOKGMS_RETO"] = row["PRECIOMSRETO"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIOMSRETO"].ToString()), busquedaReto[0].KGMS) : "";
+                            newRow["COLOR_COSTO_RETO"] = row["PRECIORETO"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIORETO"].ToString()), busquedaReto[0].COSTO) : "";
+                        }
+                        else
+                        {
+                            newRow["COLOR_MH_RETO"] = "";
+                            newRow["COLOR_PORCMS_RETO"] = "";
+                            newRow["COLOR_MS_RETO"] = "";
+                            newRow["COLOR_PRECIOKGMS_RETO"] = "";
+                            newRow["COLOR_COSTO_RETO"] = "";
+                        }
+
+                        if (row["IXA"] != DBNull.Value)
+                            newRow["COLOR_IXA"] = ColorUtilidad(Convert.ToDecimal(row["IXA"].ToString()), utilidad.IXA, false);
+                        else
+                            newRow["COLOR_IXA"] = "";
+
+                        if (row["CXA"] != DBNull.Value)
+                            newRow["COLOR_CXA"] = ColorUtilidad(Convert.ToDecimal(row["CXA"].ToString()), utilidad.CXA, true);
+                        else
+                            newRow["COLOR_CXA"] = "";
+
+                        if (row["PORCENTAJE1"] != DBNull.Value)
+                            newRow["COLOR_PORCENTAJEC"] = ColorUtilidad(Convert.ToDecimal(row["PORCENTAJE1"].ToString()), utilidad.PORCENTAJE_C, false);
+                        else
+                            newRow["COLOR_PORCENTAJEC"] = "";
+
+                        if (row["UXA"] != DBNull.Value)
+                            newRow["COLOR_UXA"] = ColorUtilidad(Convert.ToDecimal(row["UXA"].ToString()), utilidad.UXA, false);
+                        else
+                            newRow["COLOR_UXA"] = "";
+
+                        if (row["PORCENTAJE2"] != DBNull.Value)
+                            newRow["COLOR_PORCENTAJEU"] = ColorUtilidad(Convert.ToDecimal(row["PORCENTAJE2"].ToString()), utilidad.PORCENTAJE_U, false);
+                        else
+                            newRow["COLOR_PORCENTAJEU"] = "";
+                    }
+                    else
+                    {
+                        newRow["COLOR_MH_CRECIMIENTO"] = "";
+                        newRow["COLOR_PORCMS_CRECIMIENTO"] = "";
+                        newRow["COLOR_MS_CRECIMIENTO"] = "";
+                        newRow["COLOR_PRECIOKGMS_CRECIMIENTO"] = "";
+                        newRow["COLOR_COSTO_CRECIMIENTO"] = "";
+
+                        newRow["COLOR_MH_DESARROLLO"] = "";
+                        newRow["COLOR_PORCMS_DESARROLLO"] = "";
+                        newRow["COLOR_MS_DESARROLLO"] = "";
+                        newRow["COLOR_PRECIOKGMS_DESARROLLO"] = "";
+                        newRow["COLOR_COSTO_DESARROLLO"] = "";
+
+                        newRow["COLOR_MH_VAQUILLAS"] = "";
+                        newRow["COLOR_PORCMS_VAQUILLAS"] = "";
+                        newRow["COLOR_MS_VAQUILLAS"] = "";
+                        newRow["COLOR_PRECIOKGMS_VAQUILLAS"] = "";
+                        newRow["COLOR_COSTO_VAQUILLAS"] = "";
+
+                        newRow["COLOR_MH_SECAS"] = "";
+                        newRow["COLOR_PORCMS_SECAS"] = "";
+                        newRow["COLOR_MS_SECAS"] = "";
+                        newRow["COLOR_PRECIOKGMS_SECAS"] = "";
+                        newRow["COLOR_COSTO_SECAS"] = "";
+
+                        newRow["COLOR_MH_RETO"] = "";
+                        newRow["COLOR_PORCMS_RETO"] = "";
+                        newRow["COLOR_MS_RETO"] = "";
+                        newRow["COLOR_PRECIOKGMS_RETO"] = "";
+                        newRow["COLOR_COSTO_RETO"] = "";
+
+                        newRow["COLOR_IXA"] = "";
+                        newRow["COLOR_CXA"] = "";
+                        newRow["COLOR_PORCENTAJEC"] = "";
+                        newRow["COLOR_UXA"] = "";
+                        newRow["COLOR_PORCENTAJEU"] = "";
+                    }
+                }
+                else
+                {
+                    newRow["COLOR_MH_CRECIMIENTO"] = "";
+                    newRow["COLOR_PORCMS_CRECIMIENTO"] = "";
+                    newRow["COLOR_MS_CRECIMIENTO"] = "";
+                    newRow["COLOR_PRECIOKGMS_CRECIMIENTO"] = "";
+
+                    newRow["COLOR_MH_DESARROLLO"] = "";
+                    newRow["COLOR_PORCMS_DESARROLLO"] = "";
+                    newRow["COLOR_MS_DESARROLLO"] = "";
+                    newRow["COLOR_PRECIOKGMS_DESARROLLO"] = "";
+
+                    newRow["COLOR_MH_VAQUILLAS"] = "";
+                    newRow["COLOR_PORCMS_VAQUILLAS"] = "";
+                    newRow["COLOR_MS_VAQUILLAS"] = "";
+                    newRow["COLOR_PRECIOKGMS_VAQUILLAS"] = "";
+
+                    newRow["COLOR_MH_SECAS"] = "";
+                    newRow["COLOR_PORCMS_SECAS"] = "";
+                    newRow["COLOR_MS_SECAS"] = "";
+                    newRow["COLOR_PRECIOKGMS_SECAS"] = "";
+
+                    newRow["COLOR_MH_RETO"] = "";
+                    newRow["COLOR_PORCMS_RETO"] = "";
+                    newRow["COLOR_MS_RETO"] = "";
+                    newRow["COLOR_PRECIOKGMS_RETO"] = "";
+
+                    newRow["COLOR_IXA"] = "";
+                    newRow["COLOR_CXA"] = "";
+                    newRow["COLOR_PORCENTAJEC"] = "";
+                    newRow["COLOR_UXA"] = "";
+                    newRow["COLOR_PORCENTAJEU"] = "";
+                }
+
+                dt.Rows.Add(newRow);
+            }
+
+            return dt;
+        }
+
+        private string Color1Hoja1(decimal valor, decimal promedio)
+        {
+            string color = "";
+
+            if (valor != 0)
+            {
+                switch (valor)
+                {
+                    //Blanco    #F2F2F2
+                    case decimal n when ((n >= (promedio * 0.95M) && n <= (promedio * 1.05M))):
+                        color = "#F2F2F2";
+                        break;
+                    //Verde #DEEDD3
+                    case decimal n when (n > (promedio * 1.05M)):
+                        color = "#DEEDD3";
+                        break;
+                    //Amarillo #FFF5D9
+                    case decimal n when (n >= (promedio * 0.90M) && n < (promedio * 0.95M)):
+                        color = "#FFF5D9";
+                        break;
+                    //Rojo  #FFC9C9
+                    case decimal n when (n < (promedio * 0.90M)):
+                        color = "#FFC9C9";
+                        break;
+                }
+            }
+            return color;
+        }
+
+        private string Color2Hoja1(decimal valor, decimal promedio)
+        {
+            string color = "";
+
+            if (valor != 0)
+            {
+                switch (valor)
+                {
+                    //Verde #DEEDD3
+                    case decimal n when (n < (promedio * 0.95M)):
+                        color = "#DEEDD3";
+                        break;
+                    //Blanco    #F2F2F2
+                    case decimal n when ((n >= (promedio * 0.95M) && n <= (promedio * 1.05M))):
+                        color = "#F2F2F2";
+                        break;
+                    //Amarillo #FFF5D9
+                    case decimal n when (n >= (promedio * 1.05M) && n < (promedio * 1.10M)):
+                        color = "#FFF5D9";
+                        break;
+                    //Rojo  #FFC9C9
+                    case decimal n when (n > (promedio * 1.10M)):
+                        color = "#FFC9C9";
+                        break;
+                }
+            }
+            return color;
+        }
+
+        private string ColorDato(decimal valor, decimal promedio)
+        {
+            string color = "";
+
+            if (valor != 0)
+            {
+                switch (valor)
+                {
+                    //Color Verde
+                    case decimal n when ((n >= (promedio * 0.95M) && n <= (promedio * 1.05M))):
+                        color = "#DEEDD3";
+                        break;
+                    //Color Blanco
+                    case decimal n when (n >= (promedio * 0.9M) && n < (promedio * 0.95M)):
+                        color = "#F2F2F2";
+                        break;
+                    case decimal n when (n > (promedio * 1.05M) && n <= (promedio * 1.1M)):
+                        color = "#F2F2F2";
+                        break;
+                    //Color Amarillo
+                    case decimal n when (n >= (promedio * 0.85M) && n < (promedio * 0.9M)):
+                        color = "#FFF5D9";
+                        break;
+                    case decimal n when (n > (promedio * 1.1M) && n <= (promedio * 1.15M)):
+                        color = "#FFF5D9";
+                        break;
+                    //Color Rojo
+                    case decimal n when (n < (promedio * 0.85M) || n > (promedio * 1.15M)):
+                        color = "#FFC9C9";
+                        break;
+                }
+            }
+
+            return color;
+        }
+
+        private string ColorSes(int inventario, int vacas_ses)
+        {
+            string color = "";
+
+            if (pesadores)
+            {
+                if (vacas_ses != 0)
+                {
+                    decimal porcentaje = (vacas_ses * 1.0M) / inventario * 100;
+
+                    switch (porcentaje)
+                    {
+                        case decimal n when (n >= 0 && n <= 3M):
+                            color = "#DEEDD3";
+                            break;
+                        case decimal n when (n > 3M && n <= 5M):
+                            color = "#F2F2F2";
+                            break;
+                        case decimal n when (n > 5M && n <= 8M):
+                            color = "#FFF5D9";
+                            break;
+                        case decimal n when n > 8M:
+                            color = "#FFC9C9";
+                            break;
+                    }
+
+                }
+            }
+            return color;
+        }
+
+        private string ColorUtilidad(decimal valor, decimal promedio, bool esCosto)
+        {
+            string color = "";
+
+            if (valor != 0)
+            {
+                if (esCosto)
+                {
+                    switch (valor)
+                    {
+                        //Verde #DEEDD3
+                        case decimal n when (n < (promedio * 0.95M)):
+                            color = "#DEEDD3";
+                            break;
+                        //Blanco    #F2F2F2
+                        case decimal n when ((n >= (promedio * 0.95M) && n <= (promedio * 1.05M))):
+                            color = "#F2F2F2";
+                            break;
+                        //Amarillo #FFF5D9
+                        case decimal n when (n >= (promedio * 1.05M) && n < (promedio * 1.10M)):
+                            color = "#FFF5D9";
+                            break;
+                        //Rojo  #FFC9C9
+                        case decimal n when (n > (promedio * 1.10M)):
+                            color = "#FFC9C9";
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (valor)
+                    {
+                        //Blanco    #F2F2F2
+                        case decimal n when ((n >= (promedio * 0.95M) && n <= (promedio * 1.05M))):
+                            color = "#F2F2F2";
+                            break;
+                        //Verde #DEEDD3
+                        case decimal n when (n > (promedio * 1.05M)):
+                            color = "#DEEDD3";
+                            break;
+                        //Amarillo #FFF5D9
+                        case decimal n when (n >= (promedio * 0.90M) && n < (promedio * 0.95M)):
+                            color = "#FFF5D9";
+                            break;
+                        //Rojo  #FFC9C9
+                        case decimal n when (n < (promedio * 0.90M)):
+                            color = "#FFC9C9";
+                            break;
+                    }
+                }
+            }
+            return color;
+        }
+
+        private void LlenarListas(DateTime fechaIni, DateTime fechaFin, int horaCorte)
+        {
+            string mensaje = "";
+            controlador1.DatosTeoricos(ran_id, horaCorte, fechaIni, fechaFin, out listaProduccion, out listaSecas, out listaReto, out listaDestet1, out listaDestete2,
+                out listaVaquillas, ref mensaje);
+        }
+        #endregion
     }
 }
