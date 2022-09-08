@@ -52,230 +52,139 @@ namespace ReportePeriodo.Modelo
 			}
 			try
 			{
-				string query = @"SELECT  ROUND(SUM(MH),5)                                AS MH
-									   ,ROUND(SUM(MS),5)                                AS MS
-										,ROUND(IIF(SUM(MH) > 0,SUM(MS)/SUM(MH) * 100, 0),5) AS PorcMs
-									   ,ROUND(SUM(COSTO),5)                             AS Costo
-									   ,ROUND(IIF(SUM(MS) > 0,SUM(COSTO)/ SUM(MS),0),5) AS kgMS
-								FROM
-								(
-									SELECT  ing_clave
-										   ,ing_descripcion
-										   ,IIF(vacas > 0,peso / vacas,0 )                           AS MH
-										   ,(IIF(vacas > 0,peso / vacas,0 ) * ISNULL(PorcMs,0) /100) AS MS
-										   ,IIF(vacas > 0,peso / vacas,0 ) * ISNULL(Costo.Costo,0)   AS COSTO
-									FROM
-									(
-										SELECT  ran_id
-											   ,ing_clave
-											   ,ing_descripcion
-											   ,SUM(peso_teorico) AS Peso
-										FROM
-										(
-											SELECT  ran_id
-												   ,ing_clave
-												   ,ing_descripcion
-												   ,peso_teorico
-												   ,numvacas
-											FROM racionTeorico
-											WHERE ran_id = @rancho
-											AND rac_fecha = @fecha
-											AND CONVERT(int, SUBSTRING(racion_descripcion, 3, 2)) IN (@etapa)
-											AND ing_clave <> ''
-											UNION
-											SELECT  ran_id
-												   ,ing_clave
-												   ,ing_descripcion
-												   ,rac_mh
-												   ,vacas
-											FROM
-											(
-												SELECT  polvo.*
-													   ,Case etp_id 
-														WHEN 11 THEN (ia_lactancia1 - ia_vacassecasl1) 
-														WHEN 12 THEN (ia_lactancia2 - ia_vacassecasl2) 
-														WHEN 13 THEN ((ia_lactancia3 + ia_lactancia4) - (ia_vacassecasl4 + ia_vacassecasl4)) 
-														WHEN 21 THEN ia_vacas_secas 
-														WHEN 22 THEN (ia_vqreto + ia_vcreto) 
-														WHEN 31 THEN ia_jaulas 
-														WHEN 32 THEN ia_destetadas 
-														WHEN 33 THEN ia_destetadas2 
-														WHEN 34 THEN ia_vaquillas ELSE 0 End AS vacas
-												FROM
-												(
-													SELECT  *
-													FROM racion
-													WHERE ran_id = @rancho
-													AND ing_polvo = 1
-													AND rac_fecha >= @fechaRacionIni
-													AND rac_fecha < @fechaRacionFin 
-												)polvo
-												LEFT JOIN
-												(
-													SELECT  *
-													FROM inventario_afi
-													WHERE ia_fecha = @fecha
-													AND ran_id = @rancho 
-												) inventario
-												ON polvo.ran_id = inventario.ran_id
-											) polvo
-											WHERE etp_id IN (@etapa)
-											UNION
-											SELECT  ran_id
-												   ,ing_descripcion
-												   ,ing_clave
-												   ,SUM(peso_teorico) AS peso
-												   ,SUM(numvacas)     AS vacas
-											FROM
-											(
-												SELECT  ran_id
-													   ,ing_clave
-													   ,ing_descripcion
-													   ,peso_teorico
-													   ,numvacas
-												FROM racionTeorico
-												WHERE ran_id = @rancho
-												AND rac_fecha = @fecha
-												AND CONVERT(int, SUBSTRING(racion_descripcion, 3, 2)) IN (@etapa)
-												AND ing_clave = '' 
-											) otro
-											GROUP BY  ran_id
-													 ,ing_descripcion
-													 ,ing_clave
-										) Teorico
-										GROUP BY  ran_id
-												 ,ing_clave
-												 ,ing_descripcion
-									) Teorico
-									LEFT JOIN
-									(
-										SELECT  ran_id
-											   ,@campo AS Vacas
-										FROM inventario_afi
-										WHERE ia_fecha = @fecha
-										AND ran_id = @rancho 
-									) vacas
-									ON Teorico.ran_id = vacas.ran_id
-									LEFT JOIN
-									(
-										SELECT  Clave
-											   ,Ingrediente
-											   ,IIF(MH > 0,MS / MH * 100,0) AS PorcMs
-										FROM
-										(
-											SELECT  R.Rancho
-												   ,R.Clave
-												   ,R.Ingrediente
-												   ,SUM(R.PesoH) AS MH
-												   ,SUM(R.PesoS) AS MS
-											FROM
-											(
-												SELECT  ran_id            AS Rancho
-													   ,r.ing_clave       AS Clave
-													   ,r.ing_descripcion AS Ingrediente
-													   ,SUM(rac_mh)       AS PesoH
-													   ,SUM(rac_ms)       AS PesoS
-												FROM racion r
-												WHERE ran_id = @rancho
-												AND rac_fecha >= @fechaRacionIni
-												AND rac_fecha < @fechaRacionFin
-												AND etp_id IN (@etapa)
-												AND SUBSTRING(ing_clave, 1, 4) IN ('ALAS', 'ALFO')
-												GROUP BY  ran_id
-														 ,ing_clave
-														 ,ing_descripcion
-												UNION
-												SELECT  T.Rancho
-													   ,T.Clave
-													   ,T.Ing
-													   ,SUM(T.Peso)  AS MH
-													   ,SUM(T.PesoS) AS MS
-												FROM
-												(
-													SELECT  T1.Rancho
-														   ,IIF(T2.Pmez IS NULL,T1.Clave,T2.Clave)              AS Clave
-														   ,IIF(T2.Pmez IS NULL,T1.Ing,T2.Ing)                  AS Ing
-														   ,IIF(T2.Pmez IS NULL,T1.Peso,T1.Peso * T2.Porc)      AS Peso
-														   ,IIF(T2.Pmez IS NULL,T1.PesoS,T1.Peso * T2.PorcSeca) AS PesoS
-													FROM
-													(
-														SELECT  T1.Rancho
-															   ,T2.Clave
-															   ,T2.Ing
-															   ,(T1.Peso * T2.Porc)     AS Peso
-															   ,(T1.Peso * T2.PorcSeca) AS PesoS
-														FROM
-														(
-															SELECT  ran_id          AS Rancho
-																   ,ing_descripcion AS Pmz
-																   ,SUM(rac_mh)     AS Peso
-																   ,SUM(rac_ms)     AS PesoS
-															FROM racion
-															WHERE ran_id = @rancho
-															AND rac_fecha >= @fechaRacionIni
-															AND rac_fecha < @fechaRacionFin
-															AND etp_id IN (@etapa)
-															AND ISNUMERIC(SUBSTRING(ing_descripcion, 1, 1)) > 0
-															AND SUBSTRING(ing_descripcion, 3, 2) IN ('00', '01', '02')
-															GROUP BY  ran_id
-																	 ,ing_descripcion
-														) T1
-														LEFT JOIN
-														(
-															SELECT  pmez_descripcion     AS Pmez
-																   ,ing_clave            AS Clave
-																   ,ing_descripcion      AS Ing
-																   ,pmez_porcentaje      AS Porc
-																   ,pmez_porcentaje_seca AS PorcSeca
-															FROM porcentaje_Premezcla
-														)T2
-														ON T1.Pmz = T2.Pmez
-													) T1
-													LEFT JOIN
-													(
-														SELECT  pmez_descripcion     AS Pmez
-															   ,ing_clave            AS Clave
-															   ,ing_descripcion      AS Ing
-															   ,pmez_porcentaje      AS Porc
-															   ,pmez_porcentaje_seca AS PorcSeca
-														FROM porcentaje_Premezcla
-													)T2
-													ON T1.Ing = T2.Pmez
-												) T
-												GROUP BY  T.Rancho
-														 ,T.Clave
-														 ,T.Ing
-											) R
-											GROUP BY  R.Rancho
-													 ,R.Clave
-													 ,R.Ingrediente
-										) PorcentajeMs
-									)pms
-									ON Teorico.ing_clave = pms.Clave AND Teorico.ing_descripcion = pms.Ingrediente
-									LEFT JOIN
-									(
-										SELECT  Costos.ArticuloCve
-											   ,IIF(SUM(Costos.Existencia) > 0 ,SUM((Costos.Existencia * Costos.Costo)) / SUM(Costos.Existencia),0) AS Costo
-										FROM
-										(
-											SELECT  a.ran_id
-												   ,ci.ArticuloCve
-												   ,IIF(ci.Existencia = 0,1,ci.Existencia) AS Existencia
-												   ,ci.Costo
-												   ,ci.Fecha
-											FROM DBALIMENTO.dbo.costo_ingrediente_h ci
-											LEFT JOIN DBSIE.dbo.almacen a
-											ON ci.AlmacenCve = a.alm_id
-											WHERE CONVERT(INT, FORMAT(ci.Fecha, 'yyyyMM')) = @periodo 
-										) Costos
-										WHERE Costos.ran_id = @rancho
-										GROUP BY  Costos.ArticuloCve
-									)Costo
-									ON Teorico.ing_clave = Costo.ArticuloCve
-								) Teorico";
+				DateTime fechaEvaluacionQuery = new DateTime(2022, 9, 1);
 
+				#region anterior
+                /*
+				string query = @"SELECT  ROUND(SUM(MH),5)                                  AS MH
+                                       ,ROUND(SUM(MS),5)                                  AS MS
+                                       ,ROUND(IIF(SUM(MH) > 0,SUM(MS)/SUM(MH) * 100,0),5) AS PorcMs
+                                       ,ROUND(SUM(COSTO),5)                               AS Costo
+                                       ,ROUND(IIF(SUM(MS) > 0,SUM(COSTO)/ SUM(MS),0),5)   AS kgMS
+                                FROM
+                                (
+	                                SELECT  Teorico.ing_clave
+	                                       ,Teorico.ing_descripcion
+	                                       ,IIF(vacas > 0,peso / vacas,0 )                           AS MH
+	                                       ,(IIF(vacas > 0,peso / vacas,0 ) * ISNULL(hi.ing_porcentaje_ms,0) /100) AS MS
+	                                       ,IIF(vacas > 0,peso / vacas,0 ) * ISNULL(Costo.Costo,0)   AS COSTO
+	                                FROM
+	                                (
+		                                SELECT  ran_id
+		                                       ,ing_clave
+		                                       ,ing_descripcion
+		                                       ,SUM(peso_teorico) AS Peso
+		                                FROM
+		                                (
+			                                SELECT  ran_id
+			                                       ,ing_clave
+			                                       ,ing_descripcion
+			                                       ,peso_teorico
+			                                       ,numvacas
+			                                FROM racionTeorico
+			                                WHERE ran_id = @rancho
+			                                AND rac_fecha = @fecha
+			                                AND CONVERT(int, SUBSTRING(racion_descripcion, 3, 2)) IN (@etapa)
+			                                AND ing_clave <> ''
+			                                UNION
+			                                SELECT  ran_id
+			                                       ,ing_clave
+			                                       ,ing_descripcion
+			                                       ,rac_mh
+			                                       ,vacas
+			                                FROM
+			                                (
+				                                SELECT  polvo.*
+				                                       ,Case etp_id 
+                                                            WHEN 11 THEN (ia_lactancia1 - ia_vacassecasl1) 
+                                                            WHEN 12 THEN (ia_lactancia2 - ia_vacassecasl2) 
+                                                            WHEN 13 THEN ((ia_lactancia3 + ia_lactancia4) - (ia_vacassecasl4 + ia_vacassecasl4)) 
+                                                            WHEN 21 THEN ia_vacas_secas 
+                                                            WHEN 22 THEN (ia_vqreto + ia_vcreto) 
+                                                            WHEN 31 THEN ia_jaulas 
+                                                            WHEN 32 THEN ia_destetadas 
+                                                            WHEN 33 THEN ia_destetadas2 
+                                                            WHEN 34 THEN ia_vaquillas 
+                                                        ELSE 0 End AS vacas
+				                                FROM
+				                                (
+					                                SELECT  *
+					                                FROM racion
+					                                WHERE ran_id = @rancho
+					                                AND ing_polvo = 1
+					                                AND rac_fecha >= @fechaRacionIni
+					                                AND rac_fecha < @fechaRacionFin 
+				                                )polvo
+				                                LEFT JOIN
+				                                (
+					                                SELECT  *
+					                                FROM inventario_afi
+					                                WHERE ia_fecha = @fecha
+					                                AND ran_id = @rancho
+				                                ) inventario
+				                                ON polvo.ran_id = inventario.ran_id
+			                                ) polvo
+			                                WHERE etp_id IN (@etapa)
+			                                UNION
+			                                SELECT  ran_id
+			                                       ,ing_clave
+			                                       ,ing_descripcion
+			                                       ,SUM(peso_teorico) AS peso
+			                                       ,SUM(numvacas)     AS vacas
+			                                FROM
+			                                (
+				                                SELECT  ran_id
+				                                       ,ing_clave
+				                                       ,ing_descripcion
+				                                       ,peso_teorico
+				                                       ,numvacas
+				                                FROM racionTeorico
+				                                WHERE ran_id = @rancho
+				                                AND rac_fecha = @fecha
+				                                AND CONVERT(int, SUBSTRING(racion_descripcion, 3, 2)) IN (@etapa)
+				                                AND ing_clave = '' 
+			                                ) otro
+			                                GROUP BY  ran_id
+			                                         ,ing_descripcion
+			                                         ,ing_clave
+		                                ) Teorico
+		                                GROUP BY  ran_id
+		                                         ,ing_clave
+		                                         ,ing_descripcion
+	                                ) Teorico
+	                                LEFT JOIN
+	                                (
+		                                SELECT  ran_id
+		                                       ,@campo AS Vacas
+		                                FROM inventario_afi
+		                                WHERE ia_fecha = @fecha
+		                                AND ran_id = @rancho
+	                                ) vacas
+	                                ON Teorico.ran_id = vacas.ran_id
+                                    LEFT JOIN HISTORIAL_INGREDIENTE hi 
+	                                on hi.ran_id = Teorico.ran_id AND hi.ing_clave = Teorico.ing_clave AND hi.ing_descripcion = Teorico.ing_descripcion AND hi.hi_fecha = @fecha
+	                                LEFT JOIN
+	                                (
+		                                SELECT  Costos.ArticuloCve
+		                                       ,IIF(SUM(Costos.Existencia) > 0 ,SUM((Costos.Existencia * Costos.Costo)) / SUM(Costos.Existencia),0) AS Costo
+		                                FROM
+		                                (
+			                                SELECT  a.ran_id
+			                                       ,ci.ArticuloCve
+			                                       ,IIF(ci.Existencia = 0,1,ci.Existencia) AS Existencia
+			                                       ,ci.Costo
+			                                       ,ci.Fecha
+			                                FROM DBALIMENTO.dbo.costo_ingrediente_h ci
+			                                LEFT JOIN DBSIE.dbo.almacen a
+			                                ON ci.AlmacenCve = a.alm_id
+			                                WHERE CONVERT(INT, FORMAT(ci.Fecha, 'yyyyMM')) = @periodo 
+		                                ) Costos
+		                                WHERE Costos.ran_id = @rancho
+		                                GROUP BY  Costos.ArticuloCve
+	                                )Costo
+	                                ON Teorico.ing_clave = Costo.ArticuloCve
+                                ) Teorico";
 				query = query.Replace("@etapa", etapa).Replace("@campo", campoInventario);
-
 				bd.Conectar();
 				bd.CrearComando(query, tipoComando.query);
 				bd.AsignarParametro("@rancho", ranId);
@@ -284,6 +193,33 @@ namespace ReportePeriodo.Modelo
 				bd.AsignarParametro("@fechaRacionIni", fecha.AddHours(horaCorte));
 				bd.AsignarParametro("@fechaRacionFin", fecha.AddHours(24 + horaCorte));
 				DataTable dt = bd.EjecutarConsultaTabla();
+				*/
+                #endregion
+				string query = QueryIndicadorTeorico(fecha, fechaEvaluacionQuery);
+				query = query.Replace("@etapa", etapa);
+
+				bd.Conectar();
+
+				DataTable dt = new DataTable();
+				if (fecha >= fechaEvaluacionQuery)
+				{
+					bd.CrearComando(query, tipoComando.query);
+					bd.AsignarParametro("@rancho", ranId);
+					bd.AsignarParametro("@fecha", fecha);
+					bd.AsignarParametro("@periodo", Convert.ToInt32(fecha.ToString("yyyyMM")));
+					dt = bd.EjecutarConsultaTabla();
+				}
+				else 
+				{
+					query = query.Replace("@campo", campoInventario);
+					bd.CrearComando(query, tipoComando.query);
+					bd.AsignarParametro("@rancho", ranId);
+					bd.AsignarParametro("@periodo", Convert.ToInt32(fecha.ToString("yyyyMM")));
+					bd.AsignarParametro("@fecha", fecha);
+					bd.AsignarParametro("@fechaRacionIni", fecha.AddHours(horaCorte));
+					bd.AsignarParametro("@fechaRacionFin", fecha.AddHours(24 + horaCorte));
+					dt = bd.EjecutarConsultaTabla();
+				}
 
 				if (dt.Rows.Count > 0)
 				{
@@ -540,9 +476,7 @@ namespace ReportePeriodo.Modelo
 			List<DateTime> listaFechas = ListaFechas(fechaIni, fechaFin);
 
 			foreach (DateTime fecha in listaFechas)
-			{
-				GTH.GenerarCargaPremezcla(ranId.ToString(), "10,11,12,13,21,22,31,32,33,34", horaCorte, fecha, fecha, ref mensaje);
-				
+			{								
 				DatosTeorico produccion = DatosTeorico(ranId, horaCorte, "10,11,12,13", fecha ,ref mensaje);
 				DatosTeorico secas = DatosTeorico(ranId, horaCorte, "21", fecha, ref mensaje);
 				DatosTeorico reto = DatosTeorico(ranId, horaCorte, "22", fecha, ref mensaje);
@@ -731,5 +665,237 @@ namespace ReportePeriodo.Modelo
 			int julianday = ts.Days + 2;
 			return julianday;
 		}
+
+		private string QueryIndicadorTeorico(DateTime fecha, DateTime fechaEvaluacion)
+		{
+			string query = @"";
+
+			if (fecha >= fechaEvaluacion)
+			{
+				query = @"WITH Teorico AS (
+	                        SELECT  ran_id	AS Rancho
+			                        ,rac_fecha       AS Fecha
+			                        ,ing_display_name AS NombrePantalla
+			                        ,ing_clave       AS Clave
+			                        ,ing_descripcion AS Ingrediente
+			                        ,CASE CONVERT(int,IIF(SUBSTRING(racion_descripcion,3,1) = '6',SUBSTRING(racion_descripcion,4,2),SUBSTRING(racion_descripcion,3,2))) 
+				                        WHEN 11 THEN 10 
+				                        WHEN 12 THEN 10 
+				                        WHEN 13 THEN 10 
+				                        ELSE CONVERT(int,IIF(SUBSTRING(racion_descripcion,3,1) = '6',SUBSTRING(racion_descripcion,4,2),SUBSTRING(racion_descripcion,3,2))) 
+			                         END AS Etapa
+			                        ,peso * numvacas AS MH
+	                        FROM racionTeorico
+	                        WHERE rac_fecha  = @fecha
+	                        AND (CONVERT(int, SUBSTRING(racion_descripcion, 3, 2)) IN (@etapa) OR CONVERT(int, SUBSTRING(racion_descripcion, 4, 2)) IN (@etapa))
+	                        AND ran_id = @rancho
+                        ), Inventario AS (
+	                        SELECT  ran_id					 AS Rancho
+			                        ,ia_fecha                AS Fecha
+			                        ,ia_vacas_ord            AS ORDEÑO
+			                        ,ia_vacas_secas          AS SECAS
+			                        ,(ia_vqreto + ia_vcreto) AS RETO
+			                        ,ia_jaulas               AS JAULAS
+			                        ,ia_destetadas           AS CRECIMIENTO
+			                        ,ia_destetadas2          AS DESARROLLO
+			                        ,ia_vaquillas            AS VAQUILLAS
+	                        FROM inventario_afi
+	                        WHERE ia_fecha = @fecha
+	                        AND ran_id = @rancho
+                        ), IngredienteH AS (
+	                        SELECT ran_id AS Rancho
+			                        ,hi_fecha AS Fecha
+			                        ,ing_display_name AS NombrePantalla
+			                        ,ing_clave AS Clave	
+			                        ,ing_porcentaje_ms AS PorcMS
+	                        FROM HISTORIAL_INGREDIENTE
+	                        WHERE hi_fecha = @fecha
+                                    AND ran_id = @rancho
+                        ), Precio AS (
+	                        SELECT	Costos.ran_id AS Rancho
+			                        ,Costos.ArticuloCve
+			                        ,IIF(SUM(Costos.Existencia) > 0 ,SUM((Costos.Existencia * Costos.Costo)) / SUM(Costos.Existencia),0) AS Costo
+	                        FROM
+	                        (
+		                        SELECT  a.ran_id
+				                        ,ci.ArticuloCve
+				                        ,IIF(ci.Existencia = 0,1,ci.Existencia) AS Existencia
+				                        ,ci.Costo
+				                        ,ci.Fecha
+		                        FROM DBALIMENTO.dbo.costo_ingrediente_h ci
+		                        LEFT JOIN DBSIE.dbo.almacen a
+		                        ON ci.AlmacenCve = a.alm_id
+		                        WHERE CONVERT(INT, FORMAT(ci.Fecha, 'yyyyMM')) = @periodo
+	                        ) Costos
+	                        WHERE Costos.ran_id = @rancho
+	                        GROUP BY  Costos.ran_id, Costos.ArticuloCve
+                        )
+                        SELECT ROUND(SUM(MH),5) AS MH
+	                        , ROUND(SUM(MS),5) AS MS
+	                        , ROUND(IIF(SUM(MH) > 0 , SUM(MS) / SUM(MH) * 100, 0), 5) AS PorcMs
+	                        , ROUND(SUM(Precio),5) AS Costo
+	                        , ROUND(IIF( SUM(MS) > 0, SUM(Precio) / SUM(MS), 0), 5) AS KgMs
+                        FROM (
+	                        SELECT IIF(Vacas > 0, MH / Vacas, 0) AS MH
+		                         , IIF(Vacas > 0, (MH * Pms / 100) / Vacas, 0) AS MS
+		                         , IIF(Vacas > 0, MH / Vacas, 0) * precio AS Precio
+	                        FROM (
+		                        SELECT t.Clave
+			                        , t.Ingrediente
+			                        , t.MH
+			                        , ISNULL(i.PorcMS,0) AS Pms
+			                        , ISNULL(p.Costo,0) AS Precio
+			                        , Case t.Etapa
+				                        WHEN 10 THEN ISNULL(inv.ORDEÑO, 0)
+				                        WHEN 21 THEN ISNULL(inv.SECAS, 0)
+				                        WHEN 22 THEN ISNULL(inv.RETO, 0)
+				                        WHEN 31 THEN ISNULL(inv.JAULAS, 0)
+				                        WHEN 32 THEN ISNULL(inv.CRECIMIENTO, 0)
+				                        WHEN 33 THEN ISNULL(inv.DESARROLLO, 0)
+				                        WHEN 34 THEN ISNULL(inv.VAQUILLAS, 0)
+				                        ELSE 0
+				                        END AS Vacas
+		                        FROM Teorico t 
+		                        LEFT JOIN IngredienteH i on t.Rancho = i.Rancho AND t.NombrePantalla = i.NombrePantalla AND t.Fecha = i.Fecha AND t.Clave = i.Clave
+		                        LEFT JOIN Precio p on t.Clave = p.ArticuloCve AND t.Rancho = p.Rancho
+		                        LEFT JOIN Inventario inv ON t.Rancho = inv.Rancho AND inv.Fecha = t.Fecha
+	                        ) Datos
+                        )Indicador";
+			}
+			else
+			{
+				query = @"SELECT  ROUND(SUM(MH),5)                                  AS MH
+                                       ,ROUND(SUM(MS),5)                                  AS MS
+                                       ,ROUND(IIF(SUM(MH) > 0,SUM(MS)/SUM(MH) * 100,0),5) AS PorcMs
+                                       ,ROUND(SUM(COSTO),5)                               AS Costo
+                                       ,ROUND(IIF(SUM(MS) > 0,SUM(COSTO)/ SUM(MS),0),5)   AS kgMS
+                                FROM
+                                (
+	                                SELECT  Teorico.ing_clave
+	                                       ,Teorico.ing_descripcion
+	                                       ,IIF(vacas > 0,peso / vacas,0 )                           AS MH
+	                                       ,(IIF(vacas > 0,peso / vacas,0 ) * ISNULL(hi.ing_porcentaje_ms,0) /100) AS MS
+	                                       ,IIF(vacas > 0,peso / vacas,0 ) * ISNULL(Costo.Costo,0)   AS COSTO
+	                                FROM
+	                                (
+		                                SELECT  ran_id
+		                                       ,ing_clave
+		                                       ,ing_descripcion
+		                                       ,SUM(peso_teorico) AS Peso
+		                                FROM
+		                                (
+			                                SELECT  ran_id
+			                                       ,ing_clave
+			                                       ,ing_descripcion
+			                                       ,peso_teorico
+			                                       ,numvacas
+			                                FROM racionTeorico
+			                                WHERE ran_id = @rancho
+			                                AND rac_fecha = @fecha
+			                                AND CONVERT(int, SUBSTRING(racion_descripcion, 3, 2)) IN (@etapa)
+			                                AND ing_clave <> ''
+			                                UNION
+			                                SELECT  ran_id
+			                                       ,ing_clave
+			                                       ,ing_descripcion
+			                                       ,rac_mh
+			                                       ,vacas
+			                                FROM
+			                                (
+				                                SELECT  polvo.*
+				                                       ,Case etp_id 
+                                                            WHEN 11 THEN (ia_lactancia1 - ia_vacassecasl1) 
+                                                            WHEN 12 THEN (ia_lactancia2 - ia_vacassecasl2) 
+                                                            WHEN 13 THEN ((ia_lactancia3 + ia_lactancia4) - (ia_vacassecasl4 + ia_vacassecasl4)) 
+                                                            WHEN 21 THEN ia_vacas_secas 
+                                                            WHEN 22 THEN (ia_vqreto + ia_vcreto) 
+                                                            WHEN 31 THEN ia_jaulas 
+                                                            WHEN 32 THEN ia_destetadas 
+                                                            WHEN 33 THEN ia_destetadas2 
+                                                            WHEN 34 THEN ia_vaquillas 
+                                                        ELSE 0 End AS vacas
+				                                FROM
+				                                (
+					                                SELECT  *
+					                                FROM racion
+					                                WHERE ran_id = @rancho
+					                                AND ing_polvo = 1
+					                                AND rac_fecha >= @fechaRacionIni
+					                                AND rac_fecha < @fechaRacionFin 
+				                                )polvo
+				                                LEFT JOIN
+				                                (
+					                                SELECT  *
+					                                FROM inventario_afi
+					                                WHERE ia_fecha = @fecha
+					                                AND ran_id = @rancho
+				                                ) inventario
+				                                ON polvo.ran_id = inventario.ran_id
+			                                ) polvo
+			                                WHERE etp_id IN (@etapa)
+			                                UNION
+			                                SELECT  ran_id
+			                                       ,ing_clave
+			                                       ,ing_descripcion
+			                                       ,SUM(peso_teorico) AS peso
+			                                       ,SUM(numvacas)     AS vacas
+			                                FROM
+			                                (
+				                                SELECT  ran_id
+				                                       ,ing_clave
+				                                       ,ing_descripcion
+				                                       ,peso_teorico
+				                                       ,numvacas
+				                                FROM racionTeorico
+				                                WHERE ran_id = @rancho
+				                                AND rac_fecha = @fecha
+				                                AND CONVERT(int, SUBSTRING(racion_descripcion, 3, 2)) IN (@etapa)
+				                                AND ing_clave = '' 
+			                                ) otro
+			                                GROUP BY  ran_id
+			                                         ,ing_descripcion
+			                                         ,ing_clave
+		                                ) Teorico
+		                                GROUP BY  ran_id
+		                                         ,ing_clave
+		                                         ,ing_descripcion
+	                                ) Teorico
+	                                LEFT JOIN
+	                                (
+		                                SELECT  ran_id
+		                                       ,@campo AS Vacas
+		                                FROM inventario_afi
+		                                WHERE ia_fecha = @fecha
+		                                AND ran_id = @rancho
+	                                ) vacas
+	                                ON Teorico.ran_id = vacas.ran_id
+                                    LEFT JOIN HISTORIAL_INGREDIENTE hi 
+	                                on hi.ran_id = Teorico.ran_id AND hi.ing_clave = Teorico.ing_clave AND hi.ing_descripcion = Teorico.ing_descripcion AND hi.hi_fecha = @fecha
+	                                LEFT JOIN
+	                                (
+		                                SELECT  Costos.ArticuloCve
+		                                       ,IIF(SUM(Costos.Existencia) > 0 ,SUM((Costos.Existencia * Costos.Costo)) / SUM(Costos.Existencia),0) AS Costo
+		                                FROM
+		                                (
+			                                SELECT  a.ran_id
+			                                       ,ci.ArticuloCve
+			                                       ,IIF(ci.Existencia = 0,1,ci.Existencia) AS Existencia
+			                                       ,ci.Costo
+			                                       ,ci.Fecha
+			                                FROM DBALIMENTO.dbo.costo_ingrediente_h ci
+			                                LEFT JOIN DBSIE.dbo.almacen a
+			                                ON ci.AlmacenCve = a.alm_id
+			                                WHERE CONVERT(INT, FORMAT(ci.Fecha, 'yyyyMM')) = @periodo 
+		                                ) Costos
+		                                WHERE Costos.ran_id = @rancho
+		                                GROUP BY  Costos.ArticuloCve
+	                                )Costo
+	                                ON Teorico.ing_clave = Costo.ArticuloCve
+                                ) Teorico";
+			}
+
+			return query;
+		}
+
 	}
 }

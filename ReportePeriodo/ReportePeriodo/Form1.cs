@@ -136,7 +136,7 @@ namespace ReportePeriodo
         {
             monthCalendar1.Enabled = false;
             Cursor = Cursors.WaitCursor;
-            fecha_fin = monthCalendar1.SelectionRange.End;
+            fecha_fin = monthCalendar1.SelectionRange.End.Date;
             fecha_inicio = new DateTime(fecha_fin.Year, fecha_fin.Month, 1);
             fechaFinDTP = fecha_fin;
             Reporte(fecha_inicio, fecha_fin, Horas());
@@ -205,15 +205,19 @@ namespace ReportePeriodo
         {
             DateTime AñoParaElReporte = inicio;
             GetInfo(origen);
-            fecha_fin = monthCalendar1.SelectionRange.End;
-            fecha_inicio = new DateTime(fecha_fin.Year, fecha_fin.Month, 1);
+            DateTime fecha_inicioAux = inicio;
+            DateTime fecha_finAux = fin;
+            fecha_inicio = fecha_inicioAux;
+            fecha_fin = fecha_finAux;
+            //fecha_fin = monthCalendar1.SelectionRange.End;
+            //fecha_inicio = new DateTime(fecha_fin.Year, fecha_fin.Month, 1);
 
             double dec1 = 0, dec2 = 0, dec3 = 0, _ContadorDec1 = 0, _ContadorDec2 = 0, _ContadorDec3 = 0;
             int dif = 24 + horas, _vacasAux = 0, _vaquillasAux = 0; ;
-            int julianaI = ConvertToJulian(inicio);
-            int julianaF = ConvertToJulian(fin);
-            int _FechaFinalEnJulianaAñoAnt = ConvertToJulian(fecha_fin.AddYears(-1));
-            int _FechaInicialEnJulianaAñoAnt = ConvertToJulian(fecha_inicio.AddYears(-1));
+            int julianaI = ConvertToJulian(fecha_inicioAux);
+            int julianaF = ConvertToJulian(fecha_finAux);
+            int _FechaFinalEnJulianaAñoAnt = ConvertToJulian(fecha_finAux.AddYears(-1));
+            int _FechaInicialEnJulianaAñoAnt = ConvertToJulian(fecha_inicioAux.AddYears(-1));
             string _Novillas = "TOTAL VAQUILLAS: ", _Vacas = "TOTAL VACAS: ";
             inicio = horas != 0 ? inicio.AddHours(horas) : inicio;
             fin = horas != 0 ? fin = fin.AddHours(dif) : fin;
@@ -231,7 +235,7 @@ namespace ReportePeriodo
             }
             if (fin >= new DateTime(2021, 01, 01))
             {
-                ValoresReporteDiarioProduccion(inicio, fin, dtH1);
+                ValoresReporteDiarioProduccion(fecha_inicioAux, fecha_finAux, dtH1);
                 //ValoresReporteDiarioProduccion(inicio.AddYears(-1), fin.AddYears(-1), dtH1AUX); /*(Descomentar en tres meses 17 / 12 / 2021)*/
             }
 
@@ -337,7 +341,7 @@ namespace ReportePeriodo
             //{
             if (fin >= new DateTime(2021, 01, 01))
             {
-                ValoresReporteDiarioHojaDos(inicio, fin, dtH2);
+                ValoresReporteDiarioHojaDos(fecha_inicioAux, fecha_finAux, dtH2);
                 //ValoresReporteDiarioHojaDos(inicio.AddYears(-1), fin.AddYears(-1), dtH2AUX); /*(Descomentar en tres meses 17 / 12 / 2021)*/
             }
             //}
@@ -4328,7 +4332,7 @@ namespace ReportePeriodo
             List<bendiciones.ReportePeriodo> listaAlimento = new List<bendiciones.ReportePeriodo>();
             List<bendiciones.ReportePeriodo> listaAgua = new List<bendiciones.ReportePeriodo>();
             bendiciones.IndicadorReportePeriodo indicadores = new bendiciones.IndicadorReportePeriodo();
-            GTH.ReportePeriodo(ran_id.ToString(), horas, "10,11,12,13", Finicio.AddDays(1).Date, FFinal.Date, out listaIngredientes, out indicadores, out sobrante);
+            GTH.ReportePeriodo(ran_id.ToString(), horas, "10,11,12,13", Finicio.Date, FFinal.Date, out listaIngredientes, out indicadores, out sobrante);
 
             if (FFinal.Year == fechaFinDTP.Year)
                 prom_ordeño = indicadores;
@@ -4758,30 +4762,32 @@ namespace ReportePeriodo
 
                         if (busquedaProd.Count > 0)
                         {
+                            decimal invOrdeño = 0;
+                            decimal.TryParse(row["ORDENO"].ToString(), out invOrdeño);
                             if (row["MH"].ToString() != "")
-                                newRow["COLOR_MH"] = ColorDato(Convert.ToDecimal(row["MH"].ToString()), busquedaProd[0].MH);
+                                newRow["COLOR_MH"] = ColorDato(invOrdeño, Convert.ToDecimal(row["MH"].ToString()), busquedaProd[0].MH);
                             else
-                                newRow["COLOR_MH"] = "";
+                                newRow["COLOR_MH"] = ColorDato(invOrdeño, 0, busquedaProd[0].MH); ;
 
                             if (row["PORCMS"].ToString() != "")
-                                newRow["COLOR_PORCMS"] = ColorDato(Convert.ToDecimal(row["PORCMS"].ToString()), busquedaProd[0].PORCENTAJE_MS);
+                                newRow["COLOR_PORCMS"] = ColorDato(invOrdeño, Convert.ToDecimal(row["PORCMS"].ToString()), busquedaProd[0].PORCENTAJE_MS);
                             else
-                                newRow["COLOR_PORCMS"] = "";
+                                newRow["COLOR_PORCMS"] = ColorDato(invOrdeño, 0, busquedaProd[0].PORCENTAJE_MS);
 
                             if (row["MS"].ToString() != "")
-                                newRow["COLOR_MS"] = ColorDato(Convert.ToDecimal(row["MS"].ToString()), busquedaProd[0].MS);
+                                newRow["COLOR_MS"] = ColorDato(invOrdeño, Convert.ToDecimal(row["MS"].ToString()), busquedaProd[0].MS);
                             else
-                                newRow["COLOR_MS"] = "";
+                                newRow["COLOR_MS"] = ColorDato(invOrdeño, 0, busquedaProd[0].MS);
 
                             if (row["PRECIOPROD"].ToString() != "")
-                                newRow["COLOR_COSTOPROD"] = ColorDato(Convert.ToDecimal(row["PRECIOPROD"].ToString()), busquedaProd[0].COSTO);
+                                newRow["COLOR_COSTOPROD"] = ColorDato(invOrdeño, Convert.ToDecimal(row["PRECIOPROD"].ToString()), busquedaProd[0].COSTO);
                             else
-                                newRow["COLOR_COSTOPROD"] = "";
+                                newRow["COLOR_COSTOPROD"] = ColorDato(invOrdeño, 0, busquedaProd[0].COSTO);
 
                             if (row["PRECIOMS"].ToString() != "")
-                                newRow["COLOR_PRECIOKGMS"] = ColorDato(Convert.ToDecimal(row["PRECIOMS"].ToString()), busquedaProd[0].KGMS);
+                                newRow["COLOR_PRECIOKGMS"] = ColorDato(invOrdeño, Convert.ToDecimal(row["PRECIOMS"].ToString()), busquedaProd[0].KGMS);
                             else
-                                newRow["COLOR_PRECIOKGMS"] = "";
+                                newRow["COLOR_PRECIOKGMS"] = ColorDato(invOrdeño, 0, busquedaProd[0].KGMS);
 
                         }
                         else
@@ -4801,7 +4807,7 @@ namespace ReportePeriodo
                             if (busquedaBacteorologia[0].BACTEROLOGIA < 0.2M)
                                 newRow["COLOR_CTD"] = "#FFC9C9";
                             else
-                                newRow["COLOR_CTD"] = "##F2F2F2";
+                                newRow["COLOR_CTD"] = "#F2F2F2";
                         }
                         else
                             newRow["COLOR_CTD"] = "";
@@ -4906,11 +4912,15 @@ namespace ReportePeriodo
 
                         if (busquedaCrecimiento.Count > 0)
                         {
-                            newRow["COLOR_MH_CRECIMIENTO"] = row["MH2"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MH2"].ToString()), busquedaCrecimiento[0].MH) : "";
-                            newRow["COLOR_PORCMS_CRECIMIENTO"] = row["PORCMS2"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PORCMS2"].ToString()), busquedaCrecimiento[0].PORCENTAJE_MS) : "";
-                            newRow["COLOR_MS_CRECIMIENTO"] = row["MS2"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MS2"].ToString()), busquedaCrecimiento[0].MS) : "";
-                            newRow["COLOR_PRECIOKGMS_CRECIMIENTO"] = row["PRECIOMS2"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIOMS2"].ToString()), busquedaCrecimiento[0].KGMS) : "";
-                            newRow["COLOR_COSTO_CRECIMIENTO"] = row["PRECIO2"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIO2"].ToString()), busquedaCrecimiento[0].COSTO) : "";
+                            decimal invCrecimiento = 0; decimal valorMH2 = 0; decimal valorMS2 = 0;
+                            decimal.TryParse(row["INV2"].ToString(), out invCrecimiento);
+                            decimal.TryParse(row["MH2"].ToString(), out valorMH2);
+                            decimal.TryParse(row["MS2"].ToString(), out valorMS2);
+                            newRow["COLOR_MH_CRECIMIENTO"] = row["MH2"] != DBNull.Value ? ColorDato(invCrecimiento, valorMH2, busquedaCrecimiento[0].MH) : ColorDato(invCrecimiento, 0, busquedaCrecimiento[0].MH);
+                            newRow["COLOR_PORCMS_CRECIMIENTO"] = row["PORCMS2"] != DBNull.Value ? ColorDato(invCrecimiento, Convert.ToDecimal(row["PORCMS2"].ToString()), busquedaCrecimiento[0].PORCENTAJE_MS) : ColorDato(invCrecimiento, 0, busquedaCrecimiento[0].PORCENTAJE_MS);
+                            newRow["COLOR_MS_CRECIMIENTO"] = row["MS2"] != DBNull.Value ? ColorDato(invCrecimiento, valorMS2, busquedaCrecimiento[0].MS) : ColorDato(invCrecimiento, 0, busquedaCrecimiento[0].MS);
+                            newRow["COLOR_PRECIOKGMS_CRECIMIENTO"] = row["PRECIOMS2"] != DBNull.Value ? ColorDato(invCrecimiento, Convert.ToDecimal(row["PRECIOMS2"].ToString()), busquedaCrecimiento[0].KGMS) : ColorDato(invCrecimiento, 0, busquedaCrecimiento[0].KGMS);
+                            newRow["COLOR_COSTO_CRECIMIENTO"] = row["PRECIO2"] != DBNull.Value ? ColorDato(invCrecimiento, Convert.ToDecimal(row["PRECIO2"].ToString()), busquedaCrecimiento[0].COSTO) : ColorDato(invCrecimiento, 0, busquedaCrecimiento[0].COSTO);
                         }
                         else
                         {
@@ -4923,11 +4933,13 @@ namespace ReportePeriodo
 
                         if (busquedaDesarrollo.Count > 0)
                         {
-                            newRow["COLOR_MH_DESARROLLO"] = row["MH7"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MH7"].ToString()), busquedaDesarrollo[0].MH) : "";
-                            newRow["COLOR_PORCMS_DESARROLLO"] = row["PORCMS7"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PORCMS7"].ToString()), busquedaDesarrollo[0].PORCENTAJE_MS) : "";
-                            newRow["COLOR_MS_DESARROLLO"] = row["MS7"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MS7"].ToString()), busquedaDesarrollo[0].MS) : "";
-                            newRow["COLOR_PRECIOKGMS_DESARROLLO"] = row["PRECIOMS7"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIOMS7"].ToString()), busquedaDesarrollo[0].KGMS) : "";
-                            newRow["COLOR_COSTO_DESARROLLO"] = row["PRECIO7"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIO7"].ToString()), busquedaDesarrollo[0].COSTO) : "";
+                            decimal invDesarrollo = 0;
+                            decimal.TryParse(row["INV7"].ToString(), out invDesarrollo);
+                            newRow["COLOR_MH_DESARROLLO"] = row["MH7"] != DBNull.Value ? ColorDato(invDesarrollo, Convert.ToDecimal(row["MH7"].ToString()), busquedaDesarrollo[0].MH) : ColorDato(invDesarrollo, 0, busquedaDesarrollo[0].MH);
+                            newRow["COLOR_PORCMS_DESARROLLO"] = row["PORCMS7"] != DBNull.Value ? ColorDato(invDesarrollo, Convert.ToDecimal(row["PORCMS7"].ToString()), busquedaDesarrollo[0].PORCENTAJE_MS) : ColorDato(invDesarrollo, 0, busquedaDesarrollo[0].PORCENTAJE_MS);
+                            newRow["COLOR_MS_DESARROLLO"] = row["MS7"] != DBNull.Value ? ColorDato(invDesarrollo, Convert.ToDecimal(row["MS7"].ToString()), busquedaDesarrollo[0].MS) : ColorDato(invDesarrollo, 0, busquedaDesarrollo[0].MS);
+                            newRow["COLOR_PRECIOKGMS_DESARROLLO"] = row["PRECIOMS7"] != DBNull.Value ? ColorDato(invDesarrollo, Convert.ToDecimal(row["PRECIOMS7"].ToString()), busquedaDesarrollo[0].KGMS) : ColorDato(invDesarrollo, 0, busquedaDesarrollo[0].KGMS);
+                            newRow["COLOR_COSTO_DESARROLLO"] = row["PRECIO7"] != DBNull.Value ? ColorDato(invDesarrollo, Convert.ToDecimal(row["PRECIO7"].ToString()), busquedaDesarrollo[0].COSTO) : ColorDato(invDesarrollo, 0, busquedaDesarrollo[0].COSTO);
                         }
                         else
                         {
@@ -4940,11 +4952,13 @@ namespace ReportePeriodo
 
                         if (busquedaVaquillas.Count > 0)
                         {
-                            newRow["COLOR_MH_VAQUILLAS"] = row["MH13"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MH13"].ToString()), busquedaVaquillas[0].MH) : "";
-                            newRow["COLOR_PORCMS_VAQUILLAS"] = row["PORCMS13"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PORCMS13"].ToString()), busquedaVaquillas[0].PORCENTAJE_MS) : "";
-                            newRow["COLOR_MS_VAQUILLAS"] = row["MS13"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MS13"].ToString()), busquedaVaquillas[0].MS) : "";
-                            newRow["COLOR_PRECIOKGMS_VAQUILLAS"] = row["PRECIOMS13"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIOMS13"].ToString()), busquedaVaquillas[0].KGMS) : "";
-                            newRow["COLOR_COSTO_VAQUILLAS"] = row["PRECIO13"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIO13"].ToString()), busquedaVaquillas[0].COSTO) : "";
+                            decimal invVaquillas = 0;
+                            decimal.TryParse(row["INV13"].ToString(), out invVaquillas);
+                            newRow["COLOR_MH_VAQUILLAS"] = row["MH13"] != DBNull.Value ? ColorDato(invVaquillas, Convert.ToDecimal(row["MH13"].ToString()), busquedaVaquillas[0].MH) : ColorDato(invVaquillas, 0, busquedaVaquillas[0].MH);
+                            newRow["COLOR_PORCMS_VAQUILLAS"] = row["PORCMS13"] != DBNull.Value ? ColorDato(invVaquillas, Convert.ToDecimal(row["PORCMS13"].ToString()), busquedaVaquillas[0].PORCENTAJE_MS) : ColorDato(invVaquillas, 0, busquedaVaquillas[0].PORCENTAJE_MS);
+                            newRow["COLOR_MS_VAQUILLAS"] = row["MS13"] != DBNull.Value ? ColorDato(invVaquillas, Convert.ToDecimal(row["MS13"].ToString()), busquedaVaquillas[0].MS) : ColorDato(invVaquillas, 0, busquedaVaquillas[0].MS);
+                            newRow["COLOR_PRECIOKGMS_VAQUILLAS"] = row["PRECIOMS13"] != DBNull.Value ? ColorDato(invVaquillas, Convert.ToDecimal(row["PRECIOMS13"].ToString()), busquedaVaquillas[0].KGMS) : ColorDato(invVaquillas, 0, busquedaVaquillas[0].KGMS);
+                            newRow["COLOR_COSTO_VAQUILLAS"] = row["PRECIO13"] != DBNull.Value ? ColorDato(invVaquillas, Convert.ToDecimal(row["PRECIO13"].ToString()), busquedaVaquillas[0].COSTO) : ColorDato(invVaquillas, 0, busquedaVaquillas[0].COSTO);
                         }
                         else
                         {
@@ -4957,11 +4971,13 @@ namespace ReportePeriodo
 
                         if (busquedaSecas.Count > 0)
                         {
-                            newRow["COLOR_MH_SECAS"] = row["MHSECAS"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MHSECAS"].ToString()), busquedaSecas[0].MH) : "";
-                            newRow["COLOR_PORCMS_SECAS"] = row["PORCMSSECAS"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PORCMSSECAS"].ToString()), busquedaSecas[0].PORCENTAJE_MS) : "";
-                            newRow["COLOR_MS_SECAS"] = row["MSSECAS"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MSSECAS"].ToString()), busquedaSecas[0].MS) : "";
-                            newRow["COLOR_PRECIOKGMS_SECAS"] = row["PRECIOMSSECAS"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIOMSSECAS"].ToString()), busquedaSecas[0].KGMS) : "";
-                            newRow["COLOR_COSTO_SECAS"] = row["PRECIOSECAS"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIOSECAS"].ToString()), busquedaSecas[0].COSTO) : "";
+                            decimal invSecas = 0;
+                            decimal.TryParse(row["INVSECAS"].ToString(), out invSecas);
+                            newRow["COLOR_MH_SECAS"] = row["MHSECAS"] != DBNull.Value ? ColorDato(invSecas, Convert.ToDecimal(row["MHSECAS"].ToString()), busquedaSecas[0].MH) : ColorDato(invSecas, 0, busquedaSecas[0].MH);
+                            newRow["COLOR_PORCMS_SECAS"] = row["PORCMSSECAS"] != DBNull.Value ? ColorDato(invSecas, Convert.ToDecimal(row["PORCMSSECAS"].ToString()), busquedaSecas[0].PORCENTAJE_MS) : ColorDato(invSecas,0, busquedaSecas[0].PORCENTAJE_MS);
+                            newRow["COLOR_MS_SECAS"] = row["MSSECAS"] != DBNull.Value ? ColorDato(invSecas, Convert.ToDecimal(row["MSSECAS"].ToString()), busquedaSecas[0].MS) : ColorDato(invSecas, 0, busquedaSecas[0].MS);
+                            newRow["COLOR_PRECIOKGMS_SECAS"] = row["PRECIOMSSECAS"] != DBNull.Value ? ColorDato(invSecas, Convert.ToDecimal(row["PRECIOMSSECAS"].ToString()), busquedaSecas[0].KGMS) : ColorDato(invSecas, 0, busquedaSecas[0].KGMS);
+                            newRow["COLOR_COSTO_SECAS"] = row["PRECIOSECAS"] != DBNull.Value ? ColorDato(invSecas, Convert.ToDecimal(row["PRECIOSECAS"].ToString()), busquedaSecas[0].COSTO) : ColorDato(invSecas, 0, busquedaSecas[0].COSTO);
                         }
                         else
                         {
@@ -4974,11 +4990,13 @@ namespace ReportePeriodo
 
                         if (busquedaReto.Count > 0)
                         {
-                            newRow["COLOR_MH_RETO"] = row["MHRETO"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MHRETO"].ToString()), busquedaReto[0].MH) : "";
-                            newRow["COLOR_PORCMS_RETO"] = row["PORCMSRETO"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PORCMSRETO"].ToString()), busquedaReto[0].PORCENTAJE_MS) : "";
-                            newRow["COLOR_MS_RETO"] = row["MSRETO"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["MSRETO"].ToString()), busquedaReto[0].MS) : "";
-                            newRow["COLOR_PRECIOKGMS_RETO"] = row["PRECIOMSRETO"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIOMSRETO"].ToString()), busquedaReto[0].KGMS) : "";
-                            newRow["COLOR_COSTO_RETO"] = row["PRECIORETO"] != DBNull.Value ? ColorDato(Convert.ToDecimal(row["PRECIORETO"].ToString()), busquedaReto[0].COSTO) : "";
+                            decimal invReto = 0;
+                            decimal.TryParse(row["INVRETO"].ToString(), out invReto);
+                            newRow["COLOR_MH_RETO"] = row["MHRETO"] != DBNull.Value ? ColorDato(invReto, Convert.ToDecimal(row["MHRETO"].ToString()), busquedaReto[0].MH) : ColorDato(invReto, 0, busquedaReto[0].MH);
+                            newRow["COLOR_PORCMS_RETO"] = row["PORCMSRETO"] != DBNull.Value ? ColorDato(invReto, Convert.ToDecimal(row["PORCMSRETO"].ToString()), busquedaReto[0].PORCENTAJE_MS) : ColorDato(invReto, 0, busquedaReto[0].PORCENTAJE_MS);
+                            newRow["COLOR_MS_RETO"] = row["MSRETO"] != DBNull.Value ? ColorDato(invReto, Convert.ToDecimal(row["MSRETO"].ToString()), busquedaReto[0].MS) : ColorDato(invReto, 0, busquedaReto[0].MS);
+                            newRow["COLOR_PRECIOKGMS_RETO"] = row["PRECIOMSRETO"] != DBNull.Value ? ColorDato(invReto, Convert.ToDecimal(row["PRECIOMSRETO"].ToString()), busquedaReto[0].KGMS) : ColorDato(invReto, 0, busquedaReto[0].KGMS);
+                            newRow["COLOR_COSTO_RETO"] = row["PRECIORETO"] != DBNull.Value ? ColorDato(invReto, Convert.ToDecimal(row["PRECIORETO"].ToString()), busquedaReto[0].COSTO) : ColorDato(invReto, 0, busquedaReto[0].COSTO);
                         }
                         else
                         {
@@ -5151,7 +5169,7 @@ namespace ReportePeriodo
             return color;
         }
 
-        private string ColorDato(decimal valor, decimal promedio)
+        private string ColorDato(decimal inventario, decimal valor, decimal promedio)
         {
             string color = "";
 
@@ -5182,6 +5200,10 @@ namespace ReportePeriodo
                         color = "#FFC9C9";
                         break;
                 }
+            }
+            else if (inventario != 0)
+            {
+                color = "#FFC9C9";
             }
 
             return color;
