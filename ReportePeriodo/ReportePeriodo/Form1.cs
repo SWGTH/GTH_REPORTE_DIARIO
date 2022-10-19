@@ -53,6 +53,7 @@ namespace ReportePeriodo
         DatosProduccion datosProd;
         Utilidad utilidad;
         List<LecheBacteriologia> listaBacteriologia;
+        bool noIdReal;
 
         public Form1()
         {
@@ -73,6 +74,7 @@ namespace ReportePeriodo
             timeShifTracker = 0;
             utilidad = new Utilidad();
             listaBacteriologia = new List<LecheBacteriologia>();
+            noIdReal = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -80,6 +82,7 @@ namespace ReportePeriodo
             conn.Iniciar();
             ran_id = conn.GetRancho();
             pesadores = conn.GetPesadores();
+
             //ran_sie = conn.RanchoSie(ran_id); Descomentar en caso de emergencia 
             monthCalendar1.Cursor = Cursors.Hand;
             int _fecha;
@@ -99,7 +102,9 @@ namespace ReportePeriodo
             dtmin = dtmin.AddDays(-2);
             monthCalendar1.MinDate = dtmin;
 
+            string mensaje = string.Empty;
             origen = Convert.ToBoolean(ConfigurationManager.AppSettings["origen"]);
+            noIdReal = controlador1.NoIdReal(ref mensaje);
             if (origen)
             {
                 fecha_inicio = new DateTime(DateTime.Now.Date.Year, DateTime.Now.Date.Month, 1);
@@ -108,7 +113,7 @@ namespace ReportePeriodo
                     File.Delete(@"C:\MOVGANADOAUT\Reportes SIO\DIA.pdf");
                 }
                 fechaFinDTP = DateTime.Today;
-                Reporte(fecha_inicio, DateTime.Now.Date, Horas());
+                Reporte(fecha_inicio, DateTime.Now.Date, Horas(), noIdReal);
                 Close();
             }
 
@@ -139,7 +144,8 @@ namespace ReportePeriodo
             fecha_fin = monthCalendar1.SelectionRange.End.Date;
             fecha_inicio = new DateTime(fecha_fin.Year, fecha_fin.Month, 1);
             fechaFinDTP = fecha_fin;
-            Reporte(fecha_inicio, fecha_fin, Horas());
+            //bool noidReal = checkNodReal.Checked;
+            Reporte(fecha_inicio, fecha_fin, Horas(), noIdReal);
             Cursor = Cursors.Default;
             Close();
         }
@@ -201,7 +207,7 @@ namespace ReportePeriodo
             ruta = dt.Rows.Count > 0 ? dt.Rows[0][0] != DBNull.Value ? dt.Rows[0][0].ToString() : string.Empty : string.Empty;
         }
 
-        private void Reporte(DateTime inicio, DateTime fin, int horas)
+        private void Reporte(DateTime inicio, DateTime fin, int horas, bool noIdReal)
         {
             DateTime AñoParaElReporte = inicio;
             GetInfo(origen);
@@ -222,10 +228,17 @@ namespace ReportePeriodo
             inicio = horas != 0 ? inicio.AddHours(horas) : inicio;
             fin = horas != 0 ? fin = fin.AddHours(dif) : fin;
             DataTable dtH1, dtH2, dtH2AUX, dtH1AUX;
+            bool validacionAlimento = true;
+            bool validacionMedicina = true;
+            DateTime hoyValida = DateTime.Today;
 
-            Hoja1(julianaI, julianaF, out dtH1);
+            if (hoyValida.Year == fecha_finAux.Year && hoyValida.Month == fecha_finAux.Month)
+                controlador1.CierreMesCorrecto(ran_id, horas, fecha_inicioAux, fecha_finAux, out validacionMedicina, out validacionAlimento);
+
+
+            Hoja1(julianaI, julianaF, noIdReal, out dtH1);
             //Se saca una segunda tabla de la primera hoja para poder sacar los ultimos renglones 
-            Hoja1(_FechaInicialEnJulianaAñoAnt, _FechaFinalEnJulianaAñoAnt, out dtH1AUX);
+            Hoja1(_FechaInicialEnJulianaAñoAnt, _FechaFinalEnJulianaAñoAnt, noIdReal, out dtH1AUX);
 
             //if (ran_id != 33 && ran_id != 39)// validamos que no sea ni covadonga ni la cañada ya que busca valores de SQL
             //{
@@ -409,10 +422,12 @@ namespace ReportePeriodo
             DtEstablo.Columns.Add("ESTABLO").DataType = System.Type.GetType("System.String");
             string query = "select t2.nombre from RANCHOLOCAL t1, ranchos t2 where t1.RanchoLocal = t2.clave";
             conn.QueryMovsio(query, out DtEstablo);
-            double precioBase = 7.395;
+            double precioBase = 8.895;
 
             //Ajuste para saber el precio de la leche dependiendo si es del mes actual o meses pasados
             DateTime FechaReferencia = DateTime.Today;
+            string validacionesVisibles = "";
+
             if (FechaReferencia.Month == inicio.AddDays(1).Month && FechaReferencia.Year == inicio.Year)
             {
                 DataTable dtPrecioLeche = new DataTable();
@@ -431,6 +446,7 @@ namespace ReportePeriodo
                 {
                     precioBase = Convert.ToDouble(dtPrecioLeche.Rows[0]["PRECIOUSUARIO"]);
                 }
+                validacionesVisibles = "si";
             }
             else
             {
@@ -441,6 +457,7 @@ namespace ReportePeriodo
                 bendiciones.IndicadorReportePeriodo indicadoresProduccion = new bendiciones.IndicadorReportePeriodo();
                 GTH.ReportePeriodo(ran_id.ToString(), horas, "10,11,12,13", inicio.Date, fin.Date, out listaIngredientes, out indicadoresProduccion, out sobrante);
                 precioBase = (indicadoresProduccion.IC_PRODUCCION + indicadoresProduccion.COSTO) / indicadoresProduccion.MEDIA;
+                validacionesVisibles = "no";
             }
 
             Console.WriteLine("Ordeño: " + prom_ordeño.MS.ToString());
@@ -451,7 +468,8 @@ namespace ReportePeriodo
             Console.WriteLine("Vaquillas: " + prom_vquillas.MS.ToString());
 
             string[] meses = new string[] { "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE" };
-            ReportParameter[] parameters = new ReportParameter[8];
+            string tituloNoid = noIdReal ? "N° ID" : "N° ID + FE";
+            ReportParameter[] parameters = new ReportParameter[12];
             parameters[0] = new ReportParameter("EMPRESA", Convert.ToString(DtEstablo.Rows[0][0]), true);
             parameters[1] = new ReportParameter("MES", meses[fin.Month - 1] + " " + AñoParaElReporte.Year.ToString(), true);
             parameters[2] = new ReportParameter("DEC_UNO", dec1.ToString(), true);
@@ -460,6 +478,10 @@ namespace ReportePeriodo
             parameters[5] = new ReportParameter("NOVILLAS", _Novillas.ToString(), true);
             parameters[6] = new ReportParameter("VACAS", _Vacas.ToString(), true);
             parameters[7] = new ReportParameter("PRECIO_LECHE", "VENTA (PRECIO DE LA LECHE: " + precioBase.ToString("C3") + ")", true);
+            parameters[8] = new ReportParameter("TITULONOID", tituloNoid, true);
+            parameters[9] = new ReportParameter("VALIDACIONALIMENTO", validacionAlimento ? "si" : "no");
+            parameters[10] = new ReportParameter("VALIDACIONMEDICINA", validacionMedicina ? "si" : "no");
+            parameters[11] = new ReportParameter("VALIDACIONESVISIBLES", validacionesVisibles);
 
             LlenarListas(fecha_inicio, fecha_fin, horas);
             string mensaje = string.Empty;
@@ -892,7 +914,7 @@ namespace ReportePeriodo
             }
 
         }
-        private void Hoja1(int julianaI, int julianaF, out DataTable dt)
+        private void Hoja1(int julianaI, int julianaF, bool noIdReal, out DataTable dt)
         {
             //if (ran_id != 33 && ran_id != 39)// si es covadonga o cañada nos quedamos con las fechas dadas por el calendario 
             //{
@@ -900,6 +922,8 @@ namespace ReportePeriodo
             //}
             ColumnasDTH1(out dt);
             DataTable dtA;
+            #region query 
+            /*
             string query = @"SELECT  CDATE(T2.FECHA)
                                        ,IIF(T2.TOTAL = NULL, 0 ,T2.TOTAL)
                                        ,T2.ORDEÑO
@@ -1131,6 +1155,9 @@ namespace ReportePeriodo
                                 LEFT JOIN PRECIOSTEORICOS p
                                 ON T2.FECHA = p.FECHA 
                                 order by T2.FECHA";
+            */
+            #endregion
+            string query = QueryHoja1(noIdReal);
             query = query.Replace("@julianaI", julianaI.ToString())
                          .Replace("@julianaF", julianaF.ToString());
             conn.QueryMovsio(query, out dtA);
@@ -1153,7 +1180,7 @@ namespace ReportePeriodo
             int[] posiciones = { 1, 2, 3, 4, 11, 12, 14, 38, 39, 40 };
             Total(dt, posiciones);
 
-            PromediosH1(dt);
+            PromediosH1(dt, noIdReal);
             DiferenciasH1(dt);
             ArrayList columnasH1 = new ArrayList();
             columnasH1.Add(17);
@@ -1205,7 +1232,483 @@ namespace ReportePeriodo
             PonderadosHoja1(dt, DtPrecioLeche);
         }
 
-        private void PromediosH1(DataTable dt)
+        private string QueryHoja1(bool noIdReal)
+        {
+            string query = "";
+
+            if (noIdReal)
+            {
+                query = @"SELECT  CDATE(T2.FECHA)
+                                       ,IIF(T2.TOTAL = NULL, 0 ,T2.TOTAL)
+                                       ,T2.ORDEÑO
+                                       ,T2.SECAS
+                                       ,T2.HATO
+                                       ,T2.PLACT
+                                       ,T2.PPROT
+                                       ,T2.UREA
+                                       ,T2.GRASA
+                                       ,T2.CCS
+                                       ,T2.CTD
+                                       ,T2.LECPROD
+                                       ,T2.ANTIB
+                                       ,T2.X
+                                       ,T2.TOTALP
+                                       ,T2.DELORD
+                                       ,T2.VACAANTIB
+                                       ,p.PRODUCCION
+                                       ,T2.ILCA
+                                       ,T2.IC
+                                       ,T1.EA
+                                       ,T1.ILCA_P
+                                       ,T2.IC_P
+                                       ,T1.L
+                                       ,T2.MH
+                                       ,T2.PMS
+                                       ,T2.MS
+                                       ,T2.SA
+                                       ,T2.MSS
+                                       ,T2.EAS
+                                       ,T2.S
+                                       ,T2.COSTO
+                                       ,T2.PRECMS
+                                       ,p.MS
+                                       ,CRIBA.criba1
+                                       ,CRIBA.criba2
+                                       ,CRIBA.criba3
+                                       ,CRIBA.criba4
+                                       ,T2.NOIDSES1
+                                       ,T2.NOIDSES2
+                                       ,T2.NOIDSES3
+                                FROM
+                                (
+                                    SELECT  T1.FECHA
+                                           , T1.TOTAL
+                                           , T1.ORDEÑO
+                                           , T1.SECAS
+                                           , T1.HATO
+                                           , T1.PLACT
+                                           , T1.PPROT
+                                           , T1.UREA
+                                           , T1.GRASA
+                                           , T1.CCS
+                                           , T1.CTD
+                                           , T1.LECPROD
+                                           , T1.ANTIB
+                                           , T1.X
+                                           , T1.TOTALP
+                                           , T1.DELORD
+                                           , T1.VACAANTIB
+                                           , T1.ILCA
+                                           , T1.IC
+                                           , T1.EA
+                                           , T1.ILCA_P
+                                           , T1.IC_P
+                                           , T1.L
+                                           , T1.MH
+                                           , T1.PMS
+                                           , T1.MS
+                                           , T1.SA
+                                           , T1.MSS
+                                           , T1.EAS
+                                           , T1.S
+                                           , T1.COSTO
+                                           , T1.PRECMS
+                                           , CRIBA.criba1
+                                           , CRIBA.criba2
+                                           , CRIBA.criba3
+                                           , CRIBA.criba4
+                                           , T1.NOIDSES1
+                                           , T1.NOIDSES2
+                                           , T1.NOIDSES3
+                                    FROM
+                                    (
+                                        SELECT  T.FECHA
+                                               , T.TOTAL
+                                               , T.ORDEÑO
+                                               , T.SECAS
+                                               , T.HATO
+                                               , T.PLACT
+                                               , T.PPROT
+                                               , T.UREA
+                                               , T.GRASA
+                                               , T.CCS
+                                               , T.CTD
+                                               , T.LECPROD
+                                               , T.ANTIB
+                                               , T.X
+                                               , T.TOTALP
+                                               , i.delord
+                                               , T.VACAANTIB
+                                               , T.ILCA
+                                               , T.IC
+                                               , T.EA
+                                               , T.ILCA_P
+                                               , T.IC_P
+                                               , IIF(T.X > 0, T.COSTO / T.X, 0)      AS L
+                                               , T.MH
+                                               , IIF(T.MH > 0, T.MS / T.MH * 100, 0) AS PMS
+                                               , T.MS
+                                               , T.SA
+                                               , T.MSS
+                                               , T.EAS
+                                               , IIF(T.MH > 0, T.SA / T.MH * 100, 0) AS S
+                                               , T.COSTO
+                                               , IIF(T.MS > 0, T.COSTO / T.MS, 0)    AS PRECMS
+                                               , T.NOIDSES1
+                                               , T.NOIDSES2
+                                               , T.NOIDSES3
+                                        FROM
+                                        (
+                                            SELECT  m.FECHA
+                                                   , (LECFEDERAL + LECPLANTA)                                                AS TOTAL
+                                                   , VACASORDEÑA                                                             AS ORDEÑO
+                                                   , VACASSECAS                                                              AS SECAS
+                                                   , VACASHATO                                                               AS HATO
+                                                   , LACTOSA                                                                 AS PLACT
+                                                   , PROTEINA                                                                AS PPROT
+                                                   , d.UREA1                                                                 AS UREA
+                                                   , d.Grasa1                                                                AS GRASA
+                                                   , d.CCS1                                                                  AS CCS
+                                                   , d.CTD1                                                                  AS CTD
+                                                   , M.LECPROD
+                                                   , M.ANTPROD                                                               AS ANTIB
+                                                   , IIF(vacasordeña > 0, ROUND((lecprod + antprod) / vacasordeña, 2), 0)    AS X
+                                                   , (M.LECPROD + M.ANTPROD)                                                 AS TOTALP
+                                                   , M.VACAANTIB
+                                                   , M.ILCA
+                                                   , M.IC
+                                                   , M.EA
+                                                   , M.ILCA_P
+                                                   , M.IC_P
+                                                   , M.COSTO
+                                                   , M.MH
+                                                   , M.MS
+                                                   , M.SA
+                                                   , M.MSS
+                                                   , M.EAS
+                                                   ,M.NOIDSES1REAL AS NOIDSES1
+			                                       ,M.NOIDSES2REAL AS NOIDSES2
+			                                       ,M.NOIDSES3REAL AS NOIDSES3
+                                            FROM MPRODUC M
+                                            LEFT JOIN
+                                            (
+                                                SELECT  RESULTADOS.FECHA
+                                                       , AVG(RESULTADOS.PROTES) AS Proteina1
+                                                       , SUM(RESULTADOS.UREAS)  AS Urea1
+                                                       , SUM(RESULTADOS.GRASAS) AS Grasa1
+                                                       , SUM(RESULTADOS.CCSS)   AS CCS1
+                                                       , SUM(RESULTADOS.CTDS)   AS CTD1
+                                                FROM
+                                                (
+                                                    SELECT  LECHEXDIA.FECHA
+                                                           , VALORES.PROTEINA                                                                        AS PROTES
+                                                           , IIF(ISNULL(LECHEXDIA.LG), NULL, (VALORES.LITROSXTANQUE / LECHEXDIA.LG) * VALORES.GRASA) AS GRASAS
+                                                           , IIF(ISNULL(LECHEXDIA.LU), NULL, (VALORES.LITROSXTANQUE / LECHEXDIA.LU) * VALORES.UREA)  AS UREAS
+                                                           , IIF(ISNULL(LECHEXDIA.LCC), NULL, (VALORES.LITROSXTANQUE / LECHEXDIA.LCC) * VALORES.CCS) AS CCSS
+                                                           , IIF(ISNULL(LECHEXDIA.LCT), NULL, (VALORES.LITROSXTANQUE / LECHEXDIA.LCT) * VALORES.CTD) AS CTDS
+                                                    FROM
+                                                    ( 
+                                                        SELECT  LITROSxDIA.DIA              AS FECHA
+                                                               , SUM(LITROSxDIA.LITROGRASA) AS LG
+                                                               , SUM(LITROSxDIA.LITROUREA)  AS LU
+                                                               , SUM(LITROSxDIA.LITROCCS)   AS LCC
+                                                               , SUM(LITROSxDIA.LITROCTS)   AS LCT
+                                                        FROM
+                                                        (
+                                                            SELECT  FECHA                        AS DIA
+                                                                   , GRASA
+                                                                   , IIF(GRASA > 0, LITROSXTANQUE) AS LITROGRASA
+                                                                   , IIF(UREA > 0, LITROSXTANQUE)  AS LITROUREA
+                                                                   , IIF(CCS > 0, LITROSXTANQUE)   AS LITROCCS
+                                                                   , IIF(CTD > 0, LITROSXTANQUE)   AS LITROCTS
+                                                            FROM dproduc
+                                                            WHERE FECHA BETWEEN  @julianaI  AND  @julianaF
+                                                            ORDER BY FECHA
+                                                        ) LITROSxDIA
+                                                        GROUP BY  LITROSxDIA.DIA
+                                                    ) LECHEXDIA
+                                                    LEFT JOIN
+                                                    (
+                                                        SELECT  FECHA
+                                                               , PROTEINA
+                                                               , LITROSXTANQUE
+                                                               , GRASA
+                                                               , UREA
+                                                               , CCS
+                                                               , CTD
+                                                        FROM dproduc
+                                                        WHERE FECHA BETWEEN  @julianaI  AND  @julianaF
+                                                        ORDER BY FECHA
+                                                    ) VALORES
+                                                    ON VALORES.FECHA = LECHEXDIA.FECHA
+                                                )RESULTADOS
+                                                GROUP BY  RESULTADOS.FECHA
+                                            ) d
+                                            ON m.FECHA = d.FECHA
+                                            WHERE m.FECHA BETWEEN  @julianaI  AND  @julianaF
+                                            ORDER BY m.FECHA
+                                        ) T
+                                        LEFT JOIN inventario i
+                                        ON i.FECHA = T.FECHA
+                                        ORDER BY 1
+                                    ) T1
+                                    LEFT JOIN
+                                    (
+                                        SELECT  FECHA
+                                               , IIF(ISNULL(AVG(nivel1)), 0, AVG(nivel1))       AS criba1
+                                               , IIF(ISNULL(AVG(nivel2)), 0, AVG(nivel2))       AS criba2
+                                               , IIF(ISNULL(AVG(nivel3)), 0, AVG(nivel3))       AS criba3
+                                               , IIF(ISNULL(AVG(nivel4)), 0, AVG(nivel4))       AS criba4
+                                        FROM NIVELCRIBA
+                                        WHERE FECHA BETWEEN  @julianaI  AND  @julianaF
+                                        GROUP BY  FECHA
+                                    )CRIBA
+                                    ON T1.FECHA = CRIBA.FECHA
+                                ) T2
+                                LEFT JOIN PRECIOSTEORICOS p
+                                ON T2.FECHA = p.FECHA 
+                                order by T2.FECHA";
+            }
+            else
+            {
+                query = @"SELECT  CDATE(T2.FECHA)
+                                       ,IIF(T2.TOTAL = NULL, 0 ,T2.TOTAL)
+                                       ,T2.ORDEÑO
+                                       ,T2.SECAS
+                                       ,T2.HATO
+                                       ,T2.PLACT
+                                       ,T2.PPROT
+                                       ,T2.UREA
+                                       ,T2.GRASA
+                                       ,T2.CCS
+                                       ,T2.CTD
+                                       ,T2.LECPROD
+                                       ,T2.ANTIB
+                                       ,T2.X
+                                       ,T2.TOTALP
+                                       ,T2.DELORD
+                                       ,T2.VACAANTIB
+                                       ,p.PRODUCCION
+                                       ,T2.ILCA
+                                       ,T2.IC
+                                       ,T1.EA
+                                       ,T1.ILCA_P
+                                       ,T2.IC_P
+                                       ,T1.L
+                                       ,T2.MH
+                                       ,T2.PMS
+                                       ,T2.MS
+                                       ,T2.SA
+                                       ,T2.MSS
+                                       ,T2.EAS
+                                       ,T2.S
+                                       ,T2.COSTO
+                                       ,T2.PRECMS
+                                       ,p.MS
+                                       ,CRIBA.criba1
+                                       ,CRIBA.criba2
+                                       ,CRIBA.criba3
+                                       ,CRIBA.criba4
+                                       ,T2.NOIDSES1
+                                       ,T2.NOIDSES2
+                                       ,T2.NOIDSES3
+                                FROM
+                                (
+                                    SELECT  T1.FECHA
+                                           , T1.TOTAL
+                                           , T1.ORDEÑO
+                                           , T1.SECAS
+                                           , T1.HATO
+                                           , T1.PLACT
+                                           , T1.PPROT
+                                           , T1.UREA
+                                           , T1.GRASA
+                                           , T1.CCS
+                                           , T1.CTD
+                                           , T1.LECPROD
+                                           , T1.ANTIB
+                                           , T1.X
+                                           , T1.TOTALP
+                                           , T1.DELORD
+                                           , T1.VACAANTIB
+                                           , T1.ILCA
+                                           , T1.IC
+                                           , T1.EA
+                                           , T1.ILCA_P
+                                           , T1.IC_P
+                                           , T1.L
+                                           , T1.MH
+                                           , T1.PMS
+                                           , T1.MS
+                                           , T1.SA
+                                           , T1.MSS
+                                           , T1.EAS
+                                           , T1.S
+                                           , T1.COSTO
+                                           , T1.PRECMS
+                                           , CRIBA.criba1
+                                           , CRIBA.criba2
+                                           , CRIBA.criba3
+                                           , CRIBA.criba4
+                                           , T1.NOIDSES1
+                                           , T1.NOIDSES2
+                                           , T1.NOIDSES3
+                                    FROM
+                                    (
+                                        SELECT  T.FECHA
+                                               , T.TOTAL
+                                               , T.ORDEÑO
+                                               , T.SECAS
+                                               , T.HATO
+                                               , T.PLACT
+                                               , T.PPROT
+                                               , T.UREA
+                                               , T.GRASA
+                                               , T.CCS
+                                               , T.CTD
+                                               , T.LECPROD
+                                               , T.ANTIB
+                                               , T.X
+                                               , T.TOTALP
+                                               , i.delord
+                                               , T.VACAANTIB
+                                               , T.ILCA
+                                               , T.IC
+                                               , T.EA
+                                               , T.ILCA_P
+                                               , T.IC_P
+                                               , IIF(T.X > 0, T.COSTO / T.X, 0)      AS L
+                                               , T.MH
+                                               , IIF(T.MH > 0, T.MS / T.MH * 100, 0) AS PMS
+                                               , T.MS
+                                               , T.SA
+                                               , T.MSS
+                                               , T.EAS
+                                               , IIF(T.MH > 0, T.SA / T.MH * 100, 0) AS S
+                                               , T.COSTO
+                                               , IIF(T.MS > 0, T.COSTO / T.MS, 0)    AS PRECMS
+                                               , T.NOIDSES1
+                                               , T.NOIDSES2
+                                               , T.NOIDSES3
+                                        FROM
+                                        (
+                                            SELECT  m.FECHA
+                                                   , (LECFEDERAL + LECPLANTA)                                                AS TOTAL
+                                                   , VACASORDEÑA                                                             AS ORDEÑO
+                                                   , VACASSECAS                                                              AS SECAS
+                                                   , VACASHATO                                                               AS HATO
+                                                   , LACTOSA                                                                 AS PLACT
+                                                   , PROTEINA                                                                AS PPROT
+                                                   , d.UREA1                                                                 AS UREA
+                                                   , d.Grasa1                                                                AS GRASA
+                                                   , d.CCS1                                                                  AS CCS
+                                                   , d.CTD1                                                                  AS CTD
+                                                   , M.LECPROD
+                                                   , M.ANTPROD                                                               AS ANTIB
+                                                   , IIF(vacasordeña > 0, ROUND((lecprod + antprod) / vacasordeña, 2), 0)    AS X
+                                                   , (M.LECPROD + M.ANTPROD)                                                 AS TOTALP
+                                                   , M.VACAANTIB
+                                                   , M.ILCA
+                                                   , M.IC
+                                                   , M.EA
+                                                   , M.ILCA_P
+                                                   , M.IC_P
+                                                   , M.COSTO
+                                                   , M.MH
+                                                   , M.MS
+                                                   , M.SA
+                                                   , M.MSS
+                                                   , M.EAS
+                                                   , M.NOIDSES1
+                                                   , M.NOIDSES2
+                                                   , M.NOIDSES3
+                                            FROM MPRODUC M
+
+                                            LEFT JOIN
+                                            (
+                                                SELECT  RESULTADOS.FECHA
+                                                       , AVG(RESULTADOS.PROTES) AS Proteina1
+                                                       , SUM(RESULTADOS.UREAS)  AS Urea1
+                                                       , SUM(RESULTADOS.GRASAS) AS Grasa1
+                                                       , SUM(RESULTADOS.CCSS)   AS CCS1
+                                                       , SUM(RESULTADOS.CTDS)   AS CTD1
+                                                FROM
+                                                (
+                                                    SELECT  LECHEXDIA.FECHA
+                                                           , VALORES.PROTEINA                                                                        AS PROTES
+                                                           , IIF(ISNULL(LECHEXDIA.LG), NULL, (VALORES.LITROSXTANQUE / LECHEXDIA.LG) * VALORES.GRASA) AS GRASAS
+                                                           , IIF(ISNULL(LECHEXDIA.LU), NULL, (VALORES.LITROSXTANQUE / LECHEXDIA.LU) * VALORES.UREA)  AS UREAS
+                                                           , IIF(ISNULL(LECHEXDIA.LCC), NULL, (VALORES.LITROSXTANQUE / LECHEXDIA.LCC) * VALORES.CCS) AS CCSS
+                                                           , IIF(ISNULL(LECHEXDIA.LCT), NULL, (VALORES.LITROSXTANQUE / LECHEXDIA.LCT) * VALORES.CTD) AS CTDS
+                                                    FROM
+                                                    ( 
+                                                        SELECT  LITROSxDIA.DIA              AS FECHA
+                                                               , SUM(LITROSxDIA.LITROGRASA) AS LG
+                                                               , SUM(LITROSxDIA.LITROUREA)  AS LU
+                                                               , SUM(LITROSxDIA.LITROCCS)   AS LCC
+                                                               , SUM(LITROSxDIA.LITROCTS)   AS LCT
+                                                        FROM
+                                                        (
+                                                            SELECT  FECHA                        AS DIA
+                                                                   , GRASA
+                                                                   , IIF(GRASA > 0, LITROSXTANQUE) AS LITROGRASA
+                                                                   , IIF(UREA > 0, LITROSXTANQUE)  AS LITROUREA
+                                                                   , IIF(CCS > 0, LITROSXTANQUE)   AS LITROCCS
+                                                                   , IIF(CTD > 0, LITROSXTANQUE)   AS LITROCTS
+                                                            FROM dproduc
+                                                            WHERE FECHA BETWEEN  @julianaI  AND  @julianaF
+                                                            ORDER BY FECHA
+                                                        ) LITROSxDIA
+                                                        GROUP BY  LITROSxDIA.DIA
+                                                    ) LECHEXDIA
+                                                    LEFT JOIN
+                                                    (
+                                                        SELECT  FECHA
+                                                               , PROTEINA
+                                                               , LITROSXTANQUE
+                                                               , GRASA
+                                                               , UREA
+                                                               , CCS
+                                                               , CTD
+                                                        FROM dproduc
+                                                        WHERE FECHA BETWEEN  @julianaI  AND  @julianaF
+                                                        ORDER BY FECHA
+                                                    ) VALORES
+                                                    ON VALORES.FECHA = LECHEXDIA.FECHA
+                                                )RESULTADOS
+                                                GROUP BY  RESULTADOS.FECHA
+                                            ) d
+                                            ON m.FECHA = d.FECHA
+                                            WHERE m.FECHA BETWEEN  @julianaI  AND  @julianaF
+                                            ORDER BY m.FECHA
+                                        ) T
+                                        LEFT JOIN inventario i
+                                        ON i.FECHA = T.FECHA
+                                        ORDER BY 1
+                                    ) T1
+                                    LEFT JOIN
+                                    (
+                                        SELECT  FECHA
+                                               , IIF(ISNULL(AVG(nivel1)), 0, AVG(nivel1))       AS criba1
+                                               , IIF(ISNULL(AVG(nivel2)), 0, AVG(nivel2))       AS criba2
+                                               , IIF(ISNULL(AVG(nivel3)), 0, AVG(nivel3))       AS criba3
+                                               , IIF(ISNULL(AVG(nivel4)), 0, AVG(nivel4))       AS criba4
+                                        FROM NIVELCRIBA
+                                        WHERE FECHA BETWEEN  @julianaI  AND  @julianaF
+                                        GROUP BY  FECHA
+                                    )CRIBA
+                                    ON T1.FECHA = CRIBA.FECHA
+                                ) T2
+                                LEFT JOIN PRECIOSTEORICOS p
+                                ON T2.FECHA = p.FECHA 
+                                order by T2.FECHA";
+            }
+
+
+            return query;
+        }
+
+        private void PromediosH1(DataTable dt, bool noIdReal)
         {
             DateTime inicio, fin;
             int julianaI = ConvertToJulian(fecha_inicio);
@@ -1215,13 +1718,13 @@ namespace ReportePeriodo
             HoraCorte(out inicio, out fin);
             DataTable dtI, dtV;
             Indicadores("10,11,12,13", "ia_vacas_ord", inicio, fin, fecha_inicio, fecha_fin, out dtI);
-            VentaProduccion(julianaI, julianaF, out dtV);
+            VentaProduccion(julianaI, julianaF, noIdReal, out dtV);
             AddPromedioH1("PROM", dt, dtI, dtV);
 
             int julianaIAnt = ConvertToJulian(inicio.AddYears(-1));
             int julianaFAnt = ConvertToJulian(fin.AddYears(-1));
             Indicadores("10,11,12,13", "ia_vacas_ord", inicio.AddYears(-1), fin.AddYears(-1), fecha_inicio.AddYears(-1), fecha_fin.AddYears(-1), out dtI);
-            VentaProduccion(julianaIAnt, julianaFAnt, out dtV);
+            VentaProduccion(julianaIAnt, julianaFAnt, noIdReal, out dtV);
             AddPromedioH1("AÑO ANT", dt, dtI, dtV);
             /*
                         }
@@ -1327,8 +1830,420 @@ namespace ReportePeriodo
             }
         }
 
-        private void VentaProduccion(int inicio, int fin, out DataTable dt)
+        private void VentaProduccion(int inicio, int fin, bool noIdReal, out DataTable dt)
         {
+            string query = @"";
+
+            if (noIdReal)
+            {
+                query = @"SELECT  IIF(ISNULL(AVG(T3.TOTAL)),NULL,CLng(AVG(T3.TOTAL)))
+                                    ,IIF(ISNULL(AVG(T3.ORDEÑO)),NULL,CINT(AVG(T3.ORDEÑO)))                        AS ORDEÑO
+                                    ,IIF(ISNULL(AVG(T3.SECAS)),NULL,CINT(AVG(T3.SECAS)))                          AS SECAS
+                                    ,IIF(ISNULL(AVG(T3.HATO)),NULL,CINT(AVG(T3.HATO)))                            AS HATO
+                                    ,AVG(T3.PLACT)                                                                AS LACT
+                                    ,AVG(T3.PPROT)                                                                AS PROT
+                                    ,AVG(T3.UREA)                                                                 AS UREA
+                                    ,AVG(T3.GRASA)                                                                AS GRASA
+                                    ,AVG(T3.CCS)                                                                  AS CCS
+                                    ,IIF(ISNULL(AVG(T3.CTD)),NULL,CInt(AVG(T3.CTD)))                              AS CTD
+                                    ,IIF(ISNULL(AVG(T3.LECPROD)),NULL,CLng(AVG(T3.LECPROD)))                      AS LECHE
+                                    ,IIF(ISNULL(AVG(T3.ANTIB)),NULL,CINT(AVG(T3.ANTIB)))                          AS ANTIB
+                                    ,IIF(ISNULL(AVG(T3.TOTALP)),NULL,CLNG(AVG(T3.TOTALP)))                        AS TOTAL2
+                                    ,IIF(ISNULL(AVG(T3.DELORD)),NULL,CINT(AVG(T3.DELORD)))                        AS DEL
+                                    ,IIF(ISNULL(AVG(T3.VACAANTIB)),NULL,CINT(AVG(T3.VACAANTIB)))                  AS ANT
+                                    ,AVG(T3.criba1)                                                               AS N1
+                                    ,AVG(T3.criba2)                                                               AS N2
+                                    ,AVG(T3.criba3)                                                               AS N3
+                                    ,AVG(T3.criba4)                                                               AS N4
+                                    ,IIF(SUM(T3.ContNOIDSES1) > 0,CINT(SUM(T3.NOIDSES1)/SUM(T3.ContNOIDSES1)) ,0) AS SES1
+                                    ,IIF(SUM(T3.ContNOIDSES2) > 0,CINT(SUM(T3.NOIDSES2)/SUM(T3.ContNOIDSES2)) ,0) AS SES2
+                                    ,IIF(SUM(T3.ContNOIDSES3) > 0,CINT(SUM(T3.NOIDSES3)/SUM(T3.ContNOIDSES3)) ,0) AS SES3
+                            FROM
+                            (
+	                            SELECT  T2.FECHA
+	                                    ,T2.TOTAL
+	                                    ,T2.ORDEÑO
+	                                    ,T2.SECAS
+	                                    ,T2.HATO
+	                                    ,T2.PLACT
+	                                    ,T2.PPROT
+	                                    ,T2.UREA
+	                                    ,T2.GRASA
+	                                    ,T2.CCS
+	                                    ,T2.CTD
+	                                    ,T2.LECPROD
+	                                    ,T2.ANTIB
+	                                    ,T2.X
+	                                    ,T2.TOTALP
+	                                    ,T2.DELORD
+	                                    ,T2.VACAANTIB
+	                                    ,CRIBA.criba1
+	                                    ,CRIBA.criba2
+	                                    ,CRIBA.criba3
+	                                    ,CRIBA.criba4
+	                                    ,T2.NOIDSES1
+	                                    ,T2.NOIDSES2
+	                                    ,T2.NOIDSES3
+	                                    ,T2.ContNOIDSES1
+	                                    ,T2.ContNOIDSES2
+	                                    ,T2.ContNOIDSES3
+	                            FROM
+	                            (
+		                            SELECT  T1.FECHA
+		                                    ,T1.TOTAL
+		                                    ,T1.ORDEÑO
+		                                    ,T1.SECAS
+		                                    ,T1.HATO
+		                                    ,T1.PLACT
+		                                    ,T1.PPROT
+		                                    ,T1.UREA
+		                                    ,T1.GRASA
+		                                    ,T1.CCS
+		                                    ,T1.CTD
+		                                    ,T1.LECPROD
+		                                    ,T1.ANTIB
+		                                    ,T1.X
+		                                    ,T1.TOTALP
+		                                    ,T1.DELORD
+		                                    ,T1.VACAANTIB
+		                                    ,T1.ILCA
+		                                    ,T1.IC
+		                                    ,T1.ILCA_P
+		                                    ,T1.IC_P
+		                                    ,T1.L
+		                                    ,T1.MH
+		                                    ,T1.PMS
+		                                    ,T1.MS
+		                                    ,T1.SA
+		                                    ,T1.MSS
+		                                    ,T1.EAS
+		                                    ,T1.S
+		                                    ,T1.COSTO
+		                                    ,T1.PRECMS
+		                                    ,CRIBA.criba1
+		                                    ,CRIBA.criba2
+		                                    ,CRIBA.criba3
+		                                    ,CRIBA.criba4
+		                                    ,T1.NOIDSES1
+		                                    ,T1.NOIDSES2
+		                                    ,T1.NOIDSES3
+		                                    ,T1.ContNOIDSES1
+		                                    ,T1.ContNOIDSES2
+		                                    ,T1.ContNOIDSES3
+		                            FROM
+		                            (
+			                            SELECT  T.FECHA
+			                                    ,T.TOTAL
+			                                    ,T.ORDEÑO
+			                                    ,T.SECAS
+			                                    ,T.HATO
+			                                    ,T.PLACT
+			                                    ,T.PPROT
+			                                    ,T.UREA
+			                                    ,T.GRASA
+			                                    ,T.CCS
+			                                    ,T.CTD
+			                                    ,T.LECPROD
+			                                    ,T.ANTIB
+			                                    ,T.X
+			                                    ,T.TOTALP
+			                                    ,i.delord
+			                                    ,T.VACAANTIB
+			                                    ,T.ILCA
+			                                    ,T.IC
+			                                    ,T.ILCA_P
+			                                    ,T.IC_P
+			                                    ,IIF(T.X > 0,T.COSTO / T.X,0)      AS L
+			                                    ,T.MH
+			                                    ,IIF(T.MH > 0,T.MS / T.MH * 100,0) AS PMS
+			                                    ,T.MS
+			                                    ,T.SA
+			                                    ,T.MSS
+			                                    ,T.EAS
+			                                    ,IIF(T.MH > 0,T.SA / T.MH * 100,0) AS S
+			                                    ,T.COSTO
+			                                    ,T.COSTO / T.MS                    AS PRECMS
+			                                    ,T.NOIDSES1
+			                                    ,T.NOIDSES2
+			                                    ,T.NOIDSES3
+			                                    ,T.ContNOIDSES1
+			                                    ,T.ContNOIDSES2
+			                                    ,T.ContNOIDSES3
+			                            FROM
+			                            (
+				                            SELECT  m.FECHA
+				                                    ,(LECFEDERAL + LECPLANTA)                                          AS TOTAL
+				                                    ,VACASORDEÑA                                                       AS ORDEÑO
+				                                    ,VACASSECAS                                                        AS SECAS
+				                                    ,VACASHATO                                                         AS HATO
+				                                    ,LACTOSA                                                           AS PLACT
+				                                    ,PROTEINA                                                          AS PPROT
+				                                    ,d.UREA1                                                           AS UREA
+				                                    ,d.Grasa1                                                          AS GRASA
+				                                    ,d.CCS1                                                            AS CCS
+				                                    ,d.CTD1                                                            AS CTD
+				                                    ,M.LECPROD
+				                                    ,M.ANTPROD                                                         AS ANTIB
+				                                    ,IIF(vacasordeña > 0,ROUND((lecprod + antprod) / vacasordeña,2),0) AS X
+				                                    ,(M.LECPROD + M.ANTPROD)                                           AS TOTALP
+				                                    ,M.VACAANTIB
+				                                    ,M.ILCA
+				                                    ,M.IC
+				                                    ,M.EA
+				                                    ,M.ILCA_P
+				                                    ,M.IC_P
+				                                    ,M.COSTO
+				                                    ,M.MH
+				                                    ,M.MS
+				                                    ,M.SA
+				                                    ,M.MSS
+				                                    ,M.EAS
+				                                    ,M.NOIDSES1REAL                                                    AS NOIDSES1
+				                                    ,M.NOIDSES2REAL                                                    AS NOIDSES2
+				                                    ,M.NOIDSES3REAL                                                    AS NOIDSES3
+				                                    ,IIF(M.NOIDSES1REAL > 0,1,0)                                       AS ContNOIDSES1
+				                                    ,IIF(M.NOIDSES2REAL > 0,1,0)                                       AS ContNOIDSES2
+				                                    ,IIF(M.NOIDSES3REAL > 0,1,0)                                       AS ContNOIDSES3
+				                            FROM MPRODUC M
+				                            INNER JOIN
+				                            (
+					                            SELECT  FECHA
+					                                    ,AVG(proteina) AS Proteina1
+					                                    ,AVG(urea)     AS Urea1
+					                                    ,AVG(grasa)    AS Grasa1
+					                                    ,AVG(ccs)      AS CCS1
+					                                    ,AVG(ctd)      AS CTD1
+					                            FROM dproduc
+					                            WHERE FECHA BETWEEN @inicio AND @fin
+					                            GROUP BY  FECHA
+				                            ) d
+				                            ON m.FECHA = d.FECHA
+				                            WHERE m.FECHA BETWEEN @inicio AND @fin
+				                            ORDER BY m.FECHA 
+			                            ) T
+			                            LEFT JOIN inventario i
+			                            ON i.FECHA = T.FECHA
+			                            ORDER BY 1
+		                            ) T1
+		                            LEFT JOIN
+		                            (
+			                            SELECT  FECHA
+			                                    ,IIF(ISNULL(AVG(nivel1)),0,AVG(nivel1)) AS criba1
+			                                    ,IIF(ISNULL(AVG(nivel2)),0,AVG(nivel2)) AS criba2
+			                                    ,IIF(ISNULL(AVG(nivel3)),0,AVG(nivel3)) AS criba3
+			                                    ,IIF(ISNULL(AVG(nivel4)),0,AVG(nivel4)) AS criba4
+			                            FROM NIVELCRIBA
+			                            WHERE FECHA BETWEEN @inicio AND @fin
+			                            GROUP BY  FECHA
+		                            )CRIBA
+		                            ON T1.FECHA = CRIBA.FECHA
+	                            ) T2
+	                            LEFT JOIN PRECIOSTEORICOS p
+	                            ON T2.FECHA = p.FECHA
+	                            ORDER BY T2.FECHA
+                            ) T3";
+            }
+            else
+            {
+                query = @"SELECT  IIF(ISNULL(AVG(T3.TOTAL)),NULL,CLng(AVG(T3.TOTAL)))
+                                    ,IIF(ISNULL(AVG(T3.ORDEÑO)),NULL,CINT(AVG(T3.ORDEÑO)))       AS ORDEÑO
+                                    ,IIF(ISNULL(AVG(T3.SECAS)),NULL,CINT(AVG(T3.SECAS)))         AS SECAS
+                                    ,IIF(ISNULL(AVG(T3.HATO)),NULL,CINT(AVG(T3.HATO)))           AS HATO
+                                    ,AVG(T3.PLACT)                                               AS LACT
+                                    ,AVG(T3.PPROT)                                               AS PROT
+                                    ,AVG(T3.UREA)                                                AS UREA
+                                    ,AVG(T3.GRASA)                                               AS GRASA
+                                    ,AVG(T3.CCS)                                                 AS CCS
+                                    ,IIF(ISNULL(AVG(T3.CTD)),NULL,CInt(AVG(T3.CTD)))             AS CTD
+                                    ,IIF(ISNULL(AVG(T3.LECPROD)),NULL,CLng(AVG(T3.LECPROD)))     AS LECHE
+                                    ,IIF(ISNULL(AVG(T3.ANTIB)),NULL,CINT(AVG(T3.ANTIB)))         AS ANTIB
+                                    ,IIF(ISNULL(AVG(T3.TOTALP)),NULL,CLNG(AVG(T3.TOTALP)))       AS TOTAL2
+                                    ,IIF(ISNULL(AVG(T3.DELORD)),NULL,CINT(AVG(T3.DELORD)))       AS DEL
+                                    ,IIF(ISNULL(AVG(T3.VACAANTIB)),NULL,CINT(AVG(T3.VACAANTIB))) AS ANT
+                                    ,AVG(T3.criba1)                                              AS N1
+                                    ,AVG(T3.criba2)                                              AS N2
+                                    ,AVG(T3.criba3)                                              AS N3
+                                    ,AVG(T3.criba4)                                              AS N4
+                                    ,IIF(ISNULL(AVG(T3.NOIDSES1)),NULL,CINT(AVG(T3.NOIDSES1)))   AS SES1
+                                    ,IIF(ISNULL(AVG(T3.NOIDSES2)),NULL,CINT(AVG(T3.NOIDSES2)))   AS SES2
+                                    ,IIF(ISNULL(AVG(T3.NOIDSES3)),NULL,CINT(AVG(T3.NOIDSES3)))   AS SES3
+                            FROM
+                            (
+	                            SELECT  T2.FECHA
+	                                    ,T2.TOTAL
+	                                    ,T2.ORDEÑO
+	                                    ,T2.SECAS
+	                                    ,T2.HATO
+	                                    ,T2.PLACT
+	                                    ,T2.PPROT
+	                                    ,T2.UREA
+	                                    ,T2.GRASA
+	                                    ,T2.CCS
+	                                    ,T2.CTD
+	                                    ,T2.LECPROD
+	                                    ,T2.ANTIB
+	                                    ,T2.X
+	                                    ,T2.TOTALP
+	                                    ,T2.DELORD
+	                                    ,T2.VACAANTIB
+	                                    ,CRIBA.criba1
+	                                    ,CRIBA.criba2
+	                                    ,CRIBA.criba3
+	                                    ,CRIBA.criba4
+	                                    ,T2.NOIDSES1
+	                                    ,T2.NOIDSES2
+	                                    ,T2.NOIDSES3
+	                            FROM
+	                            (
+		                            SELECT  T1.FECHA
+		                                    ,T1.TOTAL
+		                                    ,T1.ORDEÑO
+		                                    ,T1.SECAS
+		                                    ,T1.HATO
+		                                    ,T1.PLACT
+		                                    ,T1.PPROT
+		                                    ,T1.UREA
+		                                    ,T1.GRASA
+		                                    ,T1.CCS
+		                                    ,T1.CTD
+		                                    ,T1.LECPROD
+		                                    ,T1.ANTIB
+		                                    ,T1.X
+		                                    ,T1.TOTALP
+		                                    ,T1.DELORD
+		                                    ,T1.VACAANTIB
+		                                    ,T1.ILCA
+		                                    ,T1.IC
+		                                    ,T1.ILCA_P
+		                                    ,T1.IC_P
+		                                    ,T1.L
+		                                    ,T1.MH
+		                                    ,T1.PMS
+		                                    ,T1.MS
+		                                    ,T1.SA
+		                                    ,T1.MSS
+		                                    ,T1.EAS
+		                                    ,T1.S
+		                                    ,T1.COSTO
+		                                    ,T1.PRECMS
+		                                    ,CRIBA.criba1
+		                                    ,CRIBA.criba2
+		                                    ,CRIBA.criba3
+		                                    ,CRIBA.criba4
+		                                    ,T1.NOIDSES1
+		                                    ,T1.NOIDSES2
+		                                    ,T1.NOIDSES3
+		                            FROM
+		                            (
+			                            SELECT  T.FECHA
+			                                    ,T.TOTAL
+			                                    ,T.ORDEÑO
+			                                    ,T.SECAS
+			                                    ,T.HATO
+			                                    ,T.PLACT
+			                                    ,T.PPROT
+			                                    ,T.UREA
+			                                    ,T.GRASA
+			                                    ,T.CCS
+			                                    ,T.CTD
+			                                    ,T.LECPROD
+			                                    ,T.ANTIB
+			                                    ,T.X
+			                                    ,T.TOTALP
+			                                    ,i.delord
+			                                    ,T.VACAANTIB
+			                                    ,T.ILCA
+			                                    ,T.IC
+			                                    ,T.ILCA_P
+			                                    ,T.IC_P
+			                                    ,IIF(T.X > 0,T.COSTO / T.X,0)      AS L
+			                                    ,T.MH
+			                                    ,IIF(T.MH > 0,T.MS / T.MH * 100,0) AS PMS
+			                                    ,T.MS
+			                                    ,T.SA
+			                                    ,T.MSS
+			                                    ,T.EAS
+			                                    ,IIF(T.MH > 0,T.SA / T.MH * 100,0) AS S
+			                                    ,T.COSTO
+			                                    ,T.COSTO / T.MS                    AS PRECMS
+			                                    ,T.NOIDSES1
+			                                    ,T.NOIDSES2
+			                                    ,T.NOIDSES3
+			                            FROM
+			                            (
+				                            SELECT  m.FECHA
+				                                    ,(LECFEDERAL + LECPLANTA)                                          AS TOTAL
+				                                    ,VACASORDEÑA                                                       AS ORDEÑO
+				                                    ,VACASSECAS                                                        AS SECAS
+				                                    ,VACASHATO                                                         AS HATO
+				                                    ,LACTOSA                                                           AS PLACT
+				                                    ,PROTEINA                                                          AS PPROT
+				                                    ,d.UREA1                                                           AS UREA
+				                                    ,d.Grasa1                                                          AS GRASA
+				                                    ,d.CCS1                                                            AS CCS
+				                                    ,d.CTD1                                                            AS CTD
+				                                    ,M.LECPROD
+				                                    ,M.ANTPROD                                                         AS ANTIB
+				                                    ,IIF(vacasordeña > 0,ROUND((lecprod + antprod) / vacasordeña,2),0) AS X
+				                                    ,(M.LECPROD + M.ANTPROD)                                           AS TOTALP
+				                                    ,M.VACAANTIB
+				                                    ,M.ILCA
+				                                    ,M.IC
+				                                    ,M.EA
+				                                    ,M.ILCA_P
+				                                    ,M.IC_P
+				                                    ,M.COSTO
+				                                    ,M.MH
+				                                    ,M.MS
+				                                    ,M.SA
+				                                    ,M.MSS
+				                                    ,M.EAS
+				                                    ,M.NOIDSES1
+				                                    ,M.NOIDSES2
+				                                    ,M.NOIDSES3
+				                            FROM MPRODUC M
+				                            INNER JOIN
+				                            (
+					                            SELECT  FECHA
+					                                    ,AVG(proteina) AS Proteina1
+					                                    ,AVG(urea)     AS Urea1
+					                                    ,AVG(grasa)    AS Grasa1
+					                                    ,AVG(ccs)      AS CCS1
+					                                    ,AVG(ctd)      AS CTD1
+					                            FROM dproduc
+					                            WHERE FECHA BETWEEN @inicio AND @fin
+					                            GROUP BY  FECHA
+				                            ) d
+				                            ON m.FECHA = d.FECHA
+				                            WHERE m.FECHA BETWEEN @inicio AND @fin
+				                            ORDER BY m.FECHA 
+			                            ) T
+			                            LEFT JOIN inventario i
+			                            ON i.FECHA = T.FECHA
+			                            ORDER BY 1
+		                            ) T1
+		                            LEFT JOIN
+		                            (
+			                            SELECT  FECHA
+			                                    ,IIF(ISNULL(AVG(nivel1)),0,AVG(nivel1)) AS criba1
+			                                    ,IIF(ISNULL(AVG(nivel2)),0,AVG(nivel2)) AS criba2
+			                                    ,IIF(ISNULL(AVG(nivel3)),0,AVG(nivel3)) AS criba3
+			                                    ,IIF(ISNULL(AVG(nivel4)),0,AVG(nivel4)) AS criba4
+			                            FROM NIVELCRIBA
+			                            WHERE FECHA BETWEEN @inicio AND @fin
+			                            GROUP BY  FECHA
+		                            )CRIBA
+		                            ON T1.FECHA = CRIBA.FECHA
+	                            ) T2
+	                            LEFT JOIN PRECIOSTEORICOS p
+	                            ON T2.FECHA = p.FECHA
+	                            ORDER BY T2.FECHA
+                            ) T3 ";
+            }
+
+            query = query.Replace("@inicio", inicio.ToString()).Replace("@fin", fin.ToString());
+
+            /*
             string query = "SELECT IIF(ISNULL(AVG(T3.TOTAL)),NULL,CLng(AVG(T3.TOTAL))), IIF(ISNULL(AVG(T3.ORDEÑO)),NULL,CINT(AVG(T3.ORDEÑO))) AS ORDEÑO, IIF(ISNULL(AVG(T3.SECAS)),NULL,CINT(AVG(T3.SECAS))) AS SECAS, IIF(ISNULL(AVG(T3.HATO)),NULL,CINT(AVG(T3.HATO)))  AS HATO, "
             + " AVG(T3.PLACT) AS LACT, AVG(T3.PPROT) AS PROT, AVG(T3.UREA) AS UREA, AVG(T3.GRASA) AS GRASA, "
             + " AVG(T3.CCS) AS CCS, IIF(ISNULL(AVG(T3.CTD)),NULL,CInt(AVG(T3.CTD))) AS CTD, IIF(ISNULL(AVG(T3.LECPROD)),NULL,CLng(AVG(T3.LECPROD))) AS LECHE, "
@@ -1368,6 +2283,7 @@ namespace ReportePeriodo
             + " GROUP BY FECHA)CRIBA ON T1.FECHA = CRIBA.FECHA) T2 "
             + " LEFT JOIN PRECIOSTEORICOS p ON T2.FECHA = p.FECHA "
             + " ORDER BY T2.FECHA) T3 ";
+            */
             conn.QueryMovsio(query, out dt);
         }
 
@@ -3757,7 +4673,7 @@ namespace ReportePeriodo
                     string s_diag = diag == 0 ? "" : diag.ToString();
                     string s_porcPren = porcPren == 0 ? "" : porcPren.ToString();
                     string s_porcVacias = porcVacias == 0 ? "" : porcVacias.ToString();
-                    
+
                     _DtSR.Rows[i][13] = s_pren;
                     _DtSR.Rows[i][15] = s_vacias;
 
@@ -3776,7 +4692,7 @@ namespace ReportePeriodo
                     else
                         _DtSR.Rows[i][16] = DBNull.Value;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
 
                     Console.WriteLine(ex.Message);
@@ -3805,7 +4721,7 @@ namespace ReportePeriodo
                 }
                 */
 
-                try 
+                try
                 {
                     int pren = _DtSR.Rows[i][18] != DBNull.Value ? Convert.ToInt32(_DtSR.Rows[i][18]) : 0;
                     int vacias = _DtSR.Rows[i][20] != DBNull.Value ? Convert.ToInt32(_DtSR.Rows[i][20]) : 0;
@@ -4974,7 +5890,7 @@ namespace ReportePeriodo
                             decimal invSecas = 0;
                             decimal.TryParse(row["INVSECAS"].ToString(), out invSecas);
                             newRow["COLOR_MH_SECAS"] = row["MHSECAS"] != DBNull.Value ? ColorDato(invSecas, Convert.ToDecimal(row["MHSECAS"].ToString()), busquedaSecas[0].MH) : ColorDato(invSecas, 0, busquedaSecas[0].MH);
-                            newRow["COLOR_PORCMS_SECAS"] = row["PORCMSSECAS"] != DBNull.Value ? ColorDato(invSecas, Convert.ToDecimal(row["PORCMSSECAS"].ToString()), busquedaSecas[0].PORCENTAJE_MS) : ColorDato(invSecas,0, busquedaSecas[0].PORCENTAJE_MS);
+                            newRow["COLOR_PORCMS_SECAS"] = row["PORCMSSECAS"] != DBNull.Value ? ColorDato(invSecas, Convert.ToDecimal(row["PORCMSSECAS"].ToString()), busquedaSecas[0].PORCENTAJE_MS) : ColorDato(invSecas, 0, busquedaSecas[0].PORCENTAJE_MS);
                             newRow["COLOR_MS_SECAS"] = row["MSSECAS"] != DBNull.Value ? ColorDato(invSecas, Convert.ToDecimal(row["MSSECAS"].ToString()), busquedaSecas[0].MS) : ColorDato(invSecas, 0, busquedaSecas[0].MS);
                             newRow["COLOR_PRECIOKGMS_SECAS"] = row["PRECIOMSSECAS"] != DBNull.Value ? ColorDato(invSecas, Convert.ToDecimal(row["PRECIOMSSECAS"].ToString()), busquedaSecas[0].KGMS) : ColorDato(invSecas, 0, busquedaSecas[0].KGMS);
                             newRow["COLOR_COSTO_SECAS"] = row["PRECIOSECAS"] != DBNull.Value ? ColorDato(invSecas, Convert.ToDecimal(row["PRECIOSECAS"].ToString()), busquedaSecas[0].COSTO) : ColorDato(invSecas, 0, busquedaSecas[0].COSTO);

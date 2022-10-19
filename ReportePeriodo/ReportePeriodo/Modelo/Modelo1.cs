@@ -9,52 +9,56 @@ using ReportePeriodo.Entidad;
 using ReportePeriodo.Datos;
 using LibreriaAlimentacion;
 using System.ComponentModel;
+using ght001766q;
+using ght001766q.StrongTypesNS;
 
 namespace ReportePeriodo.Modelo
 {
     public class Modelo1 : IModelo1
-	{        
+    {
+        static string urlWebService = @"http://107.190.129.10:8100/aia/Aia1?AppService=@erp";
+
         public Modelo1()
-        { 
-        
+        {
+
         }
 
-		private DatosTeorico DatosTeorico(int ranId, int horaCorte, string etapa, DateTime fecha, ref string mensaje)
-		{
-			DatosTeorico datosT = new DatosTeorico();
-			ModeloDatos bd = new ModeloDatos();
-			mensaje = string.Empty;
-			string campoInventario = "";
-			switch (etapa)
-			{
-				case "10,11,12,13":
-					campoInventario = "ia_vacas_ord";
-					break;
-				case "21":
-					campoInventario = "ia_vacas_secas";
-					break;
-				case "22":
-					campoInventario = "ia_vqreto+ia_vcreto";
-					break;
-				case "31":
-					campoInventario = "ia_jaulas";
-					break;
-				case "32":
-					campoInventario = "ia_destetadas";
-					break;
-				case "33":
-					campoInventario = "ia_destetadas2";
-					break;
-				case "34":
-					campoInventario = "ia_vaquillas";
-					break;
+        private DatosTeorico DatosTeorico(int ranId, int horaCorte, string etapa, DateTime fecha, ref string mensaje)
+        {
+            DatosTeorico datosT = new DatosTeorico();
+            ModeloDatos bd = new ModeloDatos();
+            mensaje = string.Empty;
+            string campoInventario = "";
+            switch (etapa)
+            {
+                case "10,11,12,13":
+                    campoInventario = "ia_vacas_ord";
+                    break;
+                case "21":
+                    campoInventario = "ia_vacas_secas";
+                    break;
+                case "22":
+                    campoInventario = "ia_vqreto+ia_vcreto";
+                    break;
+                case "31":
+                    campoInventario = "ia_jaulas";
+                    break;
+                case "32":
+                    campoInventario = "ia_destetadas";
+                    break;
+                case "33":
+                    campoInventario = "ia_destetadas2";
+                    break;
+                case "34":
+                    campoInventario = "ia_vaquillas";
+                    break;
 
-			}
-			try
-			{
-				DateTime fechaEvaluacionQuery = new DateTime(2022, 9, 1);
+            }
+            try
+            {
+                DateTime fechaEvaluacionQuery = new DateTime(2022, 9, 1);
 
-				#region anterior
+                #region anterior
                 /*
 				string query = @"SELECT  ROUND(SUM(MH),5)                                  AS MH
                                        ,ROUND(SUM(MS),5)                                  AS MS
@@ -195,57 +199,57 @@ namespace ReportePeriodo.Modelo
 				DataTable dt = bd.EjecutarConsultaTabla();
 				*/
                 #endregion
-				string query = QueryIndicadorTeorico(fecha, fechaEvaluacionQuery);
-				query = query.Replace("@etapa", etapa);
+                string query = QueryIndicadorTeorico(fecha, fechaEvaluacionQuery);
+                query = query.Replace("@etapa", etapa);
 
-				bd.Conectar();
+                bd.Conectar();
 
-				DataTable dt = new DataTable();
-				if (fecha >= fechaEvaluacionQuery)
-				{
-					bd.CrearComando(query, tipoComando.query);
-					bd.AsignarParametro("@rancho", ranId);
-					bd.AsignarParametro("@fecha", fecha);
-					bd.AsignarParametro("@periodo", Convert.ToInt32(fecha.ToString("yyyyMM")));
-					dt = bd.EjecutarConsultaTabla();
-				}
-				else 
-				{
-					query = query.Replace("@campo", campoInventario);
-					bd.CrearComando(query, tipoComando.query);
-					bd.AsignarParametro("@rancho", ranId);
-					bd.AsignarParametro("@periodo", Convert.ToInt32(fecha.ToString("yyyyMM")));
-					bd.AsignarParametro("@fecha", fecha);
-					bd.AsignarParametro("@fechaRacionIni", fecha.AddHours(horaCorte));
-					bd.AsignarParametro("@fechaRacionFin", fecha.AddHours(24 + horaCorte));
-					dt = bd.EjecutarConsultaTabla();
-				}
+                DataTable dt = new DataTable();
+                if (fecha >= fechaEvaluacionQuery)
+                {
+                    bd.CrearComando(query, tipoComando.query);
+                    bd.AsignarParametro("@rancho", ranId);
+                    bd.AsignarParametro("@fecha", fecha);
+                    bd.AsignarParametro("@periodo", Convert.ToInt32(fecha.ToString("yyyyMM")));
+                    dt = bd.EjecutarConsultaTabla();
+                }
+                else
+                {
+                    query = query.Replace("@campo", campoInventario);
+                    bd.CrearComando(query, tipoComando.query);
+                    bd.AsignarParametro("@rancho", ranId);
+                    bd.AsignarParametro("@periodo", Convert.ToInt32(fecha.ToString("yyyyMM")));
+                    bd.AsignarParametro("@fecha", fecha);
+                    bd.AsignarParametro("@fechaRacionIni", fecha.AddHours(horaCorte));
+                    bd.AsignarParametro("@fechaRacionFin", fecha.AddHours(24 + horaCorte));
+                    dt = bd.EjecutarConsultaTabla();
+                }
 
-				if (dt.Rows.Count > 0)
-				{
-					datosT.FECHA = fecha;
-					datosT.MH = dt.Rows[0]["MH"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["MH"]) : 0;
-					datosT.MS = dt.Rows[0]["MS"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["MS"]) : 0;
-					datosT.PORCENTAJE_MS = dt.Rows[0]["PorcMs"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["PorcMs"]) : 0;
-					datosT.COSTO = dt.Rows[0]["Costo"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["Costo"]) : 0;
-					datosT.KGMS = dt.Rows[0]["kgMS"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["kgMS"]) : 0;
-				}
-				else
-				{
-					datosT.FECHA = fecha;
-				}
-			}
-			catch (DbException ex) { mensaje = ex.Message; }
-			catch (Exception ex) { mensaje = ex.Message; }
-			finally
-			{
-				if (bd.isConnected)
-					bd.Desconectar();
-			}
+                if (dt.Rows.Count > 0)
+                {
+                    datosT.FECHA = fecha;
+                    datosT.MH = dt.Rows[0]["MH"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["MH"]) : 0;
+                    datosT.MS = dt.Rows[0]["MS"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["MS"]) : 0;
+                    datosT.PORCENTAJE_MS = dt.Rows[0]["PorcMs"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["PorcMs"]) : 0;
+                    datosT.COSTO = dt.Rows[0]["Costo"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["Costo"]) : 0;
+                    datosT.KGMS = dt.Rows[0]["kgMS"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["kgMS"]) : 0;
+                }
+                else
+                {
+                    datosT.FECHA = fecha;
+                }
+            }
+            catch (DbException ex) { mensaje = ex.Message; }
+            catch (Exception ex) { mensaje = ex.Message; }
+            finally
+            {
+                if (bd.isConnected)
+                    bd.Desconectar();
+            }
 
-			return datosT;
-		}
-		/*
+            return datosT;
+        }
+        /*
 		private DatosTeorico DatosTeorico(int ranId, int horaCorte, string etapa, DateTime fecha, ref string mensaje)
         {
             DatosTeorico datosT = new DatosTeorico();
@@ -462,109 +466,109 @@ namespace ReportePeriodo.Modelo
         }
 		*/
 
-		public void DatosTeoricos(int ranId, int horaCorte, DateTime fechaIni, DateTime fechaFin, out List<DatosTeorico> listaProduccion, 
-			out List<DatosTeorico> listaSecas, out List<DatosTeorico> listaReto, out List<DatosTeorico> listaDestet1, 
-			out List<DatosTeorico> listaDestete2, out List<DatosTeorico> listaVaquillas, ref string mensaje)
-		{
-			listaProduccion = new List<DatosTeorico>();
-			listaSecas = new List<DatosTeorico>();
-			listaReto = new List<DatosTeorico>();
-			listaDestet1 = new List<DatosTeorico>();
-			listaDestete2 = new List<DatosTeorico>();
-			listaVaquillas = new List<DatosTeorico>();
-			mensaje = string.Empty;
-			List<DateTime> listaFechas = ListaFechas(fechaIni, fechaFin);
+        public void DatosTeoricos(int ranId, int horaCorte, DateTime fechaIni, DateTime fechaFin, out List<DatosTeorico> listaProduccion,
+            out List<DatosTeorico> listaSecas, out List<DatosTeorico> listaReto, out List<DatosTeorico> listaDestet1,
+            out List<DatosTeorico> listaDestete2, out List<DatosTeorico> listaVaquillas, ref string mensaje)
+        {
+            listaProduccion = new List<DatosTeorico>();
+            listaSecas = new List<DatosTeorico>();
+            listaReto = new List<DatosTeorico>();
+            listaDestet1 = new List<DatosTeorico>();
+            listaDestete2 = new List<DatosTeorico>();
+            listaVaquillas = new List<DatosTeorico>();
+            mensaje = string.Empty;
+            List<DateTime> listaFechas = ListaFechas(fechaIni, fechaFin);
 
-			foreach (DateTime fecha in listaFechas)
-			{								
-				DatosTeorico produccion = DatosTeorico(ranId, horaCorte, "10,11,12,13", fecha ,ref mensaje);
-				DatosTeorico secas = DatosTeorico(ranId, horaCorte, "21", fecha, ref mensaje);
-				DatosTeorico reto = DatosTeorico(ranId, horaCorte, "22", fecha, ref mensaje);
-				DatosTeorico destete1 = DatosTeorico(ranId, horaCorte, "32", fecha, ref mensaje);
-				DatosTeorico destete2 = DatosTeorico(ranId, horaCorte, "33", fecha, ref mensaje);
-				DatosTeorico vaquillas = DatosTeorico(ranId, horaCorte, "34", fecha, ref mensaje);
+            foreach (DateTime fecha in listaFechas)
+            {
+                DatosTeorico produccion = DatosTeorico(ranId, horaCorte, "10,11,12,13", fecha, ref mensaje);
+                DatosTeorico secas = DatosTeorico(ranId, horaCorte, "21", fecha, ref mensaje);
+                DatosTeorico reto = DatosTeorico(ranId, horaCorte, "22", fecha, ref mensaje);
+                DatosTeorico destete1 = DatosTeorico(ranId, horaCorte, "32", fecha, ref mensaje);
+                DatosTeorico destete2 = DatosTeorico(ranId, horaCorte, "33", fecha, ref mensaje);
+                DatosTeorico vaquillas = DatosTeorico(ranId, horaCorte, "34", fecha, ref mensaje);
 
-				listaProduccion.Add(produccion);
-				listaSecas.Add(secas);
-				listaReto.Add(reto);
-				listaDestet1.Add(destete1);
-				listaDestete2.Add(destete2);
-				listaVaquillas.Add(vaquillas);
-			}
+                listaProduccion.Add(produccion);
+                listaSecas.Add(secas);
+                listaReto.Add(reto);
+                listaDestet1.Add(destete1);
+                listaDestete2.Add(destete2);
+                listaVaquillas.Add(vaquillas);
+            }
 
-			DataTable dtProd = ListToDataTable(listaProduccion);
-			DataTable dtSecas = ListToDataTable(listaSecas);
-			DataTable dtReto = ListToDataTable(listaReto);
-			DataTable dtD1 = ListToDataTable(listaDestet1);
-			DataTable dtD2 = ListToDataTable(listaDestete2);
-			DataTable dtVP = ListToDataTable(listaVaquillas);
+            DataTable dtProd = ListToDataTable(listaProduccion);
+            DataTable dtSecas = ListToDataTable(listaSecas);
+            DataTable dtReto = ListToDataTable(listaReto);
+            DataTable dtD1 = ListToDataTable(listaDestet1);
+            DataTable dtD2 = ListToDataTable(listaDestete2);
+            DataTable dtVP = ListToDataTable(listaVaquillas);
 
-		}
+        }
 
-		public List<DateTime> ListaFechas(DateTime inicio, DateTime fin)
-		{
-			List<DateTime> listaFechas = new List<DateTime>();
+        public List<DateTime> ListaFechas(DateTime inicio, DateTime fin)
+        {
+            List<DateTime> listaFechas = new List<DateTime>();
 
-			DateTime temp = inicio;
-			while (temp <= fin)
-			{
-				listaFechas.Add(temp);
-				temp = temp.AddDays(1);
-			}
+            DateTime temp = inicio;
+            while (temp <= fin)
+            {
+                listaFechas.Add(temp);
+                temp = temp.AddDays(1);
+            }
 
-			return listaFechas;
-		}
+            return listaFechas;
+        }
 
-		public DatosProduccion DatosProduccion(DateTime inicio, DateTime fin, ref string mensaje)
-		{
-			DatosProduccion dp = new DatosProduccion();
-			ModeloDatosAccess bd = new ModeloDatosAccess();
-			mensaje = string.Empty;
-			int julianaInicio = ConvertToJulian(inicio);
-			int julianaFin = ConvertToJulian(fin);
+        public DatosProduccion DatosProduccion(DateTime inicio, DateTime fin, ref string mensaje)
+        {
+            DatosProduccion dp = new DatosProduccion();
+            ModeloDatosAccess bd = new ModeloDatosAccess();
+            mensaje = string.Empty;
+            int julianaInicio = ConvertToJulian(inicio);
+            int julianaFin = ConvertToJulian(fin);
 
-			try
-			{
-				string query = @"SELECT  IIF(SUM(vacasordeña) > 0,ROUND(SUM(lecprod + antprod)/SUM(vacasordeña),4),0) AS MEDIA
+            try
+            {
+                string query = @"SELECT  IIF(SUM(vacasordeña) > 0,ROUND(SUM(lecprod + antprod)/SUM(vacasordeña),4),0) AS MEDIA
 									   ,AVG(LECPROD)                                                                 AS LECHE
 									   ,AVG((LECPROD + ANTPROD))                                                     AS TOTAL
 								FROM mproduc m
 								LEFT JOIN inventario i ON m.fecha = i.fecha
 								WHERE m.fecha BETWEEN @inicio AND @fin";
 
-				bd.Conectar();
-				bd.CrearComando(query, tipoComandoDB.query);
-				bd.AsignarParametro("@inicio", julianaInicio);
-				bd.AsignarParametro(" @fin", julianaFin);
-				DataTable dt = bd.EjecutarConsultaTabla();
+                bd.Conectar();
+                bd.CrearComando(query, tipoComandoDB.query);
+                bd.AsignarParametro("@inicio", julianaInicio);
+                bd.AsignarParametro(" @fin", julianaFin);
+                DataTable dt = bd.EjecutarConsultaTabla();
 
-				if (dt.Rows.Count > 0)
-				{
-					dp.MEDIA = dt.Rows[0]["MEDIA"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["MEDIA"]) : 0;
-					dp.LECHE = dt.Rows[0]["LECHE"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["LECHE"]) : 0;
-					dp.TOTAL = dt.Rows[0]["TOTAL"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["TOTAL"]) : 0;
-				}
-			}
-			catch (DbException ex) { mensaje = ex.Message; }
-			catch (Exception ex) { mensaje = ex.Message; }
-			finally
-			{
-				if (bd.isConnected)
-					bd.Desconectar();
-			}
+                if (dt.Rows.Count > 0)
+                {
+                    dp.MEDIA = dt.Rows[0]["MEDIA"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["MEDIA"]) : 0;
+                    dp.LECHE = dt.Rows[0]["LECHE"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["LECHE"]) : 0;
+                    dp.TOTAL = dt.Rows[0]["TOTAL"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["TOTAL"]) : 0;
+                }
+            }
+            catch (DbException ex) { mensaje = ex.Message; }
+            catch (Exception ex) { mensaje = ex.Message; }
+            finally
+            {
+                if (bd.isConnected)
+                    bd.Desconectar();
+            }
 
-			return dp;
-		}
+            return dp;
+        }
 
-		public List<LecheBacteriologia> ListaLecheBacteriologia(DateTime inicio, DateTime fin, ref string mensaje)
-		{
-			List<LecheBacteriologia> lista = new List<LecheBacteriologia>();
-			ModeloDatosAccess bd = new ModeloDatosAccess();
-			mensaje = string.Empty;
+        public List<LecheBacteriologia> ListaLecheBacteriologia(DateTime inicio, DateTime fin, ref string mensaje)
+        {
+            List<LecheBacteriologia> lista = new List<LecheBacteriologia>();
+            ModeloDatosAccess bd = new ModeloDatosAccess();
+            mensaje = string.Empty;
 
-			try
-			{
-				string query = @"SELECT  Inidicadores.FECHA                                     AS FECHA       
+            try
+            {
+                string query = @"SELECT  Inidicadores.FECHA                                     AS FECHA       
 										,Inidicadores.PRECIO_BACTERIOLOGIA
 								FROM
 								(
@@ -593,86 +597,86 @@ namespace ReportePeriodo.Modelo
 								)LitrosLeche
 								ON Inidicadores.FECHA = LitrosLeche.FECHAS
 								ORDER BY Inidicadores.FECHA";
-				query = query.Replace("@fechaIni", inicio.ToString("yyyy/MM/dd")).Replace("@fechaFin", fin.ToString("yyyy/MM/dd"));
+                query = query.Replace("@fechaIni", inicio.ToString("yyyy/MM/dd")).Replace("@fechaFin", fin.ToString("yyyy/MM/dd"));
 
 
-				bd.Conectar();
-				bd.CrearComando(query, tipoComandoDB.query);				
-				lista = bd.EjecutarConsultaTabla().AsEnumerable().Select(x => new LecheBacteriologia()
-				{ 
-					FECHA = x["FECHA"] != DBNull.Value ? Convert.ToDateTime(x["FECHA"]) : new DateTime(1,1,1),
-					BACTEROLOGIA = x["PRECIO_BACTERIOLOGIA"] != DBNull.Value ? Convert.ToDecimal(x["PRECIO_BACTERIOLOGIA"]) : 0
-				}).ToList();
-			}
-			catch (DbException ex) { mensaje = ex.Message; }
-			catch (Exception ex) { mensaje = ex.Message; }
-			finally
-			{
-				if (bd.isConnected)
-					bd.Desconectar();
-			}
+                bd.Conectar();
+                bd.CrearComando(query, tipoComandoDB.query);
+                lista = bd.EjecutarConsultaTabla().AsEnumerable().Select(x => new LecheBacteriologia()
+                {
+                    FECHA = x["FECHA"] != DBNull.Value ? Convert.ToDateTime(x["FECHA"]) : new DateTime(1, 1, 1),
+                    BACTEROLOGIA = x["PRECIO_BACTERIOLOGIA"] != DBNull.Value ? Convert.ToDecimal(x["PRECIO_BACTERIOLOGIA"]) : 0
+                }).ToList();
+            }
+            catch (DbException ex) { mensaje = ex.Message; }
+            catch (Exception ex) { mensaje = ex.Message; }
+            finally
+            {
+                if (bd.isConnected)
+                    bd.Desconectar();
+            }
 
-			return lista;
-		}
+            return lista;
+        }
 
-		private static DataTable ListToDataTable<T>(IList<T> data)
-		{
-			DataTable table = new DataTable();
+        private static DataTable ListToDataTable<T>(IList<T> data)
+        {
+            DataTable table = new DataTable();
 
-			//special handling for value types and string
-			if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
-			{
+            //special handling for value types and string
+            if (typeof(T).IsValueType || typeof(T).Equals(typeof(string)))
+            {
 
-				DataColumn dc = new DataColumn("Value", typeof(T));
-				table.Columns.Add(dc);
-				foreach (T item in data)
-				{
-					DataRow dr = table.NewRow();
-					dr[0] = item;
-					table.Rows.Add(dr);
-				}
-			}
-			else
-			{
-				PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(T));
-				foreach (PropertyDescriptor prop in properties)
-				{
-					table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
-				}
-				foreach (T item in data)
-				{
-					DataRow row = table.NewRow();
-					foreach (PropertyDescriptor prop in properties)
-					{
-						try
-						{
-							row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
-						}
-						catch (Exception ex)
-						{
-							row[prop.Name] = DBNull.Value;
-						}
-					}
-					table.Rows.Add(row);
-				}
-			}
-			return table;
-		}
+                DataColumn dc = new DataColumn("Value", typeof(T));
+                table.Columns.Add(dc);
+                foreach (T item in data)
+                {
+                    DataRow dr = table.NewRow();
+                    dr[0] = item;
+                    table.Rows.Add(dr);
+                }
+            }
+            else
+            {
+                PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(T));
+                foreach (PropertyDescriptor prop in properties)
+                {
+                    table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+                }
+                foreach (T item in data)
+                {
+                    DataRow row = table.NewRow();
+                    foreach (PropertyDescriptor prop in properties)
+                    {
+                        try
+                        {
+                            row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                        }
+                        catch (Exception ex)
+                        {
+                            row[prop.Name] = DBNull.Value;
+                        }
+                    }
+                    table.Rows.Add(row);
+                }
+            }
+            return table;
+        }
 
-		private static int ConvertToJulian(DateTime Date)
-		{
-			TimeSpan ts = (Date - Convert.ToDateTime("01/01/1900"));
-			int julianday = ts.Days + 2;
-			return julianday;
-		}
+        private static int ConvertToJulian(DateTime Date)
+        {
+            TimeSpan ts = (Date - Convert.ToDateTime("01/01/1900"));
+            int julianday = ts.Days + 2;
+            return julianday;
+        }
 
-		private string QueryIndicadorTeorico(DateTime fecha, DateTime fechaEvaluacion)
-		{
-			string query = @"";
+        private string QueryIndicadorTeorico(DateTime fecha, DateTime fechaEvaluacion)
+        {
+            string query = @"";
 
-			if (fecha >= fechaEvaluacion)
-			{
-				query = @"WITH Teorico AS (
+            if (fecha >= fechaEvaluacion)
+            {
+                query = @"WITH Teorico AS (
 	                        SELECT  ran_id	AS Rancho
 			                        ,rac_fecha       AS Fecha
 			                        ,ing_display_name AS NombrePantalla
@@ -688,6 +692,7 @@ namespace ReportePeriodo.Modelo
 	                        FROM racionTeorico
 	                        WHERE rac_fecha  = @fecha
 	                        AND (CONVERT(int, SUBSTRING(racion_descripcion, 3, 2)) IN (@etapa) OR CONVERT(int, SUBSTRING(racion_descripcion, 4, 2)) IN (@etapa))
+							AND SUBSTRING(racion_display_name,1,2) NOT IN('TE')
 	                        AND ran_id = @rancho
                         ), Inventario AS (
 	                        SELECT  ran_id					 AS Rancho
@@ -761,10 +766,10 @@ namespace ReportePeriodo.Modelo
 		                        LEFT JOIN Inventario inv ON t.Rancho = inv.Rancho AND inv.Fecha = t.Fecha
 	                        ) Datos
                         )Indicador";
-			}
-			else
-			{
-				query = @"SELECT  ROUND(SUM(MH),5)                                  AS MH
+            }
+            else
+            {
+                query = @"SELECT  ROUND(SUM(MH),5)                                  AS MH
                                        ,ROUND(SUM(MS),5)                                  AS MS
                                        ,ROUND(IIF(SUM(MH) > 0,SUM(MS)/SUM(MH) * 100,0),5) AS PorcMs
                                        ,ROUND(SUM(COSTO),5)                               AS Costo
@@ -892,10 +897,278 @@ namespace ReportePeriodo.Modelo
 	                                )Costo
 	                                ON Teorico.ing_clave = Costo.ArticuloCve
                                 ) Teorico";
-			}
+            }
 
-			return query;
+            return query;
+        }
+
+        public bool NoIdReal(ref string mensaje)
+        {
+            bool noIdReal = false;
+            ModeloDatosAccess bd = new ModeloDatosAccess();
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT rl.RANCHOLOCAL, r.NOIDREAL
+								 FROM RANCHOLOCAL rl
+								 LEFT JOIN RANCHOS r ON rl.RANCHOLOCAL = r.CLAVE";
+
+                bd.Conectar();
+                bd.CrearComando(query, tipoComandoDB.query);
+                DataTable dt = bd.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                {
+                    noIdReal = Convert.ToBoolean(dt.Rows[0]["NOIDREAL"]);
+                }
+            }
+            catch (DbException ex) { mensaje = ex.Message; }
+            catch (Exception ex) { mensaje = ex.Message; }
+            finally
+            {
+                if (bd.isConnected)
+                    bd.Desconectar();
+            }
+
+            return noIdReal;
+        }
+
+        public bool CentrosDeCostoValidos(int ranId, DateTime fechaInicio, DateTime fechaFin)
+        {
+            bool valido = true;
+
+			try
+			{
+				List<ConfiguracionRancho> listaConfiguracion = ConfiguracionEstablo(ranId);
+				List<string> listaSuscursal = ListaSuscursal(ranId);
+				List<CentroDeCosto> listaCentrosDeCosto = ListaCentrosDeCosto(ranId, fechaInicio, fechaFin);
+
+				string erp = listaConfiguracion[0].Erp_id;
+				string susculsal = listaSuscursal[0];
+				int dia = 0;
+				int empresa = listaConfiguracion[0].Emp_prorrateo == 0 ? listaConfiguracion[0].Emp_id : listaConfiguracion[0].Emp_prorrateo;
+				string url = urlWebService.Replace("@erp", listaConfiguracion[0].Erp_id + "erp");
+
+				ght001766 sie;
+				wCCO66DataTable centroCosto = new wCCO66DataTable();
+
+				List<string> listaCentrosNoValidos = new List<string>();
+				try 
+				{
+					sie = new ght001766(url, "", "", "");
+					sie.ght001766q(empresa, out centroCosto);
+
+					List<CCOGHT> listaDll = centroCosto.AsEnumerable().Select(x => new CCOGHT() 
+					{
+						CCO_Clave = x["CcoClave"] != DBNull.Value ? x["CcoClave"].ToString() : string.Empty, 
+						CCO_Nombre = x["CcoNombre"] != DBNull.Value ? x["CcoNombre"].ToString() : string.Empty
+					}).ToList();
+
+
+					foreach (CentroDeCosto item in listaCentrosDeCosto)
+					{
+						List<CCOGHT> busquedaCentroCostos = (from x in listaDll where x.CCO_Clave == item.CCO select x).ToList();
+
+						if (busquedaCentroCostos.Count == 0)
+						{
+							listaCentrosNoValidos.Add(item.CCO);
+						}
+					}
+
+					valido = listaCentrosNoValidos.Count == 0;
+				}
+				catch { }
+            }
+            catch
+            {
+
+            }
+
+            return valido;
+        }
+      
+        private List<ConfiguracionRancho> ConfiguracionEstablo(int ranId)
+        {
+            List<ConfiguracionRancho> lista = new List<ConfiguracionRancho>();
+            ModeloDatos bd = new ModeloDatos();
+
+            try
+            {
+                string query = @"";
+                if (ranId == 25)
+                {
+                    query = @"Select erp_id, emp_id, track_id, ran_sie , emp_prorrateo
+						FROM DBSIO.dbo.configuracion
+						where ran_id IN( 25,29)";
+                }
+                else
+                {
+                    query = @"Select erp_id, emp_id, track_id, ran_sie ,[emp_prorrateo]
+						FROM DBSIO.dbo.configuracion
+						where ran_id IN(@rancho)";
+
+                    query = query.Replace("@rancho", ranId.ToString());
+                }
+
+                bd.Conectar();
+                bd.CrearComando(query, tipoComando.query);
+                lista = bd.EjecutarConsultaTabla().AsEnumerable().Select(x => new ConfiguracionRancho()
+                {
+                    Erp_id = x["erp_id"] != DBNull.Value ? x["erp_id"].ToString() : string.Empty,
+                    Emp_id = x["emp_id"] != DBNull.Value ? Convert.ToInt32(x["emp_id"]) : 0,
+                    Track_id = x["track_id"] != DBNull.Value ? Convert.ToInt32(x["track_id"]) : 0,
+                    Ran_sie = x["ran_sie"] != DBNull.Value ? Convert.ToInt32(x["ran_sie"]) : 0,
+                    Emp_prorrateo = x["emp_prorrateo"] != DBNull.Value ? Convert.ToInt32(x["emp_prorrateo"]) : 0
+                }).ToList();
+            }
+            catch (DbException ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            finally
+            {
+                if (bd.isConnected)
+                    bd.Desconectar();
+            }
+
+
+
+
+            return lista;
+        }
+
+        private List<string> ListaSuscursal(int ranId)
+        {
+            List<string> lista = new List<string>();
+            ModeloDatos bd = new ModeloDatos();
+
+            try
+            {
+                string query = @"";
+
+                if (ranId == 25)
+                {
+                    query = @"SELECT suc_id 
+							  FROM DBSIO.dbo.RANCHO_SUCURSAL 
+							  WHERE ran_id IN(25,29)";
+                }
+                else
+                {
+                    query = @"SELECT suc_id 
+							  FROM DBSIO.dbo.RANCHO_SUCURSAL 
+							  WHERE ran_id IN(@rancho)";
+                    query = query.Replace("@rancho", ranId.ToString());
+                }
+
+                bd.Conectar();
+                bd.CrearComando(query, tipoComando.query);
+                DataTable dt = bd.EjecutarConsultaTabla();
+
+                foreach (DataRow row in dt.Rows)
+                    lista.Add(row["suc_id"].ToString());
+
+            }
+            catch (DbException ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            finally
+            {
+                if (bd.isConnected)
+                    bd.Desconectar();
+            }
+
+            return lista;
+        }
+
+		private List<CentroDeCosto> ListaCentrosDeCosto(int ranId, DateTime fechaInicio, DateTime fechaFin)
+        {
+			List<CentroDeCosto> lista = new List<CentroDeCosto>();
+			ModeloDatos bd = new ModeloDatos();
+
+			try
+			{
+				string query = @"";
+
+				if (ranId == 25)
+				{
+					query = @"SELECT DISTINCT Convert(nvarchar(50),RTRIM([CCO])) as CCO
+							  FROM [DBALIMENTO].[dbo].[MEDICINA_ACTUAL]
+							  WHERE 
+							  Clave_Medicamento IS NOT NULL AND
+							  Fecha >= @fechaInicio
+							  AND Fecha <= @fechaFin
+							  AND CCO <> 'POR ASIGNAR'
+							  AND   (Clave_Medicamento LIKE 'MEBA[0-9][0-9][0-9][0-9]%'
+							  OR   Clave_Medicamento LIKE 'RPHO[0-9][0-9][0-9][0-9]%'
+							  OR   Clave_Medicamento LIKE 'VAVG[0-9][0-9][0-9][0-9]%')
+							  UNION 
+							  SELECT Convert(nvarchar(50),[cco_vacas])
+	      					  FROM   [DBSIO].[dbo].[CCO_VAC_VAQ]
+							  WHERE ran_id IN (25,29)
+							  UNION 
+							  SELECT Convert(nvarchar(50),[cco_vaquillas])
+	      					  FROM   [DBSIO].[dbo].[CCO_VAC_VAQ]
+							  WHERE ran_id IN (25,29)
+							  ORDER BY CCO";
+				}
+				else 
+				{
+					query = @" SELECT DISTINCT Convert(nvarchar(50), RTRIM([CCO])) as CCO
+							  FROM[DBALIMENTO].[dbo].[MEDICINA_ACTUAL]
+							  WHERE
+							  Clave_Medicamento IS NOT NULL AND
+							  Fecha >= @fechaInicio
+							  AND Fecha <= @fechaFin
+							  AND CCO<> 'POR ASIGNAR'
+							  AND(Clave_Medicamento LIKE 'MEBA[0-9][0-9][0-9][0-9]%'
+							  OR   Clave_Medicamento LIKE 'RPHO[0-9][0-9][0-9][0-9]%'
+							  OR   Clave_Medicamento LIKE 'VAVG[0-9][0-9][0-9][0-9]%')
+							  UNION
+							  SELECT Convert(nvarchar(50),[cco_vacas])
+								FROM[DBSIO].[dbo].[CCO_VAC_VAQ]
+							  WHERE ran_id = @ranId
+							  UNION
+							  SELECT Convert(nvarchar(50),[cco_vaquillas])
+								FROM[DBSIO].[dbo].[CCO_VAC_VAQ]
+							  WHERE ran_id = @ranId
+							  ORDER BY CCO";
+					query = query.Replace("@ranId", ranId.ToString());
+				}
+
+				bd.Conectar();
+				bd.CrearComando(query, tipoComando.query);
+				bd.AsignarParametro("@fechaInicio", fechaInicio);
+				bd.AsignarParametro("@fechaFin", fechaFin);
+				lista = bd.EjecutarConsultaTabla().AsEnumerable().Select(x => new CentroDeCosto()
+				{
+					CCO = x["CCO"] != DBNull.Value ? x["CCO"].ToString() : string.Empty
+				}).ToList();
+
+
+			}
+			catch { }
+
+
+			return lista;
 		}
 
+    }
+
+    internal class ConfiguracionRancho
+    {
+        public string Erp_id { get; set; }
+        public int Emp_id { get; set; }
+        public int Track_id { get; set; }
+        public int Ran_sie { get; set; }
+        public int Emp_prorrateo { get; set; }
+    }
+
+	internal class CentroDeCosto
+	{ 
+		public string CCO { get; set; }
+	}
+
+	internal class CCOGHT
+	{ 
+		public string CCO_Clave { get; set; }
+		public string CCO_Nombre { get; set; }
 	}
 }

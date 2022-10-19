@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ReportePeriodo.Entidad;
 using ReportePeriodo.Modelo;
+using LibreriaAlimentacion;
+
 
 namespace ReportePeriodo.Controlador
 {
@@ -41,5 +43,22 @@ namespace ReportePeriodo.Controlador
         {
             return modelo.ListaLecheBacteriologia(inicio, fin, ref mensaje);
         }
+
+        public bool NoIdReal(ref string mensaje)
+        {
+            return modelo.NoIdReal(ref mensaje);
+        }
+
+        public void CierreMesCorrecto(int ranId, int horaCorte,DateTime fechaInicio, DateTime fechaFin, out bool validacionMedicina, out bool validacionAlimento)
+        {                        
+            bool validacionCCO = modelo.CentrosDeCostoValidos(ranId, fechaInicio, fechaFin);
+            string mensaje = string.Empty;
+            GTH.ValidacionesCierreMes(ranId, horaCorte, fechaInicio, fechaFin, out validacionAlimento, out validacionMedicina, ref mensaje);
+            bool auxiliarMedicina = validacionCCO && validacionMedicina;
+            validacionMedicina = auxiliarMedicina;
+
+        }
+
+
     }
 }

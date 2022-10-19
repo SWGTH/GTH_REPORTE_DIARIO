@@ -41,6 +41,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Documents\Visual Studio 2019\Proyects\VentaGanadoFueraAFII\VentaGanadoFueraAFII\bin\Debug\FirebirdSql.Data.FirebirdClient.dll</HintPath>
     </Reference>
+    <Reference Include="ght001766, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\ght001766.dll</HintPath>
+    </Reference>
     <Reference Include="LibreriaAlimentacion, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\GTH_CMS\GTH_CMS\bin\Debug\LibreriaAlimentacion.dll</HintPath>
@@ -76,6 +80,14 @@
     </Reference>
     <Reference Include="Patagames.Pdf.Wpf, Version=4.19.18.46, Culture=neutral, PublicKeyToken=60fd6cf9b15941cf, processorArchitecture=MSIL">
       <HintPath>..\packages\Pdfium.Net.SDK.4.54.2704\lib\net46\Patagames.Pdf.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Progress.Messages, Version=11.7.0.1388, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Progress.Messages.dll</HintPath>
+    </Reference>
+    <Reference Include="Progress.o4glrt, Version=11.7.0.1388, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Progress.o4glrt.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
