@@ -8,8 +8,8 @@
   <Shapes>
     <Shape ID="DesignTable:DataTable2" ZOrder="2" X="169" Y="7" Height="752" Width="240" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="748" />
     <Shape ID="DesignTable:DataTable1" ZOrder="4" X="681" Y="0" Height="904" Width="160" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="900" />
-    <Shape ID="DesignTable:DataTable3" ZOrder="3" X="0" Y="0" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="0" />
-    <Shape ID="DesignTable:DataTable4" ZOrder="1" X="1038" Y="66" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="86" />
+    <Shape ID="DesignTable:DataTable3" ZOrder="3" X="0" Y="0" Height="695" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="691" />
+    <Shape ID="DesignTable:DataTable4" ZOrder="1" X="898" Y="73" Height="638" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="634" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

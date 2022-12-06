@@ -1953,6 +1953,8 @@ namespace ReportePeriodo {
             
             private global::System.Data.DataColumn columnCOLOR_CTD;
             
+            private global::System.Data.DataColumn columnCOLOR_ANT;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DataTable1DataTable() {
@@ -2444,6 +2446,14 @@ namespace ReportePeriodo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn COLOR_ANTColumn {
+                get {
+                    return this.columnCOLOR_ANT;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2536,7 +2546,8 @@ namespace ReportePeriodo {
                         string COLOR_SES1, 
                         string COLOR_SES2, 
                         string COLOR_SES3, 
-                        string COLOR_CTD) {
+                        string COLOR_CTD, 
+                        string COLOR_ANT) {
                 DataTable1Row rowDataTable1Row = ((DataTable1Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         DIA,
@@ -2595,7 +2606,8 @@ namespace ReportePeriodo {
                         COLOR_SES1,
                         COLOR_SES2,
                         COLOR_SES3,
-                        COLOR_CTD};
+                        COLOR_CTD,
+                        COLOR_ANT};
                 rowDataTable1Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDataTable1Row);
                 return rowDataTable1Row;
@@ -2675,6 +2687,7 @@ namespace ReportePeriodo {
                 this.columnCOLOR_SES2 = base.Columns["COLOR_SES2"];
                 this.columnCOLOR_SES3 = base.Columns["COLOR_SES3"];
                 this.columnCOLOR_CTD = base.Columns["COLOR_CTD"];
+                this.columnCOLOR_ANT = base.Columns["COLOR_ANT"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2794,6 +2807,8 @@ namespace ReportePeriodo {
                 base.Columns.Add(this.columnCOLOR_SES3);
                 this.columnCOLOR_CTD = new global::System.Data.DataColumn("COLOR_CTD", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCOLOR_CTD);
+                this.columnCOLOR_ANT = new global::System.Data.DataColumn("COLOR_ANT", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOLOR_ANT);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7395,6 +7410,22 @@ namespace ReportePeriodo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string COLOR_ANT {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.COLOR_ANTColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'COLOR_ANT\' de la tabla \'DataTable1\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.COLOR_ANTColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsDIANull() {
                 return this.IsNull(this.tableDataTable1.DIAColumn);
             }
@@ -8075,6 +8106,18 @@ namespace ReportePeriodo {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetCOLOR_CTDNull() {
                 this[this.tableDataTable1.COLOR_CTDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCOLOR_ANTNull() {
+                return this.IsNull(this.tableDataTable1.COLOR_ANTColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCOLOR_ANTNull() {
+                this[this.tableDataTable1.COLOR_ANTColumn] = global::System.Convert.DBNull;
             }
         }
         

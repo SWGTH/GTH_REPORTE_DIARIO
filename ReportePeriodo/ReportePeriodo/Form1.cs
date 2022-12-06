@@ -569,7 +569,7 @@ namespace ReportePeriodo
                 }
                 else
                 {
-                    EAProd = (indicadoresProduccion.EA >= 1.2 && indicadoresProduccion.EA <= 1.8) ? true : false;
+                    EAProd = (indicadoresProduccion.EA >= 1.1 && indicadoresProduccion.EA <= 1.8) ? true : false;
                     EAProdValor = indicadoresProduccion.EA;
                 }
                 //Evaluación de MS Producción
@@ -796,7 +796,7 @@ namespace ReportePeriodo
                     }
                     else
                     {
-                        EAProd = promOrd > 0 ? (EAProdValor >= 1.2 && EAProdValor <= 1.8) ? true : false : true;
+                        EAProd = promOrd > 0 ? (EAProdValor >= 1.1 && EAProdValor <= 1.8) ? true : false : true;
                     }
                     //Evaluación de MS Producción
                     if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["Ordeño"]) == 0)
@@ -871,7 +871,7 @@ namespace ReportePeriodo
                 }
                 else
                 {
-                    EAProd = (EAProdValor >= 1.2 && EAProdValor <= 1.8) ? true : false;
+                    EAProd = (EAProdValor >= 1.1 && EAProdValor <= 1.8) ? true : false;
                     MsProd = (MsProdValor >= 18 && MsProdValor <= 30) ? true : false;
                     MsCrecimiento = (MsCrecimientosValor >= 2 && MsCrecimientosValor <= 8) ? true : false;
                     MsDesarollo = (MsDesarolloValor >= 6 && MsDesarolloValor <= 11) ? true : false;
@@ -3268,13 +3268,153 @@ namespace ReportePeriodo
                 }
 
             }
+
+            int auxInventario = 0;
+            decimal auxMH = 0, auxCostoRacion = 0, auxCostoMs = 0;
+
             for (int i = 0; i < dtA.Rows.Count; i++)
             {
                 for (int j = 0; j < dtA.Columns.Count; j++)
                 {
-                    if (Convert.ToString(dtA.Rows[i][j]) == "0")
+
+                    switch (j)
                     {
-                        dtA.Rows[i][j] = DBNull.Value;
+                        case 5:
+                            Int32.TryParse(dtA.Rows[i][3].ToString(), out auxInventario);
+                            decimal.TryParse(dtA.Rows[i][4].ToString(), out auxMH);
+                            decimal.TryParse(dtA.Rows[i][5].ToString(), out auxCostoRacion);
+
+                            if (auxCostoRacion == 0)
+                            {
+                                if (auxInventario != 0 && auxMH != 0)
+                                    continue;
+                                else
+                                    dtA.Rows[i][j] = DBNull.Value;
+                            }
+                            break;
+                        case 8:
+                            Int32.TryParse(dtA.Rows[i][3].ToString(), out auxInventario);
+                            decimal.TryParse(dtA.Rows[i][4].ToString(), out auxMH);
+                            decimal.TryParse(dtA.Rows[i][8].ToString(), out auxCostoMs);
+
+                            if (auxCostoMs == 0)
+                            {
+                                if (auxInventario != 0 && auxMH != 0)
+                                    continue;
+                                else
+                                    dtA.Rows[i][j] = DBNull.Value;
+                            }
+                            break;                       
+                        case 12:
+                            Int32.TryParse(dtA.Rows[i][10].ToString(), out auxInventario);
+                            decimal.TryParse(dtA.Rows[i][11].ToString(), out auxMH);
+                            decimal.TryParse(dtA.Rows[i][12].ToString(), out auxCostoRacion);
+
+                            if (auxCostoRacion == 0)
+                            {
+                                if (auxInventario != 0 && auxMH != 0)
+                                    continue;
+                                else
+                                    dtA.Rows[i][j] = DBNull.Value;
+                            }
+                            break;
+                        case 15:
+                            Int32.TryParse(dtA.Rows[i][10].ToString(), out auxInventario);
+                            decimal.TryParse(dtA.Rows[i][11].ToString(), out auxMH);
+                            decimal.TryParse(dtA.Rows[i][15].ToString(), out auxCostoMs);
+
+                            if (auxCostoMs == 0)
+                            {
+                                if (auxInventario != 0 && auxMH != 0)
+                                    continue;
+                                else
+                                    dtA.Rows[i][j] = DBNull.Value;
+                            }
+                            break;
+                        case 19:
+                            Int32.TryParse(dtA.Rows[i][17].ToString(), out auxInventario);
+                            decimal.TryParse(dtA.Rows[i][8].ToString(), out auxMH);
+                            decimal.TryParse(dtA.Rows[i][19].ToString(), out auxCostoRacion);
+
+                            if (auxCostoRacion == 0)
+                            {
+                                if (auxInventario != 0 && auxMH != 0)
+                                    continue;
+                                else
+                                    dtA.Rows[i][j] = DBNull.Value;
+                            }
+                            break;
+                        case 22:
+                            Int32.TryParse(dtA.Rows[i][17].ToString(), out auxInventario);
+                            decimal.TryParse(dtA.Rows[i][8].ToString(), out auxMH);
+                            decimal.TryParse(dtA.Rows[i][22].ToString(), out auxCostoMs);
+
+                            if (auxCostoMs == 0)
+                            {
+                                if (auxInventario != 0 && auxMH != 0)
+                                    continue;
+                                else
+                                    dtA.Rows[i][j] = DBNull.Value;
+                            }
+                            break;
+                        case 31:
+                            Int32.TryParse(dtA.Rows[i][24].ToString(), out auxInventario);
+                            decimal.TryParse(dtA.Rows[i][25].ToString(), out auxMH);
+                            decimal.TryParse(dtA.Rows[i][31].ToString(), out auxCostoRacion);
+                           
+                            if (auxCostoRacion == 0)
+                            {
+                                if (auxInventario != 0 && auxMH != 0)
+                                    continue;
+                                else
+                                    dtA.Rows[i][j] = DBNull.Value;
+                            }
+                            break;
+                        case 32:
+                            Int32.TryParse(dtA.Rows[i][24].ToString(), out auxInventario);
+                            decimal.TryParse(dtA.Rows[i][25].ToString(), out auxMH);
+                            decimal.TryParse(dtA.Rows[i][32].ToString(), out auxCostoMs);
+
+                            if (auxCostoMs == 0)
+                            {
+                                if (auxInventario != 0 && auxMH != 0)
+                                    continue;
+                                else
+                                    dtA.Rows[i][j] = DBNull.Value;
+                            }
+                            break;
+                        case 41:
+                            Int32.TryParse(dtA.Rows[i][34].ToString(), out auxInventario);
+                            decimal.TryParse(dtA.Rows[i][35].ToString(), out auxMH);
+                            decimal.TryParse(dtA.Rows[i][41].ToString(), out auxCostoRacion);
+
+                            if (auxCostoRacion == 0)
+                            {
+                                if (auxInventario != 0 && auxMH != 0)
+                                    continue;
+                                else
+                                    dtA.Rows[i][j] = DBNull.Value;
+                            }
+                            break;
+                        case 42:
+                            Int32.TryParse(dtA.Rows[i][34].ToString(), out auxInventario);
+                            decimal.TryParse(dtA.Rows[i][35].ToString(), out auxMH);
+                            decimal.TryParse(dtA.Rows[i][42].ToString(), out auxCostoMs);
+
+                            if (auxCostoMs == 0)
+                            {
+                                if (auxInventario != 0 && auxMH != 0)
+                                    continue;
+                                else
+                                    dtA.Rows[i][j] = DBNull.Value;
+                            }
+                            break;
+                        default:
+                            if (Convert.ToString(dtA.Rows[i][j]) == "0")
+                            {
+                                dtA.Rows[i][j] = DBNull.Value;
+                            }
+                            break;
                     }
                 }
             }
@@ -3499,9 +3639,9 @@ namespace ReportePeriodo
                                               _SumatoriaPreciosxInventario[7];
             dt.Rows[32][44] = _LecheXPrecio / _IT;
             dt.Rows[32][45] = _SumatoriaPreciosxInventario[6] / _PondeTablas;
-            dt.Rows[32][46] = (Convert.ToDouble(dt.Rows[32][45]) / Convert.ToDouble(dt.Rows[32][44])) * 100;
+            dt.Rows[32][46] = Convert.ToDouble(dt.Rows[32][44]) > 0 ? (Convert.ToDouble(dt.Rows[32][45]) / Convert.ToDouble(dt.Rows[32][44])) * 100 : 0;
             dt.Rows[32][48] = Convert.ToDouble(dt.Rows[32][44]) - Convert.ToDouble(dt.Rows[32][45]);
-            dt.Rows[32][49] = (Convert.ToDouble(dt.Rows[32][48]) / Convert.ToDouble(dt.Rows[32][44])) * 100;
+            dt.Rows[32][49] = Convert.ToDouble(dt.Rows[32][44]) > 0 ? (Convert.ToDouble(dt.Rows[32][48]) / Convert.ToDouble(dt.Rows[32][44])) * 100 : 0;
 
             DateTime fecha = ConvertToNormal(julianaF);
             if (fecha.Year == fechaFinDTP.Year)
@@ -5466,7 +5606,7 @@ namespace ReportePeriodo
             dt.Columns.Add("COLOR_SES2").DataType = System.Type.GetType("System.String");
             dt.Columns.Add("COLOR_SES3").DataType = System.Type.GetType("System.String");
             dt.Columns.Add("COLOR_CTD").DataType = System.Type.GetType("System.String");
-
+            dt.Columns.Add("COLOR_ANT").DataType = System.Type.GetType("System.String");
             /*Columnas nuevas
             dt.Columns.Add("COLOR_MSS").DataType = System.Type.GetType("System.String");
             */
@@ -5576,6 +5716,8 @@ namespace ReportePeriodo
         {
             DataTable dt = DtColorometriaHoja1();
 
+
+            decimal media = 0, antib = 0, ant = 0; 
             foreach (DataRow row in dtHoja1.Rows)
             {
                 DataRow newRow = dt.NewRow();
@@ -5646,7 +5788,10 @@ namespace ReportePeriodo
                         newRow["COLOR_LECHE"] = "";
 
                     if (row["X"] != DBNull.Value)
+                    {
                         newRow["COLOR_MEDIA"] = Color1Hoja1(Convert.ToDecimal(row["X"].ToString()), datosProd.MEDIA);
+                        media = Convert.ToDecimal(row["X"]);
+                    }
                     else
                         newRow["COLOR_MEDIA"] = "";
 
@@ -5654,6 +5799,19 @@ namespace ReportePeriodo
                         newRow["COLOR_TOTAL"] = Color1Hoja1(Convert.ToDecimal(row["TOTALPROD"].ToString()), datosProd.TOTAL);
                     else
                         newRow["COLOR_TOTAL"] = "";
+
+                    if (row["ANT"] != DBNull.Value)
+                    {
+                        if (row["ANTIB"] != DBNull.Value)
+                            antib = Convert.ToDecimal(row["ANTIB"].ToString());
+                        else
+                            antib = 0;
+
+                        ant = Convert.ToDecimal(row["ANT"]);
+                        newRow["COLOR_ANT"] = ColorAntHoja1(media, antib, ant);
+                    }
+                    else
+                        newRow["COLOR_ANT"] = "";
 
                     if (row["SES1"] != DBNull.Value)
                         newRow["COLOR_SES1"] = ColorSes(Convert.ToInt32(row["ORDENO"]), Convert.ToInt32(row["SES1"]));
@@ -5718,15 +5876,21 @@ namespace ReportePeriodo
                             newRow["COLOR_PRECIOKGMS"] = "";
                         }
 
-                        if (busquedaBacteorologia.Count > 0)
+                        if (!(newRow["CTD"].ToString() == ""))
                         {
-                            if (busquedaBacteorologia[0].BACTEROLOGIA < 0.2M)
-                                newRow["COLOR_CTD"] = "#FFC9C9";
+                            if (busquedaBacteorologia.Count > 0)
+                            {
+                                if (busquedaBacteorologia[0].BACTEROLOGIA < 0.2M)
+                                    newRow["COLOR_CTD"] = "#FFC9C9";
+                                else
+                                    newRow["COLOR_CTD"] = "#F2F2F2";
+                            }
                             else
-                                newRow["COLOR_CTD"] = "#F2F2F2";
+                                newRow["COLOR_CTD"] = "";
                         }
                         else
                             newRow["COLOR_CTD"] = "";
+
                     }
 
 
@@ -5749,11 +5913,41 @@ namespace ReportePeriodo
                     newRow["COLOR_SES1"] = "";
                     newRow["COLOR_SES2"] = "";
                     newRow["COLOR_SES3"] = "";
+                    newRow["COLOR_ANT"] = "";
                 }
                 dt.Rows.Add(newRow);
             }
 
             return dt;
+        }
+
+        private string ColorAntHoja1(decimal media, decimal antib, decimal ant)
+        {
+            string color = "";
+            try 
+            {
+                decimal result = ant > 0 ? antib / ant : 0;
+
+                switch(result)
+                {
+                    //Color Verde
+                    case decimal n when (n >= (media * 0.5M) && n <= (media * 0.7M)):
+                        color = "#DEEDD3";
+                        break;
+                    //Color Amarillo
+                    case decimal n when ((n > (media * 0.7M) && n <= (media * 0.8M)) || (n >= (media * 0.4M) && n < (media * 0.5M)) ):
+                        color = "#FFF5D9";
+                        break;
+                    //Color Rojo
+                    default:
+                        color = "#FFC9C9";
+                        break;
+                }
+            
+            }
+            catch { }
+
+            return color;
         }
 
         private DataTable DTHoja2ConColorimetria(DataTable dtHoja2)
@@ -6069,11 +6263,11 @@ namespace ReportePeriodo
                         color = "#DEEDD3";
                         break;
                     //Blanco    #F2F2F2
-                    case decimal n when ((n >= (promedio * 0.95M) && n <= (promedio * 1.05M))):
+                    case decimal n when ((n >= (promedio * 0.95M) && n < (promedio * 1.05M))):
                         color = "#F2F2F2";
                         break;
                     //Amarillo #FFF5D9
-                    case decimal n when (n >= (promedio * 1.05M) && n < (promedio * 1.10M)):
+                    case decimal n when (n >= (promedio * 1.05M) && n <= (promedio * 1.10M)):
                         color = "#FFF5D9";
                         break;
                     //Rojo  #FFC9C9
