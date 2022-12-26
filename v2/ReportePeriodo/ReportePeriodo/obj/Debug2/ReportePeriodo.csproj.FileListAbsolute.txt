@@ -1,0 +1,465 @@
+C:\Users\GTH\source\repos\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe.config
+C:\Users\GTH\source\repos\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe
+C:\Users\GTH\source\repos\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.pdb
+C:\Users\GTH\source\repos\ReportePeriodo\ReportePeriodo\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
+C:\Users\GTH\source\repos\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Form1.resources
+C:\Users\GTH\source\repos\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Properties.Resources.resources
+C:\Users\GTH\source\repos\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.GenerateResource.cache
+C:\Users\GTH\source\repos\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CoreCompileInputs.cache
+C:\Users\GTH\source\repos\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CopyComplete
+C:\Users\GTH\source\repos\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
+C:\Users\GTH\source\repos\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
+C:\Users\GTH\source\repos\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csprojAssemblyReference.cache
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\msvcr120.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\msvcr120.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\icudt.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\x64\pdfium.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\x86\pdfium.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\libpdfium.dylib
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe.config
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.pdb
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Common.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.DataVisualization.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Design.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WebForms.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\EnvDTE.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\stdole.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.MSXML.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.xml
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.xml
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.xml
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.config
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Form1.resources
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Properties.Resources.resources
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.GenerateResource.cache
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.licenses
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.cache
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.compiled
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CoreCompileInputs.cache
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CopyComplete
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
+C:\Users\GTH\Desktop\Luis\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csprojAssemblyReference.cache
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\msvcr120.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\msvcr120.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\icudt.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\x64\pdfium.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\x86\pdfium.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\libpdfium.dylib
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe.config
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.pdb
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Common.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Common.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.DataVisualization.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Design.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WebForms.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\EnvDTE.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\stdole.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.MSXML.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.xml
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.xml
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.xml
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csprojAssemblyReference.cache
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.config
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Form1.resources
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Properties.Resources.resources
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.GenerateResource.cache
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.licenses
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.cache
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.compiled
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CoreCompileInputs.cache
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CopyComplete
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
+C:\Users\aceri7\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\msvcr120.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\msvcr120.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\icudt.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\x64\pdfium.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\x86\pdfium.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\libpdfium.dylib
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe.config
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.pdb
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Common.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.DataVisualization.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Design.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WebForms.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\EnvDTE.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\stdole.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.MSXML.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.xml
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.xml
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.xml
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.config
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Form1.resources
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Properties.Resources.resources
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.GenerateResource.cache
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.licenses
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.cache
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.compiled
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CoreCompileInputs.cache
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CopyComplete
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
+\\10.221.20.3\Compartida\canez\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csprojAssemblyReference.cache
+\\10.221.20.3\Compartida\canez\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.config
+\\10.221.20.3\Compartida\canez\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
+\\10.221.20.3\Compartida\canez\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\msvcr120.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\msvcr120.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\icudt.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\x64\pdfium.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\x86\pdfium.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\libpdfium.dylib
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe.config
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.pdb
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Common.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.DataVisualization.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Design.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WebForms.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\EnvDTE.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\stdole.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.MSXML.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.xml
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.xml
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.xml
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csprojAssemblyReference.cache
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.config
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Form1.resources
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Properties.Resources.resources
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.GenerateResource.cache
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.licenses
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.cache
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.compiled
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CoreCompileInputs.cache
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CopyComplete
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
+C:\Users\aceri7\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
+C:\Users\ACER\Desktop\Auxi\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csprojAssemblyReference.cache
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\msvcr120.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\msvcr120.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\icudt.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\x64\pdfium.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\x86\pdfium.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\libpdfium.dylib
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe.config
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.pdb
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Common.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.DataVisualization.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Design.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WebForms.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\EnvDTE.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\stdole.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.MSXML.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.xml
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.xml
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.xml
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csprojAssemblyReference.cache
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.config
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Form1.resources
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Properties.Resources.resources
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.GenerateResource.cache
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.licenses
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.cache
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.compiled
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CoreCompileInputs.cache
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CopyComplete
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
+C:\Users\GTH\Desktop\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\msvcr120.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\msvcr120.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\icudt.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\x64\pdfium.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\x86\pdfium.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\libpdfium.dylib
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe.config
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.pdb
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Common.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.DataVisualization.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Design.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WebForms.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\EnvDTE.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\stdole.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.MSXML.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.xml
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.xml
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.xml
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.config
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Form1.resources
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Properties.Resources.resources
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.GenerateResource.cache
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.licenses
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.cache
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.compiled
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CoreCompileInputs.cache
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CopyComplete
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
+C:\Users\ACER\Desktop\Nueva carpeta\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\msvcr120.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\msvcr120.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\icudt.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\x64\pdfium.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\x86\pdfium.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\libpdfium.dylib
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe.config
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.pdb
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Common.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.DataVisualization.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.Design.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WebForms.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\EnvDTE.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\stdole.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.MSXML.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.xml
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.WinForms.xml
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\Patagames.Pdf.Wpf.xml
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.Design.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\de\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\fr\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\it\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\ja\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\ko\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\pt\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\ru\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.config
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Form1.resources
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Properties.Resources.resources
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.GenerateResource.cache
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.licenses
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.cache
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.compiled
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CoreCompileInputs.cache
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CopyComplete
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
+C:\Users\ACER\Desktop\ReporteCon5columnas\ReportePeriodo\ReportePeriodo\bin\Debug\FirebirdSql.Data.FirebirdClient.dll

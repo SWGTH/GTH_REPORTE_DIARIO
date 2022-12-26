@@ -4137,7 +4137,7 @@ namespace ReportePeriodo
             SacarEspaciosVacios(_dt);
             LlenarEspaciosVacios(_DtAux, _dt, false, 30);
 
-            //Tomamos los valores de los abortos de vaquillas 
+            //Tomamos los valores de los abortos de vacas 
             query = "SELECT  DAY(CDATE(FECHA)), COUNT(*)  "
                 + " FROM Dabortos "
                 + " WHERE FECHA BETWEEN " + _FechaInicialEnJuliana + " AND " + _FechaFinalEnJuliana
@@ -6128,7 +6128,7 @@ namespace ReportePeriodo
                             newRow["COLOR_CXA"] = "";
 
                         if (row["PORCENTAJE1"] != DBNull.Value)
-                            newRow["COLOR_PORCENTAJEC"] = ColorUtilidad(Convert.ToDecimal(row["PORCENTAJE1"].ToString()), utilidad.PORCENTAJE_C, false);
+                            newRow["COLOR_PORCENTAJEC"] = ColorUtilidad(Convert.ToDecimal(row["PORCENTAJE1"].ToString()), utilidad.PORCENTAJE_C, true);
                         else
                             newRow["COLOR_PORCENTAJEC"] = "";
 

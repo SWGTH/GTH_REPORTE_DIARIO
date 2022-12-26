@@ -31,25 +31,25 @@ namespace ReportePeriodo.Modelo
             string campoInventario = "";
             switch (etapa)
             {
-                case "10,11,12,13":
+                case "10,11,12,13,91":
                     campoInventario = "ia_vacas_ord";
                     break;
-                case "21":
+                case "21,92":
                     campoInventario = "ia_vacas_secas";
                     break;
-                case "22":
+                case "22,94":
                     campoInventario = "ia_vqreto+ia_vcreto";
                     break;
-                case "31":
+                case "31,95":
                     campoInventario = "ia_jaulas";
                     break;
-                case "32":
+                case "32,96":
                     campoInventario = "ia_destetadas";
                     break;
-                case "33":
+                case "33,97":
                     campoInventario = "ia_destetadas2";
                     break;
-                case "34":
+                case "34,98":
                     campoInventario = "ia_vaquillas";
                     break;
 
@@ -481,12 +481,12 @@ namespace ReportePeriodo.Modelo
 
             foreach (DateTime fecha in listaFechas)
             {
-                DatosTeorico produccion = DatosTeorico(ranId, horaCorte, "10,11,12,13", fecha, ref mensaje);
-                DatosTeorico secas = DatosTeorico(ranId, horaCorte, "21", fecha, ref mensaje);
-                DatosTeorico reto = DatosTeorico(ranId, horaCorte, "22", fecha, ref mensaje);
-                DatosTeorico destete1 = DatosTeorico(ranId, horaCorte, "32", fecha, ref mensaje);
-                DatosTeorico destete2 = DatosTeorico(ranId, horaCorte, "33", fecha, ref mensaje);
-                DatosTeorico vaquillas = DatosTeorico(ranId, horaCorte, "34", fecha, ref mensaje);
+                DatosTeorico produccion = DatosTeorico(ranId, horaCorte, "10,11,12,13,91", fecha, ref mensaje);
+                DatosTeorico secas = DatosTeorico(ranId, horaCorte, "21,92", fecha, ref mensaje);
+                DatosTeorico reto = DatosTeorico(ranId, horaCorte, "22,94", fecha, ref mensaje);
+                DatosTeorico destete1 = DatosTeorico(ranId, horaCorte, "32,96", fecha, ref mensaje);
+                DatosTeorico destete2 = DatosTeorico(ranId, horaCorte, "33,97", fecha, ref mensaje);
+                DatosTeorico vaquillas = DatosTeorico(ranId, horaCorte, "34,98", fecha, ref mensaje);
 
                 listaProduccion.Add(produccion);
                 listaSecas.Add(secas);
@@ -686,6 +686,13 @@ namespace ReportePeriodo.Modelo
 				                        WHEN 11 THEN 10 
 				                        WHEN 12 THEN 10 
 				                        WHEN 13 THEN 10 
+										WHEN 91	THEN 10
+										WHEN 92 THEN 21
+										WHEN 94 THEN 22
+										WHEN 95 THEN 31
+										WHEN 96 THEN 32 
+										WHEN 97 THEN 33
+										WHEN 98 THEN 34
 				                        ELSE CONVERT(int,IIF(SUBSTRING(racion_descripcion,3,1) = '6',SUBSTRING(racion_descripcion,4,2),SUBSTRING(racion_descripcion,3,2))) 
 			                         END AS Etapa
 			                        ,peso * numvacas AS MH
