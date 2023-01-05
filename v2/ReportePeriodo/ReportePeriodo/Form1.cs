@@ -1447,30 +1447,41 @@ namespace ReportePeriodo
                     {
                         CalostroYOrdeña busqueda = (from x in lista where x.Fecha.Day == dia select x).ToList().FirstOrDefault();
 
-                        if (busqueda.Horario_Sesion1 == 0)
+                        if (busqueda != null)
+                        {
+                            if (busqueda.Horario_Sesion1 == 0)
+                                row["HORARIOSES1"] = 0;
+                            else
+                                row["HORARIOSES1"] = busqueda.Horario_Sesion1;
+
+                            if (busqueda.Horario_Sesion2 == 0)
+                                row["HORARIOSES2"] = 0;
+                            else
+                                row["HORARIOSES2"] = busqueda.Horario_Sesion2;
+
+                            if (busqueda.Horario_Sesion3 == 0)
+                                row["HORARIOSES3"] = 0;
+                            else
+                                row["HORARIOSES3"] = busqueda.Horario_Sesion3;
+
+                            if (busqueda.Capacidad_Ordeño == 0)
+                                row["CAPACIDADSALA"] = DBNull.Value;
+                            else
+                                row["CAPACIDADSALA"] = busqueda.Capacidad_Ordeño;
+
+                            if (busqueda.Porcentaje_Revueltas == 0)
+                                row["PORCENTAJEREVUELTAS"] = DBNull.Value;
+                            else
+                                row["PORCENTAJEREVUELTAS"] = busqueda.Porcentaje_Revueltas;
+                        }
+                        else
+                        {
                             row["HORARIOSES1"] = 0;
-                        else
-                            row["HORARIOSES1"] = busqueda.Horario_Sesion1;
-
-                        if (busqueda.Horario_Sesion2 == 0)
                             row["HORARIOSES2"] = 0;
-                        else
-                            row["HORARIOSES2"] = busqueda.Horario_Sesion2;
-
-                        if (busqueda.Horario_Sesion3 == 0)
                             row["HORARIOSES3"] = 0;
-                        else
-                            row["HORARIOSES3"] = busqueda.Horario_Sesion3;
-
-                        if (busqueda.Capacidad_Ordeño == 0)
                             row["CAPACIDADSALA"] = DBNull.Value;
-                        else
-                            row["CAPACIDADSALA"] = busqueda.Capacidad_Ordeño;
-
-                        if (busqueda.Porcentaje_Revueltas == 0)
                             row["PORCENTAJEREVUELTAS"] = DBNull.Value;
-                        else
-                            row["PORCENTAJEREVUELTAS"] = busqueda.Porcentaje_Revueltas;
+                        }
                     }
                     catch
                     {
@@ -3857,7 +3868,14 @@ namespace ReportePeriodo
                                 dt.Rows[32][19] = ((_Ponderizado / Convert.ToDouble(dt.Rows[31][17])) / Convert.ToDouble(dt.Rows[32][18])) * 100;
                             }
                             dt.Rows[32][i] = _Ponderizado / Convert.ToDouble(dt.Rows[31][17]);
-                            if (i == 22) { dt.Rows[32][i] = Convert.ToDouble(dt.Rows[32][20]) / Convert.ToDouble(dt.Rows[32][21]); }
+                            if (i == 22) 
+                            {
+                                double v1, v2;
+                                double.TryParse(dt.Rows[32][20].ToString(), out v1);
+                                double.TryParse(dt.Rows[32][21].ToString(), out v2);
+                                dt.Rows[32][i] = v2 > 0 ? v1 / v2 : 0;
+                                //dt.Rows[32][i] = Convert.ToDouble(dt.Rows[32][20]) / Convert.ToDouble(dt.Rows[32][21]); 
+                            }
                         }
                         if (i >= 25 && i <= 32)
                         {

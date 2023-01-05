@@ -394,4 +394,3 @@ C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v2\ReportePeriodo\ReportePeriod
 C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v2\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CopyComplete
 C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v2\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
 C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v2\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
-C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v2\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.AssemblyReference.cache

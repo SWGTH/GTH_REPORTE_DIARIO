@@ -17220,7 +17220,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>MS ≥ 18 y ≤ 30</Value>
+                    <Value>MS ≥ 18 y ≤ 32</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontSize>5pt</FontSize>
