@@ -76,6 +76,7 @@
     <Compile Include="Entidad\ConfiguracionReporte.cs" />
     <Compile Include="Entidad\Cribas.cs" />
     <Compile Include="Entidad\DatosProduccion.cs" />
+    <Compile Include="Entidad\Desecho.cs" />
     <Compile Include="Entidad\Hoja1.cs" />
     <Compile Include="Entidad\Hoja2.cs" />
     <Compile Include="Entidad\Hoja3.cs" />
@@ -83,8 +84,10 @@
     <Compile Include="Entidad\Inventario.cs" />
     <Compile Include="Entidad\InventarioAfiXDia.cs" />
     <Compile Include="Entidad\Mproduc.cs" />
+    <Compile Include="Entidad\Mproduc2.cs" />
     <Compile Include="Entidad\PromedioHoja1.cs" />
     <Compile Include="Entidad\Rancho.cs" />
+    <Compile Include="Entidad\Utilidad.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

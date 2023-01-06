@@ -86,27 +86,24 @@ namespace ReportePeriodo
         {
             _presentador.CargarDatosTeoricos(rancho, fechaFin, ref _mensaje);
             _presentador.CargarPromediosDatosAlimentacion(rancho, fechaInicio, fechaFin, ref _mensaje);
-
+            _presentador.CargarPrecioLeche(rancho, fechaInicio, fechaFin, ref _mensaje);
 
             #region hoja1
             List<Hoja1> reporteHoja1 = _presentador.ReporteHoja1(rancho, fechaInicio, fechaFin, ref _mensaje);
             DataTable dtHoja1 = ListToDataTable(reporteHoja1);
-            
-            
-
-            
             #endregion
 
             #region hoja2
-            
+            List<Hoja2> reporteHoja2 = _presentador.ReporteHoja2(rancho, fechaInicio, fechaFin, ref _mensaje);
+            DataTable dtHoja2 = ListToDataTable(reporteHoja2);
             #endregion
 
             #region hoja3
-            
+
             #endregion
 
             #region hoja4
-            
+
             #endregion
         }
 

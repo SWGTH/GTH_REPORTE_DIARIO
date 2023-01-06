@@ -27,9 +27,20 @@ namespace ReportePeriodo.Modelo
         gth.IndicadorReportePeriodo promedioProduccion;
         gth.IndicadorReportePeriodo promedioSecas;
         gth.IndicadorReportePeriodo promedioReto;
+        gth.IndicadorReportePeriodo promedioJaulas;
         gth.IndicadorReportePeriodo promedioCrecimiento;
         gth.IndicadorReportePeriodo promedioDesarrollo;
         gth.IndicadorReportePeriodo promedioVaquillas;
+
+        gth.IndicadorReportePeriodo promedioAntProduccion;
+        gth.IndicadorReportePeriodo promedioAntSecas;
+        gth.IndicadorReportePeriodo promedioAntReto;
+        gth.IndicadorReportePeriodo promedioAntJaulas;
+        gth.IndicadorReportePeriodo promedioAntCrecimiento;
+        gth.IndicadorReportePeriodo promedioAntDesarrollo;
+        gth.IndicadorReportePeriodo promedioAntVaquillas;
+
+        decimal precioLeche;
 
         public Model(string conexionAccess, string conexionSQL)
         {
@@ -46,9 +57,20 @@ namespace ReportePeriodo.Modelo
             promedioProduccion = new gth.IndicadorReportePeriodo();
             promedioSecas = new gth.IndicadorReportePeriodo();
             promedioReto = new gth.IndicadorReportePeriodo();
+            promedioJaulas = new gth.IndicadorReportePeriodo();
             promedioCrecimiento = new gth.IndicadorReportePeriodo();
             promedioDesarrollo = new gth.IndicadorReportePeriodo();
             promedioVaquillas = new gth.IndicadorReportePeriodo();
+
+            promedioAntProduccion = new gth.IndicadorReportePeriodo();
+            promedioAntSecas = new gth.IndicadorReportePeriodo();
+            promedioAntReto = new gth.IndicadorReportePeriodo();
+            promedioAntJaulas = new gth.IndicadorReportePeriodo();
+            promedioAntCrecimiento = new gth.IndicadorReportePeriodo();
+            promedioAntDesarrollo = new gth.IndicadorReportePeriodo();
+            promedioAntVaquillas = new gth.IndicadorReportePeriodo();
+
+            precioLeche = 0;
         }
 
         #region Propiedades
@@ -124,10 +146,17 @@ namespace ReportePeriodo.Modelo
             get { return promedioSecas; }
             set { promedioSecas = value; }
         }
+
         public gth.IndicadorReportePeriodo PromedioReto
         {
             get { return promedioReto; }
             set { promedioReto = value; }
+        }
+
+        public gth.IndicadorReportePeriodo PromedioJaulas
+        {
+            get { return promedioJaulas; }
+            set { promedioJaulas = value; }
         }
 
         public gth.IndicadorReportePeriodo PromedioCrecimiento
@@ -146,6 +175,55 @@ namespace ReportePeriodo.Modelo
         {
             get { return promedioVaquillas; }
             set { promedioVaquillas = value; }
+        }
+
+        public gth.IndicadorReportePeriodo PromedioAntProduccion
+        {
+            get { return promedioAntProduccion; }
+            set { promedioAntProduccion = value; }
+        }
+
+        public gth.IndicadorReportePeriodo PromedioAntSecas
+        {
+            get { return promedioAntSecas; }
+            set { promedioAntSecas = value; }
+        }
+
+        public gth.IndicadorReportePeriodo PromedioAntReto
+        {
+            get { return promedioAntReto; }
+            set { promedioAntReto = value; }
+        }
+
+        public gth.IndicadorReportePeriodo PromedioAntJaulas
+        {
+            get { return promedioAntJaulas; }
+            set { promedioAntJaulas = value; }
+
+        }
+
+        public gth.IndicadorReportePeriodo PromedioAntCrecimiento
+        {
+            get { return promedioAntCrecimiento; }
+            set { promedioAntCrecimiento = value; }
+        }
+
+        public gth.IndicadorReportePeriodo PromedioAntDesarrollo
+        {
+            get { return promedioAntDesarrollo; }
+            set { promedioAntDesarrollo = value; }
+        }
+
+        public gth.IndicadorReportePeriodo PromedioAntVaquillas
+        {
+            get { return promedioAntVaquillas; }
+            set { promedioAntVaquillas = value; }
+        }
+
+        public decimal PrecioLeche
+        {
+            get { return precioLeche; }
+            set { precioLeche = value; }
         }
 
         #endregion
@@ -364,9 +442,19 @@ namespace ReportePeriodo.Modelo
                 GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "10,11,12,13", fechaInicio, fechaFin, out ingredientesAux, out promedioProduccion, out sobranteAux);
                 GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "21", fechaInicio, fechaFin, out ingredientesAux, out promedioSecas, out sobranteAux);
                 GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "22", fechaInicio, fechaFin, out ingredientesAux, out promedioReto, out sobranteAux);
+                GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "31", fechaInicio, fechaFin, out ingredientesAux, out promedioJaulas, out sobranteAux);
                 GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "32", fechaInicio, fechaFin, out ingredientesAux, out promedioCrecimiento, out sobranteAux);
                 GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "33", fechaInicio, fechaFin, out ingredientesAux, out promedioDesarrollo, out sobranteAux);
                 GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "34", fechaInicio, fechaFin, out ingredientesAux, out promedioVaquillas, out sobranteAux);
+
+                GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "10,11,12,13", fechaInicio.AddYears(-1), fechaFin.AddYears(-1), out ingredientesAux, out promedioAntProduccion, out sobranteAux);
+                GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "21", fechaInicio.AddYears(-1), fechaFin.AddYears(-1), out ingredientesAux, out promedioAntSecas, out sobranteAux);
+                GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "22", fechaInicio.AddYears(-1), fechaFin.AddYears(-1), out ingredientesAux, out promedioAntReto, out sobranteAux);
+                GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "31", fechaInicio.AddYears(-1), fechaFin.AddYears(-1), out ingredientesAux, out promedioAntJaulas, out sobranteAux);
+                GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "32", fechaInicio.AddYears(-1), fechaFin.AddYears(-1), out ingredientesAux, out promedioAntCrecimiento, out sobranteAux);
+                GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "33", fechaInicio.AddYears(-1), fechaFin.AddYears(-1), out ingredientesAux, out promedioAntDesarrollo, out sobranteAux);
+                GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "34", fechaInicio.AddYears(-1), fechaFin.AddYears(-1), out ingredientesAux, out promedioAntVaquillas, out sobranteAux);
+
             }
             catch (Exception ex)
             {
@@ -374,14 +462,15 @@ namespace ReportePeriodo.Modelo
             }
         }
 
-        public Hoja1 PromedioHoja1(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        public Hoja1 PromedioHoja1(Rancho rancho, gth.IndicadorReportePeriodo indicadorOrdeño, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
         {
             Hoja1 response = new Hoja1() { Dia = "PROM" };
-            PromedioHoja1 promH1 = rancho.No_ID_Real ? PromedioHoja1NoId(fechaInicio, fechaFin, ref mensaje) : PromedioHoja1NoId(fechaInicio, fechaFin, ref mensaje);
+            PromedioHoja1 promH1 = rancho.No_ID_Real ? PromedioHoja1NoIdReal(fechaInicio, fechaFin, ref mensaje) : PromedioHoja1NoId(fechaInicio, fechaFin, ref mensaje);
             mensaje = string.Empty;
 
             try
             {
+
                 CalostroYOrdeña promedioCalostro = PromedioCalostro(fechaInicio, fechaFin);
 
                 response.Ordeño = promH1.Ordeño;
@@ -402,19 +491,19 @@ namespace ReportePeriodo.Modelo
                 response.DEL = promH1.DEL;
                 response.ANT = promH1.Ant;
 
-                response.EA = (decimal)promedioProduccion.EA;
-                response.ILCA = (decimal)promedioProduccion.ILCA_PRODUCCION;
-                response.IC = (decimal)promedioProduccion.IC_PRODUCCION;
-                response.Costo_Litro = (decimal)promedioProduccion.PRECIOL;
-                response.MH = (decimal)promedioProduccion.MH;
-                response.Porcentaje_MS = (decimal)promedioProduccion.PORCENTAJEMS;
-                response.MS = (decimal)promedioProduccion.MS;
-                response.SA = (decimal)promedioProduccion.SA;
-                response.MSS = (decimal)promedioProduccion.MSS;
-                response.EAS = (decimal)promedioProduccion.EAS;
-                response.Porcentaje_Sob = (decimal)promedioProduccion.EA;
-                response.Costo_Prod = (decimal)promedioProduccion.COSTO;
-                response.Costo_MS = (decimal)promedioProduccion.PRECIOKGMS;
+                response.EA = (decimal)indicadorOrdeño.EA;
+                response.ILCA = (decimal)indicadorOrdeño.ILCA_PRODUCCION;
+                response.IC = (decimal)indicadorOrdeño.IC_PRODUCCION;
+                response.Costo_Litro = (decimal)indicadorOrdeño.PRECIOL;
+                response.MH = (decimal)indicadorOrdeño.MH;
+                response.Porcentaje_MS = (decimal)indicadorOrdeño.PORCENTAJEMS;
+                response.MS = (decimal)indicadorOrdeño.MS;
+                response.SA = (decimal)indicadorOrdeño.SA;
+                response.MSS = (decimal)indicadorOrdeño.MSS;
+                response.EAS = (decimal)indicadorOrdeño.EAS;
+                response.Porcentaje_Sob = (decimal)indicadorOrdeño.EA;
+                response.Costo_Prod = (decimal)indicadorOrdeño.COSTO;
+                response.Costo_MS = (decimal)indicadorOrdeño.PRECIOKGMS;
 
                 response.Cribas_N1 = promH1.Cribas_N1;
                 response.Cribas_N2 = promH1.Cribas_N2;
@@ -448,6 +537,7 @@ namespace ReportePeriodo.Modelo
                 List<BacteriologiaLeche> datosBacteriologia = BacteriologiaLeche(fechaInicio, fechaFin, ref mensaje);
                 BacteriologiaLeche busquedaBacteriologia = new BacteriologiaLeche();
 
+
                 foreach (Hoja1 item in reporte)
                 {
                     busquedaCalostro = (from x in datosCalostro where x.Fecha.Day.ToString() == item.Dia select x).ToList().FirstOrDefault();
@@ -456,11 +546,13 @@ namespace ReportePeriodo.Modelo
                     item.Color_ILCA = Color1Hoja1(item.ILCA, Convert.ToDecimal(promedioProduccion.ILCA_PRODUCCION));
                     item.Color_IC = Color1Hoja1(item.ILCA, Convert.ToDecimal(promedioProduccion.IC_PRODUCCION));
                     item.Color_CostoLitro = Color2Hoja1(item.Costo_Litro, promedio.Costo_Litro);
+
                     item.Color_MH = ColorDato(item.Ordeño, item.MH, promedio.MH);
                     item.Color_PorcentajeMs = ColorDato(item.Ordeño, item.MH, promedio.Porcentaje_MS);
                     item.Color_MS = ColorDato(item.Ordeño, item.MH, promedio.MS);
                     item.Color_CostoProd = ColorDato(item.Ordeño, item.MH, promedio.Costo_Prod);
                     item.Color_CostoMs = ColorDato(item.Ordeño, item.MH, promedio.Costo_MS);
+
                     item.Color_Leche = Color1Hoja1(item.Leche, promedio.Leche);
                     item.Color_Media = Color1Hoja1(item.Media, promedio.Media);
                     item.Color_Total = Color1Hoja1(item.Total, promedio.Total);
@@ -662,6 +754,156 @@ namespace ReportePeriodo.Modelo
             }
         }
 
+        public void QuitarCeros(List<Hoja2> reporte)
+        {
+            foreach (Hoja2 item in reporte)
+            {
+
+                #region Jaulas 
+                item.Jaulas_Inventario = item.Jaulas_Inventario == 0 ? null : item.Jaulas_Inventario;
+                item.Jaulas_Costo = item.Jaulas_Costo == 0 ? null : item.Jaulas_Costo;
+                #endregion
+
+                #region Crecimiento 
+                item.Crecimiento_Inventario = item.Crecimiento_Inventario == 0 ? null : item.Crecimiento_Inventario;
+                item.Crecimiento_MH = item.Crecimiento_MH == 0 ? null : item.Crecimiento_MH;
+                item.Crecimiento_Costo = item.Crecimiento_Costo == 0 ? null : item.Crecimiento_Costo;
+                item.Crecimiento_PorcentajeMS = item.Crecimiento_PorcentajeMS == 0 ? null : item.Crecimiento_PorcentajeMS;
+                item.Crecimiento_MS = item.Crecimiento_MS == 0 ? null : item.Crecimiento_MS;
+                item.Crecimiento_CostoMS = item.Crecimiento_CostoMS == 0 ? null : item.Crecimiento_CostoMS;
+                #endregion
+
+                #region Desarrollo 
+                item.Desarrollo_Inventario = item.Desarrollo_Inventario == 0 ? null : item.Desarrollo_Inventario;
+                item.Desarrollo_MH = item.Desarrollo_MH == 0 ? null : item.Desarrollo_MH;
+                item.Desarrollo_Costo = item.Desarrollo_Costo == 0 ? null : item.Desarrollo_Costo;
+                item.Desarrollo_PorcentajeMS = item.Desarrollo_PorcentajeMS == 0 ? null : item.Desarrollo_PorcentajeMS;
+                item.Desarrollo_MS = item.Desarrollo_MS == 0 ? null : item.Desarrollo_MS;
+                item.Desarrollo_CostoMS = item.Desarrollo_CostoMS == 0 ? null : item.Desarrollo_CostoMS;
+                #endregion
+
+                #region Vaquillas 
+                item.Vaquillas_Inventario = item.Vaquillas_Inventario == 0 ? null : item.Vaquillas_Inventario;
+                item.Vaquillas_MH = item.Vaquillas_MH == 0 ? null : item.Vaquillas_MH;
+                item.Vaquillas_Costo = item.Vaquillas_Costo == 0 ? null : item.Vaquillas_Costo;
+                item.Vaquillas_PorcentajeMS = item.Vaquillas_PorcentajeMS == 0 ? null : item.Vaquillas_PorcentajeMS;
+                item.Vaquillas_MS = item.Vaquillas_MS == 0 ? null : item.Vaquillas_MS;
+                item.Vaquillas_CostoMS = item.Vaquillas_CostoMS == 0 ? null : item.Vaquillas_CostoMS;
+                #endregion
+
+                #region Secas 
+                item.Secas_Inventario = item.Secas_Inventario == 0 ? null : item.Secas_Inventario;
+                item.Secas_MH = item.Secas_MH == 0 ? null : item.Secas_MH;
+                item.Secas_PorcentajeMS = item.Secas_PorcentajeMS == 0 ? null : item.Secas_PorcentajeMS;
+                item.Secas_MS = item.Secas_MS == 0 ? null : item.Secas_MS;
+                item.Secas_SA = item.Secas_SA == 0 ? null : item.Secas_SA;
+                item.Secas_Mss = item.Secas_Mss == 0 ? null : item.Secas_Mss;
+                item.Secas_PorcentajeSob = item.Secas_PorcentajeSob == 0 ? null : item.Secas_PorcentajeSob;
+                item.Secas_Costo = item.Secas_Costo == 0 ? null : item.Secas_Costo;
+                item.Secas_CostoMS = item.Secas_CostoMS == 0 ? null : item.Secas_CostoMS;
+                #endregion
+
+                #region Reto 
+                item.Reto_Inventario = item.Reto_Inventario == 0 ? null : item.Reto_Inventario;
+                item.Reto_MH = item.Reto_MH == 0 ? null : item.Reto_MH;
+                item.Reto_PorcentajeMS = item.Reto_PorcentajeMS == 0 ? null : item.Reto_PorcentajeMS;
+                item.Reto_MS = item.Reto_MS == 0 ? null : item.Reto_MS;
+                item.Reto_SA = item.Reto_SA == 0 ? null : item.Reto_SA;
+                item.Reto_Mss = item.Reto_Mss == 0 ? null : item.Reto_Mss;
+                item.Reto_PorcentajeSob = item.Reto_PorcentajeSob == 0 ? null : item.Reto_PorcentajeSob;
+                item.Reto_Costo = item.Reto_Costo == 0 ? null : item.Reto_Costo;
+                item.Reto_CostoMS = item.Reto_CostoMS == 0 ? null : item.Reto_CostoMS;
+                #endregion
+
+                #region Utilidad 
+                item.Inventario_Total = item.Inventario_Total == 0 ? null : item.Inventario_Total;
+                item.IngresoxAnimal = item.IngresoxAnimal == 0 ? null : item.IngresoxAnimal;
+                item.CostoxAnimal = item.CostoxAnimal == 0 ? null : item.CostoxAnimal;
+                item.UtilidadxAnimal = item.UtilidadxAnimal == 0 ? null : item.UtilidadxAnimal;
+                item.Porcentaje_CostoxAnimal = item.Porcentaje_CostoxAnimal == 0 ? null : item.Porcentaje_CostoxAnimal;
+                item.Porcentaje_UtilidadxAnimal = item.Porcentaje_UtilidadxAnimal == 0 ? null : item.Porcentaje_UtilidadxAnimal;
+
+                #endregion
+
+            }
+        }
+
+        public void QuitarCeros(Hoja2 item)
+        {
+            try
+            {
+                #region Jaulas 
+                item.Jaulas_Inventario = item.Jaulas_Inventario == 0 ? null : item.Jaulas_Inventario;
+                item.Jaulas_Costo = item.Jaulas_Costo == 0 ? null : item.Jaulas_Costo;
+                #endregion
+
+                #region Crecimiento 
+                item.Crecimiento_Inventario = item.Crecimiento_Inventario == 0 ? null : item.Crecimiento_Inventario;
+                item.Crecimiento_MH = item.Crecimiento_MH == 0 ? null : item.Crecimiento_MH;
+                item.Crecimiento_Costo = item.Crecimiento_Costo == 0 ? null : item.Crecimiento_Costo;
+                item.Crecimiento_PorcentajeMS = item.Crecimiento_PorcentajeMS == 0 ? null : item.Crecimiento_PorcentajeMS;
+                item.Crecimiento_MS = item.Crecimiento_MS == 0 ? null : item.Crecimiento_MS;
+                item.Crecimiento_CostoMS = item.Crecimiento_CostoMS == 0 ? null : item.Crecimiento_CostoMS;
+                #endregion
+
+                #region Desarrollo 
+                item.Desarrollo_Inventario = item.Desarrollo_Inventario == 0 ? null : item.Desarrollo_Inventario;
+                item.Desarrollo_MH = item.Desarrollo_MH == 0 ? null : item.Desarrollo_MH;
+                item.Desarrollo_Costo = item.Desarrollo_Costo == 0 ? null : item.Desarrollo_Costo;
+                item.Desarrollo_PorcentajeMS = item.Desarrollo_PorcentajeMS == 0 ? null : item.Desarrollo_PorcentajeMS;
+                item.Desarrollo_MS = item.Desarrollo_MS == 0 ? null : item.Desarrollo_MS;
+                item.Desarrollo_CostoMS = item.Desarrollo_CostoMS == 0 ? null : item.Desarrollo_CostoMS;
+                #endregion
+
+                #region Vaquillas 
+                item.Vaquillas_Inventario = item.Vaquillas_Inventario == 0 ? null : item.Vaquillas_Inventario;
+                item.Vaquillas_MH = item.Vaquillas_MH == 0 ? null : item.Vaquillas_MH;
+                item.Vaquillas_Costo = item.Vaquillas_Costo == 0 ? null : item.Vaquillas_Costo;
+                item.Vaquillas_PorcentajeMS = item.Vaquillas_PorcentajeMS == 0 ? null : item.Vaquillas_PorcentajeMS;
+                item.Vaquillas_MS = item.Vaquillas_MS == 0 ? null : item.Vaquillas_MS;
+                item.Vaquillas_CostoMS = item.Vaquillas_CostoMS == 0 ? null : item.Vaquillas_CostoMS;
+                #endregion
+
+                #region Secas 
+                item.Secas_Inventario = item.Secas_Inventario == 0 ? null : item.Secas_Inventario;
+                item.Secas_MH = item.Secas_MH == 0 ? null : item.Secas_MH;
+                item.Secas_PorcentajeMS = item.Secas_PorcentajeMS == 0 ? null : item.Secas_PorcentajeMS;
+                item.Secas_MS = item.Secas_MS == 0 ? null : item.Secas_MS;
+                item.Secas_SA = item.Secas_SA == 0 ? null : item.Secas_SA;
+                item.Secas_Mss = item.Secas_Mss == 0 ? null : item.Secas_Mss;
+                item.Secas_PorcentajeSob = item.Secas_PorcentajeSob == 0 ? null : item.Secas_PorcentajeSob;
+                item.Secas_Costo = item.Secas_Costo == 0 ? null : item.Secas_Costo;
+                item.Secas_CostoMS = item.Secas_CostoMS == 0 ? null : item.Secas_CostoMS;
+                #endregion
+
+                #region Reto 
+                item.Reto_Inventario = item.Reto_Inventario == 0 ? null : item.Reto_Inventario;
+                item.Reto_MH = item.Reto_MH == 0 ? null : item.Reto_MH;
+                item.Reto_PorcentajeMS = item.Reto_PorcentajeMS == 0 ? null : item.Reto_PorcentajeMS;
+                item.Reto_MS = item.Reto_MS == 0 ? null : item.Reto_MS;
+                item.Reto_SA = item.Reto_SA == 0 ? null : item.Reto_SA;
+                item.Reto_Mss = item.Reto_Mss == 0 ? null : item.Reto_Mss;
+                item.Reto_PorcentajeSob = item.Reto_PorcentajeSob == 0 ? null : item.Reto_PorcentajeSob;
+                item.Reto_Costo = item.Reto_Costo == 0 ? null : item.Reto_Costo;
+                item.Reto_CostoMS = item.Reto_CostoMS == 0 ? null : item.Reto_CostoMS;
+                #endregion
+
+                #region Utilidad 
+                item.Inventario_Total = item.Inventario_Total == 0 ? null : item.Inventario_Total;
+                item.IngresoxAnimal = item.IngresoxAnimal == 0 ? null : item.IngresoxAnimal;
+                item.CostoxAnimal = item.CostoxAnimal == 0 ? null : item.CostoxAnimal;
+                item.UtilidadxAnimal = item.UtilidadxAnimal == 0 ? null : item.UtilidadxAnimal;
+                item.Porcentaje_CostoxAnimal = item.Porcentaje_CostoxAnimal == 0 ? null : item.Porcentaje_CostoxAnimal;
+                item.Porcentaje_UtilidadxAnimal = item.Porcentaje_UtilidadxAnimal == 0 ? null : item.Porcentaje_UtilidadxAnimal;
+
+                #endregion
+
+            }
+            catch { }
+            
+        }
+
+
         public void QuitarCeros(Hoja1 item)
         {
             try
@@ -714,6 +956,500 @@ namespace ReportePeriodo.Modelo
             }
             catch { }
         }
+
+        public List<Hoja2> ReporteHoja2(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            List<Hoja2> response = new List<Hoja2>();
+            mensaje = string.Empty;
+
+            try
+            {
+                List<DateTime> fechasReporte = ListaFechasReporte(fechaFin);
+                List<InventarioAfiXDia> datosInventarioAFI = InventariosAFI(fechaInicio, fechaFin, ref mensaje);
+                List<Mproduc2> datosMProduc = MediaProduccion2(fechaInicio, fechaFin, ref mensaje);
+
+
+
+                foreach (DateTime fecha in fechasReporte)
+                {
+                    InventarioAfiXDia busqudaInventarioAFI = (from x in datosInventarioAFI where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Mproduc2 busquedaMproduc = (from x in datosMProduc where x.Fecha == fecha select x).ToList().FirstOrDefault();
+
+                    Hoja2 item = new Hoja2();
+                    item.Dia = fecha.Day.ToString();
+
+                    #region Jaulas 
+                    item.Jaulas_Inventario = busqudaInventarioAFI != null ? busqudaInventarioAFI.Jaulas : 0;
+                    item.Jaulas_Costo = busquedaMproduc != null ? busquedaMproduc.Jaulas_Costo : 0;
+                    #endregion
+
+                    #region Crecimiento 
+                    item.Crecimiento_Inventario = busqudaInventarioAFI != null ? busqudaInventarioAFI.Crecimiento : 0;
+                    item.Crecimiento_MH = busquedaMproduc != null ? busquedaMproduc.Crecimiento_MH : 0;
+                    item.Crecimiento_Costo = busquedaMproduc != null ? busquedaMproduc.Crecimiento_Costo : 0;
+                    item.Crecimiento_PorcentajeMS = busquedaMproduc != null ? busquedaMproduc.Crecimiento_Porcentaje_MS : 0;
+                    item.Crecimiento_MS = busquedaMproduc != null ? busquedaMproduc.Crecimiento_MS : 0;
+                    item.Crecimiento_CostoMS = busquedaMproduc != null ? busquedaMproduc.Crecimiento_Costo_MS : 0;
+                    #endregion
+
+                    #region Desarrollo 
+                    item.Desarrollo_Inventario = busqudaInventarioAFI != null ? busqudaInventarioAFI.Desarrollo : 0;
+                    item.Desarrollo_MH = busquedaMproduc != null ? busquedaMproduc.Desarrollo_MH : 0;
+                    item.Desarrollo_Costo = busquedaMproduc != null ? busquedaMproduc.Desarrollo_Costo : 0;
+                    item.Desarrollo_PorcentajeMS = busquedaMproduc != null ? busquedaMproduc.Desarrollo_Porcentaje_MS : 0;
+                    item.Desarrollo_MS = busquedaMproduc != null ? busquedaMproduc.Desarrollo_MS : 0;
+                    item.Desarrollo_CostoMS = busquedaMproduc != null ? busquedaMproduc.Desarrollo_Costo_MS : 0;
+                    #endregion
+
+                    #region Vaquillas 
+                    item.Vaquillas_Inventario = busqudaInventarioAFI != null ? busqudaInventarioAFI.Vaquillas : 0;
+                    item.Vaquillas_MH = busquedaMproduc != null ? busquedaMproduc.Vaquillas_MH : 0;
+                    item.Vaquillas_Costo = busquedaMproduc != null ? busquedaMproduc.Vaquillas_Costo : 0;
+                    item.Vaquillas_PorcentajeMS = busquedaMproduc != null ? busquedaMproduc.Vaquillas_Porcentaje_MS : 0;
+                    item.Vaquillas_MS = busquedaMproduc != null ? busquedaMproduc.Vaquillas_MS : 0;
+                    item.Vaquillas_CostoMS = busquedaMproduc != null ? busquedaMproduc.Vaquillas_Costo_MS : 0;
+                    #endregion
+
+                    #region Secas 
+                    item.Secas_Inventario = busqudaInventarioAFI != null ? busqudaInventarioAFI.Secas : 0;
+                    item.Secas_MH = busquedaMproduc != null ? busquedaMproduc.Secas_MH : 0;
+                    item.Secas_PorcentajeMS = busquedaMproduc != null ? busquedaMproduc.Secas_Porcentaje_MS : 0;
+                    item.Secas_MS = busquedaMproduc != null ? busquedaMproduc.Secas_MS : 0;
+                    item.Secas_SA = busquedaMproduc != null ? busquedaMproduc.Secas_SA : 0;
+                    item.Secas_Mss = busquedaMproduc != null ? busquedaMproduc.Secas_MSS : 0;
+                    item.Secas_PorcentajeSob = busquedaMproduc != null ? busquedaMproduc.Secas_Porcentaje_SA : 0;
+                    item.Secas_Costo = busquedaMproduc != null ? busquedaMproduc.Secas_Costo : 0;
+                    item.Secas_CostoMS = busquedaMproduc != null ? busquedaMproduc.Secas_Costo_MS : 0;
+                    #endregion
+
+                    #region Reto 
+                    item.Reto_Inventario = busqudaInventarioAFI != null ? busqudaInventarioAFI.Reto : 0;
+                    item.Reto_MH = busquedaMproduc != null ? busquedaMproduc.Reto_MH : 0;
+                    item.Reto_PorcentajeMS = busquedaMproduc != null ? busquedaMproduc.Reto_Porcentaje_MS : 0;
+                    item.Reto_MS = busquedaMproduc != null ? busquedaMproduc.Reto_MS : 0;
+                    item.Reto_SA = busquedaMproduc != null ? busquedaMproduc.Reto_SA : 0;
+                    item.Reto_Mss = busquedaMproduc != null ? busquedaMproduc.Reto_MSS : 0;
+                    item.Reto_PorcentajeSob = busquedaMproduc != null ? busquedaMproduc.Reto_Porcentaje_SA : 0;
+                    item.Reto_Costo = busquedaMproduc != null ? busquedaMproduc.Reto_Costo : 0;
+                    item.Reto_CostoMS = busquedaMproduc != null ? busquedaMproduc.Reto_Costo_MS : 0;
+                    #endregion
+
+                    #region Utilidad 
+                    item.Inventario_Total = busqudaInventarioAFI != null ? busqudaInventarioAFI.InventarioTotal : 0;
+                    item.IngresoxAnimal = busquedaMproduc != null ? item.Inventario_Total > 0 ? (busquedaMproduc.LecheProd * precioLeche) / item.Inventario_Total : 0 : 0;
+
+                    decimal? auxJaulas = item.Jaulas_Costo * item.Jaulas_Inventario;
+                    decimal? auxCrecimiento = item.Crecimiento_Costo * item.Crecimiento_Inventario;
+                    decimal? auxDesarrollo = item.Desarrollo_Costo * item.Desarrollo_Inventario;
+                    decimal? auxVaquillas = item.Vaquillas_Costo * item.Vaquillas_Inventario;
+                    decimal? auxSecas = item.Secas_Costo * item.Secas_Inventario;
+                    decimal? auxReto = item.Reto_Costo * item.Reto_Inventario;
+                    decimal? auxOrdeño = busquedaMproduc != null && busqudaInventarioAFI != null ? busqudaInventarioAFI.Ordeño * busquedaMproduc.Ordeño_Costo : 0;
+                    decimal? auxCosto = auxJaulas + auxCrecimiento + auxDesarrollo + auxVaquillas + auxSecas + auxReto + auxOrdeño;
+                    item.CostoxAnimal = item.Inventario_Total > 0 ? auxCosto / item.Inventario_Total : 0;
+                    item.UtilidadxAnimal = item.IngresoxAnimal - item.CostoxAnimal;
+                    item.Porcentaje_CostoxAnimal = item.IngresoxAnimal > 0 ? item.CostoxAnimal / item.IngresoxAnimal : 0;
+                    item.Porcentaje_UtilidadxAnimal = item.IngresoxAnimal > 0 ? item.UtilidadxAnimal / item.IngresoxAnimal : 0;
+
+                    #endregion
+
+
+                    response.Add(item);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+
+
+            return response;
+        }
+
+        public Hoja2 PromedioHoja2(Rancho rancho, gth.IndicadorReportePeriodo indicadorOrdeño, gth.IndicadorReportePeriodo indicadorSecas, gth.IndicadorReportePeriodo indicadorReto,
+            gth.IndicadorReportePeriodo indicadorJaulas, gth.IndicadorReportePeriodo indicadorCrecimiento, gth.IndicadorReportePeriodo indicadorDesarrollo,
+            gth.IndicadorReportePeriodo indicadorVaquillas, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            Hoja2 promedio = new Hoja2() { Dia = "PROM" };
+            InventarioAfiXDia inventario = PromedioInventariosAFI(fechaInicio, fechaFin, ref mensaje);
+
+            bool esPrecioLecheFacturado = EsPrecioLecheFacturado(fechaFin);
+            decimal precioLecheX = esPrecioLecheFacturado ? PrecioLecheFacturado(fechaInicio, fechaFin, ref mensaje) : PrecioLecheCalculado(rancho.Ran_ID, ref mensaje);
+            decimal lecheProducida = LecheProducida(fechaInicio, fechaFin, ref mensaje);
+
+            try
+            {
+                promedio.Jaulas_Inventario = (decimal)indicadorJaulas.ANIMELES;
+                promedio.Jaulas_Costo = (decimal)indicadorJaulas.COSTO;
+
+                promedio.Crecimiento_Inventario = (decimal)indicadorCrecimiento.ANIMELES;
+                promedio.Crecimiento_MH = (decimal)indicadorCrecimiento.MH;
+                promedio.Crecimiento_MS = (decimal)indicadorCrecimiento.MS;
+                promedio.Crecimiento_PorcentajeMS = (decimal)indicadorCrecimiento.PORCENTAJEMS;
+                promedio.Crecimiento_Costo = (decimal)indicadorCrecimiento.COSTO;
+                promedio.Crecimiento_CostoMS = (decimal)indicadorCrecimiento.PRECIOKGMS;
+
+                promedio.Desarrollo_Inventario = (decimal)indicadorDesarrollo.ANIMELES;
+                promedio.Desarrollo_MH = (decimal)indicadorDesarrollo.MH;
+                promedio.Desarrollo_MS = (decimal)indicadorDesarrollo.MS;
+                promedio.Desarrollo_PorcentajeMS = (decimal)indicadorDesarrollo.PORCENTAJEMS;
+                promedio.Desarrollo_Costo = (decimal)indicadorDesarrollo.COSTO;
+                promedio.Desarrollo_CostoMS = (decimal)indicadorDesarrollo.PRECIOKGMS;
+
+                promedio.Vaquillas_Inventario = (decimal)indicadorVaquillas.ANIMELES;
+                promedio.Vaquillas_MH = (decimal)indicadorVaquillas.MH;
+                promedio.Vaquillas_MS = (decimal)indicadorVaquillas.MS;
+                promedio.Vaquillas_PorcentajeMS = (decimal)indicadorVaquillas.PORCENTAJEMS;
+                promedio.Vaquillas_Costo = (decimal)indicadorVaquillas.COSTO;
+                promedio.Vaquillas_CostoMS = (decimal)indicadorVaquillas.PRECIOKGMS;
+
+                promedio.Secas_Inventario = (decimal)indicadorSecas.ANIMELES;
+                promedio.Secas_MH = (decimal)indicadorSecas.MH;
+                promedio.Secas_PorcentajeMS = (decimal)indicadorSecas.PORCENTAJEMS;
+                promedio.Secas_MS = (decimal)indicadorSecas.MS;
+                promedio.Secas_SA = (decimal)indicadorSecas.SA;
+                promedio.Secas_Mss = (decimal)indicadorSecas.MSS;
+                promedio.Secas_PorcentajeSob = indicadorSecas.MH > 0 ? Convert.ToDecimal(indicadorSecas.SA / indicadorSecas.MH * 100) : 0;
+                promedio.Secas_Costo = (decimal)indicadorSecas.COSTO;
+                promedio.Secas_CostoMS = (decimal)indicadorSecas.PRECIOKGMS;
+
+                promedio.Reto_Inventario = (decimal)indicadorReto.ANIMELES;
+                promedio.Reto_MH = (decimal)indicadorReto.MH;
+                promedio.Reto_PorcentajeMS = (decimal)indicadorReto.PORCENTAJEMS;
+                promedio.Reto_MS = (decimal)indicadorReto.MS;
+                promedio.Reto_SA = (decimal)indicadorReto.SA;
+                promedio.Reto_Mss = (decimal)indicadorReto.MSS;
+                promedio.Reto_PorcentajeSob = indicadorReto.MH > 0 ? Convert.ToDecimal(indicadorReto.SA / indicadorReto.MH * 100) : 0;
+                promedio.Reto_Costo = (decimal)indicadorReto.COSTO;
+                promedio.Reto_CostoMS = (decimal)indicadorReto.PRECIOKGMS;
+
+                promedio.Inventario_Total = inventario.InventarioTotal;
+
+                promedio.IngresoxAnimal = promedio.Inventario_Total > 0 ? (lecheProducida * precioLecheX) / promedio.Inventario_Total : 0;
+
+                decimal? auxJaulas = promedio.Jaulas_Costo * promedio.Jaulas_Inventario;
+                decimal? auxCrecimiento = promedio.Crecimiento_Costo * promedio.Crecimiento_Inventario;
+                decimal? auxDesarrollo = promedio.Desarrollo_Costo * promedio.Desarrollo_Inventario;
+                decimal? auxVaquillas = promedio.Vaquillas_Costo * promedio.Vaquillas_Inventario;
+                decimal? auxSecas = promedio.Secas_Costo * promedio.Secas_Inventario;
+                decimal? auxReto = promedio.Reto_Costo * promedio.Reto_Inventario;
+                decimal? auxOrdeño = Convert.ToDecimal(indicadorOrdeño.ANIMELES * indicadorOrdeño.COSTO);
+                decimal? auxCosto = auxJaulas + auxCrecimiento + auxDesarrollo + auxVaquillas + auxSecas + auxReto + auxOrdeño;
+
+                promedio.CostoxAnimal = promedio.Inventario_Total > 0 ? auxCosto / promedio.Inventario_Total : 0;
+                promedio.UtilidadxAnimal = promedio.IngresoxAnimal - promedio.CostoxAnimal;
+                promedio.Porcentaje_CostoxAnimal = promedio.IngresoxAnimal > 0 ? promedio.CostoxAnimal / promedio.IngresoxAnimal : 0;
+                promedio.Porcentaje_UtilidadxAnimal = promedio.IngresoxAnimal > 0 ? promedio.UtilidadxAnimal / promedio.IngresoxAnimal : 0;
+
+            }
+            catch { }
+
+            return promedio;
+        }
+
+        public Hoja2 DiferenciaHoja2(Hoja2 promedio, Hoja2 promedioAñoAnt)
+        {
+            Hoja2 difencia = new Hoja2() { Dia = "DIF #" };
+
+            try
+            {
+                #region Jaulas 
+                difencia.Jaulas_Inventario = promedio.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != null ? promedio.Jaulas_Inventario - promedioAñoAnt.Jaulas_Inventario : 0;
+                difencia.Jaulas_Costo = promedio.Jaulas_Costo != null && promedioAñoAnt.Jaulas_Costo != null ? promedio.Jaulas_Costo - promedioAñoAnt.Jaulas_Costo : 0;
+                #endregion
+
+                #region Crecimiento 
+                difencia.Crecimiento_Inventario = promedio.Crecimiento_Inventario != null && promedioAñoAnt.Crecimiento_Inventario != null ? promedio.Crecimiento_Inventario - promedioAñoAnt.Crecimiento_Inventario : 0;
+                difencia.Crecimiento_MH = promedio.Crecimiento_MH != null && promedioAñoAnt.Crecimiento_MH != null ? promedio.Crecimiento_MH - promedioAñoAnt.Crecimiento_MH : 0;
+                difencia.Crecimiento_Costo = promedio.Crecimiento_Costo != null && promedioAñoAnt.Crecimiento_Costo != null ? promedio.Crecimiento_Costo - promedioAñoAnt.Crecimiento_Costo : 0;
+                difencia.Crecimiento_PorcentajeMS = promedio.Crecimiento_PorcentajeMS != null && promedioAñoAnt.Crecimiento_PorcentajeMS != null ? promedio.Crecimiento_PorcentajeMS - promedioAñoAnt.Crecimiento_PorcentajeMS : 0;
+                difencia.Crecimiento_MS = promedio.Crecimiento_MS != null && promedioAñoAnt.Crecimiento_MS != null ? promedio.Crecimiento_MS - promedioAñoAnt.Crecimiento_MS : 0;
+                difencia.Crecimiento_CostoMS = promedio.Crecimiento_CostoMS != null && promedioAñoAnt.Crecimiento_CostoMS != null ? promedio.Crecimiento_CostoMS - promedioAñoAnt.Crecimiento_CostoMS : 0;
+                #endregion
+
+                #region Desarrollo 
+                difencia.Desarrollo_Inventario = promedio.Desarrollo_Inventario != null && promedioAñoAnt.Desarrollo_Inventario != null ? promedio.Desarrollo_Inventario - promedioAñoAnt.Desarrollo_Inventario : 0;
+                difencia.Desarrollo_MH = promedio.Desarrollo_MH != null && promedioAñoAnt.Desarrollo_MH != null ? promedio.Desarrollo_MH - promedioAñoAnt.Desarrollo_MH : 0;
+                difencia.Desarrollo_Costo = promedio.Desarrollo_Costo != null && promedioAñoAnt.Desarrollo_Costo != null ? promedio.Desarrollo_Costo - promedioAñoAnt.Desarrollo_Costo : 0;
+                difencia.Desarrollo_PorcentajeMS = promedio.Desarrollo_PorcentajeMS != null && promedioAñoAnt.Desarrollo_PorcentajeMS != null ? promedio.Desarrollo_PorcentajeMS - promedioAñoAnt.Desarrollo_PorcentajeMS : 0;
+                difencia.Desarrollo_MS = promedio.Desarrollo_MS != null && promedioAñoAnt.Desarrollo_MS != null ? promedio.Desarrollo_MS - promedioAñoAnt.Desarrollo_MS : 0;
+                difencia.Desarrollo_CostoMS = promedio.Desarrollo_CostoMS != null && promedioAñoAnt.Desarrollo_CostoMS != null ? promedio.Desarrollo_CostoMS - promedioAñoAnt.Desarrollo_CostoMS : 0;
+                #endregion
+
+                #region Vaquillas 
+                difencia.Vaquillas_Inventario = promedio.Vaquillas_Inventario != null && promedioAñoAnt.Vaquillas_Inventario != null ? promedio.Vaquillas_Inventario - promedioAñoAnt.Vaquillas_Inventario : 0;
+                difencia.Vaquillas_MH = promedio.Vaquillas_MH != null && promedioAñoAnt.Vaquillas_MH != null ? promedio.Vaquillas_MH - promedioAñoAnt.Vaquillas_MH : 0;
+                difencia.Vaquillas_Costo = promedio.Vaquillas_Costo != null && promedioAñoAnt.Vaquillas_Costo != null ? promedio.Vaquillas_Costo - promedioAñoAnt.Vaquillas_Costo : 0;
+                difencia.Vaquillas_PorcentajeMS = promedio.Vaquillas_PorcentajeMS != null && promedioAñoAnt.Vaquillas_PorcentajeMS != null ? promedio.Vaquillas_PorcentajeMS - promedioAñoAnt.Vaquillas_PorcentajeMS : 0;
+                difencia.Vaquillas_MS = promedio.Vaquillas_MS != null && promedioAñoAnt.Vaquillas_MS != null ? promedio.Vaquillas_MS - promedioAñoAnt.Vaquillas_MS : 0;
+                difencia.Vaquillas_CostoMS = promedio.Vaquillas_CostoMS != null && promedioAñoAnt.Vaquillas_CostoMS != null ? promedio.Vaquillas_CostoMS - promedioAñoAnt.Vaquillas_CostoMS : 0;
+                #endregion
+
+                #region Secas 
+                difencia.Secas_Inventario = promedio.Secas_Inventario != null && promedioAñoAnt.Secas_Inventario != null ? promedio.Secas_Inventario - promedioAñoAnt.Secas_Inventario : 0;
+                difencia.Secas_MH = promedio.Secas_MH != null && promedioAñoAnt.Secas_MH != null ? promedio.Secas_MH - promedioAñoAnt.Secas_MH : 0;
+                difencia.Secas_PorcentajeMS = promedio.Secas_PorcentajeMS != null && promedioAñoAnt.Secas_PorcentajeMS != null ? promedio.Secas_PorcentajeMS - promedioAñoAnt.Secas_PorcentajeMS : 0;
+                difencia.Secas_MS = promedio.Secas_MS != null && promedioAñoAnt.Secas_MS != null ? promedio.Secas_MS - promedioAñoAnt.Secas_MS : 0;
+                difencia.Secas_SA = promedio.Secas_SA != null && promedioAñoAnt.Secas_SA != null ? promedio.Secas_SA - promedioAñoAnt.Secas_SA : 0;
+                difencia.Secas_Mss = promedio.Secas_Mss != null && promedioAñoAnt.Secas_Mss != null ? promedio.Secas_Mss - promedioAñoAnt.Secas_Mss : 0;
+                difencia.Secas_PorcentajeSob = promedio.Secas_PorcentajeSob != null && promedioAñoAnt.Secas_PorcentajeSob != null ? promedio.Secas_PorcentajeSob - promedioAñoAnt.Secas_PorcentajeSob : 0;
+                difencia.Secas_Costo = promedio.Secas_Costo != null && promedioAñoAnt.Secas_Costo != null ? promedio.Secas_Costo - promedioAñoAnt.Secas_Costo : 0;
+                difencia.Secas_CostoMS = promedio.Secas_CostoMS != null && promedioAñoAnt.Secas_CostoMS != null ? promedio.Secas_CostoMS - promedioAñoAnt.Secas_CostoMS : 0;
+                #endregion
+
+                #region Reto 
+                difencia.Reto_Inventario = promedio.Reto_Inventario != null && promedioAñoAnt.Reto_Inventario != null ? promedio.Reto_Inventario - promedioAñoAnt.Reto_Inventario : 0;
+                difencia.Reto_MH = promedio.Reto_MH != null && promedioAñoAnt.Reto_MH != null ? promedio.Reto_MH - promedioAñoAnt.Reto_MH : 0;
+                difencia.Reto_PorcentajeMS = promedio.Reto_PorcentajeMS != null && promedioAñoAnt.Reto_PorcentajeMS != null ? promedio.Reto_PorcentajeMS - promedioAñoAnt.Reto_PorcentajeMS : 0;
+                difencia.Reto_MS = promedio.Reto_MS != null && promedioAñoAnt.Reto_MS != null ? promedio.Reto_MS - promedioAñoAnt.Reto_MS : 0;
+                difencia.Reto_SA = promedio.Reto_SA != null && promedioAñoAnt.Reto_SA != null ? promedio.Reto_SA - promedioAñoAnt.Reto_SA : 0;
+                difencia.Reto_Mss = promedio.Reto_Mss != null && promedioAñoAnt.Reto_Mss != null ? promedio.Reto_Mss - promedioAñoAnt.Reto_Mss : 0;
+                difencia.Reto_PorcentajeSob = promedio.Reto_PorcentajeSob != null && promedioAñoAnt.Reto_PorcentajeSob != null ? promedio.Reto_PorcentajeSob - promedioAñoAnt.Reto_PorcentajeSob : 0;
+                difencia.Reto_Costo = promedio.Reto_Costo != null && promedioAñoAnt.Reto_Costo != null ? promedio.Reto_Costo - promedioAñoAnt.Reto_Costo : 0;
+                difencia.Reto_CostoMS = promedio.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != null ? promedio.Reto_CostoMS - promedioAñoAnt.Reto_CostoMS : 0;
+                #endregion
+
+                #region utilidad
+                difencia.Inventario_Total = promedio.Inventario_Total != null && promedioAñoAnt.Inventario_Total != null ? promedio.Inventario_Total - promedioAñoAnt.Inventario_Total : 0;
+                difencia.CostoxAnimal = promedio.CostoxAnimal != null && promedioAñoAnt.CostoxAnimal != null ? promedio.CostoxAnimal - promedioAñoAnt.CostoxAnimal : 0;
+                difencia.UtilidadxAnimal = promedio.UtilidadxAnimal != null && promedioAñoAnt.UtilidadxAnimal != null ? promedio.UtilidadxAnimal - promedioAñoAnt.UtilidadxAnimal : 0;
+                difencia.IngresoxAnimal = promedio.IngresoxAnimal != null && promedioAñoAnt.IngresoxAnimal != null ? promedio.IngresoxAnimal - promedioAñoAnt.IngresoxAnimal : 0;
+                difencia.Porcentaje_CostoxAnimal = promedio.Porcentaje_CostoxAnimal != null && promedioAñoAnt.Porcentaje_CostoxAnimal != null ? promedio.Porcentaje_CostoxAnimal - promedioAñoAnt.Porcentaje_CostoxAnimal : 0;
+                difencia.Porcentaje_UtilidadxAnimal = promedio.Porcentaje_UtilidadxAnimal != null && promedioAñoAnt.Porcentaje_UtilidadxAnimal != null ? promedio.Porcentaje_UtilidadxAnimal - promedioAñoAnt.Porcentaje_UtilidadxAnimal : 0;
+                #endregion
+            }
+            catch { }
+
+            return difencia;
+        }
+
+        public Hoja2 PorcentajeDiferenciaHoja2(Hoja2 diferencia, Hoja2 promedioAñoAnt)
+        {
+            Hoja2 porcentaje = new Hoja2() { Dia = "DIF %" };
+
+            try
+            {
+                #region Jaulas 
+                porcentaje.Jaulas_Inventario = diferencia.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != 0 ? diferencia.Jaulas_Inventario / promedioAñoAnt.Jaulas_Inventario * 100 : 0;
+                porcentaje.Jaulas_Costo = diferencia.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != 0 ? diferencia.Jaulas_Inventario / promedioAñoAnt.Jaulas_Inventario * 100 : 0;
+                #endregion
+
+                #region Crecimiento 
+                porcentaje.Crecimiento_Inventario = diferencia.Crecimiento_Inventario != null && promedioAñoAnt.Crecimiento_Inventario != null && promedioAñoAnt.Crecimiento_Inventario != 0 ? diferencia.Crecimiento_Inventario / promedioAñoAnt.Crecimiento_Inventario * 100 : 0;
+                porcentaje.Crecimiento_MH = diferencia.Crecimiento_MH != null && promedioAñoAnt.Crecimiento_MH != null && promedioAñoAnt.Crecimiento_MH != 0 ? diferencia.Crecimiento_MH / promedioAñoAnt.Crecimiento_MH * 100 : 0;
+                porcentaje.Crecimiento_Costo = diferencia.Crecimiento_Costo != null && promedioAñoAnt.Crecimiento_Costo != null && promedioAñoAnt.Crecimiento_Costo != 0 ? diferencia.Crecimiento_Costo / promedioAñoAnt.Jaulas_Inventario * 100 : 0;
+                porcentaje.Crecimiento_PorcentajeMS = diferencia.Crecimiento_PorcentajeMS != null && promedioAñoAnt.Crecimiento_PorcentajeMS != null && promedioAñoAnt.Crecimiento_PorcentajeMS != 0 ? diferencia.Crecimiento_PorcentajeMS / promedioAñoAnt.Crecimiento_PorcentajeMS * 100 : 0;
+                porcentaje.Crecimiento_MS = diferencia.Crecimiento_MS != null && promedioAñoAnt.Crecimiento_MS != null && promedioAñoAnt.Crecimiento_MS != 0 ? diferencia.Crecimiento_MS / promedioAñoAnt.Crecimiento_MS * 100 : 0;
+                porcentaje.Crecimiento_CostoMS = diferencia.Crecimiento_CostoMS != null && promedioAñoAnt.Crecimiento_CostoMS != null && promedioAñoAnt.Crecimiento_CostoMS != 0 ? diferencia.Crecimiento_CostoMS / promedioAñoAnt.Crecimiento_CostoMS * 100 : 0;
+                #endregion
+
+                #region Desarrollo 
+                porcentaje.Desarrollo_Inventario = diferencia.Desarrollo_Inventario != null && promedioAñoAnt.Desarrollo_Inventario != null && promedioAñoAnt.Desarrollo_Inventario != 0 ? diferencia.Desarrollo_Inventario / promedioAñoAnt.Desarrollo_Inventario * 100 : 0;
+                porcentaje.Desarrollo_MH = diferencia.Desarrollo_MH != null && promedioAñoAnt.Desarrollo_MH != null && promedioAñoAnt.Desarrollo_MH != 0 ? diferencia.Desarrollo_MH / promedioAñoAnt.Desarrollo_MH * 100 : 0;
+                porcentaje.Desarrollo_Costo = diferencia.Desarrollo_Costo != null && promedioAñoAnt.Desarrollo_Costo != null && promedioAñoAnt.Desarrollo_Costo != 0 ? diferencia.Desarrollo_Costo / promedioAñoAnt.Desarrollo_Costo * 100 : 0;
+                porcentaje.Desarrollo_PorcentajeMS = diferencia.Desarrollo_PorcentajeMS != null && promedioAñoAnt.Desarrollo_PorcentajeMS != null && promedioAñoAnt.Desarrollo_PorcentajeMS != 0 ? diferencia.Desarrollo_PorcentajeMS / promedioAñoAnt.Desarrollo_PorcentajeMS * 100 : 0;
+                porcentaje.Desarrollo_MS = diferencia.Desarrollo_MS != null && promedioAñoAnt.Desarrollo_MS != null && promedioAñoAnt.Desarrollo_MS != 0 ? diferencia.Desarrollo_MS / promedioAñoAnt.Desarrollo_MS * 100 : 0;
+                porcentaje.Desarrollo_CostoMS = diferencia.Desarrollo_CostoMS != null && promedioAñoAnt.Desarrollo_CostoMS != null && promedioAñoAnt.Desarrollo_CostoMS != 0 ? diferencia.Desarrollo_CostoMS / promedioAñoAnt.Desarrollo_CostoMS * 100 : 0;
+                #endregion
+
+                #region Vaquillas 
+                porcentaje.Vaquillas_Inventario = diferencia.Vaquillas_Inventario != null && promedioAñoAnt.Vaquillas_Inventario != null && promedioAñoAnt.Vaquillas_Inventario != 0 ? diferencia.Vaquillas_Inventario / promedioAñoAnt.Vaquillas_Inventario * 100 : 0;
+                porcentaje.Vaquillas_MH = diferencia.Vaquillas_MH != null && promedioAñoAnt.Vaquillas_MH != null && promedioAñoAnt.Vaquillas_MH != 0 ? diferencia.Vaquillas_MH / promedioAñoAnt.Vaquillas_MH * 100 : 0;
+                porcentaje.Vaquillas_Costo = diferencia.Vaquillas_Costo != null && promedioAñoAnt.Vaquillas_Costo != null && promedioAñoAnt.Vaquillas_Costo != 0 ? diferencia.Vaquillas_Costo / promedioAñoAnt.Vaquillas_Costo * 100 : 0;
+                porcentaje.Vaquillas_PorcentajeMS = diferencia.Vaquillas_PorcentajeMS != null && promedioAñoAnt.Vaquillas_PorcentajeMS != null && promedioAñoAnt.Vaquillas_PorcentajeMS != 0 ? diferencia.Vaquillas_PorcentajeMS / promedioAñoAnt.Vaquillas_PorcentajeMS * 100 : 0;
+                porcentaje.Vaquillas_MS = diferencia.Vaquillas_MS != null && promedioAñoAnt.Vaquillas_MS != null && promedioAñoAnt.Vaquillas_MS != 0 ? diferencia.Vaquillas_MS / promedioAñoAnt.Vaquillas_MS * 100 : 0;
+                porcentaje.Vaquillas_CostoMS = diferencia.Vaquillas_CostoMS != null && promedioAñoAnt.Vaquillas_CostoMS != null && promedioAñoAnt.Vaquillas_CostoMS != 0 ? diferencia.Vaquillas_CostoMS / promedioAñoAnt.Vaquillas_CostoMS * 100 : 0;
+                #endregion
+
+                #region Secas 
+                porcentaje.Secas_Inventario = diferencia.Secas_Inventario != null && promedioAñoAnt.Secas_Inventario != null && promedioAñoAnt.Secas_Inventario != 0 ? diferencia.Secas_Inventario / promedioAñoAnt.Secas_Inventario * 100 : 0;
+                porcentaje.Secas_MH = diferencia.Secas_MH != null && promedioAñoAnt.Secas_MH != null && promedioAñoAnt.Secas_MH != 0 ? diferencia.Secas_MH / promedioAñoAnt.Secas_MH * 100 : 0;
+                porcentaje.Secas_PorcentajeMS = diferencia.Secas_PorcentajeMS != null && promedioAñoAnt.Secas_PorcentajeMS != null && promedioAñoAnt.Secas_PorcentajeMS != 0 ? diferencia.Secas_PorcentajeMS / promedioAñoAnt.Secas_PorcentajeMS * 100 : 0;
+                porcentaje.Secas_MS = diferencia.Secas_MS != null && promedioAñoAnt.Secas_MS != null && promedioAñoAnt.Secas_MS != 0 ? diferencia.Secas_MS / promedioAñoAnt.Secas_MS * 100 : 0;
+                porcentaje.Secas_SA = diferencia.Secas_SA != null && promedioAñoAnt.Secas_SA != null && promedioAñoAnt.Secas_SA != 0 ? diferencia.Secas_SA / promedioAñoAnt.Secas_SA * 100 : 0;
+                porcentaje.Secas_Mss = diferencia.Secas_Mss != null && promedioAñoAnt.Secas_Mss != null && promedioAñoAnt.Secas_Mss != 0 ? diferencia.Secas_Mss / promedioAñoAnt.Secas_Mss * 100 : 0;
+                porcentaje.Secas_PorcentajeSob = diferencia.Secas_PorcentajeSob != null && promedioAñoAnt.Secas_PorcentajeSob != null && promedioAñoAnt.Secas_PorcentajeSob != 0 ? diferencia.Secas_PorcentajeSob / promedioAñoAnt.Secas_PorcentajeSob * 100 : 0;
+                porcentaje.Secas_Costo = diferencia.Secas_Costo != null && promedioAñoAnt.Secas_Costo != null && promedioAñoAnt.Secas_Costo != 0 ? diferencia.Secas_Costo / promedioAñoAnt.Secas_Costo * 100 : 0;
+                porcentaje.Secas_CostoMS = diferencia.Secas_CostoMS != null && promedioAñoAnt.Secas_CostoMS != null && promedioAñoAnt.Secas_CostoMS != 0 ? diferencia.Secas_CostoMS / promedioAñoAnt.Secas_CostoMS * 100 : 0;
+                #endregion
+
+                #region Reto 
+                porcentaje.Reto_Inventario = diferencia.Reto_Inventario != null && promedioAñoAnt.Reto_Inventario != null && promedioAñoAnt.Reto_Inventario != 0 ? diferencia.Reto_Inventario / promedioAñoAnt.Reto_Inventario * 100 : 0;
+                porcentaje.Reto_MH = diferencia.Reto_MH != null && promedioAñoAnt.Reto_MH != null && promedioAñoAnt.Reto_MH != 0 ? diferencia.Reto_MH / promedioAñoAnt.Reto_MH * 100 : 0;
+                porcentaje.Reto_PorcentajeMS = diferencia.Reto_PorcentajeMS != null && promedioAñoAnt.Reto_PorcentajeMS != null && promedioAñoAnt.Reto_PorcentajeMS != 0 ? diferencia.Reto_PorcentajeMS / promedioAñoAnt.Reto_PorcentajeMS * 100 : 0;
+                porcentaje.Reto_MS = diferencia.Reto_MS != null && promedioAñoAnt.Reto_MS != null && promedioAñoAnt.Reto_MS != 0 ? diferencia.Reto_MS / promedioAñoAnt.Reto_MS * 100 : 0;
+                porcentaje.Reto_SA = diferencia.Reto_SA != null && promedioAñoAnt.Reto_SA != null && promedioAñoAnt.Reto_SA != 0 ? diferencia.Reto_SA / promedioAñoAnt.Reto_SA * 100 : 0;
+                porcentaje.Reto_Mss = diferencia.Reto_Mss != null && promedioAñoAnt.Reto_Mss != null && promedioAñoAnt.Reto_Mss != 0 ? diferencia.Reto_Mss / promedioAñoAnt.Reto_Mss * 100 : 0;
+                porcentaje.Reto_PorcentajeSob = diferencia.Reto_PorcentajeSob != null && promedioAñoAnt.Reto_PorcentajeSob != null && promedioAñoAnt.Reto_PorcentajeSob != 0 ? diferencia.Reto_PorcentajeSob / promedioAñoAnt.Reto_PorcentajeSob * 100 : 0;
+                porcentaje.Reto_Costo = diferencia.Reto_Costo != null && promedioAñoAnt.Reto_Costo != null && promedioAñoAnt.Reto_Costo != 0 ? diferencia.Reto_Costo / promedioAñoAnt.Reto_Costo * 100 : 0;
+                porcentaje.Reto_CostoMS = diferencia.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != 0 ? diferencia.Reto_CostoMS / promedioAñoAnt.Reto_CostoMS * 100 : 0;
+                #endregion
+
+                #region Utilidad 
+                porcentaje.Inventario_Total = diferencia.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != 0 ? diferencia.Reto_CostoMS / promedioAñoAnt.Reto_CostoMS * 100 : 0;
+                porcentaje.CostoxAnimal = diferencia.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != 0 ? diferencia.Reto_CostoMS / promedioAñoAnt.Reto_CostoMS * 100 : 0;
+                porcentaje.UtilidadxAnimal = diferencia.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != 0 ? diferencia.Reto_CostoMS / promedioAñoAnt.Reto_CostoMS * 100 : 0;
+                porcentaje.IngresoxAnimal = diferencia.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != 0 ? diferencia.Reto_CostoMS / promedioAñoAnt.Reto_CostoMS * 100 : 0;
+                porcentaje.Porcentaje_CostoxAnimal = diferencia.Porcentaje_CostoxAnimal != null && promedioAñoAnt.Porcentaje_CostoxAnimal != null && promedioAñoAnt.Porcentaje_CostoxAnimal != 0 ? diferencia.Porcentaje_CostoxAnimal / promedioAñoAnt.Porcentaje_CostoxAnimal * 100 : 0;
+                porcentaje.Porcentaje_UtilidadxAnimal = diferencia.Porcentaje_UtilidadxAnimal != null && promedioAñoAnt.Porcentaje_UtilidadxAnimal != null && promedioAñoAnt.Porcentaje_UtilidadxAnimal != 0 ? diferencia.Porcentaje_UtilidadxAnimal / promedioAñoAnt.Porcentaje_UtilidadxAnimal * 100 : 0;
+                #endregion
+            }
+            catch { }
+
+            return porcentaje;
+
+        }
+
+        public List<Hoja2> EspaciosEnBlancoHoja2(int renglones)
+        {
+            List<Hoja2> response = new List<Hoja2>();
+            int renglonesTotal = 32 - renglones;
+
+            for (int i = 0; i < renglonesTotal; i++)
+            {
+                response.Add(new Hoja2());
+            }
+
+            return response;
+        }
+
+        public void AsignarColorimetriaHoja2(List<Hoja2> reporte, Utilidad utilidad)
+        {
+            gth.IndicadorTeorico busquedaindicadorCrecimiento = new gth.IndicadorTeorico();
+            gth.IndicadorTeorico busquedaindicadorDesarrollo = new gth.IndicadorTeorico();
+            gth.IndicadorTeorico busquedaindicadorVaquillas = new gth.IndicadorTeorico();
+            gth.IndicadorTeorico busquedaindicadorSecas = new gth.IndicadorTeorico();
+            gth.IndicadorTeorico busquedaindicadorReto = new gth.IndicadorTeorico();
+
+            try
+            {
+                foreach (Hoja2 item in reporte)
+                {
+                    busquedaindicadorCrecimiento = (from x in indicadorCrecimiento where x.FECHA.Day.ToString() == item.Dia select x).ToList().FirstOrDefault();
+                    busquedaindicadorDesarrollo = (from x in indicadorDesarrollo where x.FECHA.Day.ToString() == item.Dia select x).ToList().FirstOrDefault();
+                    busquedaindicadorVaquillas = (from x in indicadorVaquillas where x.FECHA.Day.ToString() == item.Dia select x).ToList().FirstOrDefault();
+                    busquedaindicadorSecas = (from x in indicadorSecas where x.FECHA.Day.ToString() == item.Dia select x).ToList().FirstOrDefault();
+                    busquedaindicadorReto = (from x in indicadorReto where x.FECHA.Day.ToString() == item.Dia select x).ToList().FirstOrDefault();
+
+                    item.Color_MH_Crecimiento = busquedaindicadorCrecimiento != null ? ColorDato(item.Crecimiento_Inventario, item.Crecimiento_MH, busquedaindicadorCrecimiento.MH) : "";
+                    item.Color_MS_Crecimiento = busquedaindicadorCrecimiento != null ? ColorDato(item.Crecimiento_Inventario, item.Crecimiento_MS, busquedaindicadorCrecimiento.MS) : "";
+                    item.Color_PorcenjeMs_Crecimiento = busquedaindicadorCrecimiento != null ? ColorDato(item.Crecimiento_Inventario, item.Crecimiento_PorcentajeMS, busquedaindicadorCrecimiento.PORCENTAJE_MS) : "";
+                    item.Color_CostoMS_Crecimiento = busquedaindicadorCrecimiento != null ? ColorDato(item.Crecimiento_Inventario, item.Crecimiento_CostoMS, busquedaindicadorCrecimiento.KGMS) : "";
+                    item.Color_Costo_Crecimiento = busquedaindicadorCrecimiento != null ? ColorDato(item.Crecimiento_Inventario, item.Crecimiento_Costo, busquedaindicadorCrecimiento.COSTO) : "";
+
+                    item.Color_MH_Desarrollo = busquedaindicadorDesarrollo != null ? ColorDato(item.Desarrollo_Inventario, item.Desarrollo_MH, busquedaindicadorDesarrollo.MH) : "";
+                    item.Color_MS_Desarrollo = busquedaindicadorDesarrollo != null ? ColorDato(item.Desarrollo_Inventario, item.Desarrollo_MS, busquedaindicadorDesarrollo.MS) : "";
+                    item.Color_PorcenjeMs_Desarrollo = busquedaindicadorDesarrollo != null ? ColorDato(item.Desarrollo_Inventario, item.Desarrollo_PorcentajeMS, busquedaindicadorDesarrollo.PORCENTAJE_MS) : "";
+                    item.Color_CostoMS_Desarrollo = busquedaindicadorDesarrollo != null ? ColorDato(item.Desarrollo_Inventario, item.Desarrollo_CostoMS, busquedaindicadorDesarrollo.KGMS) : "";
+                    item.Color_Costo_Desarrollo = busquedaindicadorDesarrollo != null ? ColorDato(item.Desarrollo_Inventario, item.Desarrollo_Costo, busquedaindicadorDesarrollo.COSTO) : "";
+
+                    item.Color_MH_Vaquillas = busquedaindicadorVaquillas != null ? ColorDato(item.Vaquillas_Inventario, item.Vaquillas_MH, busquedaindicadorVaquillas.MH) : "";
+                    item.Color_MS_Vaquillas = busquedaindicadorVaquillas != null ? ColorDato(item.Vaquillas_Inventario, item.Vaquillas_MS, busquedaindicadorVaquillas.MS) : "";
+                    item.Color_PorcenjeMs_Vaquillas = busquedaindicadorVaquillas != null ? ColorDato(item.Vaquillas_Inventario, item.Vaquillas_PorcentajeMS, busquedaindicadorVaquillas.PORCENTAJE_MS) : "";
+                    item.Color_CostoMS_Vaquillas = busquedaindicadorVaquillas != null ? ColorDato(item.Vaquillas_Inventario, item.Vaquillas_CostoMS, busquedaindicadorVaquillas.KGMS) : "";
+                    item.Color_Costo_Vaquillas = busquedaindicadorVaquillas != null ? ColorDato(item.Vaquillas_Inventario, item.Vaquillas_Costo, busquedaindicadorVaquillas.COSTO) : "";
+
+                    item.Color_MH_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_MH, busquedaindicadorSecas.MH) : "";
+                    item.Color_MS_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_MS, busquedaindicadorSecas.MS) : "";
+                    item.Color_PorcenjeMs_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_PorcentajeMS, busquedaindicadorSecas.PORCENTAJE_MS) : "";
+                    item.Color_CostoMS_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_CostoMS, busquedaindicadorSecas.KGMS) : "";
+                    item.Color_Costo_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_Costo, busquedaindicadorSecas.COSTO) : "";
+
+                    item.Color_MH_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_MH, busquedaindicadorReto.MH) : "";
+                    item.Color_MS_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_MS, busquedaindicadorReto.MS) : "";
+                    item.Color_PorcenjeMs_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_PorcentajeMS, busquedaindicadorReto.PORCENTAJE_MS) : "";
+                    item.Color_CostoMS_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_CostoMS, busquedaindicadorReto.KGMS) : "";
+                    item.Color_Costo_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_Costo, busquedaindicadorReto.COSTO) : "";
+
+                    item.Color_IXA = ColorUtilidad(item.IngresoxAnimal, utilidad.IXA, false);
+                    item.Color_CXA = ColorUtilidad(item.CostoxAnimal, utilidad.CXA, true);
+                    item.Color_PorcentajeCXA = ColorUtilidad(item.Porcentaje_CostoxAnimal, utilidad.PORCENTAJE_C, true);
+                    item.Color_UXA = ColorUtilidad(item.UtilidadxAnimal, utilidad.UXA, false);
+                    item.Color_PorcentajeUXA = ColorUtilidad(item.Porcentaje_UtilidadxAnimal, utilidad.PORCENTAJE_U, false);
+                }
+            }
+            catch { }
+
+        }
+
+        public void CargarPrecioLeche(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            mensaje = string.Empty;
+            bool esPrecioFacturado = EsPrecioLecheFacturado(fechaFin);
+
+            precioLeche = esPrecioFacturado ? PrecioLecheFacturado(fechaInicio, fechaFin, ref mensaje) : PrecioLecheCalculado(rancho.Ran_ID, ref mensaje);
+        }
+
+
+        public List<Hoja3> ReporteHoja3(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            List<Hoja3> response = new List<Hoja3>();
+            mensaje = string.Empty;
+
+            try
+            {
+                List<DateTime> fechasReporte = ListaFechasReporte(fechaFin);
+
+                List<CalostroYOrdeña> datosCalostro = CalostroOrdeño(fechaInicio, fechaFin);
+                List<Desecho> datosJaulasVivas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
+                List<Desecho> datosJaulasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
+                
+                List<Desecho> datosDesteteVivas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
+                List<Desecho> datosDesteteMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
+
+                List<Desecho> datosVaquillasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                List<Desecho> datosVaquillasUrgencia = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 2 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                List<Desecho> datosVaquillasDelgadas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 3 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                List<Desecho> datosVaquillasRegulares = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 4 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                List<Desecho> datosVaquillasGordas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                List<Desecho> datosVaquillasOtros = DatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 2  AND motivo > 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+
+                List<Desecho> datosVacasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 1 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                List<Desecho> datosVacasUrgencia = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 2 AND destino = 1) AND (edovac > 3) ", ref mensaje);
+                List<Desecho> datosVacasDelgadas = DatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND motivo = 3 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                List<Desecho> datosVacasRegulares = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 4 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                List<Desecho> datosVacasGordas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                List<Desecho> datosVacasOtros = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo > 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+
+                List<Desecho> datosPartosVaquillasND = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND (tipopar = 1 or tipopar = 3) ", ref mensaje);
+                List<Desecho> datosPartosVaquillasAbortos = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND (tipopar = 2) ", ref mensaje);
+                List<Desecho> datosPartosVaquillasHembra = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND criaviva = 1  AND criasexo = 1 ", ref mensaje);
+                List<Desecho> datosPartosVaquillasMacho = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
+
+                List<Desecho> datosPartosVacasND = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND (tipopar = 1 or tipopar = 3) ", ref mensaje);
+                List<Desecho> datosPartosVacasAbortos = DatosNacimiento(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND (tipopar = 2) ", ref mensaje);
+                List<Desecho> datosPartosVacasHembra = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 1 ", ref mensaje);
+                List<Desecho> datosPartosVacasMacho = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
+
+                List<Desecho> datosPartosSinCria = DatosNacimiento(fechaInicio, fechaFin, @" AND tipopar <> 2 AND criaviva = 2  AND criasexo = 3 ", ref mensaje);
+                List<Desecho> datosPartosVacas = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2 ", ref mensaje);
+                List<Desecho> datosPartosVaquillas = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1 ", ref mensaje);
+
+                List<Desecho> datosMuertasDia = DatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 1 ", ref mensaje);
+                List<Desecho> datosMuertasNoche = DatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 2 ", ref mensaje);
+
+                List<Desecho> datosAbortosVacas = DatosAbortos(fechaInicio, fechaFin, 1, ref mensaje);
+                List<Desecho> datosAbortosVaquillas = DatosAbortos(fechaInicio, fechaFin, 2, ref mensaje);
+
+
+
+                foreach (DateTime fecha in fechasReporte)
+                {
+                    Hoja3 item = new Hoja3();
+
+                    item.Dia = fecha.Day.ToString();
+
+
+                }
+            }
+            catch { }
+
+
+            return response;
+        }
+
+
 
         #endregion
 
@@ -1953,6 +2689,560 @@ namespace ReportePeriodo.Modelo
             return color;
         }
 
+        private List<InventarioAfiXDia> InventariosAFI(DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            List<InventarioAfiXDia> response = new List<InventarioAfiXDia>();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT  CDATE(fecha)                                                                                 AS FechaG
+                                        ,jaulas                                                                                       AS JAULAS_
+                                        ,destetadas                                                                                   AS CRECIMIENTO
+                                        ,destetadas2                                                                                  AS DESARROLLO
+                                        ,vaquillas                                                                                    AS VAQUILLAS_
+                                        ,vacassecas                                                                                   AS SECAS
+                                        ,vacasordeña                                                                                  AS PRODUCCION
+                                        ,(vqreto + vcreto)                                                                            AS RETO
+                                        ,(jaulas + destetadas + destetadas2 + vaquillas + vacassecas + vacasordeña + vqreto + vcreto) AS InventarioTotal
+                                FROM INVENTARIOAFIXDIA
+                                WHERE fecha BETWEEN @fechaInicio AND @fechaFin
+                                ORDER BY 1";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new InventarioAfiXDia()
+                {
+                    Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(),
+                    Ordeño = x["PRODUCCION"] != DBNull.Value ? Convert.ToDecimal(x["PRODUCCION"]) : 0,
+                    Secas = x["SECAS"] != DBNull.Value ? Convert.ToDecimal(x["SECAS"]) : 0,
+                    Reto = x["RETO"] != DBNull.Value ? Convert.ToDecimal(x["RETO"]) : 0,
+                    Jaulas = x["JAULAS_"] != DBNull.Value ? Convert.ToDecimal(x["JAULAS_"]) : 0,
+                    Crecimiento = x["CRECIMIENTO"] != DBNull.Value ? Convert.ToDecimal(x["CRECIMIENTO"]) : 0,
+                    Desarrollo = x["DESARROLLO"] != DBNull.Value ? Convert.ToDecimal(x["DESARROLLO"]) : 0,
+                    Vaquillas = x["VAQUILLAS_"] != DBNull.Value ? Convert.ToDecimal(x["VAQUILLAS_"]) : 0,
+                    InventarioTotal = x["InventarioTotal"] != DBNull.Value ? Convert.ToDecimal(x["InventarioTotal"]) : 0
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+
+            return response;
+        }
+
+        private InventarioAfiXDia PromedioInventariosAFI(DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            InventarioAfiXDia response = new InventarioAfiXDia();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT  Round(SUM(jaulas)/(@fechaFin - @fechaInicio + 1),0)                                                                                       AS JAULAS_
+                                        ,Round(SUM(destetadas)/(@fechaFin - @fechaInicio + 1),0)                                                                                   AS CRECIMIENTO
+                                        ,Round(SUM(destetadas2)/(@fechaFin - @fechaInicio + 1),0)                                                                                  AS DESARROLLO
+                                        ,Round(SUM(vaquillas)/(@fechaFin - @fechaInicio + 1),0)                                                                                    AS VAQUILLAS_
+                                        ,Round(SUM(vacassecas)/(@fechaFin - @fechaInicio + 1),0)                                                                                   AS SECAS
+                                        ,Round(SUM(vacasordeña)/(@fechaFin - @fechaInicio + 1),0)                                                                                  AS PRODUCCION
+                                        ,Round(SUM((vqreto + vcreto))/(@fechaFin - @fechaInicio + 1),0)                                                                            AS RETO
+                                        ,Round(SUM((jaulas + destetadas + destetadas2 + vaquillas + vacassecas + vacasordeña + vqreto + vcreto))/(@fechaFin - @fechaInicio + 1),0) AS InventarioTotal
+                                FROM INVENTARIOAFIXDIA
+                                WHERE fecha BETWEEN @fechaInicio AND @fechaFin";
+                query = query.Replace("@fechaInicio", ConvertToJulian(fechaInicio).ToString()).Replace("@fechaFin", ConvertToJulian(fechaFin).ToString()); 
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                //db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                //db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new InventarioAfiXDia()
+                {
+                    Ordeño = x["PRODUCCION"] != DBNull.Value ? Convert.ToDecimal(x["PRODUCCION"]) : 0,
+                    Secas = x["SECAS"] != DBNull.Value ? Convert.ToDecimal(x["SECAS"]) : 0,
+                    Reto = x["RETO"] != DBNull.Value ? Convert.ToDecimal(x["RETO"]) : 0,
+                    Jaulas = x["JAULAS_"] != DBNull.Value ? Convert.ToDecimal(x["JAULAS_"]) : 0,
+                    Crecimiento = x["CRECIMIENTO"] != DBNull.Value ? Convert.ToDecimal(x["CRECIMIENTO"]) : 0,
+                    Desarrollo = x["DESARROLLO"] != DBNull.Value ? Convert.ToDecimal(x["DESARROLLO"]) : 0,
+                    Vaquillas = x["VAQUILLAS_"] != DBNull.Value ? Convert.ToDecimal(x["VAQUILLAS_"]) : 0,
+                    InventarioTotal = x["InventarioTotal"] != DBNull.Value ? Convert.ToDecimal(x["InventarioTotal"]) : 0
+                }).ToList().FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+
+            return response;
+        }
+
+        private List<Mproduc2> MediaProduccion2(DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            List<Mproduc2> response = new List<Mproduc2>();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT  CDATE(FECHA)                                                    AS FECHAG
+                                        ,m.COSTO                                                         AS Ordeño_Costo
+                                        ,m.JAULAS                                                        AS Jaulas_Costo
+                                        ,m.MH_DI                                                         AS Crecimiento_MH
+                                        ,m.BEC1                                                          AS Crecimiento_Costo
+                                        ,m.MS_DI * 100                                                   AS Crecimiento_PorcentajeMS
+                                        ,m.MH_DI * m.MS_DI                                               AS Crecimiento_MS
+                                        ,IIf((m.MH_DI * m.MS_DI) > 0,M.BEC1 / (m.MH_DI * m.MS_DI),0)     AS Crecimiento_CostoMS
+                                        ,m.MH_DII                                                        AS Desarrollo_MH
+                                        ,m.BEC2                                                          AS Desarrollo_Costo
+                                        ,m.MS_DII * 100                                                  AS Desarrollo_PorcentajeMS
+                                        ,m.MH_DII * m.MS_DII                                             AS Desarrollo_MS
+                                        ,IIf((m.MH_DII * m.MS_DII) > 0,M.BEC2 / (m.MH_DII * m.MS_DII),0) AS Desarrollo_CostoMS
+                                        ,m.MH_VQ                                                         AS Vaquillas_MH
+                                        ,m.VAQ                                                           AS Vaquillas_Costo
+                                        ,m.MS_VQ * 100                                                   AS Vaquillas_PorcentajeMS
+                                        ,m.MH_VQ * m.MS_VQ                                               AS Vaquillas_MS
+                                        ,IIf((m.MH_VQ * m.MS_VQ) > 0,m.VAQ / (m.MH_VQ * m.MS_VQ),0)      AS Vaquillas_CostoMS
+                                        ,m.MH_S                                                          AS Secas_MH
+                                        ,m.MS_S * 100                                                    AS Secas_PorcentajeMS
+                                        ,m.MH_S * m.MS_S                                                 AS Secas_MS
+                                        ,m.SA_S                                                          AS Secas_SA
+                                        ,(m.MH_S - m.SA_S) * m.MS_S                                      AS Secas_MSS
+                                        ,IIf(m.MH_S > 0,m.SA_S / m.MH_S * 100,0)                         AS Secas_PorcentajeSob
+                                        ,m.SEC                                                           AS Secas_Costo
+                                        ,IIf(m.MS_S > 0 AND m.MH_S > 0,m.SEC / (m.MS_S * m.MH_S),0)      AS Secas_CostoMS
+                                        ,m.MH_R                                                          AS Reto_MH
+                                        ,m.MS_R * 100                                                    AS Reto_PorcentajeMS
+                                        ,m.MH_R * m.MS_R                                                 AS Reto_MS
+                                        ,m.SA_R                                                          AS Reto_SA
+                                        ,(m.MH_R - m.SA_R) * m.MS_R                                      AS Reto_MSS
+                                        ,IIF(m.MH_R > 0,m.SA_R / m.MH_R * 100,0)                         AS Reto_PorcentajeSob
+                                        ,m.RETO                                                          AS Reto_Costo
+                                        ,IIF(m.MS_R > 0 AND m.MH_R > 0,m.RETO / (m.MS_R * m.MH_R),0)     AS Reto_CostoMS
+                                        ,m.LECPROD                                                       AS LecheProd
+                                FROM MPRODUC m
+                                WHERE m.FECHA BETWEEN @fechaInicio AND @fechaFin ";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new Mproduc2()
+                {
+                    Fecha = x["FECHAG"] != DBNull.Value ? Convert.ToDateTime(x["FECHAG"]) : new DateTime(),
+                    Ordeño_Costo = x["Ordeño_Costo"] != DBNull.Value ? Convert.ToDecimal(x["Ordeño_Costo"]) : 0,
+                    Jaulas_Costo = x["Jaulas_Costo"] != DBNull.Value ? Convert.ToDecimal(x["Jaulas_Costo"]) : 0,
+                    Crecimiento_MH = x["Crecimiento_MH"] != DBNull.Value ? Convert.ToDecimal(x["Crecimiento_MH"]) : 0,
+                    Crecimiento_Porcentaje_MS = x["Crecimiento_PorcentajeMS"] != DBNull.Value ? Convert.ToDecimal(x["Crecimiento_PorcentajeMS"]) : 0,
+                    Crecimiento_MS = x["Crecimiento_MS"] != DBNull.Value ? Convert.ToDecimal(x["Crecimiento_MS"]) : 0,
+                    Crecimiento_Costo = x["Crecimiento_Costo"] != DBNull.Value ? Convert.ToDecimal(x["Crecimiento_Costo"]) : 0,
+                    Crecimiento_Costo_MS = x["Crecimiento_CostoMS"] != DBNull.Value ? Convert.ToDecimal(x["Crecimiento_CostoMS"]) : 0,
+                    Desarrollo_MH = x["Desarrollo_MH"] != DBNull.Value ? Convert.ToDecimal(x["Desarrollo_MH"]) : 0,
+                    Desarrollo_Porcentaje_MS = x["Desarrollo_PorcentajeMS"] != DBNull.Value ? Convert.ToDecimal(x["Desarrollo_PorcentajeMS"]) : 0,
+                    Desarrollo_MS = x["Desarrollo_MS"] != DBNull.Value ? Convert.ToDecimal(x["Desarrollo_MS"]) : 0,
+                    Desarrollo_Costo = x["Desarrollo_Costo"] != DBNull.Value ? Convert.ToDecimal(x["Desarrollo_Costo"]) : 0,
+                    Desarrollo_Costo_MS = x["Desarrollo_CostoMS"] != DBNull.Value ? Convert.ToDecimal(x["Desarrollo_CostoMS"]) : 0,
+                    Vaquillas_MH = x["Vaquillas_MH"] != DBNull.Value ? Convert.ToDecimal(x["Vaquillas_MH"]) : 0,
+                    Vaquillas_Porcentaje_MS = x["Vaquillas_PorcentajeMS"] != DBNull.Value ? Convert.ToDecimal(x["Vaquillas_PorcentajeMS"]) : 0,
+                    Vaquillas_MS = x["Vaquillas_MS"] != DBNull.Value ? Convert.ToDecimal(x["Vaquillas_MS"]) : 0,
+                    Vaquillas_Costo = x["Vaquillas_Costo"] != DBNull.Value ? Convert.ToDecimal(x["Vaquillas_Costo"]) : 0,
+                    Vaquillas_Costo_MS = x["Vaquillas_CostoMS"] != DBNull.Value ? Convert.ToDecimal(x["Vaquillas_CostoMS"]) : 0,
+                    Reto_MH = x["Reto_MH"] != DBNull.Value ? Convert.ToDecimal(x["Reto_MH"]) : 0,
+                    Reto_Porcentaje_MS = x["Reto_PorcentajeMS"] != DBNull.Value ? Convert.ToDecimal(x["Reto_PorcentajeMS"]) : 0,
+                    Reto_MS = x["Reto_MS"] != DBNull.Value ? Convert.ToDecimal(x["Reto_MS"]) : 0,
+                    Reto_SA = x["Reto_SA"] != DBNull.Value ? Convert.ToDecimal(x["Reto_SA"]) : 0,
+                    Reto_MSS = x["Reto_MSS"] != DBNull.Value ? Convert.ToDecimal(x["Reto_MSS"]) : 0,
+                    Reto_Porcentaje_SA = x["Reto_PorcentajeSob"] != DBNull.Value ? Convert.ToDecimal(x["Reto_PorcentajeSob"]) : 0,
+                    Reto_Costo = x["Reto_Costo"] != DBNull.Value ? Convert.ToDecimal(x["Reto_Costo"]) : 0,
+                    Reto_Costo_MS = x["Reto_CostoMS"] != DBNull.Value ? Convert.ToDecimal(x["Reto_CostoMS"]) : 0,
+                    Secas_MH = x["Secas_MH"] != DBNull.Value ? Convert.ToDecimal(x["Secas_MH"]) : 0,
+                    Secas_Porcentaje_MS = x["Secas_PorcentajeMS"] != DBNull.Value ? Convert.ToDecimal(x["Secas_PorcentajeMS"]) : 0,
+                    Secas_MS = x["Secas_MS"] != DBNull.Value ? Convert.ToDecimal(x["Secas_MS"]) : 0,
+                    Secas_SA = x["Secas_SA"] != DBNull.Value ? Convert.ToDecimal(x["Secas_SA"]) : 0,
+                    Secas_MSS = x["Secas_MSS"] != DBNull.Value ? Convert.ToDecimal(x["Secas_MSS"]) : 0,
+                    Secas_Porcentaje_SA = x["Secas_PorcentajeSob"] != DBNull.Value ? Convert.ToDecimal(x["Secas_PorcentajeSob"]) : 0,
+                    Secas_Costo = x["Secas_Costo"] != DBNull.Value ? Convert.ToDecimal(x["Secas_Costo"]) : 0,
+                    Secas_Costo_MS = x["Secas_CostoMS"] != DBNull.Value ? Convert.ToDecimal(x["Secas_CostoMS"]) : 0,
+                    LecheProd = x["LecheProd"] != DBNull.Value ? Convert.ToDecimal(x["LecheProd"]) : 0
+                }).ToList();
+
+
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private bool EsPrecioLecheFacturado(DateTime fechaPeriodo)
+        {
+            DateTime fechaActual = DateTime.Today;
+            DateTime fechaMesAnt = DateTime.Today.AddMonths(-1);
+
+
+            if (fechaActual.Month == fechaPeriodo.Month && fechaActual.Year == fechaPeriodo.Year)
+                return false;
+            else if (fechaMesAnt.Year == fechaPeriodo.Year && fechaMesAnt.Month == fechaPeriodo.Month && fechaActual.Day < 7)
+                return false;
+            else
+                return true;
+
+        }
+
+        private decimal PrecioLecheFacturado(DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            decimal precio = 0;
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT AVG(PRECIOLECHE) AS PRECIO_LECHE
+                                 FROM MPRODUC m
+                                 WHERE m.FECHA BETWEEN @fechaInicio AND @fechaFin";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                    precio = dt.Rows[0]["PRECIO_LECHE"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["PRECIO_LECHE"]) : 0;
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return precio;
+        }
+
+        private decimal PrecioLecheCalculado(int ranId, ref string mensaje)
+        {
+            decimal precio = 0;
+            ModeloDatosSQL db = new ModeloDatosSQL(conexionSQL);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"WITH FechaPrecioLeche AS
+                                (
+	                                SELECT  Ran_id
+	                                       ,MAX(Pre_fecha) AS Fecha
+	                                FROM PRECIO_LECHE_HISTORICO
+	                                WHERE Ran_id = @rancho
+	                                GROUP BY  Ran_id
+                                )
+                                SELECT  plh.Precio_leche AS Precio_Leche
+                                FROM PRECIO_LECHE_HISTORICO plh
+                                INNER JOIN FechaPrecioLeche fpl
+                                ON plh.Ran_id = fpl.Ran_id AND plh.Pre_Fecha = fpl.Fecha";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoSQL.query);
+                db.AsignarParametro("@rancho", ranId);
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                    precio = dt.Rows[0]["Precio_Leche"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["Precio_Leche"]) : 0;
+
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return precio;
+        }
+
+        private decimal LecheProducida(DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            decimal lecheProducida = 0;
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT SUM(m.LECPROD) AS LecheProd
+                                 FROM MPRODUC m
+                                 WHERE m.FECHA BETWEEN @fechaInicio AND @fechaFin";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                    lecheProducida = dt.Rows[0]["LecheProd"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["LecheProd"]) : 0;
+
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return lecheProducida;
+        }
+
+        private string ColorUtilidad(decimal? valor, decimal? promedio, bool esCosto)
+        {
+            string color = "";
+
+            try
+            {
+                if (valor != 0)
+                {
+                    if (esCosto)
+                    {
+                        switch (valor)
+                        {
+                            //Verde #DEEDD3
+                            case decimal n when (n < (promedio * 0.95M)):
+                                color = "#DEEDD3";
+                                break;
+                            //Blanco    #F2F2F2
+                            case decimal n when ((n >= (promedio * 0.95M) && n <= (promedio * 1.05M))):
+                                color = "#F2F2F2";
+                                break;
+                            //Amarillo #FFF5D9
+                            case decimal n when (n >= (promedio * 1.05M) && n < (promedio * 1.10M)):
+                                color = "#FFF5D9";
+                                break;
+                            //Rojo  #FFC9C9
+                            case decimal n when (n > (promedio * 1.10M)):
+                                color = "#FFC9C9";
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (valor)
+                        {
+                            //Blanco    #F2F2F2
+                            case decimal n when ((n >= (promedio * 0.95M) && n <= (promedio * 1.05M))):
+                                color = "#F2F2F2";
+                                break;
+                            //Verde #DEEDD3
+                            case decimal n when (n > (promedio * 1.05M)):
+                                color = "#DEEDD3";
+                                break;
+                            //Amarillo #FFF5D9
+                            case decimal n when (n >= (promedio * 0.90M) && n < (promedio * 0.95M)):
+                                color = "#FFF5D9";
+                                break;
+                            //Rojo  #FFC9C9
+                            case decimal n when (n < (promedio * 0.90M)):
+                                color = "#FFC9C9";
+                                break;
+                        }
+                    }
+
+                }
+            }
+            catch { }
+
+            return color;
+        }
+
+        private List<Desecho> DatosDesecho(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        {
+            List<Desecho> response = new List<Desecho>();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+
+            try
+            {
+                string query = @"SELECT  CDATE(FECHA) AS FechaG
+                                        ,COUNT(*)     AS Vacas
+                                FROM Ddesecho
+                                WHERE FECHA BETWEEN @fechaInicio AND @fechaFin 
+                                @condicion
+                                GROUP BY FECHA  ORDER BY FECHA";
+                query = query.Replace("@condicion", condicion);
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new Desecho()
+                { 
+                    Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(), 
+                    Vacas = x["Vacas"] != DBNull.Value ? Convert.ToDecimal(x["Vacas"]) : 0
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally 
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private List<Desecho> DatosNacimiento(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        {
+            List<Desecho> response = new List<Desecho>();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try 
+            {
+                string query = @"SELECT  CDATE(FECHA) AS FechaG
+                                        ,COUNT(*)     AS Vacas
+                                FROM
+                                (
+	                                SELECT  distinct FECHA
+	                                        ,numvac
+	                                FROM Dnacimiento
+	                                WHERE FECHA BETWEEN @fechaInicio AND @fechaFin
+	                                @condicion
+                                )
+                                GROUP BY  FECHA
+                                ORDER BY FECHA";
+                query = query.Replace("@condicion", condicion);
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new Desecho()
+                {
+                    Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(), 
+                    Vacas = x["Vacas"] != DBNull.Value ? Convert.ToDecimal(x["Vacas"]) : 0
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally 
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private List<Desecho> DatosNacimientoMuertas(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        {
+            List<Desecho> response = new List<Desecho>();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try 
+            {
+                string query = @"SELECT  CDATE(FECHA) AS FechaG
+                                        ,COUNT(*)     AS Vacas
+                                FROM Dnacimiento
+                                WHERE FECHA BETWEEN @fechaInicio AND @fechaFin
+                                @condicion
+                                GROUP BY  FECHA
+                                ORDER BY FECHA";
+                query = query.Replace("@condicion", condicion);
+
+                db.Conectar();
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new Desecho()
+                {
+                    Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(),
+                    Vacas = x["Vacas"] != DBNull.Value ? Convert.ToDecimal(x["Vacas"]) : 0
+                }).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally 
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private List<Desecho> DatosAbortos(DateTime fechaInicio, DateTime fechaFin, int condicion, ref string mensaje)
+        {
+            List<Desecho> response = new List<Desecho>();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try 
+            {
+                string query = @"SELECT CDATE(FECHA) AS FechaG
+                                        , COUNT(*) AS Vacas
+                                 FROM Dabortos 
+                                 WHERE FECHA BETWEEN @fechaInicio AND @fechaFin
+                                        AND vacvaq = @tipo
+                                 GROUP BY FECHA  ORDER BY FECHA";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                db.AsignarParametro("@tipo", condicion);
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new Desecho()
+                {
+                    Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(),
+                    Vacas = x["Vacas"] != DBNull.Value ? Convert.ToDecimal(x["Vacas"]) : 0
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
 
         #endregion
 
