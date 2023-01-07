@@ -52,6 +52,12 @@ namespace ReportePeriodo.Modelo
         Hoja2 PorcentajeDiferenciaHoja2(Hoja2 diferencia, Hoja2 promedioAñoAnt);
         List<Hoja2> EspaciosEnBlancoHoja2(int renglones);
         void AsignarColorimetriaHoja2(List<Hoja2> reporte, Utilidad utilidad);
-
+        List<Hoja3> ReporteHoja3(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje);
+        Hoja3 TotalReporteHoja3(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje);
+        Hoja3 DiferenciaReporteHoja3(Hoja3 total, Hoja3 totalAñoAnt, ref string mensaje);
+        Hoja3 PorcentajeDiferenciaReporteHoja3(Hoja3 diferencia, Hoja3 totalAñoAnt, ref string mensaje);
+        void QuitarCeros(List<Hoja3> reporte);
+        void QuitarCeros(Hoja3 item);
+        List<Hoja3> EspaciosEnBlancoHoja3(int renglones);
     }
 }

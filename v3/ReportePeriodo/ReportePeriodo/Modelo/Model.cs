@@ -900,7 +900,7 @@ namespace ReportePeriodo.Modelo
 
             }
             catch { }
-            
+
         }
 
 
@@ -1391,10 +1391,11 @@ namespace ReportePeriodo.Modelo
             {
                 List<DateTime> fechasReporte = ListaFechasReporte(fechaFin);
 
+                #region Obtener Datos
                 List<CalostroYOrdeña> datosCalostro = CalostroOrdeño(fechaInicio, fechaFin);
                 List<Desecho> datosJaulasVivas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
                 List<Desecho> datosJaulasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
-                
+
                 List<Desecho> datosDesteteVivas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
                 List<Desecho> datosDesteteMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
 
@@ -1431,8 +1432,7 @@ namespace ReportePeriodo.Modelo
 
                 List<Desecho> datosAbortosVacas = DatosAbortos(fechaInicio, fechaFin, 1, ref mensaje);
                 List<Desecho> datosAbortosVaquillas = DatosAbortos(fechaInicio, fechaFin, 2, ref mensaje);
-
-
+                #endregion
 
                 foreach (DateTime fecha in fechasReporte)
                 {
@@ -1440,7 +1440,77 @@ namespace ReportePeriodo.Modelo
 
                     item.Dia = fecha.Day.ToString();
 
+                    #region obtener datos de la lista
+                    CalostroYOrdeña busquedaCalostro = (from x in datosCalostro where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaJaulasVivas = (from x in datosJaulasVivas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaJaulasMuertas = (from x in datosJaulasMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaDesteteVivas = (from x in datosDesteteVivas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaDesteteMuertas = (from x in datosDesteteMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaVaquillasMuertas = (from x in datosVaquillasMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaVaquillasUrgencia = (from x in datosVaquillasUrgencia where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaVaquillasDelgadas = (from x in datosVaquillasDelgadas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaVaquillasRegulares = (from x in datosVaquillasRegulares where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaVaquillasGordas = (from x in datosVaquillasGordas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaVaquillasOtros = (from x in datosVaquillasOtros where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaVacasMuertas = (from x in datosVacasMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaVacasUrgencia = (from x in datosVacasUrgencia where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaVacasDelgadas = (from x in datosVacasDelgadas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaVacasRegulares = (from x in datosVacasRegulares where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaVacasGordas = (from x in datosVacasGordas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaVacasOtros = (from x in datosVacasOtros where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaPartosVaquillasND = (from x in datosPartosVaquillasND where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaPartosVaquillasAbortos = (from x in datosPartosVaquillasAbortos where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaPartosVaquillasHembra = (from x in datosPartosVaquillasHembra where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaPartosVaquillasMacho = (from x in datosPartosVaquillasMacho where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaPartosVacasND = (from x in datosPartosVacasND where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaPartosVacasAbortos = (from x in datosPartosVacasAbortos where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaPartosVacasHembra = (from x in datosPartosVacasHembra where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaPartosVacasMacho = (from x in datosPartosVacasMacho where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaPartosSinCria = (from x in datosPartosSinCria where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaPartosVacas = (from x in datosPartosVacas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaPartosVaquillas = (from x in datosPartosVaquillas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaMuertasDia = (from x in datosMuertasDia where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaMuertasNoche = (from x in datosMuertasNoche where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaAbortosVacas = (from x in datosAbortosVacas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    Desecho busquedaAbortosVaquillas = (from x in datosAbortosVaquillas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    #endregion
 
+                    #region asignar datos
+                    item.Jaulas_Vivas = busquedaJaulasVivas != null ? busquedaJaulasVivas.Vacas : 0;
+                    item.Jaulas_Muertas = busquedaJaulasMuertas != null ? busquedaJaulasMuertas.Vacas : 0;
+                    item.Destete_Vivas = busquedaDesteteVivas != null ? busquedaDesteteVivas.Vacas : 0;
+                    item.Destete_Muertas = busquedaDesteteMuertas != null ? busquedaDesteteMuertas.Vacas : 0;
+                    item.Vaquillas_Muertas = busquedaDesteteMuertas != null ? busquedaDesteteMuertas.Vacas : 0;
+                    item.Vaquillas_Urgente = busquedaVaquillasUrgencia != null ? busquedaVaquillasUrgencia.Vacas : 0;
+                    item.Vaquillas_RF = busquedaVaquillasDelgadas != null ? busquedaVaquillasDelgadas.Vacas : 0;
+                    item.Vaquillas_RR = busquedaVaquillasRegulares != null ? busquedaVaquillasRegulares.Vacas : 0;
+                    item.Vaquillas_RG = busquedaVaquillasGordas != null ? busquedaVaquillasGordas.Vacas : 0;
+                    item.Vaquillas_Otros = busquedaVaquillasOtros != null ? busquedaVaquillasOtros.Vacas : 0;
+                    item.Vacas_Muertas = busquedaVacasMuertas != null ? busquedaVacasMuertas.Vacas : 0;
+                    item.Vacas_Urgente = busquedaVacasUrgencia != null ? busquedaVacasUrgencia.Vacas : 0;
+                    item.Vacas_RF = busquedaVacasDelgadas != null ? busquedaVacasDelgadas.Vacas : 0;
+                    item.Vacas_RR = busquedaVacasRegulares != null ? busquedaVacasRegulares.Vacas : 0;
+                    item.Vacas_RG = busquedaVacasGordas != null ? busquedaVacasGordas.Vacas : 0;
+                    item.Vacas_Otros = busquedaVacasOtros != null ? busquedaVacasOtros.Vacas : 0;
+                    item.Vaquillas_ND = busquedaPartosVaquillasND != null ? busquedaPartosVaquillasND.Vacas : 0;
+                    item.Vaquillas_A = busquedaPartosVaquillasAbortos != null ? busquedaPartosVaquillasAbortos.Vacas : 0;
+                    item.Vaquillas_Vivos_H = busquedaPartosVaquillasHembra != null ? busquedaPartosVaquillasHembra.Vacas : 0;
+                    item.Vaquillas_Vivos_M = busquedaPartosVaquillasMacho != null ? busquedaPartosVaquillasMacho.Vacas : 0;
+                    item.Vacas_ND = busquedaPartosVacasND != null ? busquedaPartosVacasND.Vacas : 0;
+                    item.Vacas_A = busquedaPartosVacasAbortos != null ? busquedaPartosVacasAbortos.Vacas : 0;
+                    item.Vacas_Vivos_H = busquedaPartosVacasHembra != null ? busquedaPartosVacasHembra.Vacas : 0;
+                    item.Vacas_Vivos_M = busquedaPartosVacasMacho != null ? busquedaPartosVacasMacho.Vacas : 0;
+                    item.SC = busquedaPartosSinCria != null ? busquedaPartosSinCria.Vacas : 0;
+                    item.Partos_Vacas = busquedaPartosVacas != null ? busquedaPartosVacas.Vacas : 0;
+                    item.Partos_Vaquillas = busquedaPartosVaquillas != null ? busquedaPartosVaquillas.Vacas : 0;
+                    item.Muertas_Dia = busquedaMuertasDia != null ? busquedaMuertasDia.Vacas : 0;
+                    item.Muertas_Noc = busquedaMuertasNoche != null ? busquedaMuertasNoche.Vacas : 0;
+                    item.Diferencia_Calostro = busquedaCalostro != null ? busquedaCalostro.Diferencia : 0;
+                    item.Porcentaje_Calostro = busquedaCalostro != null ? busquedaCalostro.Porcentaje : 0;
+                    item.Calidad_Calostro = busquedaCalostro.Calidad != null ? busquedaCalostro.Calidad : 0;
+                    #endregion
+
+                    response.Add(item);
                 }
             }
             catch { }
@@ -1449,8 +1519,325 @@ namespace ReportePeriodo.Modelo
             return response;
         }
 
+        public Hoja3 TotalReporteHoja3(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            Hoja3 response = new Hoja3() { Dia = "TOTAL" };
+            mensaje = string.Empty;
+
+            try
+            {
+                #region Obtener Datos
+                CalostroYOrdeña totalCalostro = PromedioCalostro(fechaInicio, fechaFin);
+                Desecho totalJaulasVivas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
+                Desecho totalJaulasMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
+
+                Desecho totalDesteteVivas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
+                Desecho totalDesteteMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
+
+                Desecho totalVaquillasMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                Desecho totalVaquillasUrgencia = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 2 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                Desecho totalVaquillasDelgadas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 3 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                Desecho totalVaquillasRegulares = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 4 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                Desecho totalVaquillasGordas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                Desecho totalVaquillasOtros = TotalDatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 2  AND motivo > 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+
+                Desecho totalVacasMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 1 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                Desecho totalVacasUrgencia = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 2 AND destino = 1) AND (edovac > 3) ", ref mensaje);
+                Desecho totalVacasDelgadas = TotalDatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND motivo = 3 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                Desecho totalVacasRegulares = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 4 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                Desecho totalVacasGordas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                Desecho totalVacasOtros = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo > 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+
+                Desecho totalPartosVaquillasND = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND (tipopar = 1 or tipopar = 3) ", ref mensaje);
+                Desecho totalPartosVaquillasAbortos = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND (tipopar = 2) ", ref mensaje);
+                Desecho totalPartosVaquillasHembra = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND criaviva = 1  AND criasexo = 1 ", ref mensaje);
+                Desecho totalPartosVaquillasMacho = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
+
+                Desecho totalPartosVacasND = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND (tipopar = 1 or tipopar = 3) ", ref mensaje);
+                Desecho totalPartosVacasAbortos = TotalDatosNacimiento(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND (tipopar = 2) ", ref mensaje);
+                Desecho totalPartosVacasHembra = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 1 ", ref mensaje);
+                Desecho totalPartosVacasMacho = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
+
+                Desecho totalPartosSinCria = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND tipopar <> 2 AND criaviva = 2  AND criasexo = 3 ", ref mensaje);
+                Desecho totalPartosVacas = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2 ", ref mensaje);
+                Desecho totalPartosVaquillas = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1 ", ref mensaje);
+
+                Desecho totalMuertasDia = TotalDatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 1 ", ref mensaje);
+                Desecho totalMuertasNoche = TotalDatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 2 ", ref mensaje);
+
+                Desecho totalAbortosVacas = TotalDatosAbortos(fechaInicio, fechaFin, 1, ref mensaje);
+                Desecho totalAbortosVaquillas = TotalDatosAbortos(fechaInicio, fechaFin, 2, ref mensaje);
+                #endregion
+
+                #region asignar datos
+                response.Jaulas_Vivas = totalJaulasVivas != null ? totalJaulasVivas.Vacas : 0;
+                response.Jaulas_Muertas = totalJaulasMuertas != null ? totalJaulasMuertas.Vacas : 0;
+                response.Destete_Vivas = totalDesteteVivas != null ? totalDesteteVivas.Vacas : 0;
+                response.Destete_Muertas = totalDesteteMuertas != null ? totalDesteteMuertas.Vacas : 0;
+                response.Vaquillas_Muertas = totalDesteteMuertas != null ? totalDesteteMuertas.Vacas : 0;
+                response.Vaquillas_Urgente = totalVaquillasUrgencia != null ? totalVaquillasUrgencia.Vacas : 0;
+                response.Vaquillas_RF = totalVaquillasDelgadas != null ? totalVaquillasDelgadas.Vacas : 0;
+                response.Vaquillas_RR = totalVaquillasRegulares != null ? totalVaquillasRegulares.Vacas : 0;
+                response.Vaquillas_RG = totalVaquillasGordas != null ? totalVaquillasGordas.Vacas : 0;
+                response.Vaquillas_Otros = totalVaquillasOtros != null ? totalVaquillasOtros.Vacas : 0;
+                response.Vacas_Muertas = totalVacasMuertas != null ? totalVacasMuertas.Vacas : 0;
+                response.Vacas_Urgente = totalVacasUrgencia != null ? totalVacasUrgencia.Vacas : 0;
+                response.Vacas_RF = totalVacasDelgadas != null ? totalVacasDelgadas.Vacas : 0;
+                response.Vacas_RR = totalVacasRegulares != null ? totalVacasRegulares.Vacas : 0;
+                response.Vacas_RG = totalVacasGordas != null ? totalVacasGordas.Vacas : 0;
+                response.Vacas_Otros = totalVacasOtros != null ? totalVacasOtros.Vacas : 0;
+                response.Vaquillas_ND = totalPartosVaquillasND != null ? totalPartosVaquillasND.Vacas : 0;
+                response.Vaquillas_A = totalPartosVaquillasAbortos != null ? totalPartosVaquillasAbortos.Vacas : 0;
+                response.Vaquillas_Vivos_H = totalPartosVaquillasHembra != null ? totalPartosVaquillasHembra.Vacas : 0;
+                response.Vaquillas_Vivos_M = totalPartosVaquillasMacho != null ? totalPartosVaquillasMacho.Vacas : 0;
+                response.Vacas_ND = totalPartosVacasND != null ? totalPartosVacasND.Vacas : 0;
+                response.Vacas_A = totalPartosVacasAbortos != null ? totalPartosVacasAbortos.Vacas : 0;
+                response.Vacas_Vivos_H = totalPartosVacasHembra != null ? totalPartosVacasHembra.Vacas : 0;
+                response.Vacas_Vivos_M = totalPartosVacasMacho != null ? totalPartosVacasMacho.Vacas : 0;
+                response.SC = totalPartosSinCria != null ? totalPartosSinCria.Vacas : 0;
+                response.Partos_Vacas = totalPartosVacas != null ? totalPartosVacas.Vacas : 0;
+                response.Partos_Vaquillas = totalPartosVaquillas != null ? totalPartosVaquillas.Vacas : 0;
+                response.Muertas_Dia = totalMuertasDia != null ? totalMuertasDia.Vacas : 0;
+                response.Muertas_Noc = totalMuertasNoche != null ? totalMuertasNoche.Vacas : 0;
+
+                response.Diferencia_Calostro = totalCalostro != null ? totalCalostro.Diferencia : 0;
+                response.Porcentaje_Calostro = totalCalostro != null ? totalCalostro.Porcentaje : 0;
+                response.Calidad_Calostro = totalCalostro.Calidad != null ? totalCalostro.Calidad : 0;
+                #endregion
 
 
+            }
+            catch { }
+
+
+            return response;
+        }
+
+        public Hoja3 DiferenciaReporteHoja3(Hoja3 total, Hoja3 totalAñoAnt, ref string mensaje)
+        {
+            Hoja3 response = new Hoja3() { Dia = "DIF #" };
+            mensaje = string.Empty;
+
+            try
+            {
+                #region asignar datos
+                response.Jaulas_Vivas = total.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != null ? total.Jaulas_Vivas - totalAñoAnt.Jaulas_Vivas : total.Jaulas_Vivas != null ? total.Jaulas_Vivas * (-1) : 0;
+                response.Jaulas_Muertas = total.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != null ? total.Jaulas_Muertas - totalAñoAnt.Jaulas_Muertas : total.Jaulas_Muertas != null ? total.Jaulas_Muertas * (-1) : 0;
+
+                response.Destete_Vivas = total.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != null ? total.Destete_Vivas - totalAñoAnt.Destete_Vivas : total.Destete_Vivas != null ? total.Destete_Vivas * (-1) : 0;
+                response.Destete_Muertas = total.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != null ? total.Destete_Muertas - totalAñoAnt.Destete_Muertas : total.Destete_Muertas != null ? total.Destete_Muertas * (-1) : 0;
+
+                response.Vaquillas_Muertas = total.Vaquillas_Muertas != null && totalAñoAnt.Vaquillas_Muertas != null ? total.Vaquillas_Muertas - totalAñoAnt.Vaquillas_Muertas : total.Vaquillas_Muertas != null ? total.Vaquillas_Muertas * (-1) : 0;
+                response.Vaquillas_Urgente = total.Vaquillas_Urgente != null && totalAñoAnt.Vaquillas_Urgente != null ? total.Vaquillas_Urgente - totalAñoAnt.Vaquillas_Urgente : total.Vaquillas_Urgente != null ? total.Vaquillas_Urgente * (-1) : 0;
+                response.Vaquillas_RF = total.Vaquillas_RF != null && totalAñoAnt.Vaquillas_RF != null ? total.Vaquillas_RF - totalAñoAnt.Vaquillas_RF : total.Vaquillas_RF != null ? total.Vaquillas_RF * (-1) : 0;
+                response.Vaquillas_RR = total.Vaquillas_RR != null && totalAñoAnt.Vaquillas_RR != null ? total.Vaquillas_RR - totalAñoAnt.Vaquillas_RR : total.Vaquillas_RR != null ? total.Vaquillas_RR * (-1) : 0;
+                response.Vaquillas_RG = total.Vaquillas_RG != null && totalAñoAnt.Vaquillas_RG != null ? total.Vaquillas_RG - totalAñoAnt.Vaquillas_RG : total.Vaquillas_RG != null ? total.Vaquillas_RG * (-1) : 0;
+                response.Vaquillas_Otros = total.Vaquillas_Otros != null && totalAñoAnt.Vaquillas_Otros != null ? total.Vaquillas_Otros - totalAñoAnt.Vaquillas_Otros : total.Vaquillas_Otros != null ? total.Vaquillas_Otros * (-1) : 0;
+
+                response.Vacas_Muertas = total.Vacas_Muertas != null && totalAñoAnt.Vacas_Muertas != null ? total.Vacas_Muertas - totalAñoAnt.Vacas_Muertas : total.Vacas_Muertas != null ? total.Vacas_Muertas * (-1) : 0;
+                response.Vacas_Urgente = total.Vacas_Urgente != null && totalAñoAnt.Vacas_Urgente != null ? total.Vacas_Urgente - totalAñoAnt.Vacas_Urgente : total.Vacas_Urgente != null ? total.Vacas_Urgente * (-1) : 0;
+                response.Vacas_RF = total.Vacas_RF != null && totalAñoAnt.Vacas_RF != null ? total.Vacas_RF - totalAñoAnt.Vacas_RF : total.Vacas_RF != null ? total.Vacas_RF * (-1) : 0;
+                response.Vacas_RR = total.Vacas_RR != null && totalAñoAnt.Vacas_RR != null ? total.Vacas_RR - totalAñoAnt.Vacas_RR : total.Vacas_RR != null ? total.Vacas_RR * (-1) : 0;
+                response.Vacas_RG = total.Vacas_RG != null && totalAñoAnt.Vacas_RG != null ? total.Vacas_RG - totalAñoAnt.Vacas_RG : total.Vacas_RG != null ? total.Vacas_RG * (-1) : 0;
+                response.Vacas_Otros = total.Vacas_Otros != null && totalAñoAnt.Vacas_Otros != null ? total.Vacas_Otros - totalAñoAnt.Vacas_Otros : total.Vacas_Otros != null ? total.Vacas_Otros * (-1) : 0;
+
+                response.Vaquillas_ND = total.Vaquillas_ND != null && totalAñoAnt.Vaquillas_ND != null ? total.Vaquillas_ND - totalAñoAnt.Vaquillas_ND : total.Vaquillas_ND != null ? total.Vaquillas_ND * (-1) : 0;
+                response.Vaquillas_A = total.Vaquillas_A != null && totalAñoAnt.Vaquillas_A != null ? total.Vaquillas_A - totalAñoAnt.Vaquillas_A : total.Vaquillas_A != null ? total.Vaquillas_A * (-1) : 0;
+                response.Vaquillas_Vivos_H = total.Vaquillas_Vivos_H != null && totalAñoAnt.Vaquillas_Vivos_H != null ? total.Vaquillas_Vivos_H - totalAñoAnt.Vaquillas_Vivos_H : total.Vaquillas_Vivos_H != null ? total.Vaquillas_Vivos_H * (-1) : 0;
+                response.Vaquillas_Vivos_M = total.Vaquillas_Vivos_M != null && totalAñoAnt.Vaquillas_Vivos_M != null ? total.Vaquillas_Vivos_M - totalAñoAnt.Vaquillas_Vivos_M : total.Vaquillas_Vivos_M != null ? total.Vaquillas_Vivos_M * (-1) : 0;
+
+                response.Vacas_ND = total.Vacas_ND != null && totalAñoAnt.Vacas_ND != null ? total.Vacas_ND - totalAñoAnt.Vacas_ND : total.Vacas_ND != null ? total.Vacas_ND * (-1) : 0;
+                response.Vacas_A = total.Vacas_A != null && totalAñoAnt.Vacas_A != null ? total.Vacas_A - totalAñoAnt.Vacas_A : total.Vacas_A != null ? total.Vacas_A * (-1) : 0;
+                response.Vacas_Vivos_H = total.Vacas_Vivos_H != null && totalAñoAnt.Vacas_Vivos_H != null ? total.Vacas_Vivos_H - totalAñoAnt.Vacas_Vivos_H : total.Vacas_Vivos_H != null ? total.Vacas_Vivos_H * (-1) : 0;
+                response.Vacas_Vivos_M = total.Vacas_Vivos_M != null && totalAñoAnt.Vacas_Vivos_M != null ? total.Vacas_Vivos_M - totalAñoAnt.Vacas_Vivos_M : total.Vacas_Vivos_M != null ? total.Vacas_Vivos_M * (-1) : 0;
+
+                response.SC = total.SC != null && totalAñoAnt.SC != null ? total.SC - totalAñoAnt.SC : total.SC != null ? total.SC * (-1) : 0;
+
+                response.Partos_Vaquillas = total.Partos_Vaquillas != null && totalAñoAnt.Partos_Vaquillas != null ? total.Partos_Vaquillas - totalAñoAnt.Partos_Vaquillas : total.Partos_Vaquillas != null ? total.Partos_Vaquillas * (-1) : 0;
+                response.Partos_Vacas = total.Partos_Vacas != null && totalAñoAnt.Partos_Vacas != null ? total.Partos_Vacas - totalAñoAnt.Partos_Vacas : total.Partos_Vacas != null ? total.Partos_Vacas * (-1) : 0;
+
+                response.Muertas_Dia = total.Muertas_Dia != null && totalAñoAnt.Muertas_Dia != null ? total.Muertas_Dia - totalAñoAnt.Muertas_Dia : total.Muertas_Dia != null ? total.Muertas_Dia * (-1) : 0;
+                response.Muertas_Noc = total.Muertas_Noc != null && totalAñoAnt.Muertas_Noc != null ? total.Muertas_Noc - totalAñoAnt.Muertas_Noc : total.Muertas_Noc != null ? total.Muertas_Noc * (-1) : 0;
+
+                response.Diferencia_Calostro = total.Diferencia_Calostro != null && totalAñoAnt.Diferencia_Calostro != null ? total.Diferencia_Calostro - totalAñoAnt.Diferencia_Calostro : total.Diferencia_Calostro != null ? total.Diferencia_Calostro * (-1) : 0;
+                response.Porcentaje_Calostro = total.Porcentaje_Calostro != null && totalAñoAnt.Porcentaje_Calostro != null ? total.Porcentaje_Calostro - totalAñoAnt.Porcentaje_Calostro : total.Porcentaje_Calostro != null ? total.Porcentaje_Calostro * (-1) : 0;
+                response.Calidad_Calostro = total.Calidad_Calostro != null && totalAñoAnt.Calidad_Calostro != null ? total.Calidad_Calostro - totalAñoAnt.Calidad_Calostro : total.Calidad_Calostro != null ? total.Calidad_Calostro * (-1) : 0;
+                #endregion
+            }
+            catch { }
+
+            return response;
+        }
+
+        public Hoja3 PorcentajeDiferenciaReporteHoja3(Hoja3 diferencia, Hoja3 totalAñoAnt, ref string mensaje)
+        {
+            Hoja3 response = new Hoja3() { Dia = "DIF %" };
+            mensaje = string.Empty;
+
+            try
+            {
+                #region asignar datos
+                response.Jaulas_Vivas = diferencia.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != 0 ? diferencia.Jaulas_Vivas / totalAñoAnt.Jaulas_Vivas : 0;
+                response.Jaulas_Muertas = diferencia.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != 0 ? diferencia.Jaulas_Muertas / totalAñoAnt.Jaulas_Muertas : 0;
+
+                response.Destete_Vivas = diferencia.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != 0 ? diferencia.Destete_Vivas / totalAñoAnt.Destete_Vivas : 0;
+                response.Destete_Muertas = diferencia.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != 0 ? diferencia.Destete_Muertas / totalAñoAnt.Destete_Muertas : 0;
+
+                response.Vaquillas_Muertas = diferencia.Vaquillas_Muertas != null && totalAñoAnt.Vaquillas_Muertas != null && totalAñoAnt.Vaquillas_Muertas != 0 ? diferencia.Vaquillas_Muertas / totalAñoAnt.Vaquillas_Muertas : 0;
+                response.Vaquillas_Urgente = diferencia.Vaquillas_Urgente != null && totalAñoAnt.Vaquillas_Urgente != null && totalAñoAnt.Vaquillas_Urgente != 0 ? diferencia.Vaquillas_Urgente / totalAñoAnt.Vaquillas_Urgente : 0;
+                response.Vaquillas_RF = diferencia.Vaquillas_RF != null && totalAñoAnt.Vaquillas_RF != null && totalAñoAnt.Vaquillas_RF != 0 ? diferencia.Vaquillas_RF / totalAñoAnt.Vaquillas_RF : 0;
+                response.Vaquillas_RR = diferencia.Vaquillas_RR != null && totalAñoAnt.Vaquillas_RR != null && totalAñoAnt.Vaquillas_RR != 0 ? diferencia.Vaquillas_RR / totalAñoAnt.Vaquillas_RR : 0;
+                response.Vaquillas_RG = diferencia.Vaquillas_RG != null && totalAñoAnt.Vaquillas_RG != null && totalAñoAnt.Vaquillas_RG != 0 ? diferencia.Vaquillas_RG / totalAñoAnt.Vaquillas_RG : 0;
+                response.Vaquillas_Otros = diferencia.Vaquillas_Otros != null && totalAñoAnt.Vaquillas_Otros != null && totalAñoAnt.Vaquillas_Otros != 0 ? diferencia.Vaquillas_Otros / totalAñoAnt.Vaquillas_Otros : 0;
+
+                response.Vacas_Muertas = diferencia.Vacas_Muertas != null && totalAñoAnt.Vacas_Muertas != null && totalAñoAnt.Vacas_Muertas != 0 ? diferencia.Vacas_Muertas / totalAñoAnt.Vacas_Muertas : 0;
+                response.Vacas_Urgente = diferencia.Vacas_Urgente != null && totalAñoAnt.Vacas_Urgente != null && totalAñoAnt.Vacas_Urgente != 0 ? diferencia.Vacas_Urgente / totalAñoAnt.Vacas_Urgente : 0;
+                response.Vacas_RF = diferencia.Vacas_RF != null && totalAñoAnt.Vacas_RF != null && totalAñoAnt.Vacas_RF != 0 ? diferencia.Vacas_RF / totalAñoAnt.Vacas_RF : 0;
+                response.Vacas_RR = diferencia.Vacas_RR != null && totalAñoAnt.Vacas_RR != null && totalAñoAnt.Vacas_RR != 0 ? diferencia.Vacas_RR / totalAñoAnt.Vacas_RR : 0;
+                response.Vacas_RG = diferencia.Vacas_RG != null && totalAñoAnt.Vacas_RG != null && totalAñoAnt.Vacas_RG != 0 ? diferencia.Vacas_RG / totalAñoAnt.Vacas_RG : 0;
+                response.Vacas_Otros = diferencia.Vacas_Otros != null && totalAñoAnt.Vacas_Otros != null && totalAñoAnt.Vacas_Otros != 0 ? diferencia.Vacas_Otros / totalAñoAnt.Vacas_Otros : 0;
+
+                response.Vaquillas_ND = diferencia.Vaquillas_ND != null && totalAñoAnt.Vaquillas_ND != null && totalAñoAnt.Vaquillas_ND != 0 ? diferencia.Vaquillas_ND / totalAñoAnt.Vaquillas_ND : 0;
+                response.Vaquillas_A = diferencia.Vaquillas_A != null && totalAñoAnt.Vaquillas_A != null && totalAñoAnt.Vaquillas_A != 0 ? diferencia.Vaquillas_A / totalAñoAnt.Vaquillas_A : 0;
+                response.Vaquillas_Vivos_H = diferencia.Vaquillas_Vivos_H != null && totalAñoAnt.Vaquillas_Vivos_H != null && totalAñoAnt.Vaquillas_Vivos_H != 0 ? diferencia.Vaquillas_Vivos_H / totalAñoAnt.Vaquillas_Vivos_H : 0;
+                response.Vaquillas_Vivos_M = diferencia.Vaquillas_Vivos_M != null && totalAñoAnt.Vaquillas_Vivos_M != null && totalAñoAnt.Vaquillas_Vivos_M != 0 ? diferencia.Vaquillas_Vivos_M / totalAñoAnt.Vaquillas_Vivos_M : 0;
+
+                response.Vacas_ND = diferencia.Vacas_ND != null && totalAñoAnt.Vacas_ND != null && totalAñoAnt.Vacas_ND != 0 ? diferencia.Vacas_ND / totalAñoAnt.Vacas_ND : 0;
+                response.Vacas_A = diferencia.Vacas_A != null && totalAñoAnt.Vacas_A != null && totalAñoAnt.Vacas_A != 0 ? diferencia.Vacas_A / totalAñoAnt.Vacas_A : 0;
+                response.Vacas_Vivos_H = diferencia.Vacas_Vivos_H != null && totalAñoAnt.Vacas_Vivos_H != null && totalAñoAnt.Vacas_Vivos_H != 0 ? diferencia.Vacas_Vivos_H / totalAñoAnt.Vacas_Vivos_H : 0;
+                response.Vacas_Vivos_M = diferencia.Vacas_Vivos_M != null && totalAñoAnt.Vacas_Vivos_M != null && totalAñoAnt.Vacas_Vivos_M != 0 ? diferencia.Vacas_Vivos_M / totalAñoAnt.Vacas_Vivos_M : 0;
+
+                response.SC = diferencia.SC != null && totalAñoAnt.SC != null && totalAñoAnt.SC != 0 ? diferencia.SC / totalAñoAnt.SC : 0;
+
+                response.Partos_Vaquillas = diferencia.Partos_Vaquillas != null && totalAñoAnt.Partos_Vaquillas != null && totalAñoAnt.Partos_Vaquillas != 0 ? diferencia.Partos_Vaquillas / totalAñoAnt.Partos_Vaquillas : 0;
+                response.Partos_Vacas = diferencia.Partos_Vacas != null && totalAñoAnt.Partos_Vacas != null && totalAñoAnt.Partos_Vacas != 0 ? diferencia.Partos_Vacas / totalAñoAnt.Partos_Vacas : 0;
+
+                response.Muertas_Dia = diferencia.Muertas_Dia != null && totalAñoAnt.Muertas_Dia != null && totalAñoAnt.Muertas_Dia != 0 ? diferencia.Muertas_Dia / totalAñoAnt.Muertas_Dia : 0;
+                response.Muertas_Noc = diferencia.Muertas_Noc != null && totalAñoAnt.Muertas_Noc != null && totalAñoAnt.Muertas_Noc != 0 ? diferencia.Muertas_Noc / totalAñoAnt.Muertas_Noc : 0;
+
+                response.Diferencia_Calostro = diferencia.Diferencia_Calostro != null && totalAñoAnt.Diferencia_Calostro != null && totalAñoAnt.Diferencia_Calostro != 0 ? diferencia.Diferencia_Calostro / totalAñoAnt.Diferencia_Calostro : 0;
+                response.Porcentaje_Calostro = diferencia.Porcentaje_Calostro != null && totalAñoAnt.Porcentaje_Calostro != null && totalAñoAnt.Porcentaje_Calostro != 0 ? diferencia.Porcentaje_Calostro / totalAñoAnt.Porcentaje_Calostro : 0;
+                response.Calidad_Calostro = diferencia.Calidad_Calostro != null && totalAñoAnt.Calidad_Calostro != null && totalAñoAnt.Calidad_Calostro != 0 ? diferencia.Calidad_Calostro / totalAñoAnt.Calidad_Calostro : 0;
+                #endregion
+            }
+            catch { }
+
+            return response;
+        }
+
+        public void QuitarCeros(List<Hoja3> reporte)
+        {
+            foreach (Hoja3 item in reporte)
+            {
+                try
+                {
+                    item.Jaulas_Vivas = item.Jaulas_Vivas == 0 ? null : item.Jaulas_Vivas;
+                    item.Jaulas_Muertas = item.Jaulas_Muertas == 0 ? null : item.Jaulas_Muertas;
+
+                    item.Destete_Vivas = item.Destete_Vivas == 0 ? null : item.Destete_Vivas;
+                    item.Destete_Muertas = item.Destete_Muertas == 0 ? null : item.Destete_Muertas;
+
+                    item.Vaquillas_Muertas = item.Vaquillas_Muertas == 0 ? null : item.Vaquillas_Muertas;
+                    item.Vaquillas_Urgente = item.Vaquillas_Urgente == 0 ? null : item.Vaquillas_Urgente;
+                    item.Vaquillas_RF = item.Vaquillas_RF == 0 ? null : item.Vaquillas_RF;
+                    item.Vaquillas_RR = item.Vaquillas_RR == 0 ? null : item.Vaquillas_RR;
+                    item.Vaquillas_RG = item.Vaquillas_RG == 0 ? null : item.Vaquillas_RG;
+                    item.Vaquillas_Otros = item.Vaquillas_Otros == 0 ? null : item.Vaquillas_Otros;
+
+                    item.Vacas_Muertas = item.Vacas_Muertas == 0 ? null : item.Vacas_Muertas;
+                    item.Vacas_Urgente = item.Vacas_Urgente == 0 ? null : item.Vacas_Urgente;
+                    item.Vacas_RF = item.Vacas_RF == 0 ? null : item.Vacas_RF;
+                    item.Vacas_RR = item.Vacas_RR == 0 ? null : item.Vacas_RR;
+                    item.Vacas_RG = item.Vacas_RG == 0 ? null : item.Vacas_RG;
+                    item.Vacas_Otros = item.Vacas_Otros == 0 ? null : item.Vacas_Otros;
+
+                    item.Vaquillas_ND = item.Vaquillas_ND == 0 ? null : item.Vaquillas_ND;
+                    item.Vaquillas_A = item.Vaquillas_A == 0 ? null : item.Vaquillas_A;
+                    item.Vaquillas_Vivos_H = item.Vaquillas_Vivos_H == 0 ? null : item.Vaquillas_Vivos_H;
+                    item.Vaquillas_Vivos_M = item.Vaquillas_Vivos_M == 0 ? null : item.Vaquillas_Vivos_M;
+
+                    item.Vacas_ND = item.Vacas_ND == 0 ? null : item.Vacas_ND;
+                    item.Vacas_A = item.Vacas_A == 0 ? null : item.Vacas_A;
+                    item.Vacas_Vivos_H = item.Vacas_Vivos_H == 0 ? null : item.Vacas_Vivos_H;
+                    item.Vacas_Vivos_M = item.Vacas_Vivos_M == 0 ? null : item.Vacas_Vivos_M;
+
+                    item.SC = item.SC == 0 ? null : item.SC;
+
+                    item.Partos_Vaquillas = item.Partos_Vaquillas == 0 ? null : item.Partos_Vaquillas;
+                    item.Partos_Vacas = item.Partos_Vacas == 0 ? null : item.Partos_Vacas;
+
+                    item.Muertas_Dia = item.Muertas_Dia == 0 ? null : item.Muertas_Dia;
+                    item.Muertas_Noc = item.Muertas_Noc == 0 ? null : item.Muertas_Noc;
+
+                    item.Diferencia_Calostro = item.Diferencia_Calostro == 0 ? null : item.Diferencia_Calostro;
+                    item.Porcentaje_Calostro = item.Porcentaje_Calostro == 0 ? null : item.Porcentaje_Calostro;
+                    item.Calidad_Calostro = item.Calidad_Calostro == 0 ? null : item.Calidad_Calostro;
+                }
+                catch { }
+            }
+        }
+
+        public void QuitarCeros(Hoja3 item)
+        {
+            try
+            {
+                item.Jaulas_Vivas = item.Jaulas_Vivas == 0 ? null : item.Jaulas_Vivas;
+                item.Jaulas_Muertas = item.Jaulas_Muertas == 0 ? null : item.Jaulas_Muertas;
+
+                item.Destete_Vivas = item.Destete_Vivas == 0 ? null : item.Destete_Vivas;
+                item.Destete_Muertas = item.Destete_Muertas == 0 ? null : item.Destete_Muertas;
+
+                item.Vaquillas_Muertas = item.Vaquillas_Muertas == 0 ? null : item.Vaquillas_Muertas;
+                item.Vaquillas_Urgente = item.Vaquillas_Urgente == 0 ? null : item.Vaquillas_Urgente;
+                item.Vaquillas_RF = item.Vaquillas_RF == 0 ? null : item.Vaquillas_RF;
+                item.Vaquillas_RR = item.Vaquillas_RR == 0 ? null : item.Vaquillas_RR;
+                item.Vaquillas_RG = item.Vaquillas_RG == 0 ? null : item.Vaquillas_RG;
+                item.Vaquillas_Otros = item.Vaquillas_Otros == 0 ? null : item.Vaquillas_Otros;
+
+                item.Vacas_Muertas = item.Vacas_Muertas == 0 ? null : item.Vacas_Muertas;
+                item.Vacas_Urgente = item.Vacas_Urgente == 0 ? null : item.Vacas_Urgente;
+                item.Vacas_RF = item.Vacas_RF == 0 ? null : item.Vacas_RF;
+                item.Vacas_RR = item.Vacas_RR == 0 ? null : item.Vacas_RR;
+                item.Vacas_RG = item.Vacas_RG == 0 ? null : item.Vacas_RG;
+                item.Vacas_Otros = item.Vacas_Otros == 0 ? null : item.Vacas_Otros;
+
+                item.Vaquillas_ND = item.Vaquillas_ND == 0 ? null : item.Vaquillas_ND;
+                item.Vaquillas_A = item.Vaquillas_A == 0 ? null : item.Vaquillas_A;
+                item.Vaquillas_Vivos_H = item.Vaquillas_Vivos_H == 0 ? null : item.Vaquillas_Vivos_H;
+                item.Vaquillas_Vivos_M = item.Vaquillas_Vivos_M == 0 ? null : item.Vaquillas_Vivos_M;
+
+                item.Vacas_ND = item.Vacas_ND == 0 ? null : item.Vacas_ND;
+                item.Vacas_A = item.Vacas_A == 0 ? null : item.Vacas_A;
+                item.Vacas_Vivos_H = item.Vacas_Vivos_H == 0 ? null : item.Vacas_Vivos_H;
+                item.Vacas_Vivos_M = item.Vacas_Vivos_M == 0 ? null : item.Vacas_Vivos_M;
+
+                item.SC = item.SC == 0 ? null : item.SC;
+
+                item.Partos_Vaquillas = item.Partos_Vaquillas == 0 ? null : item.Partos_Vaquillas;
+                item.Partos_Vacas = item.Partos_Vacas == 0 ? null : item.Partos_Vacas;
+
+                item.Muertas_Dia = item.Muertas_Dia == 0 ? null : item.Muertas_Dia;
+                item.Muertas_Noc = item.Muertas_Noc == 0 ? null : item.Muertas_Noc;
+
+                item.Diferencia_Calostro = item.Diferencia_Calostro == 0 ? null : item.Diferencia_Calostro;
+                item.Porcentaje_Calostro = item.Porcentaje_Calostro == 0 ? null : item.Porcentaje_Calostro;
+                item.Calidad_Calostro = item.Calidad_Calostro == 0 ? null : item.Calidad_Calostro;
+            }
+            catch { }
+        }
+
+        public List<Hoja3> EspaciosEnBlancoHoja3(int renglones)
+        {
+            List<Hoja3> response = new List<Hoja3>();
+            int renglonesTotal = 32 - renglones;
+
+            for (int i = 0; i < renglonesTotal; i++)
+            {
+                response.Add(new Hoja3());
+            }
+
+            return response;
+        }
         #endregion
 
         #region metodos privados
@@ -2759,7 +3146,7 @@ namespace ReportePeriodo.Modelo
                                         ,Round(SUM((jaulas + destetadas + destetadas2 + vaquillas + vacassecas + vacasordeña + vqreto + vcreto))/(@fechaFin - @fechaInicio + 1),0) AS InventarioTotal
                                 FROM INVENTARIOAFIXDIA
                                 WHERE fecha BETWEEN @fechaInicio AND @fechaFin";
-                query = query.Replace("@fechaInicio", ConvertToJulian(fechaInicio).ToString()).Replace("@fechaFin", ConvertToJulian(fechaFin).ToString()); 
+                query = query.Replace("@fechaInicio", ConvertToJulian(fechaInicio).ToString()).Replace("@fechaFin", ConvertToJulian(fechaFin).ToString());
 
                 db.Conectar();
                 db.CrearComando(query, tipoComandoAccess.query);
@@ -3102,8 +3489,8 @@ namespace ReportePeriodo.Modelo
                 db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
                 db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
                 response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new Desecho()
-                { 
-                    Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(), 
+                {
+                    Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(),
                     Vacas = x["Vacas"] != DBNull.Value ? Convert.ToDecimal(x["Vacas"]) : 0
                 }).ToList();
             }
@@ -3111,7 +3498,7 @@ namespace ReportePeriodo.Modelo
             {
                 mensaje = ex.Message;
             }
-            finally 
+            finally
             {
                 if (db.isConnected)
                     db.Desconectar();
@@ -3126,7 +3513,7 @@ namespace ReportePeriodo.Modelo
             ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
             mensaje = string.Empty;
 
-            try 
+            try
             {
                 string query = @"SELECT  CDATE(FECHA) AS FechaG
                                         ,COUNT(*)     AS Vacas
@@ -3148,7 +3535,7 @@ namespace ReportePeriodo.Modelo
                 db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
                 response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new Desecho()
                 {
-                    Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(), 
+                    Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(),
                     Vacas = x["Vacas"] != DBNull.Value ? Convert.ToDecimal(x["Vacas"]) : 0
                 }).ToList();
             }
@@ -3156,7 +3543,7 @@ namespace ReportePeriodo.Modelo
             {
                 mensaje = ex.Message;
             }
-            finally 
+            finally
             {
                 if (db.isConnected)
                     db.Desconectar();
@@ -3171,7 +3558,7 @@ namespace ReportePeriodo.Modelo
             ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
             mensaje = string.Empty;
 
-            try 
+            try
             {
                 string query = @"SELECT  CDATE(FECHA) AS FechaG
                                         ,COUNT(*)     AS Vacas
@@ -3196,7 +3583,7 @@ namespace ReportePeriodo.Modelo
             {
                 mensaje = ex.Message;
             }
-            finally 
+            finally
             {
                 if (db.isConnected)
                     db.Desconectar();
@@ -3211,7 +3598,7 @@ namespace ReportePeriodo.Modelo
             ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
             mensaje = string.Empty;
 
-            try 
+            try
             {
                 string query = @"SELECT CDATE(FECHA) AS FechaG
                                         , COUNT(*) AS Vacas
@@ -3243,6 +3630,175 @@ namespace ReportePeriodo.Modelo
 
             return response;
         }
+
+        private Desecho TotalDatosDesecho(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        {
+            Desecho response = new Desecho();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+
+            try
+            {
+                string query = @"SELECT SUM(Vacas) AS Vacas_
+                                FROM (
+                                    SELECT  CDATE(FECHA) AS FechaG
+                                            ,COUNT(*)     AS Vacas
+                                    FROM Ddesecho
+                                    WHERE FECHA BETWEEN @fechaInicio AND @fechaFin 
+                                    @condicion
+                                    GROUP BY FECHA 
+                                )T";
+                query = query.Replace("@condicion", condicion);
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                    response.Vacas = dt.Rows[0]["Vacas_"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["Vacas_"]) : 0;
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private Desecho TotalDatosNacimiento(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        {
+            Desecho response = new Desecho();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT SUM(Vacas) AS Vacas_
+                                FROM (
+                                    SELECT  CDATE(FECHA) AS FechaG
+                                            ,COUNT(*)     AS Vacas
+                                    FROM
+                                    (
+	                                    SELECT  distinct FECHA
+	                                            ,numvac
+	                                    FROM Dnacimiento
+	                                    WHERE FECHA BETWEEN @fechaInicio AND @fechaFin
+	                                    @condicion
+                                    )
+                                    GROUP BY  FECHA                                
+                                )T";
+                query = query.Replace("@condicion", condicion);
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                    response.Vacas = dt.Rows[0]["Vacas_"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["Vacas_"]) : 0;
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private Desecho TotalDatosNacimientoMuertas(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        {
+            Desecho response = new Desecho();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT SUM(Vacas) AS Vacas_
+                                FROM (
+                                        SELECT  CDATE(FECHA) AS FechaG
+                                                ,COUNT(*)     AS Vacas
+                                        FROM Dnacimiento
+                                        WHERE FECHA BETWEEN @fechaInicio AND @fechaFin
+                                        @condicion
+                                        GROUP BY  FECHA
+                                )T";
+                query = query.Replace("@condicion", condicion);
+
+                db.Conectar();
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                    response.Vacas = dt.Rows[0]["Vacas_"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["Vacas_"]) : 0;
+
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private Desecho TotalDatosAbortos(DateTime fechaInicio, DateTime fechaFin, int condicion, ref string mensaje)
+        {
+            Desecho response = new Desecho();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT SUM(Vacas) AS Vacas_
+                                FROM (
+                                    SELECT CDATE(FECHA) AS FechaG
+                                            , COUNT(*) AS Vacas
+                                     FROM Dabortos 
+                                     WHERE FECHA BETWEEN @fechaInicio AND @fechaFin
+                                            AND vacvaq = @tipo
+                                     GROUP BY FECHA  
+                                )T";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                db.AsignarParametro("@tipo", condicion);
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                    response.Vacas = dt.Rows[0]["Vacas_"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["Vacas_"]) : 0;
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
 
         #endregion
 

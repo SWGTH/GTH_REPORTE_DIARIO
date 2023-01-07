@@ -139,5 +139,32 @@ namespace ReportePeriodo.Presentador
         {
             _model.CargarPrecioLeche(rancho, fechaInicio, fechaFin, ref mensaje);
         }
+
+
+        public List<Hoja3> ReporteHoja3(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            mensaje = string.Empty;
+            List<Hoja3> response = _model.ReporteHoja3(rancho, fechaInicio, fechaFin, ref mensaje);
+            Hoja3 total = _model.TotalReporteHoja3(rancho, fechaInicio, fechaFin, ref mensaje);
+            Hoja3 totalAñoAnt = _model.TotalReporteHoja3(rancho, fechaInicio.AddYears(-1), fechaFin.AddYears(-1), ref mensaje);
+            totalAñoAnt.Dia = "AÑO ANT";
+            Hoja3 diferencia = _model.DiferenciaReporteHoja3(total, totalAñoAnt, ref mensaje);
+            Hoja3 porcentajeDiferencia = _model.PorcentajeDiferenciaReporteHoja3(diferencia, totalAñoAnt, ref mensaje);
+            List<Hoja3> espaciosEnBlanco = _model.EspaciosEnBlancoHoja3(response.Count);
+
+            _model.QuitarCeros(response);
+            _model.QuitarCeros(total);
+            _model.QuitarCeros(totalAñoAnt);
+            _model.QuitarCeros(diferencia);
+            _model.QuitarCeros(porcentajeDiferencia);
+
+            response.AddRange(espaciosEnBlanco);
+            response.Add(total);
+            response.Add(totalAñoAnt);
+            response.Add(porcentajeDiferencia);
+            response.Add(diferencia);
+
+            return response;
+        }
     }
 }
