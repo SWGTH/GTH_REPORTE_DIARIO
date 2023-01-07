@@ -1381,7 +1381,7 @@ namespace ReportePeriodo.Modelo
             precioLeche = esPrecioFacturado ? PrecioLecheFacturado(fechaInicio, fechaFin, ref mensaje) : PrecioLecheCalculado(rancho.Ran_ID, ref mensaje);
         }
 
-
+        #region hoja3
         public List<Hoja3> ReporteHoja3(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
         {
             List<Hoja3> response = new List<Hoja3>();
@@ -1393,45 +1393,45 @@ namespace ReportePeriodo.Modelo
 
                 #region Obtener Datos
                 List<CalostroYOrdeña> datosCalostro = CalostroOrdeño(fechaInicio, fechaFin);
-                List<Desecho> datosJaulasVivas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
-                List<Desecho> datosJaulasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
+                List<DatosVacas> datosJaulasVivas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
+                List<DatosVacas> datosJaulasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
 
-                List<Desecho> datosDesteteVivas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
-                List<Desecho> datosDesteteMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
+                List<DatosVacas> datosDesteteVivas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
+                List<DatosVacas> datosDesteteMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
 
-                List<Desecho> datosVaquillasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
-                List<Desecho> datosVaquillasUrgencia = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 2 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
-                List<Desecho> datosVaquillasDelgadas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 3 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
-                List<Desecho> datosVaquillasRegulares = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 4 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
-                List<Desecho> datosVaquillasGordas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
-                List<Desecho> datosVaquillasOtros = DatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 2  AND motivo > 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                List<DatosVacas> datosVaquillasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                List<DatosVacas> datosVaquillasUrgencia = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 2 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                List<DatosVacas> datosVaquillasDelgadas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 3 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                List<DatosVacas> datosVaquillasRegulares = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 4 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                List<DatosVacas> datosVaquillasGordas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                List<DatosVacas> datosVaquillasOtros = DatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 2  AND motivo > 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
 
-                List<Desecho> datosVacasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 1 AND destino = 1 AND (edovac > 3) ", ref mensaje);
-                List<Desecho> datosVacasUrgencia = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 2 AND destino = 1) AND (edovac > 3) ", ref mensaje);
-                List<Desecho> datosVacasDelgadas = DatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND motivo = 3 AND destino = 1 AND (edovac > 3) ", ref mensaje);
-                List<Desecho> datosVacasRegulares = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 4 AND destino = 1 AND (edovac > 3) ", ref mensaje);
-                List<Desecho> datosVacasGordas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
-                List<Desecho> datosVacasOtros = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo > 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                List<DatosVacas> datosVacasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 1 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                List<DatosVacas> datosVacasUrgencia = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 2 AND destino = 1) AND (edovac > 3) ", ref mensaje);
+                List<DatosVacas> datosVacasDelgadas = DatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND motivo = 3 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                List<DatosVacas> datosVacasRegulares = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 4 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                List<DatosVacas> datosVacasGordas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                List<DatosVacas> datosVacasOtros = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo > 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
 
-                List<Desecho> datosPartosVaquillasND = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND (tipopar = 1 or tipopar = 3) ", ref mensaje);
-                List<Desecho> datosPartosVaquillasAbortos = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND (tipopar = 2) ", ref mensaje);
-                List<Desecho> datosPartosVaquillasHembra = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND criaviva = 1  AND criasexo = 1 ", ref mensaje);
-                List<Desecho> datosPartosVaquillasMacho = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
+                List<DatosVacas> datosPartosVaquillasND = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND (tipopar = 1 or tipopar = 3) ", ref mensaje);
+                List<DatosVacas> datosPartosVaquillasAbortos = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND (tipopar = 2) ", ref mensaje);
+                List<DatosVacas> datosPartosVaquillasHembra = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND criaviva = 1  AND criasexo = 1 ", ref mensaje);
+                List<DatosVacas> datosPartosVaquillasMacho = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
 
-                List<Desecho> datosPartosVacasND = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND (tipopar = 1 or tipopar = 3) ", ref mensaje);
-                List<Desecho> datosPartosVacasAbortos = DatosNacimiento(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND (tipopar = 2) ", ref mensaje);
-                List<Desecho> datosPartosVacasHembra = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 1 ", ref mensaje);
-                List<Desecho> datosPartosVacasMacho = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
+                List<DatosVacas> datosPartosVacasND = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND (tipopar = 1 or tipopar = 3) ", ref mensaje);
+                List<DatosVacas> datosPartosVacasAbortos = DatosNacimiento(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND (tipopar = 2) ", ref mensaje);
+                List<DatosVacas> datosPartosVacasHembra = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 1 ", ref mensaje);
+                List<DatosVacas> datosPartosVacasMacho = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
 
-                List<Desecho> datosPartosSinCria = DatosNacimiento(fechaInicio, fechaFin, @" AND tipopar <> 2 AND criaviva = 2  AND criasexo = 3 ", ref mensaje);
-                List<Desecho> datosPartosVacas = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2 ", ref mensaje);
-                List<Desecho> datosPartosVaquillas = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1 ", ref mensaje);
+                List<DatosVacas> datosPartosSinCria = DatosNacimiento(fechaInicio, fechaFin, @" AND tipopar <> 2 AND criaviva = 2  AND criasexo = 3 ", ref mensaje);
+                List<DatosVacas> datosPartosVacas = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2 ", ref mensaje);
+                List<DatosVacas> datosPartosVaquillas = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1 ", ref mensaje);
 
-                List<Desecho> datosMuertasDia = DatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 1 ", ref mensaje);
-                List<Desecho> datosMuertasNoche = DatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 2 ", ref mensaje);
+                List<DatosVacas> datosMuertasDia = DatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 1 ", ref mensaje);
+                List<DatosVacas> datosMuertasNoche = DatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 2 ", ref mensaje);
 
-                List<Desecho> datosAbortosVacas = DatosAbortos(fechaInicio, fechaFin, 1, ref mensaje);
-                List<Desecho> datosAbortosVaquillas = DatosAbortos(fechaInicio, fechaFin, 2, ref mensaje);
+                //List<DatosVacas> datosAbortosVacas = DatosAbortos(fechaInicio, fechaFin, 1, ref mensaje);
+                //List<DatosVacas> datosAbortosVaquillas = DatosAbortos(fechaInicio, fechaFin, 2, ref mensaje);
                 #endregion
 
                 foreach (DateTime fecha in fechasReporte)
@@ -1442,37 +1442,37 @@ namespace ReportePeriodo.Modelo
 
                     #region obtener datos de la lista
                     CalostroYOrdeña busquedaCalostro = (from x in datosCalostro where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaJaulasVivas = (from x in datosJaulasVivas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaJaulasMuertas = (from x in datosJaulasMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaDesteteVivas = (from x in datosDesteteVivas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaDesteteMuertas = (from x in datosDesteteMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaVaquillasMuertas = (from x in datosVaquillasMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaVaquillasUrgencia = (from x in datosVaquillasUrgencia where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaVaquillasDelgadas = (from x in datosVaquillasDelgadas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaVaquillasRegulares = (from x in datosVaquillasRegulares where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaVaquillasGordas = (from x in datosVaquillasGordas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaVaquillasOtros = (from x in datosVaquillasOtros where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaVacasMuertas = (from x in datosVacasMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaVacasUrgencia = (from x in datosVacasUrgencia where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaVacasDelgadas = (from x in datosVacasDelgadas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaVacasRegulares = (from x in datosVacasRegulares where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaVacasGordas = (from x in datosVacasGordas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaVacasOtros = (from x in datosVacasOtros where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaPartosVaquillasND = (from x in datosPartosVaquillasND where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaPartosVaquillasAbortos = (from x in datosPartosVaquillasAbortos where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaPartosVaquillasHembra = (from x in datosPartosVaquillasHembra where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaPartosVaquillasMacho = (from x in datosPartosVaquillasMacho where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaPartosVacasND = (from x in datosPartosVacasND where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaPartosVacasAbortos = (from x in datosPartosVacasAbortos where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaPartosVacasHembra = (from x in datosPartosVacasHembra where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaPartosVacasMacho = (from x in datosPartosVacasMacho where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaPartosSinCria = (from x in datosPartosSinCria where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaPartosVacas = (from x in datosPartosVacas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaPartosVaquillas = (from x in datosPartosVaquillas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaMuertasDia = (from x in datosMuertasDia where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaMuertasNoche = (from x in datosMuertasNoche where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaAbortosVacas = (from x in datosAbortosVacas where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    Desecho busquedaAbortosVaquillas = (from x in datosAbortosVaquillas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaJaulasVivas = (from x in datosJaulasVivas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaJaulasMuertas = (from x in datosJaulasMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaDesteteVivas = (from x in datosDesteteVivas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaDesteteMuertas = (from x in datosDesteteMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaVaquillasMuertas = (from x in datosVaquillasMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaVaquillasUrgencia = (from x in datosVaquillasUrgencia where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaVaquillasDelgadas = (from x in datosVaquillasDelgadas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaVaquillasRegulares = (from x in datosVaquillasRegulares where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaVaquillasGordas = (from x in datosVaquillasGordas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaVaquillasOtros = (from x in datosVaquillasOtros where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaVacasMuertas = (from x in datosVacasMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaVacasUrgencia = (from x in datosVacasUrgencia where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaVacasDelgadas = (from x in datosVacasDelgadas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaVacasRegulares = (from x in datosVacasRegulares where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaVacasGordas = (from x in datosVacasGordas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaVacasOtros = (from x in datosVacasOtros where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaPartosVaquillasND = (from x in datosPartosVaquillasND where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaPartosVaquillasAbortos = (from x in datosPartosVaquillasAbortos where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaPartosVaquillasHembra = (from x in datosPartosVaquillasHembra where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaPartosVaquillasMacho = (from x in datosPartosVaquillasMacho where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaPartosVacasND = (from x in datosPartosVacasND where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaPartosVacasAbortos = (from x in datosPartosVacasAbortos where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaPartosVacasHembra = (from x in datosPartosVacasHembra where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaPartosVacasMacho = (from x in datosPartosVacasMacho where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaPartosSinCria = (from x in datosPartosSinCria where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaPartosVacas = (from x in datosPartosVacas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaPartosVaquillas = (from x in datosPartosVaquillas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaMuertasDia = (from x in datosMuertasDia where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaMuertasNoche = (from x in datosMuertasNoche where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    //DatosVacas busquedaAbortosVacas = (from x in datosAbortosVacas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    //DatosVacas busquedaAbortosVaquillas = (from x in datosAbortosVaquillas where x.Fecha == fecha select x).ToList().FirstOrDefault();
                     #endregion
 
                     #region asignar datos
@@ -1528,45 +1528,45 @@ namespace ReportePeriodo.Modelo
             {
                 #region Obtener Datos
                 CalostroYOrdeña totalCalostro = PromedioCalostro(fechaInicio, fechaFin);
-                Desecho totalJaulasVivas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
-                Desecho totalJaulasMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
+                DatosVacas totalJaulasVivas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
+                DatosVacas totalJaulasMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
 
-                Desecho totalDesteteVivas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
-                Desecho totalDesteteMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
+                DatosVacas totalDesteteVivas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
+                DatosVacas totalDesteteMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
 
-                Desecho totalVaquillasMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
-                Desecho totalVaquillasUrgencia = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 2 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
-                Desecho totalVaquillasDelgadas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 3 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
-                Desecho totalVaquillasRegulares = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 4 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
-                Desecho totalVaquillasGordas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
-                Desecho totalVaquillasOtros = TotalDatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 2  AND motivo > 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                DatosVacas totalVaquillasMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                DatosVacas totalVaquillasUrgencia = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 2 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                DatosVacas totalVaquillasDelgadas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 3 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                DatosVacas totalVaquillasRegulares = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 4 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                DatosVacas totalVaquillasGordas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                DatosVacas totalVaquillasOtros = TotalDatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 2  AND motivo > 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
 
-                Desecho totalVacasMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 1 AND destino = 1 AND (edovac > 3) ", ref mensaje);
-                Desecho totalVacasUrgencia = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 2 AND destino = 1) AND (edovac > 3) ", ref mensaje);
-                Desecho totalVacasDelgadas = TotalDatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND motivo = 3 AND destino = 1 AND (edovac > 3) ", ref mensaje);
-                Desecho totalVacasRegulares = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 4 AND destino = 1 AND (edovac > 3) ", ref mensaje);
-                Desecho totalVacasGordas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
-                Desecho totalVacasOtros = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo > 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                DatosVacas totalVacasMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 1 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                DatosVacas totalVacasUrgencia = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 2 AND destino = 1) AND (edovac > 3) ", ref mensaje);
+                DatosVacas totalVacasDelgadas = TotalDatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND motivo = 3 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                DatosVacas totalVacasRegulares = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 4 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                DatosVacas totalVacasGordas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
+                DatosVacas totalVacasOtros = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo > 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
 
-                Desecho totalPartosVaquillasND = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND (tipopar = 1 or tipopar = 3) ", ref mensaje);
-                Desecho totalPartosVaquillasAbortos = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND (tipopar = 2) ", ref mensaje);
-                Desecho totalPartosVaquillasHembra = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND criaviva = 1  AND criasexo = 1 ", ref mensaje);
-                Desecho totalPartosVaquillasMacho = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
+                DatosVacas totalPartosVaquillasND = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND (tipopar = 1 or tipopar = 3) ", ref mensaje);
+                DatosVacas totalPartosVaquillasAbortos = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND (tipopar = 2) ", ref mensaje);
+                DatosVacas totalPartosVaquillasHembra = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND criaviva = 1  AND criasexo = 1 ", ref mensaje);
+                DatosVacas totalPartosVaquillasMacho = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
 
-                Desecho totalPartosVacasND = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND (tipopar = 1 or tipopar = 3) ", ref mensaje);
-                Desecho totalPartosVacasAbortos = TotalDatosNacimiento(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND (tipopar = 2) ", ref mensaje);
-                Desecho totalPartosVacasHembra = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 1 ", ref mensaje);
-                Desecho totalPartosVacasMacho = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
+                DatosVacas totalPartosVacasND = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND (tipopar = 1 or tipopar = 3) ", ref mensaje);
+                DatosVacas totalPartosVacasAbortos = TotalDatosNacimiento(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND (tipopar = 2) ", ref mensaje);
+                DatosVacas totalPartosVacasHembra = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 1 ", ref mensaje);
+                DatosVacas totalPartosVacasMacho = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
 
-                Desecho totalPartosSinCria = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND tipopar <> 2 AND criaviva = 2  AND criasexo = 3 ", ref mensaje);
-                Desecho totalPartosVacas = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2 ", ref mensaje);
-                Desecho totalPartosVaquillas = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1 ", ref mensaje);
+                DatosVacas totalPartosSinCria = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND tipopar <> 2 AND criaviva = 2  AND criasexo = 3 ", ref mensaje);
+                DatosVacas totalPartosVacas = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2 ", ref mensaje);
+                DatosVacas totalPartosVaquillas = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1 ", ref mensaje);
 
-                Desecho totalMuertasDia = TotalDatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 1 ", ref mensaje);
-                Desecho totalMuertasNoche = TotalDatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 2 ", ref mensaje);
+                DatosVacas totalMuertasDia = TotalDatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 1 ", ref mensaje);
+                DatosVacas totalMuertasNoche = TotalDatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 2 ", ref mensaje);
 
-                Desecho totalAbortosVacas = TotalDatosAbortos(fechaInicio, fechaFin, 1, ref mensaje);
-                Desecho totalAbortosVaquillas = TotalDatosAbortos(fechaInicio, fechaFin, 2, ref mensaje);
+                DatosVacas totalAbortosVacas = TotalDatosAbortos(fechaInicio, fechaFin, 1, ref mensaje);
+                DatosVacas totalAbortosVaquillas = TotalDatosAbortos(fechaInicio, fechaFin, 2, ref mensaje);
                 #endregion
 
                 #region asignar datos
@@ -1838,6 +1838,243 @@ namespace ReportePeriodo.Modelo
 
             return response;
         }
+        #endregion
+
+        #region hoja4
+        public List<Hoja4> ReporteHoja4(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            List<Hoja4> response = new List<Hoja4>();
+            mensaje = string.Empty;
+
+            try
+            {
+                List<DateTime> fechasReporte = ListaFechasReporte(fechaFin);
+                List<DatosVacas> datosMetabolicos = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 1 ", ref mensaje);
+                List<DatosVacas> datosCetosis = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 2 ", ref mensaje);
+                List<DatosVacas> datosLocomotores = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 1 ", ref mensaje);
+                List<DatosVacas> datosLamitis = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 2 ", ref mensaje);
+                List<DatosVacas> datosGabarros = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 3 ", ref mensaje);
+                List<DatosVacas> datosDigestivos = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 1 ", ref mensaje);
+                List<DatosVacas> datosEmpacho = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 2 ", ref mensaje);
+                List<DatosVacas> datosDiarrea = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 3 ", ref mensaje);
+                List<DatosVacas> datosRetencion = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 1 ", ref mensaje);
+                List<DatosVacas> datosMetritis = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 2 ", ref mensaje);
+                List<ValInventario> datosValInventarios = DatosValInventario(fechaInicio, fechaFin, ref mensaje);
+                List<DatosVacas> datosAbortosVacas = DatosAbortos(fechaInicio, fechaFin, 1, ref mensaje);
+                List<DatosVacas> datosAbortosVaquillas = DatosAbortos(fechaInicio, fechaFin, 2, ref mensaje);
+
+                foreach (DateTime fecha in fechasReporte)
+                {
+                    Hoja4 newItem = new Hoja4();
+                    newItem.Dia = fecha.Day.ToString();
+
+                    #region tomar datos por dia
+                    DatosVacas busquedaMetabolicos = (from x in datosMetabolicos where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaCetosis = (from x in datosCetosis where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaLocomotores = (from x in datosLocomotores where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaLamitis = (from x in datosLamitis where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaGabarros = (from x in datosGabarros where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaDigestivos = (from x in datosDigestivos where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaEmpacho = (from x in datosEmpacho where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaDiarrea = (from x in datosDiarrea where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaRetencion = (from x in datosRetencion where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaMetritis = (from x in datosMetritis where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    ValInventario busquedaValInventarios = (from x in datosValInventarios where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaAbortosVacas = (from x in datosAbortosVacas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaAbortosVaquillas = (from x in datosAbortosVaquillas where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    #endregion
+
+                    #region Asignar Datos
+                    /*
+                    newItem.Ubre_MA = busquedaMetabolicos != null ? busquedaMetabolicos.Vacas : 0;
+                    newItem.Ubre_SL = busquedaCetosis != null ? busquedaCetosis.Vacas : 0;
+                    newItem.Metabolicos_FL = != null ? : 0;
+                    newItem.Metabolicos_CET = != null ? : 0;
+                    newItem.Locomotores_BE = != null ? : 0;
+                    newItem.Locomotores_TRA = != null ? : 0;
+                    newItem.Locomotores_GA = != null ? : 0;
+                    newItem.Digestivos_AC = != null ? : 0;
+                    newItem.Digestivos_ES = != null ? : 0;
+                    newItem.Digestivos_DI = != null ? : 0;
+                    newItem.Digestivos_TI = != null ? : 0;
+                    newItem.Reproductivos_RE = != null ? : 0;
+                    newItem.Reproductivos_ME = != null ? : 0;
+                    newItem.Reproductivos_PIO = != null ? : 0;
+                    newItem.Reproductivos_QUI = != null ? : 0;
+                    newItem.Reproductivos_CS = != null ? : 0;
+                    newItem.Respiratorios_Neu = != null ? : 0;
+                    newItem.Becerras_Neu = != null ? : 0;
+                    newItem.Becerras_Fie = != null ? : 0;
+                    newItem.Becerras_Di = != null ? : 0;
+                    newItem.Becerras_Conj = != null ? : 0;
+                    newItem.Vacas_Diag = != null ? : 0;
+                    newItem.Vacas_Pren = != null ? : 0;
+                    newItem.Vacas_Porcentaje_Pren = != null ? : 0;
+                    newItem.Vacas_Vacias = != null ? : 0;
+                    newItem.Vacas_Porcentaje_Vacias = != null ? : 0;
+                    newItem.Vaquillas_Diag = != null ? : 0;
+                    newItem.Vaquillas_Pren = != null ? : 0;
+                    newItem.Vaquillas_Porcentaje_Pren = != null ? : 0;
+                    newItem.Vaquillas_Vacias = != null ? : 0;
+                    newItem.Vaquillas_Porcentaje_Vacias = != null ? : 0;
+                    newItem.Abortos_Vaquillas = != null ? : 0;
+                    newItem.Abortos_Vacas = != null ? : 0;
+                    */
+
+                    #endregion
+
+                    response.Add(newItem);
+                }
+
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+
+            return response;
+        }
+
+        public Hoja4 TotalHoja4(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            Hoja4 response = new Hoja4();
+            response.Dia = "TOTAL";
+
+            try
+            {
+
+            }
+            catch { }
+
+            return response;
+        }
+
+        public Hoja4 DiferenciHoja4(Hoja4 total, Hoja4 totalAñoAnt, ref string mensaje)
+        {
+            Hoja4 response = new Hoja4();
+            response.Dia = "DIF #";
+
+            try
+            {
+
+            }
+            catch { }
+
+            return response;
+        }
+
+        public Hoja4 PorcentajeDiferenciHoja4(Hoja4 diferencia, Hoja4 totalAñoAnt, ref string mensaje)
+        {
+            Hoja4 response = new Hoja4();
+            response.Dia = "DIF %";
+
+            try
+            {
+
+            }
+            catch { }
+
+            return response;
+        }
+
+        public List<Hoja4> EspaciosEnBlancoHoja4(int renglones)
+        {
+            List<Hoja4> response = new List<Hoja4>();
+            int renglonesTotal = 32 - renglones;
+
+            for (int i = 0; i < renglonesTotal; i++)
+            {
+                response.Add(new Hoja4());
+            }
+
+            return response;
+        }
+
+        public void QuitarCeros(List<Hoja4> reporte)
+        {
+            foreach (Hoja4 item in reporte)
+            {
+                try
+                {
+                    item.Ubre_MA = item.Ubre_MA == 0 ? null : item.Ubre_MA;
+                    item.Ubre_SL = item.Ubre_SL == 0 ? null : item.Ubre_SL;
+                    item.Metabolicos_FL = item.Metabolicos_FL == 0 ? null : item.Metabolicos_FL;
+                    item.Metabolicos_CET = item.Metabolicos_CET == 0 ? null : item.Metabolicos_CET;
+                    item.Locomotores_BE = item.Locomotores_BE == 0 ? null : item.Locomotores_BE;
+                    item.Locomotores_TRA = item.Locomotores_TRA == 0 ? null : item.Locomotores_TRA;
+                    item.Locomotores_GA = item.Locomotores_GA == 0 ? null : item.Locomotores_GA;
+                    item.Digestivos_AC = item.Digestivos_AC == 0 ? null : item.Digestivos_AC;
+                    item.Digestivos_ES = item.Digestivos_ES == 0 ? null : item.Digestivos_ES;
+                    item.Digestivos_DI = item.Digestivos_DI == 0 ? null : item.Digestivos_DI;
+                    item.Digestivos_TI = item.Digestivos_TI == 0 ? null : item.Digestivos_TI;
+                    item.Reproductivos_RE = item.Reproductivos_RE == 0 ? null : item.Reproductivos_RE;
+                    item.Reproductivos_ME = item.Reproductivos_ME == 0 ? null : item.Reproductivos_ME;
+                    item.Reproductivos_PIO = item.Reproductivos_PIO == 0 ? null : item.Reproductivos_PIO;
+                    item.Reproductivos_QUI = item.Reproductivos_QUI == 0 ? null : item.Reproductivos_QUI;
+                    item.Reproductivos_CS = item.Reproductivos_CS == 0 ? null : item.Reproductivos_CS;
+                    item.Respiratorios_Neu = item.Respiratorios_Neu == 0 ? null : item.Respiratorios_Neu;
+                    item.Becerras_Neu = item.Becerras_Neu == 0 ? null : item.Becerras_Neu;
+                    item.Becerras_Fie = item.Becerras_Fie == 0 ? null : item.Becerras_Fie;
+                    item.Becerras_Di = item.Becerras_Di == 0 ? null : item.Becerras_Di;
+                    item.Becerras_Conj = item.Becerras_Conj == 0 ? null : item.Becerras_Conj;
+                    item.Vacas_Diag = item.Vacas_Diag == 0 ? null : item.Vacas_Diag;
+                    item.Vacas_Pren = item.Vacas_Pren == 0 ? null : item.Vacas_Pren;
+                    item.Vacas_Porcentaje_Pren = item.Vacas_Porcentaje_Pren == 0 ? null : item.Vacas_Porcentaje_Pren;
+                    item.Vacas_Vacias = item.Vacas_Vacias == 0 ? null : item.Vacas_Vacias;
+                    item.Vacas_Porcentaje_Vacias = item.Vacas_Porcentaje_Vacias == 0 ? null : item.Vacas_Porcentaje_Vacias;
+                    item.Vaquillas_Diag = item.Vaquillas_Diag == 0 ? null : item.Vaquillas_Diag;
+                    item.Vaquillas_Pren = item.Vaquillas_Pren == 0 ? null : item.Vaquillas_Pren;
+                    item.Vaquillas_Porcentaje_Pren = item.Vaquillas_Porcentaje_Pren == 0 ? null : item.Vaquillas_Porcentaje_Pren;
+                    item.Vaquillas_Vacias = item.Vaquillas_Vacias == 0 ? null : item.Vaquillas_Vacias;
+                    item.Vaquillas_Porcentaje_Vacias = item.Vaquillas_Porcentaje_Vacias == 0 ? null : item.Vaquillas_Porcentaje_Vacias;
+                    item.Abortos_Vaquillas = item.Abortos_Vaquillas == 0 ? null : item.Abortos_Vaquillas;
+                    item.Abortos_Vacas = item.Abortos_Vacas == 0 ? null : item.Abortos_Vacas;
+                }
+                catch { }
+            }
+        }
+
+        public void QuitarCeros(Hoja4 item)
+        {
+
+            try
+            {
+                item.Ubre_MA = item.Ubre_MA == 0 ? null : item.Ubre_MA;
+                item.Ubre_SL = item.Ubre_SL == 0 ? null : item.Ubre_SL;
+                item.Metabolicos_FL = item.Metabolicos_FL == 0 ? null : item.Metabolicos_FL;
+                item.Metabolicos_CET = item.Metabolicos_CET == 0 ? null : item.Metabolicos_CET;
+                item.Locomotores_BE = item.Locomotores_BE == 0 ? null : item.Locomotores_BE;
+                item.Locomotores_TRA = item.Locomotores_TRA == 0 ? null : item.Locomotores_TRA;
+                item.Locomotores_GA = item.Locomotores_GA == 0 ? null : item.Locomotores_GA;
+                item.Digestivos_AC = item.Digestivos_AC == 0 ? null : item.Digestivos_AC;
+                item.Digestivos_ES = item.Digestivos_ES == 0 ? null : item.Digestivos_ES;
+                item.Digestivos_DI = item.Digestivos_DI == 0 ? null : item.Digestivos_DI;
+                item.Digestivos_TI = item.Digestivos_TI == 0 ? null : item.Digestivos_TI;
+                item.Reproductivos_RE = item.Reproductivos_RE == 0 ? null : item.Reproductivos_RE;
+                item.Reproductivos_ME = item.Reproductivos_ME == 0 ? null : item.Reproductivos_ME;
+                item.Reproductivos_PIO = item.Reproductivos_PIO == 0 ? null : item.Reproductivos_PIO;
+                item.Reproductivos_QUI = item.Reproductivos_QUI == 0 ? null : item.Reproductivos_QUI;
+                item.Reproductivos_CS = item.Reproductivos_CS == 0 ? null : item.Reproductivos_CS;
+                item.Respiratorios_Neu = item.Respiratorios_Neu == 0 ? null : item.Respiratorios_Neu;
+                item.Becerras_Neu = item.Becerras_Neu == 0 ? null : item.Becerras_Neu;
+                item.Becerras_Fie = item.Becerras_Fie == 0 ? null : item.Becerras_Fie;
+                item.Becerras_Di = item.Becerras_Di == 0 ? null : item.Becerras_Di;
+                item.Becerras_Conj = item.Becerras_Conj == 0 ? null : item.Becerras_Conj;
+                item.Vacas_Diag = item.Vacas_Diag == 0 ? null : item.Vacas_Diag;
+                item.Vacas_Pren = item.Vacas_Pren == 0 ? null : item.Vacas_Pren;
+                item.Vacas_Porcentaje_Pren = item.Vacas_Porcentaje_Pren == 0 ? null : item.Vacas_Porcentaje_Pren;
+                item.Vacas_Vacias = item.Vacas_Vacias == 0 ? null : item.Vacas_Vacias;
+                item.Vacas_Porcentaje_Vacias = item.Vacas_Porcentaje_Vacias == 0 ? null : item.Vacas_Porcentaje_Vacias;
+                item.Vaquillas_Diag = item.Vaquillas_Diag == 0 ? null : item.Vaquillas_Diag;
+                item.Vaquillas_Pren = item.Vaquillas_Pren == 0 ? null : item.Vaquillas_Pren;
+                item.Vaquillas_Porcentaje_Pren = item.Vaquillas_Porcentaje_Pren == 0 ? null : item.Vaquillas_Porcentaje_Pren;
+                item.Vaquillas_Vacias = item.Vaquillas_Vacias == 0 ? null : item.Vaquillas_Vacias;
+                item.Vaquillas_Porcentaje_Vacias = item.Vaquillas_Porcentaje_Vacias == 0 ? null : item.Vaquillas_Porcentaje_Vacias;
+                item.Abortos_Vaquillas = item.Abortos_Vaquillas == 0 ? null : item.Abortos_Vaquillas;
+                item.Abortos_Vacas = item.Abortos_Vacas == 0 ? null : item.Abortos_Vacas;
+            }
+            catch { }
+
+        }
+        #endregion
+
         #endregion
 
         #region metodos privados
@@ -3469,9 +3706,9 @@ namespace ReportePeriodo.Modelo
             return color;
         }
 
-        private List<Desecho> DatosDesecho(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        private List<DatosVacas> DatosDesecho(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
         {
-            List<Desecho> response = new List<Desecho>();
+            List<DatosVacas> response = new List<DatosVacas>();
             ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
 
             try
@@ -3488,7 +3725,7 @@ namespace ReportePeriodo.Modelo
                 db.CrearComando(query, tipoComandoAccess.query);
                 db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
                 db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
-                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new Desecho()
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new DatosVacas()
                 {
                     Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(),
                     Vacas = x["Vacas"] != DBNull.Value ? Convert.ToDecimal(x["Vacas"]) : 0
@@ -3507,9 +3744,9 @@ namespace ReportePeriodo.Modelo
             return response;
         }
 
-        private List<Desecho> DatosNacimiento(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        private List<DatosVacas> DatosNacimiento(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
         {
-            List<Desecho> response = new List<Desecho>();
+            List<DatosVacas> response = new List<DatosVacas>();
             ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
             mensaje = string.Empty;
 
@@ -3533,7 +3770,7 @@ namespace ReportePeriodo.Modelo
                 db.CrearComando(query, tipoComandoAccess.query);
                 db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
                 db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
-                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new Desecho()
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new DatosVacas()
                 {
                     Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(),
                     Vacas = x["Vacas"] != DBNull.Value ? Convert.ToDecimal(x["Vacas"]) : 0
@@ -3552,9 +3789,9 @@ namespace ReportePeriodo.Modelo
             return response;
         }
 
-        private List<Desecho> DatosNacimientoMuertas(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        private List<DatosVacas> DatosNacimientoMuertas(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
         {
-            List<Desecho> response = new List<Desecho>();
+            List<DatosVacas> response = new List<DatosVacas>();
             ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
             mensaje = string.Empty;
 
@@ -3572,7 +3809,7 @@ namespace ReportePeriodo.Modelo
                 db.Conectar();
                 db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
                 db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
-                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new Desecho()
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new DatosVacas()
                 {
                     Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(),
                     Vacas = x["Vacas"] != DBNull.Value ? Convert.ToDecimal(x["Vacas"]) : 0
@@ -3592,9 +3829,9 @@ namespace ReportePeriodo.Modelo
             return response;
         }
 
-        private List<Desecho> DatosAbortos(DateTime fechaInicio, DateTime fechaFin, int condicion, ref string mensaje)
+        private List<DatosVacas> DatosAbortos(DateTime fechaInicio, DateTime fechaFin, int condicion, ref string mensaje)
         {
-            List<Desecho> response = new List<Desecho>();
+            List<DatosVacas> response = new List<DatosVacas>();
             ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
             mensaje = string.Empty;
 
@@ -3612,7 +3849,7 @@ namespace ReportePeriodo.Modelo
                 db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
                 db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
                 db.AsignarParametro("@tipo", condicion);
-                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new Desecho()
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new DatosVacas()
                 {
                     Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(),
                     Vacas = x["Vacas"] != DBNull.Value ? Convert.ToDecimal(x["Vacas"]) : 0
@@ -3631,9 +3868,9 @@ namespace ReportePeriodo.Modelo
             return response;
         }
 
-        private Desecho TotalDatosDesecho(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        private DatosVacas TotalDatosDesecho(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
         {
-            Desecho response = new Desecho();
+            DatosVacas response = new DatosVacas();
             ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
 
             try
@@ -3671,9 +3908,9 @@ namespace ReportePeriodo.Modelo
             return response;
         }
 
-        private Desecho TotalDatosNacimiento(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        private DatosVacas TotalDatosNacimiento(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
         {
-            Desecho response = new Desecho();
+            DatosVacas response = new DatosVacas();
             ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
             mensaje = string.Empty;
 
@@ -3717,9 +3954,9 @@ namespace ReportePeriodo.Modelo
             return response;
         }
 
-        private Desecho TotalDatosNacimientoMuertas(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        private DatosVacas TotalDatosNacimientoMuertas(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
         {
-            Desecho response = new Desecho();
+            DatosVacas response = new DatosVacas();
             ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
             mensaje = string.Empty;
 
@@ -3758,9 +3995,9 @@ namespace ReportePeriodo.Modelo
             return response;
         }
 
-        private Desecho TotalDatosAbortos(DateTime fechaInicio, DateTime fechaFin, int condicion, ref string mensaje)
+        private DatosVacas TotalDatosAbortos(DateTime fechaInicio, DateTime fechaFin, int condicion, ref string mensaje)
         {
-            Desecho response = new Desecho();
+            DatosVacas response = new DatosVacas();
             ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
             mensaje = string.Empty;
 
@@ -3785,6 +4022,92 @@ namespace ReportePeriodo.Modelo
 
                 if (dt.Rows.Count > 0)
                     response.Vacas = dt.Rows[0]["Vacas_"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["Vacas_"]) : 0;
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private List<DatosVacas> DatosSalud(DateTime fechaInicio, DateTime fechaFin, string condicion, ref string mensaje)
+        {
+            List<DatosVacas> response = new List<DatosVacas>();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT  CDATE(FECHA) AS FechaG
+                                        ,COUNT(*)  AS Vacas
+                                FROM DSALUD 
+                                WHERE FECHA BETWEEN  @fechaInicio AND @fechaFin
+                                @condicion
+                                GROUP BY  FECHA
+                                ORDER BY FECHAa";
+                query = query.Replace("@condicion", condicion);
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new DatosVacas()
+                {
+                    Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(),
+                    Vacas = x["Vacas"] != DBNull.Value ? Convert.ToDecimal(x["Vacas"]) : 0
+                }).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private List<ValInventario> DatosValInventario(DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            List<ValInventario> response = new List<ValInventario>();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT  CDATE(FECHA) AS FechaG
+                                        ,preñvc       AS VacasPreñadas
+                                        ,vaciavc      AS VacasVacias
+                                        ,preñvq       AS VaquillasPreñadas
+                                        ,vaciavq      AS VaquillasVacias
+                                FROM VALINVENTARIO
+                                WHERE FECHA BETWEEN @fechaInicio AND @fechaFin
+                                ORDER BY FECHA";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new ValInventario()
+                {
+                    Fecha = x["FechaG"] != DBNull.Value ? Convert.ToDateTime(x["FechaG"]) : new DateTime(),
+                    VacasPreñadas = x["VacasPreñadas"] != DBNull.Value ? Convert.ToDecimal(x["VacasPreñadas"]) : 0,
+                    VacasVacias = x["VacasVacias"] != DBNull.Value ? Convert.ToDecimal(x["VacasVacias"]) : 0,
+                    VaquillasPreñadas = x["VaquillasPreñadas"] != DBNull.Value ? Convert.ToDecimal(x["VaquillasPreñadas"]) : 0,
+                    VaquillasVacias = x["VaquillasVacias"] != DBNull.Value ? Convert.ToDecimal(x["VaquillasVacias"]) : 0
+
+                }).ToList();
+
             }
             catch (Exception ex)
             {

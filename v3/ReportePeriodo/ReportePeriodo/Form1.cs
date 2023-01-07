@@ -67,7 +67,7 @@ namespace ReportePeriodo
             _presentador.ConexionSIE = _configuracionReporte.ConexionSIE;
             _rancho.Erp = erpClave;
             _rancho.TimeShiftTracker = timeShiftTracker;
-            
+
 
         }
 
@@ -77,7 +77,7 @@ namespace ReportePeriodo
             DateTime fechaInicio = new DateTime(fechaFin.Year, fechaFin.Month, 1);
 
             Reporte(_rancho, fechaInicio, fechaFin);
-            
+
         }
 
 
@@ -99,11 +99,13 @@ namespace ReportePeriodo
             #endregion
 
             #region hoja3
-
+            List<Hoja3> reporteHoja3 = _presentador.ReporteHoja3(_rancho, fechaInicio, fechaFin, ref _mensaje);
+            DataTable dtHoja3 = ListToDataTable(reporteHoja3);
             #endregion
 
             #region hoja4
-
+            List<Hoja4> reporteHoja4 = _presentador.ReporteHoja4(_rancho, fechaInicio, fechaFin, ref _mensaje);
+            DataTable dtHoja4 = ListToDataTable(reporteHoja3);
             #endregion
         }
 

@@ -166,5 +166,31 @@ namespace ReportePeriodo.Presentador
 
             return response;
         }
+
+        public List<Hoja4> ReporteHoja4(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            List<Hoja4> response = _model.ReporteHoja4(rancho, fechaInicio, fechaFin, ref mensaje);
+            Hoja4 total = _model.TotalHoja4(rancho, fechaInicio, fechaFin, ref mensaje);
+            Hoja4 totalAñoAnt = _model.TotalHoja4(rancho, fechaInicio.AddYears(-1), fechaFin.AddYears(-1), ref mensaje);
+            totalAñoAnt.Dia = "AÑO ANT";
+            Hoja4 diferencia = _model.DiferenciHoja4(total, totalAñoAnt, ref mensaje);
+            Hoja4 porcentajeDiferencia = _model.PorcentajeDiferenciHoja4(diferencia, totalAñoAnt, ref mensaje);
+            List<Hoja4> espaciosEnBlanco = _model.EspaciosEnBlancoHoja4(response.Count);
+
+            _model.QuitarCeros(response);
+            _model.QuitarCeros(total);
+            _model.QuitarCeros(totalAñoAnt);
+            _model.QuitarCeros(diferencia);
+            _model.QuitarCeros(porcentajeDiferencia);
+
+            response.AddRange(espaciosEnBlanco);
+            response.Add(total);
+            response.Add(totalAñoAnt);
+            response.Add(porcentajeDiferencia);
+            response.Add(diferencia);
+
+            return response;
+        }
+        
     }
 }

@@ -59,5 +59,12 @@ namespace ReportePeriodo.Modelo
         void QuitarCeros(List<Hoja3> reporte);
         void QuitarCeros(Hoja3 item);
         List<Hoja3> EspaciosEnBlancoHoja3(int renglones);
+        List<Hoja4> ReporteHoja4(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje);
+        Hoja4 TotalHoja4(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje);
+        Hoja4 DiferenciHoja4(Hoja4 total, Hoja4 totalAñoAnt, ref string mensaje);
+        Hoja4 PorcentajeDiferenciHoja4(Hoja4 diferencia, Hoja4 totalAñoAnt, ref string mensaje);
+        List<Hoja4> EspaciosEnBlancoHoja4(int renglones);
+        void QuitarCeros(List<Hoja4> reporte);
+        void QuitarCeros(Hoja4 item);
     }
 }
