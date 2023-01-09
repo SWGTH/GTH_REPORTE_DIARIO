@@ -57,10 +57,11 @@ namespace ReportePeriodo.Presentador
 
         }
 
-        public List<Hoja1> ReporteHoja1(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        public List<Hoja1> ReporteHoja1(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, out List<decimal?> listaDEC, ref string mensaje)
         {
+            listaDEC = new List<decimal?>();
             List<CalostroYOrdeña> datosCalostro = new List<CalostroYOrdeña>();
-            List<Hoja1> response = _model.ReporteHoja1(rancho, fechaInicio, fechaFin, out datosCalostro, ref mensaje);
+            List<Hoja1> response = _model.ReporteHoja1(rancho, fechaInicio, fechaFin, out datosCalostro, out listaDEC, ref mensaje);
             Hoja1 promedio = _model.PromedioHoja1(rancho, _model.PromedioProduccion, fechaInicio, fechaFin, ref mensaje);
             promedio.Dia = "PROM";
             Hoja1 promedioAñoAnt = _model.PromedioHoja1(rancho, _model.PromedioAntProduccion, fechaInicio.AddYears(-1), fechaFin.AddYears(-1), ref mensaje);
@@ -68,7 +69,7 @@ namespace ReportePeriodo.Presentador
             Hoja1 diferencia = _model.DiferenciaHoja1(promedio, promedioAñoAnt);
             Hoja1 porcentajeDif = _model.PorcentajeDiferenciaHoja1(diferencia, promedioAñoAnt);
             List<Hoja1> espaciosEnBlanco = _model.EspaciosEnBlancoHoja1(response.Count);            
-
+            
             _model.AsignarColorimetriaHoja1(rancho, response, datosCalostro, promedio, fechaInicio, fechaFin, ref mensaje);
             _model.QuitarCeros(response);
             _model.QuitarCeros(promedio);
@@ -191,6 +192,11 @@ namespace ReportePeriodo.Presentador
 
             return response;
         }
-        
+
+        public void CierreMesCorrecto(int ranId, int horaCorte, string urlWebService, DateTime fechaInicio, DateTime fechaFin, out bool validacionMedicina, out bool validacionAlimento)
+        {
+            _model.CierreMesCorrecto(ranId, horaCorte, urlWebService, fechaInicio, fechaFin, out validacionMedicina, out validacionAlimento);
+        }
+
     }
 }

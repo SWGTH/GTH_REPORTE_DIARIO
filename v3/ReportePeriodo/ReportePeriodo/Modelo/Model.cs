@@ -6,7 +6,8 @@ using ReportePeriodo.Datos;
 using System.Data;
 using gth = LibreriaAlimentacion.Entidad;
 using LibreriaAlimentacion;
-
+using ght001766q;
+using ght001766q.StrongTypesNS;
 
 namespace ReportePeriodo.Modelo
 {
@@ -334,11 +335,12 @@ namespace ReportePeriodo.Modelo
             return erp;
         }
 
-        public List<Hoja1> ReporteHoja1(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, out List<CalostroYOrdeña> datosCalostro, ref string mensaje)
+        public List<Hoja1> ReporteHoja1(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, out List<CalostroYOrdeña> datosCalostro, out List<decimal?> listaDEC, ref string mensaje)
         {
             List<Hoja1> response = new List<Hoja1>();
             mensaje = string.Empty;
             datosCalostro = new List<CalostroYOrdeña>();
+            listaDEC = new List<decimal?>();
 
             try
             {
@@ -409,7 +411,52 @@ namespace ReportePeriodo.Modelo
                     response.Add(hoja);
                 }
 
+                List<DatosProduccion> busquedaDec1 = (from x in datosProduccion where x.Fecha.Day < 11 select x).ToList();
+                List<DatosProduccion> busquedaDec1Dif0 = (from x in datosProduccion where x.Fecha.Day < 11  && x.Grasa != 0 select x).ToList();
 
+                decimal? decPorcGrasa = 0; decimal? valordecPorcGrasa = 0;
+                foreach (DatosProduccion itemDec in busquedaDec1)
+                    decPorcGrasa += itemDec.Grasa;
+
+                valordecPorcGrasa = busquedaDec1Dif0.Count > 0 ? decPorcGrasa / busquedaDec1Dif0.Count : 0;
+                listaDEC.Add(valordecPorcGrasa);
+
+                if (fechaFin.Day > 10)
+                {
+                    decPorcGrasa = 0; valordecPorcGrasa = 0;
+                    List<DatosProduccion> busquedaDec2 = (from x in datosProduccion where x.Fecha.Day > 10 && x.Fecha.Day < 21 select x).ToList();
+                    List<DatosProduccion> busquedaDec2Dif0 = (from x in datosProduccion where x.Fecha.Day > 10 && x.Fecha.Day < 21 && x.Grasa != 0 select x).ToList();
+
+                    foreach (DatosProduccion itemDec in busquedaDec2)
+                    {
+                        decPorcGrasa += itemDec.Grasa;
+                    }
+                    valordecPorcGrasa = busquedaDec2Dif0.Count > 0 ? decPorcGrasa / busquedaDec2Dif0.Count : 0;
+                    listaDEC.Add(valordecPorcGrasa);
+                }
+                else
+                {
+                    listaDEC.Add(0);
+                }
+
+
+                if (fechaFin.Day > 20)
+                {
+                    decPorcGrasa = 0; valordecPorcGrasa = 0;
+                    List<DatosProduccion> busquedaDec3 = (from x in datosProduccion where x.Fecha.Day > 21 select x).ToList();
+                    List<DatosProduccion> busquedaDec3Dif0 = (from x in datosProduccion where x.Fecha.Day > 21 && x.Grasa != 0 select x).ToList();
+
+                    foreach (DatosProduccion itemDec in busquedaDec3)
+                    {
+                        decPorcGrasa += itemDec.Grasa;
+                    }
+                    valordecPorcGrasa = busquedaDec3Dif0.Count > 0 ? decPorcGrasa / busquedaDec3Dif0.Count : 0;
+                    listaDEC.Add(valordecPorcGrasa);
+                }
+                else
+                {
+                    listaDEC.Add(0);
+                }
 
             }
             catch (Exception ex)
@@ -544,14 +591,14 @@ namespace ReportePeriodo.Modelo
                     busquedaBacteriologia = (from x in datosBacteriologia where x.FECHA.Day.ToString() == item.Dia select x).ToList().FirstOrDefault();
 
                     item.Color_ILCA = Color1Hoja1(item.ILCA, Convert.ToDecimal(promedioProduccion.ILCA_PRODUCCION));
-                    item.Color_IC = Color1Hoja1(item.ILCA, Convert.ToDecimal(promedioProduccion.IC_PRODUCCION));
+                    item.Color_IC = Color1Hoja1(item.IC, Convert.ToDecimal(promedioProduccion.IC_PRODUCCION));
                     item.Color_CostoLitro = Color2Hoja1(item.Costo_Litro, promedio.Costo_Litro);
 
                     item.Color_MH = ColorDato(item.Ordeño, item.MH, promedio.MH);
-                    item.Color_PorcentajeMs = ColorDato(item.Ordeño, item.MH, promedio.Porcentaje_MS);
-                    item.Color_MS = ColorDato(item.Ordeño, item.MH, promedio.MS);
-                    item.Color_CostoProd = ColorDato(item.Ordeño, item.MH, promedio.Costo_Prod);
-                    item.Color_CostoMs = ColorDato(item.Ordeño, item.MH, promedio.Costo_MS);
+                    item.Color_PorcentajeMs = ColorDato(item.Ordeño, item.Porcentaje_MS, promedio.Porcentaje_MS);
+                    item.Color_MS = ColorDato(item.Ordeño, item.MS, promedio.MS);
+                    item.Color_CostoProd = ColorDato(item.Ordeño, item.Costo_Prod, promedio.Costo_Prod);
+                    item.Color_CostoMs = ColorDato(item.Ordeño, item.Costo_MS, promedio.Costo_MS);
 
                     item.Color_Leche = Color1Hoja1(item.Leche, promedio.Leche);
                     item.Color_Media = Color1Hoja1(item.Media, promedio.Media);
@@ -714,6 +761,7 @@ namespace ReportePeriodo.Modelo
                 item.Porcentaje_Grasa = item.Porcentaje_Grasa == 0 ? null : item.Porcentaje_Grasa;
                 item.CCS = item.CCS == 0 ? null : item.CCS;
                 item.CTD = item.CTD == 0 ? null : item.CTD;
+                item.Color_CTD = item.CTD == null ? "" : item.Color_CTD;
 
                 item.Leche = item.Leche == 0 ? null : item.Leche;
                 item.Antib = item.Antib == 0 ? null : item.Antib;
@@ -751,6 +799,9 @@ namespace ReportePeriodo.Modelo
 
                 item.Porcentaje_Revueltas = item.Porcentaje_Revueltas == 0 ? null : item.Porcentaje_Revueltas;
 
+                item.Color_Ses1 = item.NoID_Ses1 == null ? "" : item.Color_Ses1;
+                item.Color_Ses2 = item.NoID_Ses2 == null ? "" : item.Color_Ses2;
+                item.Color_Ses3 = item.NoID_Ses3 == null ? "" : item.Color_Ses3;
             }
         }
 
@@ -902,7 +953,6 @@ namespace ReportePeriodo.Modelo
             catch { }
 
         }
-
 
         public void QuitarCeros(Hoja1 item)
         {
@@ -1407,7 +1457,7 @@ namespace ReportePeriodo.Modelo
                 List<DatosVacas> datosVaquillasOtros = DatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 2  AND motivo > 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
 
                 List<DatosVacas> datosVacasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 1 AND destino = 1 AND (edovac > 3) ", ref mensaje);
-                List<DatosVacas> datosVacasUrgencia = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 2 AND destino = 1) AND (edovac > 3) ", ref mensaje);
+                List<DatosVacas> datosVacasUrgencia = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 2 AND destino = 1 AND (edovac > 3) ", ref mensaje);
                 List<DatosVacas> datosVacasDelgadas = DatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND motivo = 3 AND destino = 1 AND (edovac > 3) ", ref mensaje);
                 List<DatosVacas> datosVacasRegulares = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 4 AND destino = 1 AND (edovac > 3) ", ref mensaje);
                 List<DatosVacas> datosVacasGordas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
@@ -1507,7 +1557,7 @@ namespace ReportePeriodo.Modelo
                     item.Muertas_Noc = busquedaMuertasNoche != null ? busquedaMuertasNoche.Vacas : 0;
                     item.Diferencia_Calostro = busquedaCalostro != null ? busquedaCalostro.Diferencia : 0;
                     item.Porcentaje_Calostro = busquedaCalostro != null ? busquedaCalostro.Porcentaje : 0;
-                    item.Calidad_Calostro = busquedaCalostro.Calidad != null ? busquedaCalostro.Calidad : 0;
+                    item.Calidad_Calostro = busquedaCalostro != null ? busquedaCalostro.Calidad : 0;
                     #endregion
 
                     response.Add(item);
@@ -1542,7 +1592,7 @@ namespace ReportePeriodo.Modelo
                 DatosVacas totalVaquillasOtros = TotalDatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 2  AND motivo > 5 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
 
                 DatosVacas totalVacasMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 1 AND destino = 1 AND (edovac > 3) ", ref mensaje);
-                DatosVacas totalVacasUrgencia = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 2 AND destino = 1) AND (edovac > 3) ", ref mensaje);
+                DatosVacas totalVacasUrgencia = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 2 AND destino = 1 AND (edovac > 3) ", ref mensaje);
                 DatosVacas totalVacasDelgadas = TotalDatosDesecho(fechaInicio, fechaFin, @"  AND vacvaq = 1  AND motivo = 3 AND destino = 1 AND (edovac > 3) ", ref mensaje);
                 DatosVacas totalVacasRegulares = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 4 AND destino = 1 AND (edovac > 3) ", ref mensaje);
                 DatosVacas totalVacasGordas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 1  AND motivo = 5 AND destino = 1 AND (edovac > 3) ", ref mensaje);
@@ -1677,47 +1727,47 @@ namespace ReportePeriodo.Modelo
             try
             {
                 #region asignar datos
-                response.Jaulas_Vivas = diferencia.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != 0 ? diferencia.Jaulas_Vivas / totalAñoAnt.Jaulas_Vivas : 0;
-                response.Jaulas_Muertas = diferencia.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != 0 ? diferencia.Jaulas_Muertas / totalAñoAnt.Jaulas_Muertas : 0;
+                response.Jaulas_Vivas = diferencia.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != 0 ? diferencia.Jaulas_Vivas / totalAñoAnt.Jaulas_Vivas * 100 : 0;
+                response.Jaulas_Muertas = diferencia.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != 0 ? diferencia.Jaulas_Muertas / totalAñoAnt.Jaulas_Muertas * 100 : 0;
 
-                response.Destete_Vivas = diferencia.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != 0 ? diferencia.Destete_Vivas / totalAñoAnt.Destete_Vivas : 0;
-                response.Destete_Muertas = diferencia.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != 0 ? diferencia.Destete_Muertas / totalAñoAnt.Destete_Muertas : 0;
+                response.Destete_Vivas = diferencia.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != 0 ? diferencia.Destete_Vivas / totalAñoAnt.Destete_Vivas * 100 : 0;
+                response.Destete_Muertas = diferencia.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != 0 ? diferencia.Destete_Muertas / totalAñoAnt.Destete_Muertas * 100 : 0;
 
-                response.Vaquillas_Muertas = diferencia.Vaquillas_Muertas != null && totalAñoAnt.Vaquillas_Muertas != null && totalAñoAnt.Vaquillas_Muertas != 0 ? diferencia.Vaquillas_Muertas / totalAñoAnt.Vaquillas_Muertas : 0;
-                response.Vaquillas_Urgente = diferencia.Vaquillas_Urgente != null && totalAñoAnt.Vaquillas_Urgente != null && totalAñoAnt.Vaquillas_Urgente != 0 ? diferencia.Vaquillas_Urgente / totalAñoAnt.Vaquillas_Urgente : 0;
-                response.Vaquillas_RF = diferencia.Vaquillas_RF != null && totalAñoAnt.Vaquillas_RF != null && totalAñoAnt.Vaquillas_RF != 0 ? diferencia.Vaquillas_RF / totalAñoAnt.Vaquillas_RF : 0;
-                response.Vaquillas_RR = diferencia.Vaquillas_RR != null && totalAñoAnt.Vaquillas_RR != null && totalAñoAnt.Vaquillas_RR != 0 ? diferencia.Vaquillas_RR / totalAñoAnt.Vaquillas_RR : 0;
-                response.Vaquillas_RG = diferencia.Vaquillas_RG != null && totalAñoAnt.Vaquillas_RG != null && totalAñoAnt.Vaquillas_RG != 0 ? diferencia.Vaquillas_RG / totalAñoAnt.Vaquillas_RG : 0;
-                response.Vaquillas_Otros = diferencia.Vaquillas_Otros != null && totalAñoAnt.Vaquillas_Otros != null && totalAñoAnt.Vaquillas_Otros != 0 ? diferencia.Vaquillas_Otros / totalAñoAnt.Vaquillas_Otros : 0;
+                response.Vaquillas_Muertas = diferencia.Vaquillas_Muertas != null && totalAñoAnt.Vaquillas_Muertas != null && totalAñoAnt.Vaquillas_Muertas != 0 ? diferencia.Vaquillas_Muertas / totalAñoAnt.Vaquillas_Muertas * 100 : 0;
+                response.Vaquillas_Urgente = diferencia.Vaquillas_Urgente != null && totalAñoAnt.Vaquillas_Urgente != null && totalAñoAnt.Vaquillas_Urgente != 0 ? diferencia.Vaquillas_Urgente / totalAñoAnt.Vaquillas_Urgente * 100 : 0;
+                response.Vaquillas_RF = diferencia.Vaquillas_RF != null && totalAñoAnt.Vaquillas_RF != null && totalAñoAnt.Vaquillas_RF != 0 ? diferencia.Vaquillas_RF / totalAñoAnt.Vaquillas_RF * 100 : 0;
+                response.Vaquillas_RR = diferencia.Vaquillas_RR != null && totalAñoAnt.Vaquillas_RR != null && totalAñoAnt.Vaquillas_RR != 0 ? diferencia.Vaquillas_RR / totalAñoAnt.Vaquillas_RR * 100 : 0;
+                response.Vaquillas_RG = diferencia.Vaquillas_RG != null && totalAñoAnt.Vaquillas_RG != null && totalAñoAnt.Vaquillas_RG != 0 ? diferencia.Vaquillas_RG / totalAñoAnt.Vaquillas_RG * 100 : 0;
+                response.Vaquillas_Otros = diferencia.Vaquillas_Otros != null && totalAñoAnt.Vaquillas_Otros != null && totalAñoAnt.Vaquillas_Otros != 0 ? diferencia.Vaquillas_Otros / totalAñoAnt.Vaquillas_Otros * 100 : 0;
 
-                response.Vacas_Muertas = diferencia.Vacas_Muertas != null && totalAñoAnt.Vacas_Muertas != null && totalAñoAnt.Vacas_Muertas != 0 ? diferencia.Vacas_Muertas / totalAñoAnt.Vacas_Muertas : 0;
-                response.Vacas_Urgente = diferencia.Vacas_Urgente != null && totalAñoAnt.Vacas_Urgente != null && totalAñoAnt.Vacas_Urgente != 0 ? diferencia.Vacas_Urgente / totalAñoAnt.Vacas_Urgente : 0;
-                response.Vacas_RF = diferencia.Vacas_RF != null && totalAñoAnt.Vacas_RF != null && totalAñoAnt.Vacas_RF != 0 ? diferencia.Vacas_RF / totalAñoAnt.Vacas_RF : 0;
-                response.Vacas_RR = diferencia.Vacas_RR != null && totalAñoAnt.Vacas_RR != null && totalAñoAnt.Vacas_RR != 0 ? diferencia.Vacas_RR / totalAñoAnt.Vacas_RR : 0;
-                response.Vacas_RG = diferencia.Vacas_RG != null && totalAñoAnt.Vacas_RG != null && totalAñoAnt.Vacas_RG != 0 ? diferencia.Vacas_RG / totalAñoAnt.Vacas_RG : 0;
-                response.Vacas_Otros = diferencia.Vacas_Otros != null && totalAñoAnt.Vacas_Otros != null && totalAñoAnt.Vacas_Otros != 0 ? diferencia.Vacas_Otros / totalAñoAnt.Vacas_Otros : 0;
+                response.Vacas_Muertas = diferencia.Vacas_Muertas != null && totalAñoAnt.Vacas_Muertas != null && totalAñoAnt.Vacas_Muertas != 0 ? diferencia.Vacas_Muertas / totalAñoAnt.Vacas_Muertas * 100 : 0;
+                response.Vacas_Urgente = diferencia.Vacas_Urgente != null && totalAñoAnt.Vacas_Urgente != null && totalAñoAnt.Vacas_Urgente != 0 ? diferencia.Vacas_Urgente / totalAñoAnt.Vacas_Urgente * 100 : 0;
+                response.Vacas_RF = diferencia.Vacas_RF != null && totalAñoAnt.Vacas_RF != null && totalAñoAnt.Vacas_RF != 0 ? diferencia.Vacas_RF / totalAñoAnt.Vacas_RF * 100 : 0;
+                response.Vacas_RR = diferencia.Vacas_RR != null && totalAñoAnt.Vacas_RR != null && totalAñoAnt.Vacas_RR != 0 ? diferencia.Vacas_RR / totalAñoAnt.Vacas_RR * 100 : 0;
+                response.Vacas_RG = diferencia.Vacas_RG != null && totalAñoAnt.Vacas_RG != null && totalAñoAnt.Vacas_RG != 0 ? diferencia.Vacas_RG / totalAñoAnt.Vacas_RG * 100 : 0;
+                response.Vacas_Otros = diferencia.Vacas_Otros != null && totalAñoAnt.Vacas_Otros != null && totalAñoAnt.Vacas_Otros != 0 ? diferencia.Vacas_Otros / totalAñoAnt.Vacas_Otros * 100 : 0;
 
-                response.Vaquillas_ND = diferencia.Vaquillas_ND != null && totalAñoAnt.Vaquillas_ND != null && totalAñoAnt.Vaquillas_ND != 0 ? diferencia.Vaquillas_ND / totalAñoAnt.Vaquillas_ND : 0;
-                response.Vaquillas_A = diferencia.Vaquillas_A != null && totalAñoAnt.Vaquillas_A != null && totalAñoAnt.Vaquillas_A != 0 ? diferencia.Vaquillas_A / totalAñoAnt.Vaquillas_A : 0;
-                response.Vaquillas_Vivos_H = diferencia.Vaquillas_Vivos_H != null && totalAñoAnt.Vaquillas_Vivos_H != null && totalAñoAnt.Vaquillas_Vivos_H != 0 ? diferencia.Vaquillas_Vivos_H / totalAñoAnt.Vaquillas_Vivos_H : 0;
-                response.Vaquillas_Vivos_M = diferencia.Vaquillas_Vivos_M != null && totalAñoAnt.Vaquillas_Vivos_M != null && totalAñoAnt.Vaquillas_Vivos_M != 0 ? diferencia.Vaquillas_Vivos_M / totalAñoAnt.Vaquillas_Vivos_M : 0;
+                response.Vaquillas_ND = diferencia.Vaquillas_ND != null && totalAñoAnt.Vaquillas_ND != null && totalAñoAnt.Vaquillas_ND != 0 ? diferencia.Vaquillas_ND / totalAñoAnt.Vaquillas_ND * 100 : 0;
+                response.Vaquillas_A = diferencia.Vaquillas_A != null && totalAñoAnt.Vaquillas_A != null && totalAñoAnt.Vaquillas_A != 0 ? diferencia.Vaquillas_A / totalAñoAnt.Vaquillas_A * 100 : 0;
+                response.Vaquillas_Vivos_H = diferencia.Vaquillas_Vivos_H != null && totalAñoAnt.Vaquillas_Vivos_H != null && totalAñoAnt.Vaquillas_Vivos_H != 0 ? diferencia.Vaquillas_Vivos_H / totalAñoAnt.Vaquillas_Vivos_H * 100 : 0;
+                response.Vaquillas_Vivos_M = diferencia.Vaquillas_Vivos_M != null && totalAñoAnt.Vaquillas_Vivos_M != null && totalAñoAnt.Vaquillas_Vivos_M != 0 ? diferencia.Vaquillas_Vivos_M / totalAñoAnt.Vaquillas_Vivos_M * 100 : 0;
 
-                response.Vacas_ND = diferencia.Vacas_ND != null && totalAñoAnt.Vacas_ND != null && totalAñoAnt.Vacas_ND != 0 ? diferencia.Vacas_ND / totalAñoAnt.Vacas_ND : 0;
-                response.Vacas_A = diferencia.Vacas_A != null && totalAñoAnt.Vacas_A != null && totalAñoAnt.Vacas_A != 0 ? diferencia.Vacas_A / totalAñoAnt.Vacas_A : 0;
-                response.Vacas_Vivos_H = diferencia.Vacas_Vivos_H != null && totalAñoAnt.Vacas_Vivos_H != null && totalAñoAnt.Vacas_Vivos_H != 0 ? diferencia.Vacas_Vivos_H / totalAñoAnt.Vacas_Vivos_H : 0;
-                response.Vacas_Vivos_M = diferencia.Vacas_Vivos_M != null && totalAñoAnt.Vacas_Vivos_M != null && totalAñoAnt.Vacas_Vivos_M != 0 ? diferencia.Vacas_Vivos_M / totalAñoAnt.Vacas_Vivos_M : 0;
+                response.Vacas_ND = diferencia.Vacas_ND != null && totalAñoAnt.Vacas_ND != null && totalAñoAnt.Vacas_ND != 0 ? diferencia.Vacas_ND / totalAñoAnt.Vacas_ND * 100 : 0;
+                response.Vacas_A = diferencia.Vacas_A != null && totalAñoAnt.Vacas_A != null && totalAñoAnt.Vacas_A != 0 ? diferencia.Vacas_A / totalAñoAnt.Vacas_A * 100 : 0;
+                response.Vacas_Vivos_H = diferencia.Vacas_Vivos_H != null && totalAñoAnt.Vacas_Vivos_H != null && totalAñoAnt.Vacas_Vivos_H != 0 ? diferencia.Vacas_Vivos_H / totalAñoAnt.Vacas_Vivos_H * 100 : 0;
+                response.Vacas_Vivos_M = diferencia.Vacas_Vivos_M != null && totalAñoAnt.Vacas_Vivos_M != null && totalAñoAnt.Vacas_Vivos_M != 0 ? diferencia.Vacas_Vivos_M / totalAñoAnt.Vacas_Vivos_M * 100 : 0;
 
-                response.SC = diferencia.SC != null && totalAñoAnt.SC != null && totalAñoAnt.SC != 0 ? diferencia.SC / totalAñoAnt.SC : 0;
+                response.SC = diferencia.SC != null && totalAñoAnt.SC != null && totalAñoAnt.SC != 0 ? diferencia.SC / totalAñoAnt.SC * 100 : 0;
 
-                response.Partos_Vaquillas = diferencia.Partos_Vaquillas != null && totalAñoAnt.Partos_Vaquillas != null && totalAñoAnt.Partos_Vaquillas != 0 ? diferencia.Partos_Vaquillas / totalAñoAnt.Partos_Vaquillas : 0;
-                response.Partos_Vacas = diferencia.Partos_Vacas != null && totalAñoAnt.Partos_Vacas != null && totalAñoAnt.Partos_Vacas != 0 ? diferencia.Partos_Vacas / totalAñoAnt.Partos_Vacas : 0;
+                response.Partos_Vaquillas = diferencia.Partos_Vaquillas != null && totalAñoAnt.Partos_Vaquillas != null && totalAñoAnt.Partos_Vaquillas != 0 ? diferencia.Partos_Vaquillas / totalAñoAnt.Partos_Vaquillas * 100 : 0;
+                response.Partos_Vacas = diferencia.Partos_Vacas != null && totalAñoAnt.Partos_Vacas != null && totalAñoAnt.Partos_Vacas != 0 ? diferencia.Partos_Vacas / totalAñoAnt.Partos_Vacas * 100 : 0;
 
-                response.Muertas_Dia = diferencia.Muertas_Dia != null && totalAñoAnt.Muertas_Dia != null && totalAñoAnt.Muertas_Dia != 0 ? diferencia.Muertas_Dia / totalAñoAnt.Muertas_Dia : 0;
-                response.Muertas_Noc = diferencia.Muertas_Noc != null && totalAñoAnt.Muertas_Noc != null && totalAñoAnt.Muertas_Noc != 0 ? diferencia.Muertas_Noc / totalAñoAnt.Muertas_Noc : 0;
+                response.Muertas_Dia = diferencia.Muertas_Dia != null && totalAñoAnt.Muertas_Dia != null && totalAñoAnt.Muertas_Dia != 0 ? diferencia.Muertas_Dia / totalAñoAnt.Muertas_Dia * 100 : 0;
+                response.Muertas_Noc = diferencia.Muertas_Noc != null && totalAñoAnt.Muertas_Noc != null && totalAñoAnt.Muertas_Noc != 0 ? diferencia.Muertas_Noc / totalAñoAnt.Muertas_Noc * 100 : 0;
 
-                response.Diferencia_Calostro = diferencia.Diferencia_Calostro != null && totalAñoAnt.Diferencia_Calostro != null && totalAñoAnt.Diferencia_Calostro != 0 ? diferencia.Diferencia_Calostro / totalAñoAnt.Diferencia_Calostro : 0;
-                response.Porcentaje_Calostro = diferencia.Porcentaje_Calostro != null && totalAñoAnt.Porcentaje_Calostro != null && totalAñoAnt.Porcentaje_Calostro != 0 ? diferencia.Porcentaje_Calostro / totalAñoAnt.Porcentaje_Calostro : 0;
-                response.Calidad_Calostro = diferencia.Calidad_Calostro != null && totalAñoAnt.Calidad_Calostro != null && totalAñoAnt.Calidad_Calostro != 0 ? diferencia.Calidad_Calostro / totalAñoAnt.Calidad_Calostro : 0;
+                response.Diferencia_Calostro = diferencia.Diferencia_Calostro != null && totalAñoAnt.Diferencia_Calostro != null && totalAñoAnt.Diferencia_Calostro != 0 ? diferencia.Diferencia_Calostro / totalAñoAnt.Diferencia_Calostro * 100 : 0;
+                response.Porcentaje_Calostro = diferencia.Porcentaje_Calostro != null && totalAñoAnt.Porcentaje_Calostro != null && totalAñoAnt.Porcentaje_Calostro != 0 ? diferencia.Porcentaje_Calostro / totalAñoAnt.Porcentaje_Calostro * 100 : 0;
+                response.Calidad_Calostro = diferencia.Calidad_Calostro != null && totalAñoAnt.Calidad_Calostro != null && totalAñoAnt.Calidad_Calostro != 0 ? diferencia.Calidad_Calostro / totalAñoAnt.Calidad_Calostro * 100 : 0;
                 #endregion
             }
             catch { }
@@ -1849,16 +1899,27 @@ namespace ReportePeriodo.Modelo
             try
             {
                 List<DateTime> fechasReporte = ListaFechasReporte(fechaFin);
-                List<DatosVacas> datosMetabolicos = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 1 ", ref mensaje);
-                List<DatosVacas> datosCetosis = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 2 ", ref mensaje);
-                List<DatosVacas> datosLocomotores = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 1 ", ref mensaje);
-                List<DatosVacas> datosLamitis = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 2 ", ref mensaje);
-                List<DatosVacas> datosGabarros = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 3 ", ref mensaje);
-                List<DatosVacas> datosDigestivos = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 1 ", ref mensaje);
-                List<DatosVacas> datosEmpacho = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 2 ", ref mensaje);
-                List<DatosVacas> datosDiarrea = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 3 ", ref mensaje);
-                List<DatosVacas> datosRetencion = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 1 ", ref mensaje);
-                List<DatosVacas> datosMetritis = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 2 ", ref mensaje);
+                List<DatosVacas> datosUbre_MA = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 1 ", ref mensaje);
+                List<DatosVacas> datosUbre_SL = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 2 ", ref mensaje);
+                List<DatosVacas> datosMetabolicos_FL = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 1 ", ref mensaje);
+                List<DatosVacas> datosMetabolicos_CET = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 2 ", ref mensaje);
+                List<DatosVacas> datosLocomotores_BE = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 1 ", ref mensaje);
+                List<DatosVacas> datosLocomotores_TRA = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 2 ", ref mensaje);
+                List<DatosVacas> datosLocomotores_GA = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 3 ", ref mensaje);
+                List<DatosVacas> datosDigestivos_AC = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 1 ", ref mensaje);
+                List<DatosVacas> datosDigestivos_ES = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 2 ", ref mensaje);
+                List<DatosVacas> datosDigestivos_DI = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 3 ", ref mensaje);
+                List<DatosVacas> datosDigestivos_TI = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 4 ", ref mensaje);
+                List<DatosVacas> datosReproductivos_RE = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 1 ", ref mensaje);
+                List<DatosVacas> datosReproductivos_ME = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 2 ", ref mensaje);
+                List<DatosVacas> datosReproductivos_PIO = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 3 ", ref mensaje);
+                List<DatosVacas> datosReproductivos_QUI = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 4 ", ref mensaje);
+                List<DatosVacas> datosReproductivos_CS = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 5 ", ref mensaje);
+                List<DatosVacas> datosRespiratorios_Neu = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 7 AND enfdetalle = 1 ", ref mensaje);
+                List<DatosVacas> datosBecerras_Neu = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 2  AND enfermedad = 8 AND enfdetalle = 1 ", ref mensaje);
+                List<DatosVacas> datosBecerras_Fie = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 2  AND enfermedad = 8 AND enfdetalle = 2 ", ref mensaje);
+                List<DatosVacas> datosBecerras_Di = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 2  AND enfermedad = 8 AND enfdetalle = 3 ", ref mensaje);
+                List<DatosVacas> datosBecerras_Conj = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 2  AND enfermedad = 8 AND enfdetalle = 4 ", ref mensaje);
                 List<ValInventario> datosValInventarios = DatosValInventario(fechaInicio, fechaFin, ref mensaje);
                 List<DatosVacas> datosAbortosVacas = DatosAbortos(fechaInicio, fechaFin, 1, ref mensaje);
                 List<DatosVacas> datosAbortosVaquillas = DatosAbortos(fechaInicio, fechaFin, 2, ref mensaje);
@@ -1869,57 +1930,70 @@ namespace ReportePeriodo.Modelo
                     newItem.Dia = fecha.Day.ToString();
 
                     #region tomar datos por dia
-                    DatosVacas busquedaMetabolicos = (from x in datosMetabolicos where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    DatosVacas busquedaCetosis = (from x in datosCetosis where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    DatosVacas busquedaLocomotores = (from x in datosLocomotores where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    DatosVacas busquedaLamitis = (from x in datosLamitis where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    DatosVacas busquedaGabarros = (from x in datosGabarros where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    DatosVacas busquedaDigestivos = (from x in datosDigestivos where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    DatosVacas busquedaEmpacho = (from x in datosEmpacho where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    DatosVacas busquedaDiarrea = (from x in datosDiarrea where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    DatosVacas busquedaRetencion = (from x in datosRetencion where x.Fecha == fecha select x).ToList().FirstOrDefault();
-                    DatosVacas busquedaMetritis = (from x in datosMetritis where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaUbre_MA = (from x in datosUbre_MA where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaUbre_SL = (from x in datosUbre_SL where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaMetabolicos_FL = (from x in datosMetabolicos_FL where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaMetabolicos_CET = (from x in datosMetabolicos_CET where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaLocomotores_BE = (from x in datosLocomotores_BE where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaLocomotores_TRA = (from x in datosLocomotores_TRA where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaLocomotores_GA = (from x in datosLocomotores_GA where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaDigestivos_AC = (from x in datosDigestivos_AC where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaDigestivos_ES = (from x in datosDigestivos_ES where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaDigestivos_DI = (from x in datosDigestivos_DI where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaDigestivos_TI = (from x in datosDigestivos_TI where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaReproductivos_RE = (from x in datosReproductivos_RE where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaReproductivos_ME = (from x in datosReproductivos_ME where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaReproductivos_PIO = (from x in datosReproductivos_PIO where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaReproductivos_QUI = (from x in datosReproductivos_QUI where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaReproductivos_CS = (from x in datosReproductivos_CS where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaRespiratorios_Neu = (from x in datosRespiratorios_Neu where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaBecerras_Neu = (from x in datosBecerras_Neu where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaBecerras_Fie = (from x in datosBecerras_Fie where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaBecerras_Di = (from x in datosBecerras_Di where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaBecerras_Conj = (from x in datosBecerras_Conj where x.Fecha == fecha select x).ToList().FirstOrDefault();
                     ValInventario busquedaValInventarios = (from x in datosValInventarios where x.Fecha == fecha select x).ToList().FirstOrDefault();
                     DatosVacas busquedaAbortosVacas = (from x in datosAbortosVacas where x.Fecha == fecha select x).ToList().FirstOrDefault();
                     DatosVacas busquedaAbortosVaquillas = (from x in datosAbortosVaquillas where x.Fecha == fecha select x).ToList().FirstOrDefault();
                     #endregion
 
                     #region Asignar Datos
-                    /*
-                    newItem.Ubre_MA = busquedaMetabolicos != null ? busquedaMetabolicos.Vacas : 0;
-                    newItem.Ubre_SL = busquedaCetosis != null ? busquedaCetosis.Vacas : 0;
-                    newItem.Metabolicos_FL = busquedaMetabolicos != null ? busquedaMetabolicos.Vacas : 0;
-                    newItem.Metabolicos_CET = busquedaCetosis != null ? busquedaCetosis.Vacas : 0;
-                    newItem.Locomotores_BE = != null ? : 0;
-                    newItem.Locomotores_TRA = != null ? : 0;
-                    newItem.Locomotores_GA = != null ? : 0;
-                    newItem.Digestivos_AC = != null ? : 0;
-                    newItem.Digestivos_ES = != null ? : 0;
-                    newItem.Digestivos_DI = != null ? : 0;
-                    newItem.Digestivos_TI = != null ? : 0;
-                    newItem.Reproductivos_RE = != null ? : 0;
-                    newItem.Reproductivos_ME = != null ? : 0;
-                    newItem.Reproductivos_PIO = != null ? : 0;
-                    newItem.Reproductivos_QUI = != null ? : 0;
-                    newItem.Reproductivos_CS = != null ? : 0;
-                    newItem.Respiratorios_Neu = != null ? : 0;
-                    newItem.Becerras_Neu = != null ? : 0;
-                    newItem.Becerras_Fie = != null ? : 0;
-                    newItem.Becerras_Di = != null ? : 0;
-                    newItem.Becerras_Conj = != null ? : 0;
-                    newItem.Vacas_Diag = != null ? : 0;
+
+                    newItem.Ubre_MA = busquedaUbre_MA != null ? busquedaUbre_MA.Vacas : 0;
+                    newItem.Ubre_SL = busquedaUbre_SL != null ? busquedaUbre_SL.Vacas : 0;
+                    newItem.Metabolicos_FL = busquedaMetabolicos_FL != null ? busquedaMetabolicos_FL.Vacas : 0;
+                    newItem.Metabolicos_CET = busquedaMetabolicos_CET != null ? busquedaMetabolicos_CET.Vacas : 0;
+                    newItem.Locomotores_BE = busquedaLocomotores_BE != null ? busquedaLocomotores_BE.Vacas : 0;
+                    newItem.Locomotores_TRA = busquedaLocomotores_TRA != null ? busquedaLocomotores_TRA.Vacas : 0;
+                    newItem.Locomotores_GA = busquedaLocomotores_GA != null ? busquedaLocomotores_GA.Vacas : 0;
+                    newItem.Digestivos_AC = busquedaDigestivos_AC != null ? busquedaDigestivos_AC.Vacas : 0;
+                    newItem.Digestivos_ES = busquedaDigestivos_ES != null ? busquedaDigestivos_ES.Vacas : 0;
+                    newItem.Digestivos_DI = busquedaDigestivos_DI != null ? busquedaDigestivos_DI.Vacas : 0;
+                    newItem.Digestivos_TI = busquedaDigestivos_TI != null ? busquedaDigestivos_TI.Vacas : 0;
+                    newItem.Reproductivos_RE = busquedaReproductivos_RE != null ? busquedaReproductivos_RE.Vacas : 0;
+                    newItem.Reproductivos_ME = busquedaReproductivos_ME != null ? busquedaReproductivos_ME.Vacas : 0;
+                    newItem.Reproductivos_PIO = busquedaReproductivos_PIO != null ? busquedaReproductivos_PIO.Vacas : 0;
+                    newItem.Reproductivos_QUI = busquedaReproductivos_QUI != null ? busquedaReproductivos_QUI.Vacas : 0;
+                    newItem.Reproductivos_CS = busquedaReproductivos_CS != null ? busquedaReproductivos_CS.Vacas : 0;
+                    newItem.Respiratorios_Neu = busquedaRespiratorios_Neu != null ? busquedaRespiratorios_Neu.Vacas : 0;
+                    newItem.Becerras_Neu = busquedaBecerras_Neu != null ? busquedaBecerras_Neu.Vacas : 0;
+                    newItem.Becerras_Fie = busquedaBecerras_Fie != null ? busquedaBecerras_Fie.Vacas : 0;
+                    newItem.Becerras_Di = busquedaBecerras_Di != null ? busquedaBecerras_Di.Vacas : 0;
+                    newItem.Becerras_Conj = busquedaBecerras_Conj != null ? busquedaBecerras_Conj.Vacas : 0;
+
                     newItem.Vacas_Pren = busquedaValInventarios != null ? busquedaValInventarios.VacasPreñadas : 0;
-                    newItem.Vacas_Porcentaje_Pren = != null ? : 0;
                     newItem.Vacas_Vacias = busquedaValInventarios != null ? busquedaValInventarios.VacasVacias : 0;
-                    newItem.Vacas_Porcentaje_Vacias = != null ? : 0;
-                    newItem.Vaquillas_Diag = != null ? : 0;
+                    newItem.Vacas_Diag = newItem.Vacas_Pren + newItem.Vacas_Vacias;
+                    newItem.Vacas_Porcentaje_Pren = newItem.Vacas_Diag > 0 ? (newItem.Vacas_Pren / newItem.Vacas_Diag) * 100 : 0;
+                    newItem.Vacas_Porcentaje_Vacias = newItem.Vacas_Diag > 0 ? (newItem.Vacas_Vacias / newItem.Vacas_Diag) * 100 : 0;
+
                     newItem.Vaquillas_Pren = busquedaValInventarios != null ? busquedaValInventarios.VaquillasPreñadas : 0;
-                    newItem.Vaquillas_Porcentaje_Pren = != null ? : 0;
                     newItem.Vaquillas_Vacias = busquedaValInventarios != null ? busquedaValInventarios.VaquillasVacias : 0;
-                    newItem.Vaquillas_Porcentaje_Vacias = != null ? : 0;
+                    newItem.Vaquillas_Diag = newItem.Vaquillas_Pren + newItem.Vaquillas_Vacias;
+                    newItem.Vaquillas_Porcentaje_Pren = newItem.Vaquillas_Diag > 0 ? (newItem.Vaquillas_Pren / newItem.Vaquillas_Diag) * 100 : 0;
+                    newItem.Vaquillas_Porcentaje_Vacias = newItem.Vaquillas_Diag > 0 ? (newItem.Vaquillas_Vacias / newItem.Vaquillas_Diag) * 100 : 0;
                     newItem.Abortos_Vaquillas = busquedaAbortosVaquillas != null ? busquedaAbortosVaquillas.Vacas : 0;
                     newItem.Abortos_Vacas = busquedaAbortosVacas != null ? busquedaAbortosVacas.Vacas : 0;
-                    */
+
 
                     #endregion
 
@@ -1939,51 +2013,65 @@ namespace ReportePeriodo.Modelo
 
             try
             {
-                DatosVacas datosMetabolicos = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 1 ", ref mensaje);
-                DatosVacas datosCetosis = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 2 ", ref mensaje);
-                DatosVacas datosLocomotores = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 1 ", ref mensaje);
-                DatosVacas datosLamitis = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 2 ", ref mensaje);
-                DatosVacas datosGabarros = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 3 ", ref mensaje);
-                DatosVacas datosDigestivos = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 1 ", ref mensaje);
-                DatosVacas datosEmpacho = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 2 ", ref mensaje);
-                DatosVacas datosDiarrea = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 3 ", ref mensaje);
-                DatosVacas datosRetencion = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 1 ", ref mensaje);
-                DatosVacas datosMetritis = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 2 ", ref mensaje);
+                DatosVacas datosUbre_MA = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 1 ", ref mensaje);
+                DatosVacas datosUbre_SL = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 2 ", ref mensaje);
+                DatosVacas datosMetabolicos_FL = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 1 ", ref mensaje);
+                DatosVacas datosMetabolicos_CET = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 2 ", ref mensaje);
+                DatosVacas datosLocomotores_BE = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 1 ", ref mensaje);
+                DatosVacas datosLocomotores_TRA = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 2 ", ref mensaje);
+                DatosVacas datosLocomotores_GA = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 3 ", ref mensaje);
+                DatosVacas datosDigestivos_AC = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 1 ", ref mensaje);
+                DatosVacas datosDigestivos_ES = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 2 ", ref mensaje);
+                DatosVacas datosDigestivos_DI = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 3 ", ref mensaje);
+                DatosVacas datosDigestivos_TI = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 4 ", ref mensaje);
+                DatosVacas datosReproductivos_RE = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 1 ", ref mensaje);
+                DatosVacas datosReproductivos_ME = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 2 ", ref mensaje);
+                DatosVacas datosReproductivos_PIO = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 3 ", ref mensaje);
+                DatosVacas datosReproductivos_QUI = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 4 ", ref mensaje);
+                DatosVacas datosReproductivos_CS = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 5 ", ref mensaje);
+                DatosVacas datosRespiratorios_Neu = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 7 AND enfdetalle = 1 ", ref mensaje);
+                DatosVacas datosBecerras_Neu = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 2  AND enfermedad = 8 AND enfdetalle = 1 ", ref mensaje);
+                DatosVacas datosBecerras_Fie = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 2  AND enfermedad = 8 AND enfdetalle = 2 ", ref mensaje);
+                DatosVacas datosBecerras_Di = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 2  AND enfermedad = 8 AND enfdetalle = 3 ", ref mensaje);
+                DatosVacas datosBecerras_Conj = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 2  AND enfermedad = 8 AND enfdetalle = 4 ", ref mensaje);
                 ValInventario datosValInventarios = TotalDatosValInventario(fechaInicio, fechaFin, ref mensaje);
                 DatosVacas datosAbortosVacas = TotalDatosAbortos(fechaInicio, fechaFin, 1, ref mensaje);
                 DatosVacas datosAbortosVaquillas = TotalDatosAbortos(fechaInicio, fechaFin, 2, ref mensaje);
 
-                response.Ubre_MA = 0;
-                response.Ubre_SL = 0;
-                response.Metabolicos_FL = 0;
-                response.Metabolicos_CET = 0;
-                response.Locomotores_BE = 0;
-                response.Locomotores_TRA = 0;
-                response.Locomotores_GA = 0;
-                response.Digestivos_AC = 0;
-                response.Digestivos_ES = 0;
-                response.Digestivos_DI = 0;
-                response.Digestivos_TI = 0;
-                response.Reproductivos_RE = 0;
-                response.Reproductivos_ME = 0;
-                response.Reproductivos_PIO = 0;
-                response.Reproductivos_QUI = 0;
-                response.Reproductivos_CS = 0;
-                response.Respiratorios_Neu = 0;
-                response.Becerras_Neu = 0;
-                response.Becerras_Fie = 0;
-                response.Becerras_Di = 0;
-                response.Becerras_Conj = 0;
-                response.Vacas_Diag = 0;
-                response.Vacas_Pren = 0;
-                response.Vacas_Porcentaje_Pren = 0;
-                response.Vacas_Vacias = 0;
-                response.Vacas_Porcentaje_Vacias = 0;
-                response.Vaquillas_Diag = 0;
-                response.Vaquillas_Pren = 0;
-                response.Vaquillas_Porcentaje_Pren = 0;
-                response.Vaquillas_Vacias = 0;
-                response.Vaquillas_Porcentaje_Vacias = 0;
+                response.Ubre_MA = datosUbre_MA.Vacas;
+                response.Ubre_SL = datosUbre_SL.Vacas;
+                response.Metabolicos_FL = datosMetabolicos_FL.Vacas;
+                response.Metabolicos_CET = datosMetabolicos_CET.Vacas;
+                response.Locomotores_BE = datosLocomotores_BE.Vacas;
+                response.Locomotores_TRA = datosLocomotores_TRA.Vacas;
+                response.Locomotores_GA = datosLocomotores_GA.Vacas;
+                response.Digestivos_AC = datosDigestivos_AC.Vacas;
+                response.Digestivos_ES = datosDigestivos_ES.Vacas;
+                response.Digestivos_DI = datosDigestivos_DI.Vacas;
+                response.Digestivos_TI = datosDigestivos_TI.Vacas;
+                response.Reproductivos_RE = datosReproductivos_RE.Vacas;
+                response.Reproductivos_ME = datosReproductivos_ME.Vacas;
+                response.Reproductivos_PIO = datosReproductivos_PIO.Vacas;
+                response.Reproductivos_QUI = datosReproductivos_QUI.Vacas;
+                response.Reproductivos_CS = datosReproductivos_CS.Vacas;
+                response.Respiratorios_Neu = datosRespiratorios_Neu.Vacas;
+                response.Becerras_Neu = datosBecerras_Neu.Vacas;
+                response.Becerras_Fie = datosBecerras_Fie.Vacas;
+                response.Becerras_Di = datosBecerras_Di.Vacas;
+                response.Becerras_Conj = datosBecerras_Conj.Vacas;
+
+                response.Vacas_Pren = datosValInventarios.VacasPreñadas;
+                response.Vacas_Vacias = datosValInventarios.VacasVacias;
+                response.Vacas_Diag = response.Vacas_Pren + response.Vacas_Vacias;
+                response.Vacas_Porcentaje_Pren = response.Vacas_Diag > 0 ? (response.Vacas_Pren / response.Vacas_Diag) * 100 : 0;
+                response.Vacas_Porcentaje_Vacias = response.Vacas_Diag > 0 ? (response.Vacas_Vacias / response.Vacas_Diag) * 100 : 0;
+
+                response.Vaquillas_Pren = datosValInventarios.VaquillasPreñadas;
+                response.Vaquillas_Vacias = datosValInventarios.VaquillasVacias;
+                response.Vaquillas_Diag = response.Vaquillas_Pren + response.Vaquillas_Vacias;
+                response.Vaquillas_Porcentaje_Pren = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Pren / response.Vaquillas_Diag) * 100 : 0;
+                response.Vaquillas_Porcentaje_Vacias = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Vacias / response.Vaquillas_Diag) * 100 : 0;
+
                 response.Abortos_Vaquillas = datosAbortosVaquillas.Vacas;
                 response.Abortos_Vacas = datosAbortosVacas.Vacas;
             }
@@ -2045,39 +2133,39 @@ namespace ReportePeriodo.Modelo
 
             try
             {
-                response.Ubre_MA = diferencia != null && totalAñoAnt != null && totalAñoAnt.Ubre_MA > 0 ? diferencia.Ubre_MA / totalAñoAnt.Ubre_MA : 0;
-                response.Ubre_SL = diferencia != null && totalAñoAnt != null && totalAñoAnt.Ubre_SL > 0 ? diferencia.Ubre_SL / totalAñoAnt.Ubre_SL : 0;
-                response.Metabolicos_FL = diferencia != null && totalAñoAnt != null && totalAñoAnt.Metabolicos_FL > 0 ? diferencia.Metabolicos_FL / totalAñoAnt.Metabolicos_FL : 0;
-                response.Metabolicos_CET = diferencia != null && totalAñoAnt != null && totalAñoAnt.Metabolicos_CET > 0 ? diferencia.Metabolicos_CET / totalAñoAnt.Metabolicos_CET : 0;
-                response.Locomotores_BE = diferencia != null && totalAñoAnt != null && totalAñoAnt.Locomotores_BE > 0 ? diferencia.Locomotores_BE / totalAñoAnt.Locomotores_BE : 0;
-                response.Locomotores_TRA = diferencia != null && totalAñoAnt != null && totalAñoAnt.Locomotores_TRA > 0 ? diferencia.Locomotores_TRA / totalAñoAnt.Locomotores_TRA : 0;
-                response.Locomotores_GA = diferencia != null && totalAñoAnt != null && totalAñoAnt.Locomotores_GA > 0 ? diferencia.Locomotores_GA / totalAñoAnt.Locomotores_GA : 0;
-                response.Digestivos_AC = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_AC > 0 ? diferencia.Digestivos_AC / totalAñoAnt.Digestivos_AC : 0;
-                response.Digestivos_ES = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_ES > 0 ? diferencia.Digestivos_ES / totalAñoAnt.Digestivos_ES : 0;
-                response.Digestivos_DI = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_DI > 0 ? diferencia.Digestivos_DI / totalAñoAnt.Digestivos_DI : 0;
-                response.Digestivos_TI = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_TI > 0 ? diferencia.Digestivos_TI / totalAñoAnt.Digestivos_TI : 0;
-                response.Reproductivos_RE = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_RE > 0 ? diferencia.Reproductivos_RE / totalAñoAnt.Reproductivos_RE : 0;
-                response.Reproductivos_ME = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_ME > 0 ? diferencia.Reproductivos_ME / totalAñoAnt.Reproductivos_ME : 0;
-                response.Reproductivos_PIO = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_PIO > 0 ? diferencia.Reproductivos_PIO / totalAñoAnt.Reproductivos_PIO : 0;
-                response.Reproductivos_QUI = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_QUI > 0 ? diferencia.Reproductivos_QUI / totalAñoAnt.Reproductivos_QUI : 0;
-                response.Reproductivos_CS = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_CS > 0 ? diferencia.Reproductivos_CS / totalAñoAnt.Reproductivos_CS : 0;
-                response.Respiratorios_Neu = diferencia != null && totalAñoAnt != null && totalAñoAnt.Respiratorios_Neu > 0 ? diferencia.Respiratorios_Neu / totalAñoAnt.Respiratorios_Neu : 0;
-                response.Becerras_Neu = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Neu > 0 ? diferencia.Becerras_Neu / totalAñoAnt.Becerras_Neu : 0;
-                response.Becerras_Fie = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Fie > 0 ? diferencia.Becerras_Fie / totalAñoAnt.Becerras_Fie : 0;
-                response.Becerras_Di = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Di > 0 ? diferencia.Becerras_Di / totalAñoAnt.Becerras_Di : 0;
-                response.Becerras_Conj = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Conj > 0 ? diferencia.Becerras_Conj / totalAñoAnt.Becerras_Conj : 0;
-                response.Vacas_Diag = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Diag > 0 ? diferencia.Vacas_Diag / totalAñoAnt.Vacas_Diag : 0;
-                response.Vacas_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Pren > 0 ? diferencia.Vacas_Pren / totalAñoAnt.Vacas_Pren : 0;
-                response.Vacas_Porcentaje_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Porcentaje_Pren > 0 ? diferencia.Vacas_Porcentaje_Pren / totalAñoAnt.Vacas_Porcentaje_Pren : 0;
-                response.Vacas_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Vacias > 0 ? diferencia.Vacas_Vacias / totalAñoAnt.Vacas_Vacias : 0;
-                response.Vacas_Porcentaje_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Porcentaje_Vacias > 0 ? diferencia.Vacas_Porcentaje_Vacias / totalAñoAnt.Vacas_Porcentaje_Vacias : 0;
-                response.Vaquillas_Diag = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Diag > 0 ? diferencia.Vaquillas_Diag / totalAñoAnt.Vaquillas_Diag : 0;
-                response.Vaquillas_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Pren > 0 ? diferencia.Vaquillas_Pren / totalAñoAnt.Vaquillas_Pren : 0;
-                response.Vaquillas_Porcentaje_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Porcentaje_Pren > 0 ? diferencia.Vaquillas_Porcentaje_Pren / totalAñoAnt.Vaquillas_Porcentaje_Pren : 0;
-                response.Vaquillas_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Vacias > 0 ? diferencia.Vaquillas_Vacias / totalAñoAnt.Vaquillas_Vacias : 0;
-                response.Vaquillas_Porcentaje_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Porcentaje_Vacias > 0 ? diferencia.Vaquillas_Porcentaje_Vacias / totalAñoAnt.Vaquillas_Porcentaje_Vacias : 0;
-                response.Abortos_Vaquillas = diferencia != null && totalAñoAnt != null && totalAñoAnt.Abortos_Vaquillas > 0 ? diferencia.Abortos_Vaquillas / totalAñoAnt.Abortos_Vaquillas : 0;
-                response.Abortos_Vacas = diferencia != null && totalAñoAnt != null && totalAñoAnt.Abortos_Vacas > 0 ? diferencia.Abortos_Vacas / totalAñoAnt.Abortos_Vacas : 0;
+                response.Ubre_MA = diferencia != null && totalAñoAnt != null && totalAñoAnt.Ubre_MA > 0 ? diferencia.Ubre_MA / totalAñoAnt.Ubre_MA * 100 : 0;
+                response.Ubre_SL = diferencia != null && totalAñoAnt != null && totalAñoAnt.Ubre_SL > 0 ? diferencia.Ubre_SL / totalAñoAnt.Ubre_SL * 100 : 0;
+                response.Metabolicos_FL = diferencia != null && totalAñoAnt != null && totalAñoAnt.Metabolicos_FL > 0 ? diferencia.Metabolicos_FL / totalAñoAnt.Metabolicos_FL * 100 : 0;
+                response.Metabolicos_CET = diferencia != null && totalAñoAnt != null && totalAñoAnt.Metabolicos_CET > 0 ? diferencia.Metabolicos_CET / totalAñoAnt.Metabolicos_CET * 100 : 0;
+                response.Locomotores_BE = diferencia != null && totalAñoAnt != null && totalAñoAnt.Locomotores_BE > 0 ? diferencia.Locomotores_BE / totalAñoAnt.Locomotores_BE * 100 : 0;
+                response.Locomotores_TRA = diferencia != null && totalAñoAnt != null && totalAñoAnt.Locomotores_TRA > 0 ? diferencia.Locomotores_TRA / totalAñoAnt.Locomotores_TRA * 100 : 0;
+                response.Locomotores_GA = diferencia != null && totalAñoAnt != null && totalAñoAnt.Locomotores_GA > 0 ? diferencia.Locomotores_GA / totalAñoAnt.Locomotores_GA * 100 : 0;
+                response.Digestivos_AC = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_AC > 0 ? diferencia.Digestivos_AC / totalAñoAnt.Digestivos_AC * 100 : 0;
+                response.Digestivos_ES = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_ES > 0 ? diferencia.Digestivos_ES / totalAñoAnt.Digestivos_ES * 100 : 0;
+                response.Digestivos_DI = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_DI > 0 ? diferencia.Digestivos_DI / totalAñoAnt.Digestivos_DI * 100 : 0;
+                response.Digestivos_TI = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_TI > 0 ? diferencia.Digestivos_TI / totalAñoAnt.Digestivos_TI * 100 : 0;
+                response.Reproductivos_RE = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_RE > 0 ? diferencia.Reproductivos_RE / totalAñoAnt.Reproductivos_RE * 100 : 0;
+                response.Reproductivos_ME = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_ME > 0 ? diferencia.Reproductivos_ME / totalAñoAnt.Reproductivos_ME * 100 : 0;
+                response.Reproductivos_PIO = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_PIO > 0 ? diferencia.Reproductivos_PIO / totalAñoAnt.Reproductivos_PIO * 100 : 0;
+                response.Reproductivos_QUI = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_QUI > 0 ? diferencia.Reproductivos_QUI / totalAñoAnt.Reproductivos_QUI * 100 : 0;
+                response.Reproductivos_CS = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_CS > 0 ? diferencia.Reproductivos_CS / totalAñoAnt.Reproductivos_CS * 100 : 0;
+                response.Respiratorios_Neu = diferencia != null && totalAñoAnt != null && totalAñoAnt.Respiratorios_Neu > 0 ? diferencia.Respiratorios_Neu / totalAñoAnt.Respiratorios_Neu * 100 : 0;
+                response.Becerras_Neu = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Neu > 0 ? diferencia.Becerras_Neu / totalAñoAnt.Becerras_Neu * 100 : 0;
+                response.Becerras_Fie = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Fie > 0 ? diferencia.Becerras_Fie / totalAñoAnt.Becerras_Fie * 100 : 0;
+                response.Becerras_Di = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Di > 0 ? diferencia.Becerras_Di / totalAñoAnt.Becerras_Di * 100 : 0;
+                response.Becerras_Conj = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Conj > 0 ? diferencia.Becerras_Conj / totalAñoAnt.Becerras_Conj * 100 : 0;
+                response.Vacas_Diag = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Diag > 0 ? diferencia.Vacas_Diag / totalAñoAnt.Vacas_Diag * 100 : 0;
+                response.Vacas_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Pren > 0 ? diferencia.Vacas_Pren / totalAñoAnt.Vacas_Pren * 100 : 0;
+                response.Vacas_Porcentaje_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Porcentaje_Pren > 0 ? diferencia.Vacas_Porcentaje_Pren / totalAñoAnt.Vacas_Porcentaje_Pren * 100 : 0;
+                response.Vacas_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Vacias > 0 ? diferencia.Vacas_Vacias / totalAñoAnt.Vacas_Vacias * 100 : 0;
+                response.Vacas_Porcentaje_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Porcentaje_Vacias > 0 ? diferencia.Vacas_Porcentaje_Vacias / totalAñoAnt.Vacas_Porcentaje_Vacias * 100 : 0;
+                response.Vaquillas_Diag = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Diag > 0 ? diferencia.Vaquillas_Diag / totalAñoAnt.Vaquillas_Diag * 100 : 0;
+                response.Vaquillas_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Pren > 0 ? diferencia.Vaquillas_Pren / totalAñoAnt.Vaquillas_Pren * 100 : 0;
+                response.Vaquillas_Porcentaje_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Porcentaje_Pren > 0 ? diferencia.Vaquillas_Porcentaje_Pren / totalAñoAnt.Vaquillas_Porcentaje_Pren * 100 : 0;
+                response.Vaquillas_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Vacias > 0 ? diferencia.Vaquillas_Vacias / totalAñoAnt.Vaquillas_Vacias * 100 : 0;
+                response.Vaquillas_Porcentaje_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Porcentaje_Vacias > 0 ? diferencia.Vaquillas_Porcentaje_Vacias / totalAñoAnt.Vaquillas_Porcentaje_Vacias * 100 : 0;
+                response.Abortos_Vaquillas = diferencia != null && totalAñoAnt != null && totalAñoAnt.Abortos_Vaquillas > 0 ? diferencia.Abortos_Vaquillas / totalAñoAnt.Abortos_Vaquillas * 100 : 0;
+                response.Abortos_Vacas = diferencia != null && totalAñoAnt != null && totalAñoAnt.Abortos_Vacas > 0 ? diferencia.Abortos_Vacas / totalAñoAnt.Abortos_Vacas * 100 : 0;
             }
             catch { }
 
@@ -2183,6 +2271,16 @@ namespace ReportePeriodo.Modelo
             catch { }
 
         }
+
+        public void CierreMesCorrecto(int ranId, int horaCorte, string urlWebService, DateTime fechaInicio, DateTime fechaFin, out bool validacionMedicina, out bool validacionAlimento)
+        {
+            bool validacionCCO = CentrosDeCostoValidos(ranId, urlWebService, fechaInicio, fechaFin);
+            string mensaje = string.Empty;
+            GTH.ValidacionesCierreMes(ranId, horaCorte, fechaInicio, fechaFin, out validacionAlimento, out validacionMedicina, ref mensaje);
+            bool auxiliarMedicina = validacionCCO && validacionMedicina;
+            validacionMedicina = auxiliarMedicina;
+        }
+
         #endregion
 
         #endregion
@@ -3917,6 +4015,7 @@ namespace ReportePeriodo.Modelo
                 query = query.Replace("@condicion", condicion);
 
                 db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
                 db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
                 db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
                 response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new DatosVacas()
@@ -4084,6 +4183,7 @@ namespace ReportePeriodo.Modelo
                 query = query.Replace("@condicion", condicion);
 
                 db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
                 db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
                 db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
                 DataTable dt = db.EjecutarConsultaTabla();
@@ -4160,7 +4260,7 @@ namespace ReportePeriodo.Modelo
                                 WHERE FECHA BETWEEN  @fechaInicio AND @fechaFin
                                 @condicion
                                 GROUP BY  FECHA
-                                ORDER BY FECHAa";
+                                ORDER BY FECHA";
                 query = query.Replace("@condicion", condicion);
 
                 db.Conectar();
@@ -4298,13 +4398,13 @@ namespace ReportePeriodo.Modelo
                 db.AsignarParametro("@fechaFin", ConvertToJulian(fechaFin));
                 DataTable dt = db.EjecutarConsultaTabla();
 
-                if(dt.Rows.Count > 0)
+                if (dt.Rows.Count > 0)
                 {
                     response.VacasPreñadas = dt.Rows[0]["VacasPreñadas"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["VacasPreñadas"]) : 0;
                     response.VacasVacias = dt.Rows[0]["VacasVacias"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["VacasVacias"]) : 0;
                     response.VaquillasPreñadas = dt.Rows[0]["VaquillasPreñadas"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["VaquillasPreñadas"]) : 0;
                     response.VaquillasVacias = dt.Rows[0]["VaquillasVacias"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["VaquillasVacias"]) : 0;
-                }              
+                }
             }
             catch (Exception ex)
             {
@@ -4318,7 +4418,241 @@ namespace ReportePeriodo.Modelo
 
             return response;
         }
-        #endregion
 
+        private bool CentrosDeCostoValidos(int ranId, string urlWebService, DateTime fechaInicio, DateTime fechaFin)
+        {
+            bool valido = true;
+
+            try
+            {
+                List<ConfiguracionRancho> listaConfiguracion = ConfiguracionEstablo(ranId);
+                List<string> listaSuscursal = ListaSuscursal(ranId);
+                List<CentroDeCosto> listaCentrosDeCosto = ListaCentrosDeCosto(ranId, fechaInicio, fechaFin);
+
+                string erp = listaConfiguracion[0].Erp_id;
+                string susculsal = listaSuscursal[0];
+                int dia = 0;
+                int empresa = listaConfiguracion[0].Emp_prorrateo == 0 ? listaConfiguracion[0].Emp_id : listaConfiguracion[0].Emp_prorrateo;
+                string url = urlWebService.Replace("@erp", listaConfiguracion[0].Erp_id + "erp");
+
+                ght001766 sie = new ght001766(url, "", "", "");
+                wCCO66DataTable centroCosto = new wCCO66DataTable();
+
+                List<string> listaCentrosNoValidos = new List<string>();
+                try
+                {
+                    sie.ght001766q(empresa, out centroCosto);
+
+                    List<CCOGHT> listaDll = centroCosto.AsEnumerable().Select(x => new CCOGHT()
+                    {
+                        CCO_Clave = x["CcoClave"] != DBNull.Value ? x["CcoClave"].ToString() : string.Empty,
+                        CCO_Nombre = x["CcoNombre"] != DBNull.Value ? x["CcoNombre"].ToString() : string.Empty
+                    }).ToList();
+
+
+                    foreach (CentroDeCosto item in listaCentrosDeCosto)
+                    {
+                        List<CCOGHT> busquedaCentroCostos = (from x in listaDll where x.CCO_Clave == item.CCO select x).ToList();
+
+                        if (busquedaCentroCostos.Count == 0)
+                        {
+                            listaCentrosNoValidos.Add(item.CCO);
+                        }
+                    }
+
+                    valido = listaCentrosNoValidos.Count == 0;
+                }
+                catch { }
+                finally
+                {
+                    sie.Dispose();
+                }
+            }
+            catch
+            {
+
+            }
+
+            return valido;
+        }
+
+        private List<ConfiguracionRancho> ConfiguracionEstablo(int ranId)
+        {
+            List<ConfiguracionRancho> lista = new List<ConfiguracionRancho>();
+            ModeloDatosSQL bd = new ModeloDatosSQL(conexionSQL);
+
+            try
+            {
+                string query = @"";
+                if (ranId == 25)
+                {
+                    query = @"Select erp_id, emp_id, track_id, ran_sie , emp_prorrateo
+						FROM DBSIO.dbo.configuracion
+						where ran_id IN( 25,29)";
+                }
+                else
+                {
+                    query = @"Select erp_id, emp_id, track_id, ran_sie ,[emp_prorrateo]
+						FROM DBSIO.dbo.configuracion
+						where ran_id IN(@rancho)";
+
+                    query = query.Replace("@rancho", ranId.ToString());
+                }
+
+                bd.Conectar();
+                bd.CrearComando(query, tipoComandoSQL.query);
+                lista = bd.EjecutarConsultaTabla().AsEnumerable().Select(x => new ConfiguracionRancho()
+                {
+                    Erp_id = x["erp_id"] != DBNull.Value ? x["erp_id"].ToString() : string.Empty,
+                    Emp_id = x["emp_id"] != DBNull.Value ? Convert.ToInt32(x["emp_id"]) : 0,
+                    Track_id = x["track_id"] != DBNull.Value ? Convert.ToInt32(x["track_id"]) : 0,
+                    Ran_sie = x["ran_sie"] != DBNull.Value ? Convert.ToInt32(x["ran_sie"]) : 0,
+                    Emp_prorrateo = x["emp_prorrateo"] != DBNull.Value ? Convert.ToInt32(x["emp_prorrateo"]) : 0
+                }).ToList();
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            finally
+            {
+                if (bd.isConnected)
+                    bd.Desconectar();
+            }
+
+            return lista;
+        }
+
+        private List<string> ListaSuscursal(int ranId)
+        {
+            List<string> lista = new List<string>();
+            ModeloDatosSQL bd = new ModeloDatosSQL(conexionSQL);
+
+            try
+            {
+                string query = @"";
+
+                if (ranId == 25)
+                {
+                    query = @"SELECT suc_id 
+							  FROM DBSIO.dbo.RANCHO_SUCURSAL 
+							  WHERE ran_id IN(25,29)";
+                }
+                else
+                {
+                    query = @"SELECT suc_id 
+							  FROM DBSIO.dbo.RANCHO_SUCURSAL 
+							  WHERE ran_id IN(@rancho)";
+                    query = query.Replace("@rancho", ranId.ToString());
+                }
+
+                bd.Conectar();
+                bd.CrearComando(query, tipoComandoSQL.query);
+                DataTable dt = bd.EjecutarConsultaTabla();
+
+                foreach (DataRow row in dt.Rows)
+                    lista.Add(row["suc_id"].ToString());
+
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            finally
+            {
+                if (bd.isConnected)
+                    bd.Desconectar();
+            }
+
+            return lista;
+        }
+
+        private List<CentroDeCosto> ListaCentrosDeCosto(int ranId, DateTime fechaInicio, DateTime fechaFin)
+        {
+            List<CentroDeCosto> lista = new List<CentroDeCosto>();
+            ModeloDatosSQL bd = new ModeloDatosSQL(conexionSQL);
+
+            try
+            {
+                string query = @"";
+
+                if (ranId == 25)
+                {
+                    query = @"SELECT DISTINCT Convert(nvarchar(50),RTRIM([CCO])) as CCO
+							  FROM [DBALIMENTO].[dbo].[MEDICINA_ACTUAL]
+							  WHERE 
+							  Clave_Medicamento IS NOT NULL AND
+							  Fecha >= @fechaInicio
+							  AND Fecha <= @fechaFin
+							  AND CCO <> 'POR ASIGNAR'
+							  AND   (Clave_Medicamento LIKE 'MEBA[0-9][0-9][0-9][0-9]%'
+							  OR   Clave_Medicamento LIKE 'RPHO[0-9][0-9][0-9][0-9]%'
+							  OR   Clave_Medicamento LIKE 'VAVG[0-9][0-9][0-9][0-9]%')
+							  UNION 
+							  SELECT Convert(nvarchar(50),[cco_vacas])
+	      					  FROM   [DBSIO].[dbo].[CCO_VAC_VAQ]
+							  WHERE ran_id IN (25,29)
+							  UNION 
+							  SELECT Convert(nvarchar(50),[cco_vaquillas])
+	      					  FROM   [DBSIO].[dbo].[CCO_VAC_VAQ]
+							  WHERE ran_id IN (25,29)
+							  ORDER BY CCO";
+                }
+                else
+                {
+                    query = @" SELECT DISTINCT Convert(nvarchar(50), RTRIM([CCO])) as CCO
+							  FROM[DBALIMENTO].[dbo].[MEDICINA_ACTUAL]
+							  WHERE
+							  Clave_Medicamento IS NOT NULL AND
+							  Fecha >= @fechaInicio
+							  AND Fecha <= @fechaFin
+							  AND CCO<> 'POR ASIGNAR'
+							  AND(Clave_Medicamento LIKE 'MEBA[0-9][0-9][0-9][0-9]%'
+							  OR   Clave_Medicamento LIKE 'RPHO[0-9][0-9][0-9][0-9]%'
+							  OR   Clave_Medicamento LIKE 'VAVG[0-9][0-9][0-9][0-9]%')
+							  UNION
+							  SELECT Convert(nvarchar(50),[cco_vacas])
+								FROM[DBSIO].[dbo].[CCO_VAC_VAQ]
+							  WHERE ran_id = @ranId
+							  UNION
+							  SELECT Convert(nvarchar(50),[cco_vaquillas])
+								FROM[DBSIO].[dbo].[CCO_VAC_VAQ]
+							  WHERE ran_id = @ranId
+							  ORDER BY CCO";
+                    query = query.Replace("@ranId", ranId.ToString());
+                }
+
+                bd.Conectar();
+                bd.CrearComando(query, tipoComandoSQL.query);
+                bd.AsignarParametro("@fechaInicio", fechaInicio);
+                bd.AsignarParametro("@fechaFin", fechaFin);
+                lista = bd.EjecutarConsultaTabla().AsEnumerable().Select(x => new CentroDeCosto()
+                {
+                    CCO = x["CCO"] != DBNull.Value ? x["CCO"].ToString() : string.Empty
+                }).ToList();
+
+
+            }
+            catch { }
+
+
+            return lista;
+        }
+
+        #endregion
+    }
+
+    internal class ConfiguracionRancho
+    {
+        public string Erp_id { get; set; }
+        public int Emp_id { get; set; }
+        public int Track_id { get; set; }
+        public int Ran_sie { get; set; }
+        public int Emp_prorrateo { get; set; }
+    }
+
+    internal class CentroDeCosto
+    {
+        public string CCO { get; set; }
+    }
+
+    internal class CCOGHT
+    {
+        public string CCO_Clave { get; set; }
+        public string CCO_Nombre { get; set; }
     }
 }

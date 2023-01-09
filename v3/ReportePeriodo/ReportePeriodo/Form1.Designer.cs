@@ -30,31 +30,56 @@ namespace ReportePeriodo
         private void InitializeComponent()
         {
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.rvDiario = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.etiEstablo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(76, 53);
+            this.monthCalendar1.Location = new System.Drawing.Point(18, 76);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 0;
             this.monthCalendar1.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateSelected);
+            // 
+            // rvDiario
+            // 
+            this.rvDiario.LocalReport.ReportEmbeddedResource = "ReportePeriodo.ReporteDiario.rdlc";
+            this.rvDiario.Location = new System.Drawing.Point(0, 0);
+            this.rvDiario.Name = "rvDiario";
+            this.rvDiario.ServerReport.BearerToken = null;
+            this.rvDiario.Size = new System.Drawing.Size(396, 246);
+            this.rvDiario.TabIndex = 0;
+            // 
+            // etiEstablo
+            // 
+            this.etiEstablo.AutoSize = true;
+            this.etiEstablo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.etiEstablo.Location = new System.Drawing.Point(15, 22);
+            this.etiEstablo.Name = "etiEstablo";
+            this.etiEstablo.Size = new System.Drawing.Size(76, 15);
+            this.etiEstablo.TabIndex = 1;
+            this.etiEstablo.Text = "ESTABLO: ";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(293, 256);
+            this.Controls.Add(this.etiEstablo);
             this.Controls.Add(this.monthCalendar1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Reporte Diario";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private Microsoft.Reporting.WinForms.ReportViewer rvDiario;
+        private System.Windows.Forms.Label etiEstablo;
     }
 }
 

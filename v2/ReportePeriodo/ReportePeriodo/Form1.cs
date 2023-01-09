@@ -455,7 +455,7 @@ namespace ReportePeriodo
             DateTime FechaReferencia = DateTime.Today;
             string validacionesVisibles = "";
 
-            if (FechaReferencia.Month == inicio.AddDays(1).Month && FechaReferencia.Year == inicio.Year)
+            if (FechaReferencia.Month == fecha_Fin_Reporte.Month && FechaReferencia.Year == fecha_Fin_Reporte.Year)
             {
                 DataTable dtPrecioLeche = new DataTable();
                 query = "SELECT* From PRECIOLECHE";
@@ -482,7 +482,7 @@ namespace ReportePeriodo
                 List<bendiciones.ReportePeriodo> listaAlimento = new List<bendiciones.ReportePeriodo>();
                 bendiciones.ReportePeriodo sobrante = new bendiciones.ReportePeriodo();
                 bendiciones.IndicadorReportePeriodo indicadoresProduccion = new bendiciones.IndicadorReportePeriodo();
-                GTH.ReportePeriodo(ran_id.ToString(), horas, "10,11,12,13", inicio.Date, fin.Date, out listaIngredientes, out indicadoresProduccion, out sobrante);
+                GTH.ReportePeriodo(ran_id.ToString(), horas, "10,11,12,13", fecha_Inicio_Reporte, fecha_Fin_Reporte, out listaIngredientes, out indicadoresProduccion, out sobrante);
                 precioBase = (indicadoresProduccion.IC_PRODUCCION + indicadoresProduccion.COSTO) / indicadoresProduccion.MEDIA;
                 validacionesVisibles = "no";
             }

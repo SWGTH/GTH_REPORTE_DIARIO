@@ -14,7 +14,7 @@ namespace ReportePeriodo.Modelo
         int HoraCorte(ref string mensaje);
         Rancho Rancho(ref string mensaje);
         string Erp_Clave(int ranID, ref string mensaje);
-        List<Hoja1> ReporteHoja1(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, out List<CalostroYOrdeña> datosCalostro, ref string mensaje);
+        List<Hoja1> ReporteHoja1(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, out List<CalostroYOrdeña> datosCalostro, out List<decimal?> listaDEC, ref string mensaje);
         List<gth.IndicadorTeorico> IndicadorProduccion { get; set; }
         List<gth.IndicadorTeorico> IndicadorSecas { get; set; }
         List<gth.IndicadorTeorico> IndicadorReto { get; set; }
@@ -66,5 +66,7 @@ namespace ReportePeriodo.Modelo
         List<Hoja4> EspaciosEnBlancoHoja4(int renglones);
         void QuitarCeros(List<Hoja4> reporte);
         void QuitarCeros(Hoja4 item);
+        void CierreMesCorrecto(int ranId, int horaCorte, string urlWebService, DateTime fechaInicio, DateTime fechaFin, out bool validacionMedicina, out bool validacionAlimento);
+
     }
 }

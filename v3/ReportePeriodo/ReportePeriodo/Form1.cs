@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using ReportePeriodo.Entidad;
 using ReportePeriodo.Presentador;
 using ReportePeriodo.Vista;
+using Microsoft.Reporting.WinForms;
+using System.IO;
+using System.Diagnostics;
 
 namespace ReportePeriodo
 {
@@ -67,7 +66,7 @@ namespace ReportePeriodo
             _presentador.ConexionSIE = _configuracionReporte.ConexionSIE;
             _rancho.Erp = erpClave;
             _rancho.TimeShiftTracker = timeShiftTracker;
-
+            etiEstablo.Text = "ESTABLO: " +  _rancho.Ran_Nombre.ToUpper();
 
         }
 
@@ -84,12 +83,29 @@ namespace ReportePeriodo
 
         private void Reporte(Rancho rancho, DateTime fechaInicio, DateTime fechaFin)
         {
+            bool validacionAlimento = true;
+            bool validacionMedicina = true;
+            List<decimal?> listaDEC = new List<decimal?>();
+            string validacionesVisibles = "";
+
+            DateTime fechaActAux = DateTime.Today;
+
+            if (fechaFin.Month == fechaActAux.Month && fechaFin.Year == fechaActAux.Year)
+            {
+                _presentador.CierreMesCorrecto(rancho.Ran_ID, rancho.TimeShiftTracker, _conexionSIE, fechaInicio, fechaFin, out validacionAlimento, out validacionMedicina);
+                validacionesVisibles = "si";
+            }
+            else 
+            {
+                validacionesVisibles = "no";
+            }
+
             _presentador.CargarDatosTeoricos(rancho, fechaFin, ref _mensaje);
             _presentador.CargarPromediosDatosAlimentacion(rancho, fechaInicio, fechaFin, ref _mensaje);
             _presentador.CargarPrecioLeche(rancho, fechaInicio, fechaFin, ref _mensaje);
 
             #region hoja1
-            List<Hoja1> reporteHoja1 = _presentador.ReporteHoja1(rancho, fechaInicio, fechaFin, ref _mensaje);
+            List<Hoja1> reporteHoja1 = _presentador.ReporteHoja1(rancho, fechaInicio, fechaFin, out listaDEC, ref _mensaje);
             DataTable dtHoja1 = ListToDataTable(reporteHoja1);
             #endregion
 
@@ -105,8 +121,56 @@ namespace ReportePeriodo
 
             #region hoja4
             List<Hoja4> reporteHoja4 = _presentador.ReporteHoja4(_rancho, fechaInicio, fechaFin, ref _mensaje);
-            DataTable dtHoja4 = ListToDataTable(reporteHoja3);
+            DataTable dtHoja4 = ListToDataTable(reporteHoja4);
             #endregion
+
+            decimal dec1 = 0, dec2 = 0, dec3 = 0;
+
+            decimal.TryParse(listaDEC[0].ToString(), out dec1);
+            decimal.TryParse(listaDEC[1].ToString(), out dec2);
+            decimal.TryParse(listaDEC[2].ToString(), out dec3);
+
+            try 
+            {
+                string tituloNoid = _rancho.No_ID_Real ? "N° ID" : "N° ID + FE";
+                string cadenaNovillas = "TOTAL VAQUILLAS: " ;
+                string cadenaVacas = "TOTAL VACAS: ";
+
+                ReportParameter[] parameters = new ReportParameter[12];
+                parameters[0] = new ReportParameter("EMPRESA", _rancho.Ran_Nombre.ToString(), true);
+                parameters[1] = new ReportParameter("MES", fechaFin.ToString("MMMM yyyy"), true);
+                parameters[2] = new ReportParameter("DEC_UNO", dec1.ToString(), true);
+                parameters[3] = new ReportParameter("DEC_DOS", dec2.ToString(), true);
+                parameters[4] = new ReportParameter("DEC_TRES", dec3.ToString(), true);
+                parameters[5] = new ReportParameter("NOVILLAS", cadenaNovillas.ToString(), true);
+                parameters[6] = new ReportParameter("VACAS", cadenaVacas.ToString(), true);
+                parameters[7] = new ReportParameter("PRECIO_LECHE", "VENTA (PRECIO DE LA LECHE: " + _presentador.PrecioLeche.ToString("C3") + ")", true);
+                parameters[8] = new ReportParameter("TITULONOID", tituloNoid, true);
+                parameters[9] = new ReportParameter("VALIDACIONALIMENTO", validacionAlimento ? "si" : "no");
+                parameters[10] = new ReportParameter("VALIDACIONMEDICINA", validacionMedicina ? "si" : "no");
+                parameters[11] = new ReportParameter("VALIDACIONESVISIBLES", validacionesVisibles);
+
+                rvDiario.LocalReport.DataSources.Clear();
+                ReportDataSource source = new ReportDataSource("DataSet1", dtHoja1);
+                rvDiario.LocalReport.DataSources.Add(source);
+                source = new ReportDataSource("DataSet2", dtHoja2);
+                rvDiario.LocalReport.DataSources.Add(source);
+                source = new ReportDataSource("DataSet3", dtHoja3);
+                rvDiario.LocalReport.DataSources.Add(source);
+                source = new ReportDataSource("DataSet4", dtHoja4);
+                rvDiario.LocalReport.DataSources.Add(source);
+                rvDiario.LocalReport.SetParameters(parameters);
+                rvDiario.LocalReport.Refresh();
+                rvDiario.RefreshReport();
+
+                string nombreReporte = @"C:\MOVGANADOAUT\Reportes SIO\Dia.pdf";
+                GTHUtils.SavePDF(rvDiario, nombreReporte);
+                                        
+                if (!_origen)
+                    Process.Start(nombreReporte);
+            }
+            catch(Exception ex) { Console.WriteLine(ex.Message); }
+
         }
 
         private static DataTable ListToDataTable<T>(IList<T> data)
