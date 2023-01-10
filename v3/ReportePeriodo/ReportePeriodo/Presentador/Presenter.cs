@@ -57,6 +57,16 @@ namespace ReportePeriodo.Presentador
 
         }
 
+        public DateTime FechaMaxima(ref string mensaje)
+        {
+            return _model.FechaMaxima(ref mensaje);
+        }
+
+        public DateTime FechaMinima(ref string mensaje)
+        {
+            return _model.FechaMinima(ref mensaje);
+        }
+
         public List<Hoja1> ReporteHoja1(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, out List<decimal?> listaDEC, ref string mensaje)
         {
             listaDEC = new List<decimal?>();
@@ -68,8 +78,8 @@ namespace ReportePeriodo.Presentador
             promedioAñoAnt.Dia = "AÑO ANT";
             Hoja1 diferencia = _model.DiferenciaHoja1(promedio, promedioAñoAnt);
             Hoja1 porcentajeDif = _model.PorcentajeDiferenciaHoja1(diferencia, promedioAñoAnt);
-            List<Hoja1> espaciosEnBlanco = _model.EspaciosEnBlancoHoja1(response.Count);            
-            
+            List<Hoja1> espaciosEnBlanco = _model.EspaciosEnBlancoHoja1(response.Count);
+
             _model.AsignarColorimetriaHoja1(rancho, response, datosCalostro, promedio, fechaInicio, fechaFin, ref mensaje);
             _model.QuitarCeros(response);
             _model.QuitarCeros(promedio);
@@ -142,7 +152,8 @@ namespace ReportePeriodo.Presentador
         }
 
 
-        public List<Hoja3> ReporteHoja3(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        public List<Hoja3> ReporteHoja3(Rancho rancho, DateTime fechaInicio, DateTime fechaFin,
+            out decimal? novillas, out decimal? vacas, ref string mensaje)
         {
             mensaje = string.Empty;
             List<Hoja3> response = _model.ReporteHoja3(rancho, fechaInicio, fechaFin, ref mensaje);
@@ -152,6 +163,10 @@ namespace ReportePeriodo.Presentador
             Hoja3 diferencia = _model.DiferenciaReporteHoja3(total, totalAñoAnt, ref mensaje);
             Hoja3 porcentajeDiferencia = _model.PorcentajeDiferenciaReporteHoja3(diferencia, totalAñoAnt, ref mensaje);
             List<Hoja3> espaciosEnBlanco = _model.EspaciosEnBlancoHoja3(response.Count);
+
+            novillas = total.Jaulas_Vivas + total.Jaulas_Muertas + total.Destete_Vivas + total.Destete_Muertas + total.Vaquillas_Muertas + total.Vaquillas_Urgente + total.Vaquillas_RF + total.Vaquillas_RR + total.Vaquillas_RG + total.Vaquillas_Otros;
+
+            vacas = total.Vacas_Muertas + total.Vacas_Urgente + total.Vacas_RF + total.Vacas_RR + total.Vacas_RG + total.Vacas_Otros;
 
             _model.QuitarCeros(response);
             _model.QuitarCeros(total);

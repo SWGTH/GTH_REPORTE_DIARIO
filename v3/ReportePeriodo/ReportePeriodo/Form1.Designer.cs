@@ -29,6 +29,7 @@ namespace ReportePeriodo
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.rvDiario = new Microsoft.Reporting.WinForms.ReportViewer();
             this.etiEstablo = new System.Windows.Forms.Label();
@@ -52,13 +53,13 @@ namespace ReportePeriodo
             // 
             // etiEstablo
             // 
-            this.etiEstablo.AutoSize = true;
             this.etiEstablo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.etiEstablo.Location = new System.Drawing.Point(15, 22);
+            this.etiEstablo.Location = new System.Drawing.Point(18, 22);
             this.etiEstablo.Name = "etiEstablo";
-            this.etiEstablo.Size = new System.Drawing.Size(76, 15);
+            this.etiEstablo.Size = new System.Drawing.Size(248, 45);
             this.etiEstablo.TabIndex = 1;
             this.etiEstablo.Text = "ESTABLO: ";
+            this.etiEstablo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -67,11 +68,12 @@ namespace ReportePeriodo
             this.ClientSize = new System.Drawing.Size(293, 256);
             this.Controls.Add(this.etiEstablo);
             this.Controls.Add(this.monthCalendar1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reporte Diario";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

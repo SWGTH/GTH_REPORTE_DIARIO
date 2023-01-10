@@ -67,6 +67,7 @@ namespace ReportePeriodo.Modelo
         void QuitarCeros(List<Hoja4> reporte);
         void QuitarCeros(Hoja4 item);
         void CierreMesCorrecto(int ranId, int horaCorte, string urlWebService, DateTime fechaInicio, DateTime fechaFin, out bool validacionMedicina, out bool validacionAlimento);
-
+        DateTime FechaMaxima(ref string mensaje);
+        DateTime FechaMinima(ref string mensaje);
     }
 }

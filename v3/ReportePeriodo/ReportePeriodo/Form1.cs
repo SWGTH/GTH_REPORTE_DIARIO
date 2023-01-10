@@ -41,7 +41,13 @@ namespace ReportePeriodo
         private void Form1_Load(object sender, EventArgs e)
         {
             Configurar();
-
+            if (_origen)
+            {
+                DateTime fechaFin = DateTime.Today;
+                DateTime fechaInicio = new DateTime(fechaFin.Year, fechaFin.Month, 1);
+                Reporte(_rancho, fechaInicio, fechaFin);
+                Close();
+            }
         }
 
 
@@ -67,7 +73,10 @@ namespace ReportePeriodo
             _rancho.Erp = erpClave;
             _rancho.TimeShiftTracker = timeShiftTracker;
             etiEstablo.Text = "ESTABLO: " +  _rancho.Ran_Nombre.ToUpper();
-
+            DateTime fechaMaxima = _presentador.FechaMaxima(ref _mensaje);
+            DateTime fechaMinima = _presentador.FechaMinima(ref _mensaje);
+            monthCalendar1.MinDate = fechaMinima;
+            monthCalendar1.MaxDate = fechaMaxima;
         }
 
         private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
@@ -75,8 +84,10 @@ namespace ReportePeriodo
             DateTime fechaFin = monthCalendar1.SelectionRange.End.Date;
             DateTime fechaInicio = new DateTime(fechaFin.Year, fechaFin.Month, 1);
 
+            Cursor = Cursors.WaitCursor;
             Reporte(_rancho, fechaInicio, fechaFin);
-
+            Cursor = Cursors.Default;
+            Close();
         }
 
 
@@ -115,7 +126,8 @@ namespace ReportePeriodo
             #endregion
 
             #region hoja3
-            List<Hoja3> reporteHoja3 = _presentador.ReporteHoja3(_rancho, fechaInicio, fechaFin, ref _mensaje);
+            decimal? novillas = 0, vacas = 0;
+            List<Hoja3> reporteHoja3 = _presentador.ReporteHoja3(_rancho, fechaInicio, fechaFin, out novillas, out vacas, ref _mensaje);
             DataTable dtHoja3 = ListToDataTable(reporteHoja3);
             #endregion
 
@@ -132,13 +144,16 @@ namespace ReportePeriodo
 
             try 
             {
+                decimal valNovillas = novillas == null ? 0 : Convert.ToDecimal(novillas);
+                decimal valVacas = vacas == null ? 0 : Convert.ToDecimal(vacas);
+
                 string tituloNoid = _rancho.No_ID_Real ? "N° ID" : "N° ID + FE";
-                string cadenaNovillas = "TOTAL VAQUILLAS: " ;
-                string cadenaVacas = "TOTAL VACAS: ";
+                string cadenaNovillas = "TOTAL VAQUILLAS: " + valNovillas.ToString("n0");
+                string cadenaVacas = "TOTAL VACAS: " + valVacas.ToString("n0");
 
                 ReportParameter[] parameters = new ReportParameter[12];
-                parameters[0] = new ReportParameter("EMPRESA", _rancho.Ran_Nombre.ToString(), true);
-                parameters[1] = new ReportParameter("MES", fechaFin.ToString("MMMM yyyy"), true);
+                parameters[0] = new ReportParameter("EMPRESA", _rancho.Ran_Nombre.ToUpper(), true);
+                parameters[1] = new ReportParameter("MES", fechaFin.ToString("MMMM yyyy").ToUpper(), true);
                 parameters[2] = new ReportParameter("DEC_UNO", dec1.ToString(), true);
                 parameters[3] = new ReportParameter("DEC_DOS", dec2.ToString(), true);
                 parameters[4] = new ReportParameter("DEC_TRES", dec3.ToString(), true);

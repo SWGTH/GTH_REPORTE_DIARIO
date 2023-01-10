@@ -56,31 +56,31 @@ namespace ReportePeriodo.Entidad
 
         #region valores colores
         public string Color_MH_Crecimiento { get; set; }
-        public string Color_PorcenjeMs_Crecimiento { get; set; }
+        public string Color_PorcentajeMs_Crecimiento { get; set; }
         public string Color_MS_Crecimiento { get; set; }
         public string Color_CostoMS_Crecimiento { get; set; }
         public string Color_Costo_Crecimiento { get; set; }
 
         public string Color_MH_Desarrollo { get; set; }
-        public string Color_PorcenjeMs_Desarrollo { get; set; }
+        public string Color_PorcentajeMs_Desarrollo { get; set; }
         public string Color_MS_Desarrollo { get; set; }
         public string Color_CostoMS_Desarrollo { get; set; }
         public string Color_Costo_Desarrollo { get; set; }
 
         public string Color_MH_Vaquillas { get; set; }
-        public string Color_PorcenjeMs_Vaquillas { get; set; }
+        public string Color_PorcentajeMs_Vaquillas { get; set; }
         public string Color_MS_Vaquillas { get; set; }
         public string Color_CostoMS_Vaquillas { get; set; }
         public string Color_Costo_Vaquillas { get; set; }
 
         public string Color_MH_Secas { get; set; }
-        public string Color_PorcenjeMs_Secas { get; set; }
+        public string Color_PorcentajeMs_Secas { get; set; }
         public string Color_MS_Secas { get; set; }
         public string Color_CostoMS_Secas { get; set; }
         public string Color_Costo_Secas { get; set; }
 
         public string Color_MH_Reto { get; set; }
-        public string Color_PorcenjeMs_Reto { get; set; }
+        public string Color_PorcentajeMs_Reto { get; set; }
         public string Color_MS_Reto { get; set; }
         public string Color_CostoMS_Reto { get; set; }
         public string Color_Costo_Reto { get; set; }

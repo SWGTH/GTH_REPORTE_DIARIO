@@ -385,7 +385,7 @@ namespace ReportePeriodo.Modelo
                     hoja.Costo_Litro = busquedaMProduc != null ? busquedaMProduc.Media != null && busquedaMProduc.Costo != null ? busquedaMProduc.Media != 0 && busquedaMProduc.Costo != 0 ? busquedaMProduc.Costo / busquedaMProduc.Media : null : null : null;
                     hoja.MH = busquedaMProduc != null ? busquedaMProduc.MH : null;
                     hoja.MS = busquedaMProduc != null ? busquedaMProduc.MS : null;
-                    hoja.Porcentaje_MS = hoja.MH != null && hoja.MS != null ? hoja.MH != 0 ? hoja.MS / hoja.MH * 100 : null : null;
+                    hoja.Porcentaje_MS = hoja.MH != null && hoja.MS != null ? hoja.MH != 0 ? hoja.MS / hoja.MH : null : null;
                     hoja.SA = busquedaMProduc != null ? busquedaMProduc.SA : null;
                     hoja.MSS = busquedaMProduc != null ? busquedaMProduc.MSS : null;
                     hoja.EAS = busquedaMProduc != null ? busquedaMProduc.EAS : null;
@@ -412,7 +412,7 @@ namespace ReportePeriodo.Modelo
                 }
 
                 List<DatosProduccion> busquedaDec1 = (from x in datosProduccion where x.Fecha.Day < 11 select x).ToList();
-                List<DatosProduccion> busquedaDec1Dif0 = (from x in datosProduccion where x.Fecha.Day < 11  && x.Grasa != 0 select x).ToList();
+                List<DatosProduccion> busquedaDec1Dif0 = (from x in datosProduccion where x.Fecha.Day < 11 && x.Grasa != 0 select x).ToList();
 
                 decimal? decPorcGrasa = 0; decimal? valordecPorcGrasa = 0;
                 foreach (DatosProduccion itemDec in busquedaDec1)
@@ -470,11 +470,11 @@ namespace ReportePeriodo.Modelo
         public void CargarDatosTeoricos(Rancho rancho, DateTime fechaFin, ref string mensaje)
         {
             GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "10,11,12,13,91", fechaFin, out indicadorProduccion, ref mensaje);
-            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "21", fechaFin, out indicadorSecas, ref mensaje);
-            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "22", fechaFin, out indicadorReto, ref mensaje);
-            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "32", fechaFin, out indicadorCrecimiento, ref mensaje);
-            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "33", fechaFin, out indicadorDesarrollo, ref mensaje);
-            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "34", fechaFin, out indicadorVaquillas, ref mensaje);
+            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "21,92", fechaFin, out indicadorSecas, ref mensaje);
+            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "22,94", fechaFin, out indicadorReto, ref mensaje);
+            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "32,96", fechaFin, out indicadorCrecimiento, ref mensaje);
+            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "33,97", fechaFin, out indicadorDesarrollo, ref mensaje);
+            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "34,98", fechaFin, out indicadorVaquillas, ref mensaje);
         }
 
         public void CargarPromediosDatosAlimentacion(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
@@ -519,21 +519,22 @@ namespace ReportePeriodo.Modelo
             {
 
                 CalostroYOrdeña promedioCalostro = PromedioCalostro(fechaInicio, fechaFin);
+                DatosProduccion promedioDatos = TotalDatosDeProduccion(fechaInicio, fechaFin);
 
                 response.Ordeño = promH1.Ordeño;
                 response.Secas = promH1.Secas;
                 response.Hato = promH1.Hato;
                 response.Porcentaje_Lact = promH1.Porcentaje_Lact;
                 response.Porcentaje_Prot = promH1.Porcentaje_Prot;
-                response.Urea = promH1.Urea;
-                response.Porcentaje_Grasa = promH1.Porcentaje_Grasa;
-                response.CCS = promH1.CCS;
-                response.CTD = promH1.CTD;
-                response.DEC = null;
+                response.Urea = promedioDatos.Urea;
+                response.Porcentaje_Grasa = promedioDatos.Grasa;
+                response.CCS = promedioDatos.CCS;
+                response.CTD = promedioDatos.CTD;
+                response.DEC = promedioDatos.Grasa;
 
                 response.Leche = promH1.Leche;
                 response.Antib = promH1.Antib;
-                response.Media = (decimal)promedioProduccion.MEDIA;
+                response.Media = (decimal)indicadorOrdeño.MEDIA;
                 response.Total = promH1.Total;
                 response.DEL = promH1.DEL;
                 response.ANT = promH1.Ant;
@@ -543,12 +544,12 @@ namespace ReportePeriodo.Modelo
                 response.IC = (decimal)indicadorOrdeño.IC_PRODUCCION;
                 response.Costo_Litro = (decimal)indicadorOrdeño.PRECIOL;
                 response.MH = (decimal)indicadorOrdeño.MH;
-                response.Porcentaje_MS = (decimal)indicadorOrdeño.PORCENTAJEMS;
+                response.Porcentaje_MS = (decimal)(indicadorOrdeño.PORCENTAJEMS / 100);
                 response.MS = (decimal)indicadorOrdeño.MS;
                 response.SA = (decimal)indicadorOrdeño.SA;
                 response.MSS = (decimal)indicadorOrdeño.MSS;
                 response.EAS = (decimal)indicadorOrdeño.EAS;
-                response.Porcentaje_Sob = (decimal)indicadorOrdeño.EA;
+                response.Porcentaje_Sob = indicadorOrdeño.MH > 0 ? Convert.ToDecimal(indicadorOrdeño.SA / indicadorOrdeño.MH * 100) : 0;
                 response.Costo_Prod = (decimal)indicadorOrdeño.COSTO;
                 response.Costo_MS = (decimal)indicadorOrdeño.PRECIOKGMS;
 
@@ -583,22 +584,23 @@ namespace ReportePeriodo.Modelo
                 CalostroYOrdeña busquedaCalostro = new CalostroYOrdeña();
                 List<BacteriologiaLeche> datosBacteriologia = BacteriologiaLeche(fechaInicio, fechaFin, ref mensaje);
                 BacteriologiaLeche busquedaBacteriologia = new BacteriologiaLeche();
-
+                gth.IndicadorTeorico busquedaIndicador = new gth.IndicadorTeorico();
 
                 foreach (Hoja1 item in reporte)
                 {
                     busquedaCalostro = (from x in datosCalostro where x.Fecha.Day.ToString() == item.Dia select x).ToList().FirstOrDefault();
                     busquedaBacteriologia = (from x in datosBacteriologia where x.FECHA.Day.ToString() == item.Dia select x).ToList().FirstOrDefault();
+                    busquedaIndicador = (from x in indicadorProduccion where x.FECHA.Day.ToString() == item.Dia select x).ToList().FirstOrDefault();
 
                     item.Color_ILCA = Color1Hoja1(item.ILCA, Convert.ToDecimal(promedioProduccion.ILCA_PRODUCCION));
                     item.Color_IC = Color1Hoja1(item.IC, Convert.ToDecimal(promedioProduccion.IC_PRODUCCION));
                     item.Color_CostoLitro = Color2Hoja1(item.Costo_Litro, promedio.Costo_Litro);
 
-                    item.Color_MH = ColorDato(item.Ordeño, item.MH, promedio.MH);
-                    item.Color_PorcentajeMs = ColorDato(item.Ordeño, item.Porcentaje_MS, promedio.Porcentaje_MS);
-                    item.Color_MS = ColorDato(item.Ordeño, item.MS, promedio.MS);
-                    item.Color_CostoProd = ColorDato(item.Ordeño, item.Costo_Prod, promedio.Costo_Prod);
-                    item.Color_CostoMs = ColorDato(item.Ordeño, item.Costo_MS, promedio.Costo_MS);
+                    item.Color_MH = ColorDato(item.Ordeño, item.MH, busquedaIndicador.MH);
+                    item.Color_PorcentajeMs = ColorDato(item.Ordeño, item.Porcentaje_MS, busquedaIndicador.PORCENTAJE_MS / 100);
+                    item.Color_MS = ColorDato(item.Ordeño, item.MS, busquedaIndicador.MS);
+                    item.Color_CostoProd = ColorDato(item.Ordeño, item.Costo_Prod, busquedaIndicador.COSTO);
+                    item.Color_CostoMs = ColorDato(item.Ordeño, item.Costo_MS, busquedaIndicador.KGMS);
 
                     item.Color_Leche = Color1Hoja1(item.Leche, promedio.Leche);
                     item.Color_Media = Color1Hoja1(item.Media, promedio.Media);
@@ -683,52 +685,52 @@ namespace ReportePeriodo.Modelo
 
             try
             {
-                porcentaje.Ordeño = diferencia.Ordeño != null && añoAnterior.Ordeño != null && añoAnterior.Ordeño != 0 ? diferencia.Ordeño / añoAnterior.Ordeño * 100 : 0;
-                porcentaje.Secas = diferencia.Secas != null && añoAnterior.Secas != null && añoAnterior.Secas != 0 ? diferencia.Secas / añoAnterior.Secas * 100 : 0;
-                porcentaje.Hato = diferencia.Hato != null && añoAnterior.Hato != null && añoAnterior.Hato != 0 ? diferencia.Hato / añoAnterior.Hato * 100 : 0;
-                porcentaje.Porcentaje_Lact = diferencia.Porcentaje_Lact != null && añoAnterior.Porcentaje_Lact != null && añoAnterior.Porcentaje_Lact != 0 ? diferencia.Porcentaje_Lact / añoAnterior.Porcentaje_Lact * 100 : 0;
-                porcentaje.Porcentaje_Prot = diferencia.Porcentaje_Prot != null && añoAnterior.Porcentaje_Prot != null && añoAnterior.Porcentaje_Prot != 0 ? diferencia.Porcentaje_Prot / añoAnterior.Porcentaje_Prot * 100 : 0;
-                porcentaje.Urea = diferencia.Urea != null && añoAnterior.Urea != null && añoAnterior.Urea != 0 ? diferencia.Urea / añoAnterior.Urea * 100 : 0;
-                porcentaje.Porcentaje_Grasa = diferencia.Porcentaje_Grasa != null && añoAnterior.Porcentaje_Grasa != null && añoAnterior.Porcentaje_Grasa != 0 ? diferencia.Porcentaje_Grasa / añoAnterior.Porcentaje_Grasa * 100 : 0;
-                porcentaje.CCS = diferencia.CCS != null && añoAnterior.CCS != null && añoAnterior.CCS != 0 ? diferencia.CCS / añoAnterior.CCS * 100 : 0;
-                porcentaje.CTD = diferencia.CTD != null && añoAnterior.CTD != null && añoAnterior.CTD != 0 ? diferencia.CTD / añoAnterior.CTD * 100 : 0;
+                porcentaje.Ordeño = diferencia.Ordeño != null && añoAnterior.Ordeño != null && añoAnterior.Ordeño != 0 ? diferencia.Ordeño / añoAnterior.Ordeño : 0;
+                porcentaje.Secas = diferencia.Secas != null && añoAnterior.Secas != null && añoAnterior.Secas != 0 ? diferencia.Secas / añoAnterior.Secas : 0;
+                porcentaje.Hato = diferencia.Hato != null && añoAnterior.Hato != null && añoAnterior.Hato != 0 ? diferencia.Hato / añoAnterior.Hato : 0;
+                porcentaje.Porcentaje_Lact = diferencia.Porcentaje_Lact != null && añoAnterior.Porcentaje_Lact != null && añoAnterior.Porcentaje_Lact != 0 ? diferencia.Porcentaje_Lact / añoAnterior.Porcentaje_Lact : 0;
+                porcentaje.Porcentaje_Prot = diferencia.Porcentaje_Prot != null && añoAnterior.Porcentaje_Prot != null && añoAnterior.Porcentaje_Prot != 0 ? diferencia.Porcentaje_Prot / añoAnterior.Porcentaje_Prot : 0;
+                porcentaje.Urea = diferencia.Urea != null && añoAnterior.Urea != null && añoAnterior.Urea != 0 ? diferencia.Urea / añoAnterior.Urea : 0;
+                porcentaje.Porcentaje_Grasa = diferencia.Porcentaje_Grasa != null && añoAnterior.Porcentaje_Grasa != null && añoAnterior.Porcentaje_Grasa != 0 ? diferencia.Porcentaje_Grasa / añoAnterior.Porcentaje_Grasa : 0;
+                porcentaje.CCS = diferencia.CCS != null && añoAnterior.CCS != null && añoAnterior.CCS != 0 ? diferencia.CCS / añoAnterior.CCS : 0;
+                porcentaje.CTD = diferencia.CTD != null && añoAnterior.CTD != null && añoAnterior.CTD != 0 ? diferencia.CTD / añoAnterior.CTD : 0;
                 porcentaje.DEC = null;
 
-                porcentaje.Leche = diferencia.Leche != null && añoAnterior.Leche != null && añoAnterior.Leche != 0 ? diferencia.Leche / añoAnterior.Leche * 100 : 0;
-                porcentaje.Antib = diferencia.Antib != null && añoAnterior.Antib != null && añoAnterior.Antib != 0 ? diferencia.Antib / añoAnterior.Antib * 100 : 0;
-                porcentaje.Media = diferencia.Media != null && añoAnterior.Media != null && añoAnterior.Media != 0 ? diferencia.Media / añoAnterior.Media * 100 : 0;
-                porcentaje.Total = diferencia.Total != null && añoAnterior.Total != null && añoAnterior.Total != 0 ? diferencia.Total / añoAnterior.Total * 100 : 0;
-                porcentaje.DEL = diferencia.DEL != null && añoAnterior.DEL != null && añoAnterior.DEL != 0 ? diferencia.DEL / añoAnterior.DEL * 100 : 0;
-                porcentaje.ANT = diferencia.ANT != null && añoAnterior.ANT != null && añoAnterior.ANT != 0 ? diferencia.ANT / añoAnterior.ANT * 100 : 0;
+                porcentaje.Leche = diferencia.Leche != null && añoAnterior.Leche != null && añoAnterior.Leche != 0 ? diferencia.Leche / añoAnterior.Leche : 0;
+                porcentaje.Antib = diferencia.Antib != null && añoAnterior.Antib != null && añoAnterior.Antib != 0 ? diferencia.Antib / añoAnterior.Antib : 0;
+                porcentaje.Media = diferencia.Media != null && añoAnterior.Media != null && añoAnterior.Media != 0 ? diferencia.Media / añoAnterior.Media : 0;
+                porcentaje.Total = diferencia.Total != null && añoAnterior.Total != null && añoAnterior.Total != 0 ? diferencia.Total / añoAnterior.Total : 0;
+                porcentaje.DEL = diferencia.DEL != null && añoAnterior.DEL != null && añoAnterior.DEL != 0 ? diferencia.DEL / añoAnterior.DEL : 0;
+                porcentaje.ANT = diferencia.ANT != null && añoAnterior.ANT != null && añoAnterior.ANT != 0 ? diferencia.ANT / añoAnterior.ANT : 0;
 
-                porcentaje.EA = diferencia.EA != null && añoAnterior.EA != null && añoAnterior.EA != 0 ? diferencia.EA / añoAnterior.EA * 100 : 0;
-                porcentaje.ILCA = diferencia.ILCA != null && añoAnterior.ILCA != null && añoAnterior.ILCA != 0 ? diferencia.ILCA / añoAnterior.ILCA * 100 : 0;
-                porcentaje.IC = diferencia.IC != null && añoAnterior.IC != null && añoAnterior.IC != 0 ? diferencia.IC / añoAnterior.IC * 100 : 0;
-                porcentaje.Costo_Litro = diferencia.Costo_Litro != null && añoAnterior.Costo_Litro != null && añoAnterior.Costo_Litro != 0 ? diferencia.Costo_Litro / añoAnterior.Costo_Litro * 100 : 0;
-                porcentaje.MH = diferencia.MH != null && añoAnterior.MH != null && añoAnterior.MH != 0 ? diferencia.MH / añoAnterior.MH * 100 : 0;
-                porcentaje.Porcentaje_MS = diferencia.Porcentaje_MS != null && añoAnterior.Porcentaje_MS != null && añoAnterior.Porcentaje_MS != 0 ? diferencia.Porcentaje_MS / añoAnterior.Porcentaje_MS * 100 : 0;
-                porcentaje.MS = diferencia.MS != null && añoAnterior.MS != null && añoAnterior.MS != 0 ? diferencia.MS / añoAnterior.MS * 100 : 0;
-                porcentaje.SA = diferencia.SA != null && añoAnterior.SA != null && añoAnterior.SA != 0 ? diferencia.SA / añoAnterior.SA * 100 : 0;
-                porcentaje.MSS = diferencia.MSS != null && añoAnterior.MSS != null && añoAnterior.MSS != 0 ? diferencia.MSS / añoAnterior.MSS * 100 : 0;
-                porcentaje.EAS = diferencia.EAS != null && añoAnterior.EAS != null && añoAnterior.EAS != 0 ? diferencia.EAS / añoAnterior.EAS * 100 : 0;
-                porcentaje.Porcentaje_Sob = diferencia.Porcentaje_Sob != null && añoAnterior.Porcentaje_Sob != null && añoAnterior.Porcentaje_Sob != 0 ? diferencia.Porcentaje_Sob / añoAnterior.Porcentaje_Sob * 100 : 0;
-                porcentaje.Costo_Prod = diferencia.Costo_Prod != null && añoAnterior.Costo_Prod != null && añoAnterior.Costo_Prod != 0 ? diferencia.Costo_Prod / añoAnterior.Costo_Prod * 100 : 0;
-                porcentaje.Costo_MS = diferencia.Costo_MS != null && añoAnterior.Costo_MS != null && añoAnterior.Costo_MS != 0 ? diferencia.Costo_MS / añoAnterior.Costo_MS * 100 : 0;
+                porcentaje.EA = diferencia.EA != null && añoAnterior.EA != null && añoAnterior.EA != 0 ? diferencia.EA / añoAnterior.EA : 0;
+                porcentaje.ILCA = diferencia.ILCA != null && añoAnterior.ILCA != null && añoAnterior.ILCA != 0 ? diferencia.ILCA / añoAnterior.ILCA : 0;
+                porcentaje.IC = diferencia.IC != null && añoAnterior.IC != null && añoAnterior.IC != 0 ? diferencia.IC / añoAnterior.IC : 0;
+                porcentaje.Costo_Litro = diferencia.Costo_Litro != null && añoAnterior.Costo_Litro != null && añoAnterior.Costo_Litro != 0 ? diferencia.Costo_Litro / añoAnterior.Costo_Litro : 0;
+                porcentaje.MH = diferencia.MH != null && añoAnterior.MH != null && añoAnterior.MH != 0 ? diferencia.MH / añoAnterior.MH : 0;
+                porcentaje.Porcentaje_MS = diferencia.Porcentaje_MS != null && añoAnterior.Porcentaje_MS != null && añoAnterior.Porcentaje_MS != 0 ? diferencia.Porcentaje_MS / añoAnterior.Porcentaje_MS : 0;
+                porcentaje.MS = diferencia.MS != null && añoAnterior.MS != null && añoAnterior.MS != 0 ? diferencia.MS / añoAnterior.MS : 0;
+                porcentaje.SA = diferencia.SA != null && añoAnterior.SA != null && añoAnterior.SA != 0 ? diferencia.SA / añoAnterior.SA : 0;
+                porcentaje.MSS = diferencia.MSS != null && añoAnterior.MSS != null && añoAnterior.MSS != 0 ? diferencia.MSS / añoAnterior.MSS : 0;
+                porcentaje.EAS = diferencia.EAS != null && añoAnterior.EAS != null && añoAnterior.EAS != 0 ? diferencia.EAS / añoAnterior.EAS : 0;
+                porcentaje.Porcentaje_Sob = diferencia.Porcentaje_Sob != null && añoAnterior.Porcentaje_Sob != null && añoAnterior.Porcentaje_Sob != 0 ? diferencia.Porcentaje_Sob / añoAnterior.Porcentaje_Sob : 0;
+                porcentaje.Costo_Prod = diferencia.Costo_Prod != null && añoAnterior.Costo_Prod != null && añoAnterior.Costo_Prod != 0 ? diferencia.Costo_Prod / añoAnterior.Costo_Prod : 0;
+                porcentaje.Costo_MS = diferencia.Costo_MS != null && añoAnterior.Costo_MS != null && añoAnterior.Costo_MS != 0 ? diferencia.Costo_MS / añoAnterior.Costo_MS : 0;
 
-                porcentaje.Cribas_N1 = diferencia.Cribas_N1 != null && añoAnterior.Cribas_N1 != null && añoAnterior.Cribas_N1 != 0 ? diferencia.Cribas_N1 / añoAnterior.Cribas_N1 * 100 : 0;
-                porcentaje.Cribas_N2 = diferencia.Cribas_N2 != null && añoAnterior.Cribas_N2 != null && añoAnterior.Cribas_N2 != 0 ? diferencia.Cribas_N2 / añoAnterior.Cribas_N2 * 100 : 0;
-                porcentaje.Cribas_N3 = diferencia.Cribas_N3 != null && añoAnterior.Cribas_N3 != null && añoAnterior.Cribas_N3 != 0 ? diferencia.Cribas_N3 / añoAnterior.Cribas_N3 * 100 : 0;
-                porcentaje.Cribas_N4 = diferencia.Cribas_N4 != null && añoAnterior.Cribas_N4 != null && añoAnterior.Cribas_N4 != 0 ? diferencia.Cribas_N4 / añoAnterior.Cribas_N4 * 100 : 0;
+                porcentaje.Cribas_N1 = diferencia.Cribas_N1 != null && añoAnterior.Cribas_N1 != null && añoAnterior.Cribas_N1 != 0 ? diferencia.Cribas_N1 / añoAnterior.Cribas_N1 : 0;
+                porcentaje.Cribas_N2 = diferencia.Cribas_N2 != null && añoAnterior.Cribas_N2 != null && añoAnterior.Cribas_N2 != 0 ? diferencia.Cribas_N2 / añoAnterior.Cribas_N2 : 0;
+                porcentaje.Cribas_N3 = diferencia.Cribas_N3 != null && añoAnterior.Cribas_N3 != null && añoAnterior.Cribas_N3 != 0 ? diferencia.Cribas_N3 / añoAnterior.Cribas_N3 : 0;
+                porcentaje.Cribas_N4 = diferencia.Cribas_N4 != null && añoAnterior.Cribas_N4 != null && añoAnterior.Cribas_N4 != 0 ? diferencia.Cribas_N4 / añoAnterior.Cribas_N4 : 0;
 
-                porcentaje.NoID_Ses1 = diferencia.NoID_Ses1 != null && añoAnterior.NoID_Ses1 != null && añoAnterior.NoID_Ses1 != 0 ? diferencia.NoID_Ses1 / añoAnterior.NoID_Ses1 * 100 : 0;
-                porcentaje.NoID_Ses2 = diferencia.NoID_Ses2 != null && añoAnterior.NoID_Ses2 != null && añoAnterior.NoID_Ses2 != 0 ? diferencia.NoID_Ses2 / añoAnterior.NoID_Ses2 * 100 : 0;
-                porcentaje.NoID_Ses3 = diferencia.NoID_Ses3 != null && añoAnterior.NoID_Ses3 != null && añoAnterior.NoID_Ses3 != 0 ? diferencia.NoID_Ses3 / añoAnterior.NoID_Ses3 * 100 : 0;
+                porcentaje.NoID_Ses1 = diferencia.NoID_Ses1 != null && añoAnterior.NoID_Ses1 != null && añoAnterior.NoID_Ses1 != 0 ? diferencia.NoID_Ses1 / añoAnterior.NoID_Ses1 : 0;
+                porcentaje.NoID_Ses2 = diferencia.NoID_Ses2 != null && añoAnterior.NoID_Ses2 != null && añoAnterior.NoID_Ses2 != 0 ? diferencia.NoID_Ses2 / añoAnterior.NoID_Ses2 : 0;
+                porcentaje.NoID_Ses3 = diferencia.NoID_Ses3 != null && añoAnterior.NoID_Ses3 != null && añoAnterior.NoID_Ses3 != 0 ? diferencia.NoID_Ses3 / añoAnterior.NoID_Ses3 : 0;
 
-                porcentaje.SES1 = diferencia.SES1 != null && añoAnterior.SES1 != null && añoAnterior.SES1 != 0 ? diferencia.SES1 / añoAnterior.SES1 * 100 : 0;
-                porcentaje.SES2 = diferencia.SES2 != null && añoAnterior.SES2 != null && añoAnterior.SES2 != 0 ? diferencia.SES2 / añoAnterior.SES2 * 100 : 0;
-                porcentaje.SES3 = diferencia.SES3 != null && añoAnterior.SES3 != null && añoAnterior.SES3 != 0 ? diferencia.SES3 / añoAnterior.SES3 * 100 : 0;
+                porcentaje.SES1 = diferencia.SES1 != null && añoAnterior.SES1 != null && añoAnterior.SES1 != 0 ? diferencia.SES1 / añoAnterior.SES1 : 0;
+                porcentaje.SES2 = diferencia.SES2 != null && añoAnterior.SES2 != null && añoAnterior.SES2 != 0 ? diferencia.SES2 / añoAnterior.SES2 : 0;
+                porcentaje.SES3 = diferencia.SES3 != null && añoAnterior.SES3 != null && añoAnterior.SES3 != 0 ? diferencia.SES3 / añoAnterior.SES3 : 0;
 
-                diferencia.Porcentaje_Revueltas = diferencia.Porcentaje_Revueltas != null && añoAnterior.Porcentaje_Revueltas != null && añoAnterior.Porcentaje_Revueltas != 0 ? diferencia.Porcentaje_Revueltas / añoAnterior.Porcentaje_Revueltas * 100 : 0;
+                diferencia.Porcentaje_Revueltas = diferencia.Porcentaje_Revueltas != null && añoAnterior.Porcentaje_Revueltas != null && añoAnterior.Porcentaje_Revueltas != 0 ? diferencia.Porcentaje_Revueltas / añoAnterior.Porcentaje_Revueltas : 0;
             }
             catch { }
 
@@ -1176,7 +1178,11 @@ namespace ReportePeriodo.Modelo
 
                 promedio.Inventario_Total = inventario.InventarioTotal;
 
-                promedio.IngresoxAnimal = promedio.Inventario_Total > 0 ? (lecheProducida * precioLecheX) / promedio.Inventario_Total : 0;
+                decimal ixA = 0;
+                try { ixA = promedio.Inventario_Total > 0 ? Convert.ToDecimal((lecheProducida * precioLecheX) / promedio.Inventario_Total) : 0; }
+                catch { }
+
+                promedio.IngresoxAnimal = Math.Round(ixA, 5);
 
                 decimal? auxJaulas = promedio.Jaulas_Costo * promedio.Jaulas_Inventario;
                 decimal? auxCrecimiento = promedio.Crecimiento_Costo * promedio.Crecimiento_Inventario;
@@ -1187,7 +1193,11 @@ namespace ReportePeriodo.Modelo
                 decimal? auxOrdeño = Convert.ToDecimal(indicadorOrdeño.ANIMELES * indicadorOrdeño.COSTO);
                 decimal? auxCosto = auxJaulas + auxCrecimiento + auxDesarrollo + auxVaquillas + auxSecas + auxReto + auxOrdeño;
 
-                promedio.CostoxAnimal = promedio.Inventario_Total > 0 ? auxCosto / promedio.Inventario_Total : 0;
+                decimal cxa = 0;
+                try { cxa = promedio.Inventario_Total > 0 ? Convert.ToDecimal(auxCosto / promedio.Inventario_Total) : 0; }
+                catch { }
+
+                promedio.CostoxAnimal = Math.Round(cxa, 5);
                 promedio.UtilidadxAnimal = promedio.IngresoxAnimal - promedio.CostoxAnimal;
                 promedio.Porcentaje_CostoxAnimal = promedio.IngresoxAnimal > 0 ? promedio.CostoxAnimal / promedio.IngresoxAnimal : 0;
                 promedio.Porcentaje_UtilidadxAnimal = promedio.IngresoxAnimal > 0 ? promedio.UtilidadxAnimal / promedio.IngresoxAnimal : 0;
@@ -1262,6 +1272,7 @@ namespace ReportePeriodo.Modelo
 
                 #region utilidad
                 difencia.Inventario_Total = promedio.Inventario_Total != null && promedioAñoAnt.Inventario_Total != null ? promedio.Inventario_Total - promedioAñoAnt.Inventario_Total : 0;
+               
                 difencia.CostoxAnimal = promedio.CostoxAnimal != null && promedioAñoAnt.CostoxAnimal != null ? promedio.CostoxAnimal - promedioAñoAnt.CostoxAnimal : 0;
                 difencia.UtilidadxAnimal = promedio.UtilidadxAnimal != null && promedioAñoAnt.UtilidadxAnimal != null ? promedio.UtilidadxAnimal - promedioAñoAnt.UtilidadxAnimal : 0;
                 difencia.IngresoxAnimal = promedio.IngresoxAnimal != null && promedioAñoAnt.IngresoxAnimal != null ? promedio.IngresoxAnimal - promedioAñoAnt.IngresoxAnimal : 0;
@@ -1281,68 +1292,73 @@ namespace ReportePeriodo.Modelo
             try
             {
                 #region Jaulas 
-                porcentaje.Jaulas_Inventario = diferencia.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != 0 ? diferencia.Jaulas_Inventario / promedioAñoAnt.Jaulas_Inventario * 100 : 0;
-                porcentaje.Jaulas_Costo = diferencia.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != 0 ? diferencia.Jaulas_Inventario / promedioAñoAnt.Jaulas_Inventario * 100 : 0;
+                porcentaje.Jaulas_Inventario = diferencia.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != 0 ? diferencia.Jaulas_Inventario / promedioAñoAnt.Jaulas_Inventario : 0;
+                porcentaje.Jaulas_Costo = diferencia.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != 0 ? diferencia.Jaulas_Inventario / promedioAñoAnt.Jaulas_Inventario : 0;
                 #endregion
 
                 #region Crecimiento 
-                porcentaje.Crecimiento_Inventario = diferencia.Crecimiento_Inventario != null && promedioAñoAnt.Crecimiento_Inventario != null && promedioAñoAnt.Crecimiento_Inventario != 0 ? diferencia.Crecimiento_Inventario / promedioAñoAnt.Crecimiento_Inventario * 100 : 0;
-                porcentaje.Crecimiento_MH = diferencia.Crecimiento_MH != null && promedioAñoAnt.Crecimiento_MH != null && promedioAñoAnt.Crecimiento_MH != 0 ? diferencia.Crecimiento_MH / promedioAñoAnt.Crecimiento_MH * 100 : 0;
-                porcentaje.Crecimiento_Costo = diferencia.Crecimiento_Costo != null && promedioAñoAnt.Crecimiento_Costo != null && promedioAñoAnt.Crecimiento_Costo != 0 ? diferencia.Crecimiento_Costo / promedioAñoAnt.Jaulas_Inventario * 100 : 0;
-                porcentaje.Crecimiento_PorcentajeMS = diferencia.Crecimiento_PorcentajeMS != null && promedioAñoAnt.Crecimiento_PorcentajeMS != null && promedioAñoAnt.Crecimiento_PorcentajeMS != 0 ? diferencia.Crecimiento_PorcentajeMS / promedioAñoAnt.Crecimiento_PorcentajeMS * 100 : 0;
-                porcentaje.Crecimiento_MS = diferencia.Crecimiento_MS != null && promedioAñoAnt.Crecimiento_MS != null && promedioAñoAnt.Crecimiento_MS != 0 ? diferencia.Crecimiento_MS / promedioAñoAnt.Crecimiento_MS * 100 : 0;
-                porcentaje.Crecimiento_CostoMS = diferencia.Crecimiento_CostoMS != null && promedioAñoAnt.Crecimiento_CostoMS != null && promedioAñoAnt.Crecimiento_CostoMS != 0 ? diferencia.Crecimiento_CostoMS / promedioAñoAnt.Crecimiento_CostoMS * 100 : 0;
+                porcentaje.Crecimiento_Inventario = diferencia.Crecimiento_Inventario != null && promedioAñoAnt.Crecimiento_Inventario != null && promedioAñoAnt.Crecimiento_Inventario != 0 ? diferencia.Crecimiento_Inventario / promedioAñoAnt.Crecimiento_Inventario : 0;
+                porcentaje.Crecimiento_MH = diferencia.Crecimiento_MH != null && promedioAñoAnt.Crecimiento_MH != null && promedioAñoAnt.Crecimiento_MH != 0 ? diferencia.Crecimiento_MH / promedioAñoAnt.Crecimiento_MH : 0;
+                porcentaje.Crecimiento_Costo = diferencia.Crecimiento_Costo != null && promedioAñoAnt.Crecimiento_Costo != null && promedioAñoAnt.Crecimiento_Costo != 0 ? diferencia.Crecimiento_Costo / promedioAñoAnt.Jaulas_Inventario : 0;
+                porcentaje.Crecimiento_PorcentajeMS = diferencia.Crecimiento_PorcentajeMS != null && promedioAñoAnt.Crecimiento_PorcentajeMS != null && promedioAñoAnt.Crecimiento_PorcentajeMS != 0 ? diferencia.Crecimiento_PorcentajeMS / promedioAñoAnt.Crecimiento_PorcentajeMS : 0;
+                porcentaje.Crecimiento_MS = diferencia.Crecimiento_MS != null && promedioAñoAnt.Crecimiento_MS != null && promedioAñoAnt.Crecimiento_MS != 0 ? diferencia.Crecimiento_MS / promedioAñoAnt.Crecimiento_MS : 0;
+                porcentaje.Crecimiento_CostoMS = diferencia.Crecimiento_CostoMS != null && promedioAñoAnt.Crecimiento_CostoMS != null && promedioAñoAnt.Crecimiento_CostoMS != 0 ? diferencia.Crecimiento_CostoMS / promedioAñoAnt.Crecimiento_CostoMS : 0;
                 #endregion
 
                 #region Desarrollo 
-                porcentaje.Desarrollo_Inventario = diferencia.Desarrollo_Inventario != null && promedioAñoAnt.Desarrollo_Inventario != null && promedioAñoAnt.Desarrollo_Inventario != 0 ? diferencia.Desarrollo_Inventario / promedioAñoAnt.Desarrollo_Inventario * 100 : 0;
-                porcentaje.Desarrollo_MH = diferencia.Desarrollo_MH != null && promedioAñoAnt.Desarrollo_MH != null && promedioAñoAnt.Desarrollo_MH != 0 ? diferencia.Desarrollo_MH / promedioAñoAnt.Desarrollo_MH * 100 : 0;
-                porcentaje.Desarrollo_Costo = diferencia.Desarrollo_Costo != null && promedioAñoAnt.Desarrollo_Costo != null && promedioAñoAnt.Desarrollo_Costo != 0 ? diferencia.Desarrollo_Costo / promedioAñoAnt.Desarrollo_Costo * 100 : 0;
-                porcentaje.Desarrollo_PorcentajeMS = diferencia.Desarrollo_PorcentajeMS != null && promedioAñoAnt.Desarrollo_PorcentajeMS != null && promedioAñoAnt.Desarrollo_PorcentajeMS != 0 ? diferencia.Desarrollo_PorcentajeMS / promedioAñoAnt.Desarrollo_PorcentajeMS * 100 : 0;
-                porcentaje.Desarrollo_MS = diferencia.Desarrollo_MS != null && promedioAñoAnt.Desarrollo_MS != null && promedioAñoAnt.Desarrollo_MS != 0 ? diferencia.Desarrollo_MS / promedioAñoAnt.Desarrollo_MS * 100 : 0;
-                porcentaje.Desarrollo_CostoMS = diferencia.Desarrollo_CostoMS != null && promedioAñoAnt.Desarrollo_CostoMS != null && promedioAñoAnt.Desarrollo_CostoMS != 0 ? diferencia.Desarrollo_CostoMS / promedioAñoAnt.Desarrollo_CostoMS * 100 : 0;
+                porcentaje.Desarrollo_Inventario = diferencia.Desarrollo_Inventario != null && promedioAñoAnt.Desarrollo_Inventario != null && promedioAñoAnt.Desarrollo_Inventario != 0 ? diferencia.Desarrollo_Inventario / promedioAñoAnt.Desarrollo_Inventario : 0;
+                porcentaje.Desarrollo_MH = diferencia.Desarrollo_MH != null && promedioAñoAnt.Desarrollo_MH != null && promedioAñoAnt.Desarrollo_MH != 0 ? diferencia.Desarrollo_MH / promedioAñoAnt.Desarrollo_MH : 0;
+                porcentaje.Desarrollo_Costo = diferencia.Desarrollo_Costo != null && promedioAñoAnt.Desarrollo_Costo != null && promedioAñoAnt.Desarrollo_Costo != 0 ? diferencia.Desarrollo_Costo / promedioAñoAnt.Desarrollo_Costo : 0;
+                porcentaje.Desarrollo_PorcentajeMS = diferencia.Desarrollo_PorcentajeMS != null && promedioAñoAnt.Desarrollo_PorcentajeMS != null && promedioAñoAnt.Desarrollo_PorcentajeMS != 0 ? diferencia.Desarrollo_PorcentajeMS / promedioAñoAnt.Desarrollo_PorcentajeMS : 0;
+                porcentaje.Desarrollo_MS = diferencia.Desarrollo_MS != null && promedioAñoAnt.Desarrollo_MS != null && promedioAñoAnt.Desarrollo_MS != 0 ? diferencia.Desarrollo_MS / promedioAñoAnt.Desarrollo_MS : 0;
+                porcentaje.Desarrollo_CostoMS = diferencia.Desarrollo_CostoMS != null && promedioAñoAnt.Desarrollo_CostoMS != null && promedioAñoAnt.Desarrollo_CostoMS != 0 ? diferencia.Desarrollo_CostoMS / promedioAñoAnt.Desarrollo_CostoMS : 0;
                 #endregion
 
                 #region Vaquillas 
-                porcentaje.Vaquillas_Inventario = diferencia.Vaquillas_Inventario != null && promedioAñoAnt.Vaquillas_Inventario != null && promedioAñoAnt.Vaquillas_Inventario != 0 ? diferencia.Vaquillas_Inventario / promedioAñoAnt.Vaquillas_Inventario * 100 : 0;
-                porcentaje.Vaquillas_MH = diferencia.Vaquillas_MH != null && promedioAñoAnt.Vaquillas_MH != null && promedioAñoAnt.Vaquillas_MH != 0 ? diferencia.Vaquillas_MH / promedioAñoAnt.Vaquillas_MH * 100 : 0;
-                porcentaje.Vaquillas_Costo = diferencia.Vaquillas_Costo != null && promedioAñoAnt.Vaquillas_Costo != null && promedioAñoAnt.Vaquillas_Costo != 0 ? diferencia.Vaquillas_Costo / promedioAñoAnt.Vaquillas_Costo * 100 : 0;
-                porcentaje.Vaquillas_PorcentajeMS = diferencia.Vaquillas_PorcentajeMS != null && promedioAñoAnt.Vaquillas_PorcentajeMS != null && promedioAñoAnt.Vaquillas_PorcentajeMS != 0 ? diferencia.Vaquillas_PorcentajeMS / promedioAñoAnt.Vaquillas_PorcentajeMS * 100 : 0;
-                porcentaje.Vaquillas_MS = diferencia.Vaquillas_MS != null && promedioAñoAnt.Vaquillas_MS != null && promedioAñoAnt.Vaquillas_MS != 0 ? diferencia.Vaquillas_MS / promedioAñoAnt.Vaquillas_MS * 100 : 0;
-                porcentaje.Vaquillas_CostoMS = diferencia.Vaquillas_CostoMS != null && promedioAñoAnt.Vaquillas_CostoMS != null && promedioAñoAnt.Vaquillas_CostoMS != 0 ? diferencia.Vaquillas_CostoMS / promedioAñoAnt.Vaquillas_CostoMS * 100 : 0;
+                porcentaje.Vaquillas_Inventario = diferencia.Vaquillas_Inventario != null && promedioAñoAnt.Vaquillas_Inventario != null && promedioAñoAnt.Vaquillas_Inventario != 0 ? diferencia.Vaquillas_Inventario / promedioAñoAnt.Vaquillas_Inventario : 0;
+                porcentaje.Vaquillas_MH = diferencia.Vaquillas_MH != null && promedioAñoAnt.Vaquillas_MH != null && promedioAñoAnt.Vaquillas_MH != 0 ? diferencia.Vaquillas_MH / promedioAñoAnt.Vaquillas_MH : 0;
+                porcentaje.Vaquillas_Costo = diferencia.Vaquillas_Costo != null && promedioAñoAnt.Vaquillas_Costo != null && promedioAñoAnt.Vaquillas_Costo != 0 ? diferencia.Vaquillas_Costo / promedioAñoAnt.Vaquillas_Costo : 0;
+                porcentaje.Vaquillas_PorcentajeMS = diferencia.Vaquillas_PorcentajeMS != null && promedioAñoAnt.Vaquillas_PorcentajeMS != null && promedioAñoAnt.Vaquillas_PorcentajeMS != 0 ? diferencia.Vaquillas_PorcentajeMS / promedioAñoAnt.Vaquillas_PorcentajeMS : 0;
+                porcentaje.Vaquillas_MS = diferencia.Vaquillas_MS != null && promedioAñoAnt.Vaquillas_MS != null && promedioAñoAnt.Vaquillas_MS != 0 ? diferencia.Vaquillas_MS / promedioAñoAnt.Vaquillas_MS : 0;
+                porcentaje.Vaquillas_CostoMS = diferencia.Vaquillas_CostoMS != null && promedioAñoAnt.Vaquillas_CostoMS != null && promedioAñoAnt.Vaquillas_CostoMS != 0 ? diferencia.Vaquillas_CostoMS / promedioAñoAnt.Vaquillas_CostoMS : 0;
                 #endregion
 
                 #region Secas 
-                porcentaje.Secas_Inventario = diferencia.Secas_Inventario != null && promedioAñoAnt.Secas_Inventario != null && promedioAñoAnt.Secas_Inventario != 0 ? diferencia.Secas_Inventario / promedioAñoAnt.Secas_Inventario * 100 : 0;
-                porcentaje.Secas_MH = diferencia.Secas_MH != null && promedioAñoAnt.Secas_MH != null && promedioAñoAnt.Secas_MH != 0 ? diferencia.Secas_MH / promedioAñoAnt.Secas_MH * 100 : 0;
-                porcentaje.Secas_PorcentajeMS = diferencia.Secas_PorcentajeMS != null && promedioAñoAnt.Secas_PorcentajeMS != null && promedioAñoAnt.Secas_PorcentajeMS != 0 ? diferencia.Secas_PorcentajeMS / promedioAñoAnt.Secas_PorcentajeMS * 100 : 0;
-                porcentaje.Secas_MS = diferencia.Secas_MS != null && promedioAñoAnt.Secas_MS != null && promedioAñoAnt.Secas_MS != 0 ? diferencia.Secas_MS / promedioAñoAnt.Secas_MS * 100 : 0;
-                porcentaje.Secas_SA = diferencia.Secas_SA != null && promedioAñoAnt.Secas_SA != null && promedioAñoAnt.Secas_SA != 0 ? diferencia.Secas_SA / promedioAñoAnt.Secas_SA * 100 : 0;
-                porcentaje.Secas_Mss = diferencia.Secas_Mss != null && promedioAñoAnt.Secas_Mss != null && promedioAñoAnt.Secas_Mss != 0 ? diferencia.Secas_Mss / promedioAñoAnt.Secas_Mss * 100 : 0;
-                porcentaje.Secas_PorcentajeSob = diferencia.Secas_PorcentajeSob != null && promedioAñoAnt.Secas_PorcentajeSob != null && promedioAñoAnt.Secas_PorcentajeSob != 0 ? diferencia.Secas_PorcentajeSob / promedioAñoAnt.Secas_PorcentajeSob * 100 : 0;
-                porcentaje.Secas_Costo = diferencia.Secas_Costo != null && promedioAñoAnt.Secas_Costo != null && promedioAñoAnt.Secas_Costo != 0 ? diferencia.Secas_Costo / promedioAñoAnt.Secas_Costo * 100 : 0;
-                porcentaje.Secas_CostoMS = diferencia.Secas_CostoMS != null && promedioAñoAnt.Secas_CostoMS != null && promedioAñoAnt.Secas_CostoMS != 0 ? diferencia.Secas_CostoMS / promedioAñoAnt.Secas_CostoMS * 100 : 0;
+                porcentaje.Secas_Inventario = diferencia.Secas_Inventario != null && promedioAñoAnt.Secas_Inventario != null && promedioAñoAnt.Secas_Inventario != 0 ? diferencia.Secas_Inventario / promedioAñoAnt.Secas_Inventario : 0;
+                porcentaje.Secas_MH = diferencia.Secas_MH != null && promedioAñoAnt.Secas_MH != null && promedioAñoAnt.Secas_MH != 0 ? diferencia.Secas_MH / promedioAñoAnt.Secas_MH : 0;
+                porcentaje.Secas_PorcentajeMS = diferencia.Secas_PorcentajeMS != null && promedioAñoAnt.Secas_PorcentajeMS != null && promedioAñoAnt.Secas_PorcentajeMS != 0 ? diferencia.Secas_PorcentajeMS / promedioAñoAnt.Secas_PorcentajeMS : 0;
+                porcentaje.Secas_MS = diferencia.Secas_MS != null && promedioAñoAnt.Secas_MS != null && promedioAñoAnt.Secas_MS != 0 ? diferencia.Secas_MS / promedioAñoAnt.Secas_MS : 0;
+                porcentaje.Secas_SA = diferencia.Secas_SA != null && promedioAñoAnt.Secas_SA != null && promedioAñoAnt.Secas_SA != 0 ? diferencia.Secas_SA / promedioAñoAnt.Secas_SA : 0;
+                porcentaje.Secas_Mss = diferencia.Secas_Mss != null && promedioAñoAnt.Secas_Mss != null && promedioAñoAnt.Secas_Mss != 0 ? diferencia.Secas_Mss / promedioAñoAnt.Secas_Mss : 0;
+                porcentaje.Secas_PorcentajeSob = diferencia.Secas_PorcentajeSob != null && promedioAñoAnt.Secas_PorcentajeSob != null && promedioAñoAnt.Secas_PorcentajeSob != 0 ? diferencia.Secas_PorcentajeSob / promedioAñoAnt.Secas_PorcentajeSob : 0;
+                porcentaje.Secas_Costo = diferencia.Secas_Costo != null && promedioAñoAnt.Secas_Costo != null && promedioAñoAnt.Secas_Costo != 0 ? diferencia.Secas_Costo / promedioAñoAnt.Secas_Costo : 0;
+                porcentaje.Secas_CostoMS = diferencia.Secas_CostoMS != null && promedioAñoAnt.Secas_CostoMS != null && promedioAñoAnt.Secas_CostoMS != 0 ? diferencia.Secas_CostoMS / promedioAñoAnt.Secas_CostoMS : 0;
                 #endregion
 
                 #region Reto 
-                porcentaje.Reto_Inventario = diferencia.Reto_Inventario != null && promedioAñoAnt.Reto_Inventario != null && promedioAñoAnt.Reto_Inventario != 0 ? diferencia.Reto_Inventario / promedioAñoAnt.Reto_Inventario * 100 : 0;
-                porcentaje.Reto_MH = diferencia.Reto_MH != null && promedioAñoAnt.Reto_MH != null && promedioAñoAnt.Reto_MH != 0 ? diferencia.Reto_MH / promedioAñoAnt.Reto_MH * 100 : 0;
-                porcentaje.Reto_PorcentajeMS = diferencia.Reto_PorcentajeMS != null && promedioAñoAnt.Reto_PorcentajeMS != null && promedioAñoAnt.Reto_PorcentajeMS != 0 ? diferencia.Reto_PorcentajeMS / promedioAñoAnt.Reto_PorcentajeMS * 100 : 0;
-                porcentaje.Reto_MS = diferencia.Reto_MS != null && promedioAñoAnt.Reto_MS != null && promedioAñoAnt.Reto_MS != 0 ? diferencia.Reto_MS / promedioAñoAnt.Reto_MS * 100 : 0;
-                porcentaje.Reto_SA = diferencia.Reto_SA != null && promedioAñoAnt.Reto_SA != null && promedioAñoAnt.Reto_SA != 0 ? diferencia.Reto_SA / promedioAñoAnt.Reto_SA * 100 : 0;
-                porcentaje.Reto_Mss = diferencia.Reto_Mss != null && promedioAñoAnt.Reto_Mss != null && promedioAñoAnt.Reto_Mss != 0 ? diferencia.Reto_Mss / promedioAñoAnt.Reto_Mss * 100 : 0;
-                porcentaje.Reto_PorcentajeSob = diferencia.Reto_PorcentajeSob != null && promedioAñoAnt.Reto_PorcentajeSob != null && promedioAñoAnt.Reto_PorcentajeSob != 0 ? diferencia.Reto_PorcentajeSob / promedioAñoAnt.Reto_PorcentajeSob * 100 : 0;
-                porcentaje.Reto_Costo = diferencia.Reto_Costo != null && promedioAñoAnt.Reto_Costo != null && promedioAñoAnt.Reto_Costo != 0 ? diferencia.Reto_Costo / promedioAñoAnt.Reto_Costo * 100 : 0;
-                porcentaje.Reto_CostoMS = diferencia.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != 0 ? diferencia.Reto_CostoMS / promedioAñoAnt.Reto_CostoMS * 100 : 0;
+                porcentaje.Reto_Inventario = diferencia.Reto_Inventario != null && promedioAñoAnt.Reto_Inventario != null && promedioAñoAnt.Reto_Inventario != 0 ? diferencia.Reto_Inventario / promedioAñoAnt.Reto_Inventario : 0;
+                porcentaje.Reto_MH = diferencia.Reto_MH != null && promedioAñoAnt.Reto_MH != null && promedioAñoAnt.Reto_MH != 0 ? diferencia.Reto_MH / promedioAñoAnt.Reto_MH : 0;
+                porcentaje.Reto_PorcentajeMS = diferencia.Reto_PorcentajeMS != null && promedioAñoAnt.Reto_PorcentajeMS != null && promedioAñoAnt.Reto_PorcentajeMS != 0 ? diferencia.Reto_PorcentajeMS / promedioAñoAnt.Reto_PorcentajeMS : 0;
+                porcentaje.Reto_MS = diferencia.Reto_MS != null && promedioAñoAnt.Reto_MS != null && promedioAñoAnt.Reto_MS != 0 ? diferencia.Reto_MS / promedioAñoAnt.Reto_MS : 0;
+                porcentaje.Reto_SA = diferencia.Reto_SA != null && promedioAñoAnt.Reto_SA != null && promedioAñoAnt.Reto_SA != 0 ? diferencia.Reto_SA / promedioAñoAnt.Reto_SA : 0;
+                porcentaje.Reto_Mss = diferencia.Reto_Mss != null && promedioAñoAnt.Reto_Mss != null && promedioAñoAnt.Reto_Mss != 0 ? diferencia.Reto_Mss / promedioAñoAnt.Reto_Mss : 0;
+                porcentaje.Reto_PorcentajeSob = diferencia.Reto_PorcentajeSob != null && promedioAñoAnt.Reto_PorcentajeSob != null && promedioAñoAnt.Reto_PorcentajeSob != 0 ? diferencia.Reto_PorcentajeSob / promedioAñoAnt.Reto_PorcentajeSob : 0;
+                porcentaje.Reto_Costo = diferencia.Reto_Costo != null && promedioAñoAnt.Reto_Costo != null && promedioAñoAnt.Reto_Costo != 0 ? diferencia.Reto_Costo / promedioAñoAnt.Reto_Costo : 0;
+                porcentaje.Reto_CostoMS = diferencia.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != 0 ? diferencia.Reto_CostoMS / promedioAñoAnt.Reto_CostoMS : 0;
                 #endregion
 
                 #region Utilidad 
-                porcentaje.Inventario_Total = diferencia.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != 0 ? diferencia.Reto_CostoMS / promedioAñoAnt.Reto_CostoMS * 100 : 0;
-                porcentaje.CostoxAnimal = diferencia.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != 0 ? diferencia.Reto_CostoMS / promedioAñoAnt.Reto_CostoMS * 100 : 0;
-                porcentaje.UtilidadxAnimal = diferencia.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != 0 ? diferencia.Reto_CostoMS / promedioAñoAnt.Reto_CostoMS * 100 : 0;
-                porcentaje.IngresoxAnimal = diferencia.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != null && promedioAñoAnt.Reto_CostoMS != 0 ? diferencia.Reto_CostoMS / promedioAñoAnt.Reto_CostoMS * 100 : 0;
-                porcentaje.Porcentaje_CostoxAnimal = diferencia.Porcentaje_CostoxAnimal != null && promedioAñoAnt.Porcentaje_CostoxAnimal != null && promedioAñoAnt.Porcentaje_CostoxAnimal != 0 ? diferencia.Porcentaje_CostoxAnimal / promedioAñoAnt.Porcentaje_CostoxAnimal * 100 : 0;
-                porcentaje.Porcentaje_UtilidadxAnimal = diferencia.Porcentaje_UtilidadxAnimal != null && promedioAñoAnt.Porcentaje_UtilidadxAnimal != null && promedioAñoAnt.Porcentaje_UtilidadxAnimal != 0 ? diferencia.Porcentaje_UtilidadxAnimal / promedioAñoAnt.Porcentaje_UtilidadxAnimal * 100 : 0;
+                porcentaje.Inventario_Total = diferencia.Inventario_Total != null && promedioAñoAnt.Inventario_Total != null && promedioAñoAnt.Inventario_Total != 0 ? diferencia.Inventario_Total / promedioAñoAnt.Inventario_Total : 0;
+
+                porcentaje.CostoxAnimal = diferencia.CostoxAnimal != null && promedioAñoAnt.CostoxAnimal != null && promedioAñoAnt.CostoxAnimal != 0 ? diferencia.CostoxAnimal / promedioAñoAnt.CostoxAnimal : 0;
+
+                porcentaje.UtilidadxAnimal = diferencia.UtilidadxAnimal != null && promedioAñoAnt.UtilidadxAnimal != null && promedioAñoAnt.UtilidadxAnimal != 0 ? diferencia.UtilidadxAnimal / promedioAñoAnt.UtilidadxAnimal : 0;
+
+                porcentaje.IngresoxAnimal = diferencia.IngresoxAnimal != null && promedioAñoAnt.IngresoxAnimal != null && promedioAñoAnt.IngresoxAnimal != 0 ? diferencia.IngresoxAnimal / promedioAñoAnt.IngresoxAnimal : 0;
+
+                porcentaje.Porcentaje_CostoxAnimal = diferencia.Porcentaje_CostoxAnimal != null && promedioAñoAnt.Porcentaje_CostoxAnimal != null && promedioAñoAnt.Porcentaje_CostoxAnimal != 0 ? diferencia.Porcentaje_CostoxAnimal / promedioAñoAnt.Porcentaje_CostoxAnimal : 0;
+
+                porcentaje.Porcentaje_UtilidadxAnimal = diferencia.Porcentaje_UtilidadxAnimal != null && promedioAñoAnt.Porcentaje_UtilidadxAnimal != null && promedioAñoAnt.Porcentaje_UtilidadxAnimal != 0 ? diferencia.Porcentaje_UtilidadxAnimal / promedioAñoAnt.Porcentaje_UtilidadxAnimal : 0;
                 #endregion
             }
             catch { }
@@ -1384,31 +1400,31 @@ namespace ReportePeriodo.Modelo
 
                     item.Color_MH_Crecimiento = busquedaindicadorCrecimiento != null ? ColorDato(item.Crecimiento_Inventario, item.Crecimiento_MH, busquedaindicadorCrecimiento.MH) : "";
                     item.Color_MS_Crecimiento = busquedaindicadorCrecimiento != null ? ColorDato(item.Crecimiento_Inventario, item.Crecimiento_MS, busquedaindicadorCrecimiento.MS) : "";
-                    item.Color_PorcenjeMs_Crecimiento = busquedaindicadorCrecimiento != null ? ColorDato(item.Crecimiento_Inventario, item.Crecimiento_PorcentajeMS, busquedaindicadorCrecimiento.PORCENTAJE_MS) : "";
+                    item.Color_PorcentajeMs_Crecimiento = busquedaindicadorCrecimiento != null ? ColorDato(item.Crecimiento_Inventario, item.Crecimiento_PorcentajeMS, busquedaindicadorCrecimiento.PORCENTAJE_MS) : "";
                     item.Color_CostoMS_Crecimiento = busquedaindicadorCrecimiento != null ? ColorDato(item.Crecimiento_Inventario, item.Crecimiento_CostoMS, busquedaindicadorCrecimiento.KGMS) : "";
                     item.Color_Costo_Crecimiento = busquedaindicadorCrecimiento != null ? ColorDato(item.Crecimiento_Inventario, item.Crecimiento_Costo, busquedaindicadorCrecimiento.COSTO) : "";
 
                     item.Color_MH_Desarrollo = busquedaindicadorDesarrollo != null ? ColorDato(item.Desarrollo_Inventario, item.Desarrollo_MH, busquedaindicadorDesarrollo.MH) : "";
                     item.Color_MS_Desarrollo = busquedaindicadorDesarrollo != null ? ColorDato(item.Desarrollo_Inventario, item.Desarrollo_MS, busquedaindicadorDesarrollo.MS) : "";
-                    item.Color_PorcenjeMs_Desarrollo = busquedaindicadorDesarrollo != null ? ColorDato(item.Desarrollo_Inventario, item.Desarrollo_PorcentajeMS, busquedaindicadorDesarrollo.PORCENTAJE_MS) : "";
+                    item.Color_PorcentajeMs_Desarrollo = busquedaindicadorDesarrollo != null ? ColorDato(item.Desarrollo_Inventario, item.Desarrollo_PorcentajeMS, busquedaindicadorDesarrollo.PORCENTAJE_MS) : "";
                     item.Color_CostoMS_Desarrollo = busquedaindicadorDesarrollo != null ? ColorDato(item.Desarrollo_Inventario, item.Desarrollo_CostoMS, busquedaindicadorDesarrollo.KGMS) : "";
                     item.Color_Costo_Desarrollo = busquedaindicadorDesarrollo != null ? ColorDato(item.Desarrollo_Inventario, item.Desarrollo_Costo, busquedaindicadorDesarrollo.COSTO) : "";
 
                     item.Color_MH_Vaquillas = busquedaindicadorVaquillas != null ? ColorDato(item.Vaquillas_Inventario, item.Vaquillas_MH, busquedaindicadorVaquillas.MH) : "";
                     item.Color_MS_Vaquillas = busquedaindicadorVaquillas != null ? ColorDato(item.Vaquillas_Inventario, item.Vaquillas_MS, busquedaindicadorVaquillas.MS) : "";
-                    item.Color_PorcenjeMs_Vaquillas = busquedaindicadorVaquillas != null ? ColorDato(item.Vaquillas_Inventario, item.Vaquillas_PorcentajeMS, busquedaindicadorVaquillas.PORCENTAJE_MS) : "";
+                    item.Color_PorcentajeMs_Vaquillas = busquedaindicadorVaquillas != null ? ColorDato(item.Vaquillas_Inventario, item.Vaquillas_PorcentajeMS, busquedaindicadorVaquillas.PORCENTAJE_MS) : "";
                     item.Color_CostoMS_Vaquillas = busquedaindicadorVaquillas != null ? ColorDato(item.Vaquillas_Inventario, item.Vaquillas_CostoMS, busquedaindicadorVaquillas.KGMS) : "";
                     item.Color_Costo_Vaquillas = busquedaindicadorVaquillas != null ? ColorDato(item.Vaquillas_Inventario, item.Vaquillas_Costo, busquedaindicadorVaquillas.COSTO) : "";
 
                     item.Color_MH_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_MH, busquedaindicadorSecas.MH) : "";
                     item.Color_MS_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_MS, busquedaindicadorSecas.MS) : "";
-                    item.Color_PorcenjeMs_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_PorcentajeMS, busquedaindicadorSecas.PORCENTAJE_MS) : "";
+                    item.Color_PorcentajeMs_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_PorcentajeMS, busquedaindicadorSecas.PORCENTAJE_MS) : "";
                     item.Color_CostoMS_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_CostoMS, busquedaindicadorSecas.KGMS) : "";
                     item.Color_Costo_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_Costo, busquedaindicadorSecas.COSTO) : "";
 
                     item.Color_MH_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_MH, busquedaindicadorReto.MH) : "";
                     item.Color_MS_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_MS, busquedaindicadorReto.MS) : "";
-                    item.Color_PorcenjeMs_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_PorcentajeMS, busquedaindicadorReto.PORCENTAJE_MS) : "";
+                    item.Color_PorcentajeMs_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_PorcentajeMS, busquedaindicadorReto.PORCENTAJE_MS) : "";
                     item.Color_CostoMS_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_CostoMS, busquedaindicadorReto.KGMS) : "";
                     item.Color_Costo_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_Costo, busquedaindicadorReto.COSTO) : "";
 
@@ -1449,7 +1465,7 @@ namespace ReportePeriodo.Modelo
                 List<DatosVacas> datosDesteteVivas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
                 List<DatosVacas> datosDesteteMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 2 OR edovac = 7) ", ref mensaje);
 
-                List<DatosVacas> datosVaquillasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
+                List<DatosVacas> datosVaquillasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND destino = 1  AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
                 List<DatosVacas> datosVaquillasUrgencia = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 2 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
                 List<DatosVacas> datosVaquillasDelgadas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 3 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
                 List<DatosVacas> datosVaquillasRegulares = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 4 AND destino = 1 AND (edovac = 3 OR edovac = 8 OR edovac = 9) ", ref mensaje);
@@ -1727,47 +1743,47 @@ namespace ReportePeriodo.Modelo
             try
             {
                 #region asignar datos
-                response.Jaulas_Vivas = diferencia.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != 0 ? diferencia.Jaulas_Vivas / totalAñoAnt.Jaulas_Vivas * 100 : 0;
-                response.Jaulas_Muertas = diferencia.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != 0 ? diferencia.Jaulas_Muertas / totalAñoAnt.Jaulas_Muertas * 100 : 0;
+                response.Jaulas_Vivas = diferencia.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != 0 ? diferencia.Jaulas_Vivas / totalAñoAnt.Jaulas_Vivas : 0;
+                response.Jaulas_Muertas = diferencia.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != 0 ? diferencia.Jaulas_Muertas / totalAñoAnt.Jaulas_Muertas : 0;
 
-                response.Destete_Vivas = diferencia.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != 0 ? diferencia.Destete_Vivas / totalAñoAnt.Destete_Vivas * 100 : 0;
-                response.Destete_Muertas = diferencia.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != 0 ? diferencia.Destete_Muertas / totalAñoAnt.Destete_Muertas * 100 : 0;
+                response.Destete_Vivas = diferencia.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != 0 ? diferencia.Destete_Vivas / totalAñoAnt.Destete_Vivas : 0;
+                response.Destete_Muertas = diferencia.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != 0 ? diferencia.Destete_Muertas / totalAñoAnt.Destete_Muertas : 0;
 
-                response.Vaquillas_Muertas = diferencia.Vaquillas_Muertas != null && totalAñoAnt.Vaquillas_Muertas != null && totalAñoAnt.Vaquillas_Muertas != 0 ? diferencia.Vaquillas_Muertas / totalAñoAnt.Vaquillas_Muertas * 100 : 0;
-                response.Vaquillas_Urgente = diferencia.Vaquillas_Urgente != null && totalAñoAnt.Vaquillas_Urgente != null && totalAñoAnt.Vaquillas_Urgente != 0 ? diferencia.Vaquillas_Urgente / totalAñoAnt.Vaquillas_Urgente * 100 : 0;
-                response.Vaquillas_RF = diferencia.Vaquillas_RF != null && totalAñoAnt.Vaquillas_RF != null && totalAñoAnt.Vaquillas_RF != 0 ? diferencia.Vaquillas_RF / totalAñoAnt.Vaquillas_RF * 100 : 0;
-                response.Vaquillas_RR = diferencia.Vaquillas_RR != null && totalAñoAnt.Vaquillas_RR != null && totalAñoAnt.Vaquillas_RR != 0 ? diferencia.Vaquillas_RR / totalAñoAnt.Vaquillas_RR * 100 : 0;
-                response.Vaquillas_RG = diferencia.Vaquillas_RG != null && totalAñoAnt.Vaquillas_RG != null && totalAñoAnt.Vaquillas_RG != 0 ? diferencia.Vaquillas_RG / totalAñoAnt.Vaquillas_RG * 100 : 0;
-                response.Vaquillas_Otros = diferencia.Vaquillas_Otros != null && totalAñoAnt.Vaquillas_Otros != null && totalAñoAnt.Vaquillas_Otros != 0 ? diferencia.Vaquillas_Otros / totalAñoAnt.Vaquillas_Otros * 100 : 0;
+                response.Vaquillas_Muertas = diferencia.Vaquillas_Muertas != null && totalAñoAnt.Vaquillas_Muertas != null && totalAñoAnt.Vaquillas_Muertas != 0 ? diferencia.Vaquillas_Muertas / totalAñoAnt.Vaquillas_Muertas : 0;
+                response.Vaquillas_Urgente = diferencia.Vaquillas_Urgente != null && totalAñoAnt.Vaquillas_Urgente != null && totalAñoAnt.Vaquillas_Urgente != 0 ? diferencia.Vaquillas_Urgente / totalAñoAnt.Vaquillas_Urgente : 0;
+                response.Vaquillas_RF = diferencia.Vaquillas_RF != null && totalAñoAnt.Vaquillas_RF != null && totalAñoAnt.Vaquillas_RF != 0 ? diferencia.Vaquillas_RF / totalAñoAnt.Vaquillas_RF : 0;
+                response.Vaquillas_RR = diferencia.Vaquillas_RR != null && totalAñoAnt.Vaquillas_RR != null && totalAñoAnt.Vaquillas_RR != 0 ? diferencia.Vaquillas_RR / totalAñoAnt.Vaquillas_RR : 0;
+                response.Vaquillas_RG = diferencia.Vaquillas_RG != null && totalAñoAnt.Vaquillas_RG != null && totalAñoAnt.Vaquillas_RG != 0 ? diferencia.Vaquillas_RG / totalAñoAnt.Vaquillas_RG : 0;
+                response.Vaquillas_Otros = diferencia.Vaquillas_Otros != null && totalAñoAnt.Vaquillas_Otros != null && totalAñoAnt.Vaquillas_Otros != 0 ? diferencia.Vaquillas_Otros / totalAñoAnt.Vaquillas_Otros : 0;
 
-                response.Vacas_Muertas = diferencia.Vacas_Muertas != null && totalAñoAnt.Vacas_Muertas != null && totalAñoAnt.Vacas_Muertas != 0 ? diferencia.Vacas_Muertas / totalAñoAnt.Vacas_Muertas * 100 : 0;
-                response.Vacas_Urgente = diferencia.Vacas_Urgente != null && totalAñoAnt.Vacas_Urgente != null && totalAñoAnt.Vacas_Urgente != 0 ? diferencia.Vacas_Urgente / totalAñoAnt.Vacas_Urgente * 100 : 0;
-                response.Vacas_RF = diferencia.Vacas_RF != null && totalAñoAnt.Vacas_RF != null && totalAñoAnt.Vacas_RF != 0 ? diferencia.Vacas_RF / totalAñoAnt.Vacas_RF * 100 : 0;
-                response.Vacas_RR = diferencia.Vacas_RR != null && totalAñoAnt.Vacas_RR != null && totalAñoAnt.Vacas_RR != 0 ? diferencia.Vacas_RR / totalAñoAnt.Vacas_RR * 100 : 0;
-                response.Vacas_RG = diferencia.Vacas_RG != null && totalAñoAnt.Vacas_RG != null && totalAñoAnt.Vacas_RG != 0 ? diferencia.Vacas_RG / totalAñoAnt.Vacas_RG * 100 : 0;
-                response.Vacas_Otros = diferencia.Vacas_Otros != null && totalAñoAnt.Vacas_Otros != null && totalAñoAnt.Vacas_Otros != 0 ? diferencia.Vacas_Otros / totalAñoAnt.Vacas_Otros * 100 : 0;
+                response.Vacas_Muertas = diferencia.Vacas_Muertas != null && totalAñoAnt.Vacas_Muertas != null && totalAñoAnt.Vacas_Muertas != 0 ? diferencia.Vacas_Muertas / totalAñoAnt.Vacas_Muertas : 0;
+                response.Vacas_Urgente = diferencia.Vacas_Urgente != null && totalAñoAnt.Vacas_Urgente != null && totalAñoAnt.Vacas_Urgente != 0 ? diferencia.Vacas_Urgente / totalAñoAnt.Vacas_Urgente : 0;
+                response.Vacas_RF = diferencia.Vacas_RF != null && totalAñoAnt.Vacas_RF != null && totalAñoAnt.Vacas_RF != 0 ? diferencia.Vacas_RF / totalAñoAnt.Vacas_RF : 0;
+                response.Vacas_RR = diferencia.Vacas_RR != null && totalAñoAnt.Vacas_RR != null && totalAñoAnt.Vacas_RR != 0 ? diferencia.Vacas_RR / totalAñoAnt.Vacas_RR : 0;
+                response.Vacas_RG = diferencia.Vacas_RG != null && totalAñoAnt.Vacas_RG != null && totalAñoAnt.Vacas_RG != 0 ? diferencia.Vacas_RG / totalAñoAnt.Vacas_RG : 0;
+                response.Vacas_Otros = diferencia.Vacas_Otros != null && totalAñoAnt.Vacas_Otros != null && totalAñoAnt.Vacas_Otros != 0 ? diferencia.Vacas_Otros / totalAñoAnt.Vacas_Otros : 0;
 
-                response.Vaquillas_ND = diferencia.Vaquillas_ND != null && totalAñoAnt.Vaquillas_ND != null && totalAñoAnt.Vaquillas_ND != 0 ? diferencia.Vaquillas_ND / totalAñoAnt.Vaquillas_ND * 100 : 0;
-                response.Vaquillas_A = diferencia.Vaquillas_A != null && totalAñoAnt.Vaquillas_A != null && totalAñoAnt.Vaquillas_A != 0 ? diferencia.Vaquillas_A / totalAñoAnt.Vaquillas_A * 100 : 0;
-                response.Vaquillas_Vivos_H = diferencia.Vaquillas_Vivos_H != null && totalAñoAnt.Vaquillas_Vivos_H != null && totalAñoAnt.Vaquillas_Vivos_H != 0 ? diferencia.Vaquillas_Vivos_H / totalAñoAnt.Vaquillas_Vivos_H * 100 : 0;
-                response.Vaquillas_Vivos_M = diferencia.Vaquillas_Vivos_M != null && totalAñoAnt.Vaquillas_Vivos_M != null && totalAñoAnt.Vaquillas_Vivos_M != 0 ? diferencia.Vaquillas_Vivos_M / totalAñoAnt.Vaquillas_Vivos_M * 100 : 0;
+                response.Vaquillas_ND = diferencia.Vaquillas_ND != null && totalAñoAnt.Vaquillas_ND != null && totalAñoAnt.Vaquillas_ND != 0 ? diferencia.Vaquillas_ND / totalAñoAnt.Vaquillas_ND : 0;
+                response.Vaquillas_A = diferencia.Vaquillas_A != null && totalAñoAnt.Vaquillas_A != null && totalAñoAnt.Vaquillas_A != 0 ? diferencia.Vaquillas_A / totalAñoAnt.Vaquillas_A : 0;
+                response.Vaquillas_Vivos_H = diferencia.Vaquillas_Vivos_H != null && totalAñoAnt.Vaquillas_Vivos_H != null && totalAñoAnt.Vaquillas_Vivos_H != 0 ? diferencia.Vaquillas_Vivos_H / totalAñoAnt.Vaquillas_Vivos_H : 0;
+                response.Vaquillas_Vivos_M = diferencia.Vaquillas_Vivos_M != null && totalAñoAnt.Vaquillas_Vivos_M != null && totalAñoAnt.Vaquillas_Vivos_M != 0 ? diferencia.Vaquillas_Vivos_M / totalAñoAnt.Vaquillas_Vivos_M : 0;
 
-                response.Vacas_ND = diferencia.Vacas_ND != null && totalAñoAnt.Vacas_ND != null && totalAñoAnt.Vacas_ND != 0 ? diferencia.Vacas_ND / totalAñoAnt.Vacas_ND * 100 : 0;
-                response.Vacas_A = diferencia.Vacas_A != null && totalAñoAnt.Vacas_A != null && totalAñoAnt.Vacas_A != 0 ? diferencia.Vacas_A / totalAñoAnt.Vacas_A * 100 : 0;
-                response.Vacas_Vivos_H = diferencia.Vacas_Vivos_H != null && totalAñoAnt.Vacas_Vivos_H != null && totalAñoAnt.Vacas_Vivos_H != 0 ? diferencia.Vacas_Vivos_H / totalAñoAnt.Vacas_Vivos_H * 100 : 0;
-                response.Vacas_Vivos_M = diferencia.Vacas_Vivos_M != null && totalAñoAnt.Vacas_Vivos_M != null && totalAñoAnt.Vacas_Vivos_M != 0 ? diferencia.Vacas_Vivos_M / totalAñoAnt.Vacas_Vivos_M * 100 : 0;
+                response.Vacas_ND = diferencia.Vacas_ND != null && totalAñoAnt.Vacas_ND != null && totalAñoAnt.Vacas_ND != 0 ? diferencia.Vacas_ND / totalAñoAnt.Vacas_ND : 0;
+                response.Vacas_A = diferencia.Vacas_A != null && totalAñoAnt.Vacas_A != null && totalAñoAnt.Vacas_A != 0 ? diferencia.Vacas_A / totalAñoAnt.Vacas_A : 0;
+                response.Vacas_Vivos_H = diferencia.Vacas_Vivos_H != null && totalAñoAnt.Vacas_Vivos_H != null && totalAñoAnt.Vacas_Vivos_H != 0 ? diferencia.Vacas_Vivos_H / totalAñoAnt.Vacas_Vivos_H : 0;
+                response.Vacas_Vivos_M = diferencia.Vacas_Vivos_M != null && totalAñoAnt.Vacas_Vivos_M != null && totalAñoAnt.Vacas_Vivos_M != 0 ? diferencia.Vacas_Vivos_M / totalAñoAnt.Vacas_Vivos_M : 0;
 
-                response.SC = diferencia.SC != null && totalAñoAnt.SC != null && totalAñoAnt.SC != 0 ? diferencia.SC / totalAñoAnt.SC * 100 : 0;
+                response.SC = diferencia.SC != null && totalAñoAnt.SC != null && totalAñoAnt.SC != 0 ? diferencia.SC / totalAñoAnt.SC : 0;
 
-                response.Partos_Vaquillas = diferencia.Partos_Vaquillas != null && totalAñoAnt.Partos_Vaquillas != null && totalAñoAnt.Partos_Vaquillas != 0 ? diferencia.Partos_Vaquillas / totalAñoAnt.Partos_Vaquillas * 100 : 0;
-                response.Partos_Vacas = diferencia.Partos_Vacas != null && totalAñoAnt.Partos_Vacas != null && totalAñoAnt.Partos_Vacas != 0 ? diferencia.Partos_Vacas / totalAñoAnt.Partos_Vacas * 100 : 0;
+                response.Partos_Vaquillas = diferencia.Partos_Vaquillas != null && totalAñoAnt.Partos_Vaquillas != null && totalAñoAnt.Partos_Vaquillas != 0 ? diferencia.Partos_Vaquillas / totalAñoAnt.Partos_Vaquillas : 0;
+                response.Partos_Vacas = diferencia.Partos_Vacas != null && totalAñoAnt.Partos_Vacas != null && totalAñoAnt.Partos_Vacas != 0 ? diferencia.Partos_Vacas / totalAñoAnt.Partos_Vacas : 0;
 
-                response.Muertas_Dia = diferencia.Muertas_Dia != null && totalAñoAnt.Muertas_Dia != null && totalAñoAnt.Muertas_Dia != 0 ? diferencia.Muertas_Dia / totalAñoAnt.Muertas_Dia * 100 : 0;
-                response.Muertas_Noc = diferencia.Muertas_Noc != null && totalAñoAnt.Muertas_Noc != null && totalAñoAnt.Muertas_Noc != 0 ? diferencia.Muertas_Noc / totalAñoAnt.Muertas_Noc * 100 : 0;
+                response.Muertas_Dia = diferencia.Muertas_Dia != null && totalAñoAnt.Muertas_Dia != null && totalAñoAnt.Muertas_Dia != 0 ? diferencia.Muertas_Dia / totalAñoAnt.Muertas_Dia : 0;
+                response.Muertas_Noc = diferencia.Muertas_Noc != null && totalAñoAnt.Muertas_Noc != null && totalAñoAnt.Muertas_Noc != 0 ? diferencia.Muertas_Noc / totalAñoAnt.Muertas_Noc : 0;
 
-                response.Diferencia_Calostro = diferencia.Diferencia_Calostro != null && totalAñoAnt.Diferencia_Calostro != null && totalAñoAnt.Diferencia_Calostro != 0 ? diferencia.Diferencia_Calostro / totalAñoAnt.Diferencia_Calostro * 100 : 0;
-                response.Porcentaje_Calostro = diferencia.Porcentaje_Calostro != null && totalAñoAnt.Porcentaje_Calostro != null && totalAñoAnt.Porcentaje_Calostro != 0 ? diferencia.Porcentaje_Calostro / totalAñoAnt.Porcentaje_Calostro * 100 : 0;
-                response.Calidad_Calostro = diferencia.Calidad_Calostro != null && totalAñoAnt.Calidad_Calostro != null && totalAñoAnt.Calidad_Calostro != 0 ? diferencia.Calidad_Calostro / totalAñoAnt.Calidad_Calostro * 100 : 0;
+                response.Diferencia_Calostro = diferencia.Diferencia_Calostro != null && totalAñoAnt.Diferencia_Calostro != null && totalAñoAnt.Diferencia_Calostro != 0 ? diferencia.Diferencia_Calostro / totalAñoAnt.Diferencia_Calostro : 0;
+                response.Porcentaje_Calostro = diferencia.Porcentaje_Calostro != null && totalAñoAnt.Porcentaje_Calostro != null && totalAñoAnt.Porcentaje_Calostro != 0 ? diferencia.Porcentaje_Calostro / totalAñoAnt.Porcentaje_Calostro : 0;
+                response.Calidad_Calostro = diferencia.Calidad_Calostro != null && totalAñoAnt.Calidad_Calostro != null && totalAñoAnt.Calidad_Calostro != 0 ? diferencia.Calidad_Calostro / totalAñoAnt.Calidad_Calostro : 0;
                 #endregion
             }
             catch { }
@@ -1822,6 +1838,13 @@ namespace ReportePeriodo.Modelo
                     item.Diferencia_Calostro = item.Diferencia_Calostro == 0 ? null : item.Diferencia_Calostro;
                     item.Porcentaje_Calostro = item.Porcentaje_Calostro == 0 ? null : item.Porcentaje_Calostro;
                     item.Calidad_Calostro = item.Calidad_Calostro == 0 ? null : item.Calidad_Calostro;
+
+                    if (item.Diferencia_Calostro == 0)
+                    {
+                        item.Diferencia_Calostro = null;
+                        
+                    }
+                    
                 }
                 catch { }
             }
@@ -1879,7 +1902,7 @@ namespace ReportePeriodo.Modelo
         public List<Hoja3> EspaciosEnBlancoHoja3(int renglones)
         {
             List<Hoja3> response = new List<Hoja3>();
-            int renglonesTotal = 32 - renglones;
+            int renglonesTotal = 31 - renglones;
 
             for (int i = 0; i < renglonesTotal; i++)
             {
@@ -1983,14 +2006,14 @@ namespace ReportePeriodo.Modelo
                     newItem.Vacas_Pren = busquedaValInventarios != null ? busquedaValInventarios.VacasPreñadas : 0;
                     newItem.Vacas_Vacias = busquedaValInventarios != null ? busquedaValInventarios.VacasVacias : 0;
                     newItem.Vacas_Diag = newItem.Vacas_Pren + newItem.Vacas_Vacias;
-                    newItem.Vacas_Porcentaje_Pren = newItem.Vacas_Diag > 0 ? (newItem.Vacas_Pren / newItem.Vacas_Diag) * 100 : 0;
-                    newItem.Vacas_Porcentaje_Vacias = newItem.Vacas_Diag > 0 ? (newItem.Vacas_Vacias / newItem.Vacas_Diag) * 100 : 0;
+                    newItem.Vacas_Porcentaje_Pren = newItem.Vacas_Diag > 0 ? (newItem.Vacas_Pren / newItem.Vacas_Diag) : 0;
+                    newItem.Vacas_Porcentaje_Vacias = newItem.Vacas_Diag > 0 ? (newItem.Vacas_Vacias / newItem.Vacas_Diag) : 0;
 
                     newItem.Vaquillas_Pren = busquedaValInventarios != null ? busquedaValInventarios.VaquillasPreñadas : 0;
                     newItem.Vaquillas_Vacias = busquedaValInventarios != null ? busquedaValInventarios.VaquillasVacias : 0;
                     newItem.Vaquillas_Diag = newItem.Vaquillas_Pren + newItem.Vaquillas_Vacias;
-                    newItem.Vaquillas_Porcentaje_Pren = newItem.Vaquillas_Diag > 0 ? (newItem.Vaquillas_Pren / newItem.Vaquillas_Diag) * 100 : 0;
-                    newItem.Vaquillas_Porcentaje_Vacias = newItem.Vaquillas_Diag > 0 ? (newItem.Vaquillas_Vacias / newItem.Vaquillas_Diag) * 100 : 0;
+                    newItem.Vaquillas_Porcentaje_Pren = newItem.Vaquillas_Diag > 0 ? (newItem.Vaquillas_Pren / newItem.Vaquillas_Diag) : 0;
+                    newItem.Vaquillas_Porcentaje_Vacias = newItem.Vaquillas_Diag > 0 ? (newItem.Vaquillas_Vacias / newItem.Vaquillas_Diag) : 0;
                     newItem.Abortos_Vaquillas = busquedaAbortosVaquillas != null ? busquedaAbortosVaquillas.Vacas : 0;
                     newItem.Abortos_Vacas = busquedaAbortosVacas != null ? busquedaAbortosVacas.Vacas : 0;
 
@@ -2063,14 +2086,14 @@ namespace ReportePeriodo.Modelo
                 response.Vacas_Pren = datosValInventarios.VacasPreñadas;
                 response.Vacas_Vacias = datosValInventarios.VacasVacias;
                 response.Vacas_Diag = response.Vacas_Pren + response.Vacas_Vacias;
-                response.Vacas_Porcentaje_Pren = response.Vacas_Diag > 0 ? (response.Vacas_Pren / response.Vacas_Diag) * 100 : 0;
-                response.Vacas_Porcentaje_Vacias = response.Vacas_Diag > 0 ? (response.Vacas_Vacias / response.Vacas_Diag) * 100 : 0;
+                response.Vacas_Porcentaje_Pren = response.Vacas_Diag > 0 ? (response.Vacas_Pren / response.Vacas_Diag) : 0;
+                response.Vacas_Porcentaje_Vacias = response.Vacas_Diag > 0 ? (response.Vacas_Vacias / response.Vacas_Diag) : 0;
 
                 response.Vaquillas_Pren = datosValInventarios.VaquillasPreñadas;
                 response.Vaquillas_Vacias = datosValInventarios.VaquillasVacias;
                 response.Vaquillas_Diag = response.Vaquillas_Pren + response.Vaquillas_Vacias;
-                response.Vaquillas_Porcentaje_Pren = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Pren / response.Vaquillas_Diag) * 100 : 0;
-                response.Vaquillas_Porcentaje_Vacias = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Vacias / response.Vaquillas_Diag) * 100 : 0;
+                response.Vaquillas_Porcentaje_Pren = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Pren / response.Vaquillas_Diag) : 0;
+                response.Vaquillas_Porcentaje_Vacias = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Vacias / response.Vaquillas_Diag) : 0;
 
                 response.Abortos_Vaquillas = datosAbortosVaquillas.Vacas;
                 response.Abortos_Vacas = datosAbortosVacas.Vacas;
@@ -2133,39 +2156,39 @@ namespace ReportePeriodo.Modelo
 
             try
             {
-                response.Ubre_MA = diferencia != null && totalAñoAnt != null && totalAñoAnt.Ubre_MA > 0 ? diferencia.Ubre_MA / totalAñoAnt.Ubre_MA * 100 : 0;
-                response.Ubre_SL = diferencia != null && totalAñoAnt != null && totalAñoAnt.Ubre_SL > 0 ? diferencia.Ubre_SL / totalAñoAnt.Ubre_SL * 100 : 0;
-                response.Metabolicos_FL = diferencia != null && totalAñoAnt != null && totalAñoAnt.Metabolicos_FL > 0 ? diferencia.Metabolicos_FL / totalAñoAnt.Metabolicos_FL * 100 : 0;
-                response.Metabolicos_CET = diferencia != null && totalAñoAnt != null && totalAñoAnt.Metabolicos_CET > 0 ? diferencia.Metabolicos_CET / totalAñoAnt.Metabolicos_CET * 100 : 0;
-                response.Locomotores_BE = diferencia != null && totalAñoAnt != null && totalAñoAnt.Locomotores_BE > 0 ? diferencia.Locomotores_BE / totalAñoAnt.Locomotores_BE * 100 : 0;
-                response.Locomotores_TRA = diferencia != null && totalAñoAnt != null && totalAñoAnt.Locomotores_TRA > 0 ? diferencia.Locomotores_TRA / totalAñoAnt.Locomotores_TRA * 100 : 0;
-                response.Locomotores_GA = diferencia != null && totalAñoAnt != null && totalAñoAnt.Locomotores_GA > 0 ? diferencia.Locomotores_GA / totalAñoAnt.Locomotores_GA * 100 : 0;
-                response.Digestivos_AC = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_AC > 0 ? diferencia.Digestivos_AC / totalAñoAnt.Digestivos_AC * 100 : 0;
-                response.Digestivos_ES = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_ES > 0 ? diferencia.Digestivos_ES / totalAñoAnt.Digestivos_ES * 100 : 0;
-                response.Digestivos_DI = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_DI > 0 ? diferencia.Digestivos_DI / totalAñoAnt.Digestivos_DI * 100 : 0;
-                response.Digestivos_TI = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_TI > 0 ? diferencia.Digestivos_TI / totalAñoAnt.Digestivos_TI * 100 : 0;
-                response.Reproductivos_RE = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_RE > 0 ? diferencia.Reproductivos_RE / totalAñoAnt.Reproductivos_RE * 100 : 0;
-                response.Reproductivos_ME = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_ME > 0 ? diferencia.Reproductivos_ME / totalAñoAnt.Reproductivos_ME * 100 : 0;
-                response.Reproductivos_PIO = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_PIO > 0 ? diferencia.Reproductivos_PIO / totalAñoAnt.Reproductivos_PIO * 100 : 0;
-                response.Reproductivos_QUI = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_QUI > 0 ? diferencia.Reproductivos_QUI / totalAñoAnt.Reproductivos_QUI * 100 : 0;
-                response.Reproductivos_CS = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_CS > 0 ? diferencia.Reproductivos_CS / totalAñoAnt.Reproductivos_CS * 100 : 0;
-                response.Respiratorios_Neu = diferencia != null && totalAñoAnt != null && totalAñoAnt.Respiratorios_Neu > 0 ? diferencia.Respiratorios_Neu / totalAñoAnt.Respiratorios_Neu * 100 : 0;
-                response.Becerras_Neu = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Neu > 0 ? diferencia.Becerras_Neu / totalAñoAnt.Becerras_Neu * 100 : 0;
-                response.Becerras_Fie = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Fie > 0 ? diferencia.Becerras_Fie / totalAñoAnt.Becerras_Fie * 100 : 0;
-                response.Becerras_Di = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Di > 0 ? diferencia.Becerras_Di / totalAñoAnt.Becerras_Di * 100 : 0;
-                response.Becerras_Conj = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Conj > 0 ? diferencia.Becerras_Conj / totalAñoAnt.Becerras_Conj * 100 : 0;
-                response.Vacas_Diag = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Diag > 0 ? diferencia.Vacas_Diag / totalAñoAnt.Vacas_Diag * 100 : 0;
-                response.Vacas_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Pren > 0 ? diferencia.Vacas_Pren / totalAñoAnt.Vacas_Pren * 100 : 0;
-                response.Vacas_Porcentaje_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Porcentaje_Pren > 0 ? diferencia.Vacas_Porcentaje_Pren / totalAñoAnt.Vacas_Porcentaje_Pren * 100 : 0;
-                response.Vacas_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Vacias > 0 ? diferencia.Vacas_Vacias / totalAñoAnt.Vacas_Vacias * 100 : 0;
-                response.Vacas_Porcentaje_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Porcentaje_Vacias > 0 ? diferencia.Vacas_Porcentaje_Vacias / totalAñoAnt.Vacas_Porcentaje_Vacias * 100 : 0;
-                response.Vaquillas_Diag = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Diag > 0 ? diferencia.Vaquillas_Diag / totalAñoAnt.Vaquillas_Diag * 100 : 0;
-                response.Vaquillas_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Pren > 0 ? diferencia.Vaquillas_Pren / totalAñoAnt.Vaquillas_Pren * 100 : 0;
-                response.Vaquillas_Porcentaje_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Porcentaje_Pren > 0 ? diferencia.Vaquillas_Porcentaje_Pren / totalAñoAnt.Vaquillas_Porcentaje_Pren * 100 : 0;
-                response.Vaquillas_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Vacias > 0 ? diferencia.Vaquillas_Vacias / totalAñoAnt.Vaquillas_Vacias * 100 : 0;
-                response.Vaquillas_Porcentaje_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Porcentaje_Vacias > 0 ? diferencia.Vaquillas_Porcentaje_Vacias / totalAñoAnt.Vaquillas_Porcentaje_Vacias * 100 : 0;
-                response.Abortos_Vaquillas = diferencia != null && totalAñoAnt != null && totalAñoAnt.Abortos_Vaquillas > 0 ? diferencia.Abortos_Vaquillas / totalAñoAnt.Abortos_Vaquillas * 100 : 0;
-                response.Abortos_Vacas = diferencia != null && totalAñoAnt != null && totalAñoAnt.Abortos_Vacas > 0 ? diferencia.Abortos_Vacas / totalAñoAnt.Abortos_Vacas * 100 : 0;
+                response.Ubre_MA = diferencia != null && totalAñoAnt != null && totalAñoAnt.Ubre_MA > 0 ? diferencia.Ubre_MA / totalAñoAnt.Ubre_MA : 0;
+                response.Ubre_SL = diferencia != null && totalAñoAnt != null && totalAñoAnt.Ubre_SL > 0 ? diferencia.Ubre_SL / totalAñoAnt.Ubre_SL : 0;
+                response.Metabolicos_FL = diferencia != null && totalAñoAnt != null && totalAñoAnt.Metabolicos_FL > 0 ? diferencia.Metabolicos_FL / totalAñoAnt.Metabolicos_FL : 0;
+                response.Metabolicos_CET = diferencia != null && totalAñoAnt != null && totalAñoAnt.Metabolicos_CET > 0 ? diferencia.Metabolicos_CET / totalAñoAnt.Metabolicos_CET : 0;
+                response.Locomotores_BE = diferencia != null && totalAñoAnt != null && totalAñoAnt.Locomotores_BE > 0 ? diferencia.Locomotores_BE / totalAñoAnt.Locomotores_BE : 0;
+                response.Locomotores_TRA = diferencia != null && totalAñoAnt != null && totalAñoAnt.Locomotores_TRA > 0 ? diferencia.Locomotores_TRA / totalAñoAnt.Locomotores_TRA : 0;
+                response.Locomotores_GA = diferencia != null && totalAñoAnt != null && totalAñoAnt.Locomotores_GA > 0 ? diferencia.Locomotores_GA / totalAñoAnt.Locomotores_GA : 0;
+                response.Digestivos_AC = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_AC > 0 ? diferencia.Digestivos_AC / totalAñoAnt.Digestivos_AC : 0;
+                response.Digestivos_ES = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_ES > 0 ? diferencia.Digestivos_ES / totalAñoAnt.Digestivos_ES : 0;
+                response.Digestivos_DI = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_DI > 0 ? diferencia.Digestivos_DI / totalAñoAnt.Digestivos_DI : 0;
+                response.Digestivos_TI = diferencia != null && totalAñoAnt != null && totalAñoAnt.Digestivos_TI > 0 ? diferencia.Digestivos_TI / totalAñoAnt.Digestivos_TI : 0;
+                response.Reproductivos_RE = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_RE > 0 ? diferencia.Reproductivos_RE / totalAñoAnt.Reproductivos_RE : 0;
+                response.Reproductivos_ME = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_ME > 0 ? diferencia.Reproductivos_ME / totalAñoAnt.Reproductivos_ME : 0;
+                response.Reproductivos_PIO = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_PIO > 0 ? diferencia.Reproductivos_PIO / totalAñoAnt.Reproductivos_PIO : 0;
+                response.Reproductivos_QUI = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_QUI > 0 ? diferencia.Reproductivos_QUI / totalAñoAnt.Reproductivos_QUI : 0;
+                response.Reproductivos_CS = diferencia != null && totalAñoAnt != null && totalAñoAnt.Reproductivos_CS > 0 ? diferencia.Reproductivos_CS / totalAñoAnt.Reproductivos_CS : 0;
+                response.Respiratorios_Neu = diferencia != null && totalAñoAnt != null && totalAñoAnt.Respiratorios_Neu > 0 ? diferencia.Respiratorios_Neu / totalAñoAnt.Respiratorios_Neu : 0;
+                response.Becerras_Neu = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Neu > 0 ? diferencia.Becerras_Neu / totalAñoAnt.Becerras_Neu : 0;
+                response.Becerras_Fie = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Fie > 0 ? diferencia.Becerras_Fie / totalAñoAnt.Becerras_Fie : 0;
+                response.Becerras_Di = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Di > 0 ? diferencia.Becerras_Di / totalAñoAnt.Becerras_Di : 0;
+                response.Becerras_Conj = diferencia != null && totalAñoAnt != null && totalAñoAnt.Becerras_Conj > 0 ? diferencia.Becerras_Conj / totalAñoAnt.Becerras_Conj : 0;
+                response.Vacas_Diag = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Diag > 0 ? diferencia.Vacas_Diag / totalAñoAnt.Vacas_Diag : 0;
+                response.Vacas_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Pren > 0 ? diferencia.Vacas_Pren / totalAñoAnt.Vacas_Pren : 0;
+                response.Vacas_Porcentaje_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Porcentaje_Pren > 0 ? diferencia.Vacas_Porcentaje_Pren / totalAñoAnt.Vacas_Porcentaje_Pren : 0;
+                response.Vacas_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Vacias > 0 ? diferencia.Vacas_Vacias / totalAñoAnt.Vacas_Vacias : 0;
+                response.Vacas_Porcentaje_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vacas_Porcentaje_Vacias > 0 ? diferencia.Vacas_Porcentaje_Vacias / totalAñoAnt.Vacas_Porcentaje_Vacias : 0;
+                response.Vaquillas_Diag = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Diag > 0 ? diferencia.Vaquillas_Diag / totalAñoAnt.Vaquillas_Diag : 0;
+                response.Vaquillas_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Pren > 0 ? diferencia.Vaquillas_Pren / totalAñoAnt.Vaquillas_Pren : 0;
+                response.Vaquillas_Porcentaje_Pren = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Porcentaje_Pren > 0 ? diferencia.Vaquillas_Porcentaje_Pren / totalAñoAnt.Vaquillas_Porcentaje_Pren : 0;
+                response.Vaquillas_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Vacias > 0 ? diferencia.Vaquillas_Vacias / totalAñoAnt.Vaquillas_Vacias : 0;
+                response.Vaquillas_Porcentaje_Vacias = diferencia != null && totalAñoAnt != null && totalAñoAnt.Vaquillas_Porcentaje_Vacias > 0 ? diferencia.Vaquillas_Porcentaje_Vacias / totalAñoAnt.Vaquillas_Porcentaje_Vacias : 0;
+                response.Abortos_Vaquillas = diferencia != null && totalAñoAnt != null && totalAñoAnt.Abortos_Vaquillas > 0 ? diferencia.Abortos_Vaquillas / totalAñoAnt.Abortos_Vaquillas : 0;
+                response.Abortos_Vacas = diferencia != null && totalAñoAnt != null && totalAñoAnt.Abortos_Vacas > 0 ? diferencia.Abortos_Vacas / totalAñoAnt.Abortos_Vacas : 0;
             }
             catch { }
 
@@ -2175,7 +2198,7 @@ namespace ReportePeriodo.Modelo
         public List<Hoja4> EspaciosEnBlancoHoja4(int renglones)
         {
             List<Hoja4> response = new List<Hoja4>();
-            int renglonesTotal = 32 - renglones;
+            int renglonesTotal = 31 - renglones;
 
             for (int i = 0; i < renglonesTotal; i++)
             {
@@ -2281,6 +2304,65 @@ namespace ReportePeriodo.Modelo
             validacionMedicina = auxiliarMedicina;
         }
 
+        public DateTime FechaMaxima(ref string mensaje)
+        {
+            DateTime fecha = DateTime.Today;
+            int juliana = ConvertToJulian(fecha);
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT MAX(FECHA) FROM VALINVENTARIO";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                    juliana = dt.Rows[0][0] != DBNull.Value ? Convert.ToInt32(dt.Rows[0][0]) : ConvertToJulian(fecha);
+
+                fecha = ConvertJulianaToGregoriana(juliana);
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return fecha;
+        }
+
+        public DateTime FechaMinima(ref string mensaje)
+        {
+            DateTime fecha = DateTime.Today;
+            int juliana = ConvertToJulian(fecha);
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT MIN(FECHA) FROM VALINVENTARIO";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                    juliana = dt.Rows[0][0] != DBNull.Value ? Convert.ToInt32(dt.Rows[0][0]) : ConvertToJulian(fecha);
+
+                fecha = ConvertJulianaToGregoriana(juliana);
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return fecha;
+        }
         #endregion
 
         #endregion
@@ -2358,6 +2440,102 @@ namespace ReportePeriodo.Modelo
                     CCS = x["CCS1"] != DBNull.Value ? Convert.ToDecimal(x["CCS1"]) : 0,
                     CTD = x["CTD1"] != DBNull.Value ? Convert.ToDecimal(x["CTD1"]) : 0
                 }).ToList();
+
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+
+            return response;
+
+        }
+
+        private DatosProduccion TotalDatosDeProduccion(DateTime fechaInicio, DateTime fechaFin)
+        {
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            DatosProduccion response = new DatosProduccion();
+
+            try
+            {
+                string query = @"SELECT  IIF(SUM(ContUrea1_) > 0,SUM(Urea1_)/SUM(ContUrea1_),0)   AS Urea1
+                                       ,IIF(SUM(ContGrasa1_) > 0,SUM(Grasa1_)/SUM(ContGrasa1_),0) AS Grasa1
+                                       ,IIF(SUM(ContCCS1_) > 0,SUM(CCS1_)/SUM(ContCCS1_),0)       AS CCS1
+                                       ,IIF(SUM(ContCTD1_) > 0,SUM(CTD1_)/SUM(ContCTD1_),0)       AS CTD1
+                            FROM
+                            (
+	                            SELECT  CDATE(RESULTADOS.FECHA)        AS FechaG
+	                                    ,AVG(RESULTADOS.PROTES)         AS Proteina1_
+	                                    ,SUM(RESULTADOS.UREAS)          AS Urea1_
+	                                    ,IIF(SUM(RESULTADOS.UREAS) > 0,1,0)  AS ContUrea1_
+	                                    ,SUM(RESULTADOS.GRASAS)         AS Grasa1_
+	                                    ,IIF(SUM(RESULTADOS.GRASAS) > 0,1,0) AS ContGrasa1_
+	                                    ,SUM(RESULTADOS.CCSS)           AS CCS1_
+	                                    ,IIF(SUM(RESULTADOS.CCSS)  > 0,1,0)   AS ContCCS1_
+	                                    ,SUM(RESULTADOS.CTDS)           AS CTD1_
+	                                    ,IIF(SUM(RESULTADOS.CTDS) > 0,1,0)   AS ContCTD1_
+	                            FROM
+	                            (
+		                            SELECT  LECHEXDIA.FECHA
+		                                   ,VALORES.PROTEINA                                                                      AS PROTES
+		                                   ,IIF(ISNULL(LECHEXDIA.LG),NULL,(VALORES.LITROSXTANQUE / LECHEXDIA.LG) * VALORES.GRASA) AS GRASAS
+		                                   ,IIF(ISNULL(LECHEXDIA.LU),NULL,(VALORES.LITROSXTANQUE / LECHEXDIA.LU) * VALORES.UREA)  AS UREAS
+		                                   ,IIF(ISNULL(LECHEXDIA.LCC),NULL,(VALORES.LITROSXTANQUE / LECHEXDIA.LCC) * VALORES.CCS) AS CCSS
+		                                   ,IIF(ISNULL(LECHEXDIA.LCT),NULL,(VALORES.LITROSXTANQUE / LECHEXDIA.LCT) * VALORES.CTD) AS CTDS
+		                            FROM
+		                            (
+			                            SELECT  LITROSxDIA.DIA             AS FECHA
+			                                   ,SUM(LITROSxDIA.LITROGRASA) AS LG
+			                                   ,SUM(LITROSxDIA.LITROUREA)  AS LU
+			                                   ,SUM(LITROSxDIA.LITROCCS)   AS LCC
+			                                   ,SUM(LITROSxDIA.LITROCTS)   AS LCT
+			                            FROM
+			                            (
+				                            SELECT  FECHA                        AS DIA
+				                                   ,GRASA
+				                                   ,IIF(GRASA > 0,LITROSXTANQUE) AS LITROGRASA
+				                                   ,IIF(UREA > 0,LITROSXTANQUE)  AS LITROUREA
+				                                   ,IIF(CCS > 0,LITROSXTANQUE)   AS LITROCCS
+				                                   ,IIF(CTD > 0,LITROSXTANQUE)   AS LITROCTS
+				                            FROM dproduc
+				                            WHERE FECHA BETWEEN @julianaI AND @julianaF
+				                            ORDER BY FECHA 
+			                            ) LITROSxDIA
+			                            GROUP BY  LITROSxDIA.DIA
+		                            ) LECHEXDIA
+		                            LEFT JOIN
+		                            (
+			                            SELECT  FECHA
+			                                   ,PROTEINA
+			                                   ,LITROSXTANQUE
+			                                   ,GRASA
+			                                   ,UREA
+			                                   ,CCS
+			                                   ,CTD
+			                            FROM dproduc
+			                            WHERE FECHA BETWEEN @julianaI AND @julianaF
+			                            ORDER BY FECHA 
+		                            ) VALORES
+		                            ON VALORES.FECHA = LECHEXDIA.FECHA
+	                            )RESULTADOS
+	                            GROUP BY  RESULTADOS.FECHA
+                            )Datos";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@julianaI", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@julianaF", ConvertToJulian(fechaFin));
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new DatosProduccion()
+                {
+                    Proteina = 0,
+                    Urea = x["Urea1"] != DBNull.Value ? Convert.ToDecimal(x["Urea1"]) : 0,
+                    Grasa = x["Grasa1"] != DBNull.Value ? Convert.ToDecimal(x["Grasa1"]) : 0,
+                    CCS = x["CCS1"] != DBNull.Value ? Convert.ToDecimal(x["CCS1"]) : 0,
+                    CTD = x["CTD1"] != DBNull.Value ? Convert.ToDecimal(x["CTD1"]) : 0
+                }).ToList().FirstOrDefault();
 
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -2691,28 +2869,28 @@ namespace ReportePeriodo.Modelo
 
             try
             {
-                string query = @"SELECT  IIF(ISNULL(AVG(T3.TOTAL)),NULL,CLng(AVG(T3.TOTAL)))
-                                    ,IIF(ISNULL(AVG(T3.ORDEÑO)),NULL,CINT(AVG(T3.ORDEÑO)))                        AS ORDEÑO
-                                    ,IIF(ISNULL(AVG(T3.SECAS)),NULL,CINT(AVG(T3.SECAS)))                          AS SECAS
-                                    ,IIF(ISNULL(AVG(T3.HATO)),NULL,CINT(AVG(T3.HATO)))                            AS HATO
-                                    ,AVG(T3.PLACT)                                                                AS LACT
-                                    ,AVG(T3.PPROT)                                                                AS PROT
-                                    ,AVG(T3.UREA)                                                                 AS UREA
-                                    ,AVG(T3.GRASA)                                                                AS GRASA
-                                    ,AVG(T3.CCS)                                                                  AS CCS
-                                    ,IIF(ISNULL(AVG(T3.CTD)),NULL,CInt(AVG(T3.CTD)))                              AS CTD
-                                    ,IIF(ISNULL(AVG(T3.LECPROD)),NULL,CLng(AVG(T3.LECPROD)))                      AS LECHE
-                                    ,IIF(ISNULL(AVG(T3.ANTIB)),NULL,CINT(AVG(T3.ANTIB)))                          AS ANTIB
-                                    ,IIF(ISNULL(AVG(T3.TOTALP)),NULL,CLNG(AVG(T3.TOTALP)))                        AS TOTAL2
-                                    ,IIF(ISNULL(AVG(T3.DELORD)),NULL,CINT(AVG(T3.DELORD)))                        AS DEL
-                                    ,IIF(ISNULL(AVG(T3.VACAANTIB)),NULL,CINT(AVG(T3.VACAANTIB)))                  AS ANT
-                                    ,AVG(T3.criba1)                                                               AS N1
-                                    ,AVG(T3.criba2)                                                               AS N2
-                                    ,AVG(T3.criba3)                                                               AS N3
-                                    ,AVG(T3.criba4)                                                               AS N4
-                                    ,IIF(SUM(T3.ContNOIDSES1) > 0,CINT(SUM(T3.NOIDSES1)/SUM(T3.ContNOIDSES1)) ,0) AS SES1
-                                    ,IIF(SUM(T3.ContNOIDSES2) > 0,CINT(SUM(T3.NOIDSES2)/SUM(T3.ContNOIDSES2)) ,0) AS SES2
-                                    ,IIF(SUM(T3.ContNOIDSES3) > 0,CINT(SUM(T3.NOIDSES3)/SUM(T3.ContNOIDSES3)) ,0) AS SES3
+                string query = @"SELECT  IIF(SUM(IIF(T3.TOTAL <> 0,1,0)) > 0 ,CLng(SUM(T3.TOTAL)/SUM(IIF(T3.TOTAL <> 0,1,0))),0)
+                                        ,IIF(SUM(IIF(T3.ORDEÑO <> 0,1,0)) > 0 ,SUM(T3.ORDEÑO)/SUM(IIF(T3.ORDEÑO <> 0,1,0)),0)                AS ORDEÑO
+                                        ,IIF(SUM(IIF(T3.SECAS <> 0,1,0)) > 0 ,SUM(T3.SECAS)/SUM(IIF(T3.SECAS <> 0,1,0)),0)                   AS SECAS
+                                        ,IIF(SUM(IIF(T3.HATO <> 0,1,0)) > 0 ,SUM(T3.HATO)/SUM(IIF(T3.HATO <> 0,1,0)),0)                      AS HATO
+                                        ,IIF(SUM(IIF(T3.PLACT <> 0,1,0)) > 0 ,SUM(T3.PLACT)/SUM(IIF(T3.PLACT <> 0,1,0)),0)                   AS LACT
+                                        ,IIF(SUM(IIF(T3.PPROT <> 0,1,0)) > 0 ,SUM(T3.PPROT)/SUM(IIF(T3.PPROT <> 0,1,0)),0)                   AS PROT
+                                        ,IIF(SUM(IIF(T3.UREA > 0,1,0)) > 0 ,SUM(T3.UREA)/SUM(IIF(T3.UREA > 0,1,0)),0)                      AS UREA
+                                        ,IIF(SUM(IIF(T3.GRASA <> 0,1,0)) > 0 ,SUM(T3.GRASA)/SUM(IIF(T3.GRASA <> 0,1,0)),0)                   AS GRASA
+                                        ,IIF(SUM(IIF(T3.CCS <> 0,1,0)) > 0 ,SUM(T3.CCS)/SUM(IIF(T3.CCS <> 0,1,0)),0)                         AS CCS
+                                        ,IIF(SUM(IIF(T3.CTD <> 0,1,0)) > 0 ,CInt(SUM(T3.CTD)/SUM(IIF(T3.CTD <> 0,1,0))),0)                   AS CTD
+                                        ,IIF(SUM(IIF(T3.LECPROD <> 0,1,0)) > 0 ,CLng(SUM(T3.LECPROD)/SUM(IIF(T3.LECPROD <> 0,1,0))),0)       AS LECHE
+                                        ,IIF(SUM(IIF(T3.ANTIB <> 0,1,0)) > 0 ,CInt(SUM(T3.ANTIB)/SUM(IIF(T3.ANTIB <> 0,1,0))),0)             AS ANTIB
+                                        ,IIF(SUM(IIF(T3.TOTALP <> 0,1,0)) > 0 ,CLng(SUM(T3.TOTALP)/SUM(IIF(T3.TOTALP <> 0,1,0))),0)          AS TOTAL2
+                                        ,IIF(SUM(IIF(T3.DELORD <> 0,1,0)) > 0 ,CInt(SUM(T3.DELORD)/SUM(IIF(T3.DELORD <> 0,1,0))),0)          AS DEL
+                                        ,IIF(SUM(IIF(T3.VACAANTIB <> 0,1,0)) > 0 ,CInt(SUM(T3.VACAANTIB)/SUM(IIF(T3.VACAANTIB <> 0,1,0))),0) AS ANT
+                                        ,IIF(SUM(IIF(T3.criba1 <> 0,1,0)) > 0 ,CInt(SUM(T3.criba1)/SUM(IIF(T3.criba1 <> 0,1,0))),0)          AS N1
+                                        ,IIF(SUM(IIF(T3.criba2 <> 0,1,0)) > 0 ,CInt(SUM(T3.criba2)/SUM(IIF(T3.criba2 <> 0,1,0))),0)          AS N2
+                                        ,IIF(SUM(IIF(T3.criba3 <> 0,1,0)) > 0 ,CInt(SUM(T3.criba3)/SUM(IIF(T3.criba3 <> 0,1,0))),0)          AS N3
+                                        ,IIF(SUM(IIF(T3.criba4 <> 0,1,0)) > 0 ,CInt(SUM(T3.criba4)/SUM(IIF(T3.criba4 <> 0,1,0))),0)          AS N4
+                                        ,IIF(SUM(T3.ContNOIDSES1) > 0,CINT(SUM(T3.NOIDSES1)/SUM(T3.ContNOIDSES1)) ,0)                        AS SES1
+                                        ,IIF(SUM(T3.ContNOIDSES2) > 0,CINT(SUM(T3.NOIDSES2)/SUM(T3.ContNOIDSES2)) ,0)                        AS SES2
+                                        ,IIF(SUM(T3.ContNOIDSES3) > 0,CINT(SUM(T3.NOIDSES3)/SUM(T3.ContNOIDSES3)) ,0)                        AS SES3
                             FROM
                             (
 	                            SELECT  T2.FECHA
@@ -2949,200 +3127,211 @@ namespace ReportePeriodo.Modelo
 
             try
             {
-                string query = @"SELECT  IIF(ISNULL(AVG(T3.TOTAL)),NULL,CLng(AVG(T3.TOTAL)))
-                                    ,IIF(ISNULL(AVG(T3.ORDEÑO)),NULL,CINT(AVG(T3.ORDEÑO)))       AS ORDEÑO
-                                    ,IIF(ISNULL(AVG(T3.SECAS)),NULL,CINT(AVG(T3.SECAS)))         AS SECAS
-                                    ,IIF(ISNULL(AVG(T3.HATO)),NULL,CINT(AVG(T3.HATO)))           AS HATO
-                                    ,AVG(T3.PLACT)                                               AS LACT
-                                    ,AVG(T3.PPROT)                                               AS PROT
-                                    ,AVG(T3.UREA)                                                AS UREA
-                                    ,AVG(T3.GRASA)                                               AS GRASA
-                                    ,AVG(T3.CCS)                                                 AS CCS
-                                    ,IIF(ISNULL(AVG(T3.CTD)),NULL,CInt(AVG(T3.CTD)))             AS CTD
-                                    ,IIF(ISNULL(AVG(T3.LECPROD)),NULL,CLng(AVG(T3.LECPROD)))     AS LECHE
-                                    ,IIF(ISNULL(AVG(T3.ANTIB)),NULL,CINT(AVG(T3.ANTIB)))         AS ANTIB
-                                    ,IIF(ISNULL(AVG(T3.TOTALP)),NULL,CLNG(AVG(T3.TOTALP)))       AS TOTAL2
-                                    ,IIF(ISNULL(AVG(T3.DELORD)),NULL,CINT(AVG(T3.DELORD)))       AS DEL
-                                    ,IIF(ISNULL(AVG(T3.VACAANTIB)),NULL,CINT(AVG(T3.VACAANTIB))) AS ANT
-                                    ,AVG(T3.criba1)                                              AS N1
-                                    ,AVG(T3.criba2)                                              AS N2
-                                    ,AVG(T3.criba3)                                              AS N3
-                                    ,AVG(T3.criba4)                                              AS N4
-                                    ,IIF(ISNULL(AVG(T3.NOIDSES1)),NULL,CINT(AVG(T3.NOIDSES1)))   AS SES1
-                                    ,IIF(ISNULL(AVG(T3.NOIDSES2)),NULL,CINT(AVG(T3.NOIDSES2)))   AS SES2
-                                    ,IIF(ISNULL(AVG(T3.NOIDSES3)),NULL,CINT(AVG(T3.NOIDSES3)))   AS SES3
-                            FROM
-                            (
-	                            SELECT  T2.FECHA
-	                                    ,T2.TOTAL
-	                                    ,T2.ORDEÑO
-	                                    ,T2.SECAS
-	                                    ,T2.HATO
-	                                    ,T2.PLACT
-	                                    ,T2.PPROT
-	                                    ,T2.UREA
-	                                    ,T2.GRASA
-	                                    ,T2.CCS
-	                                    ,T2.CTD
-	                                    ,T2.LECPROD
-	                                    ,T2.ANTIB
-	                                    ,T2.X
-	                                    ,T2.TOTALP
-	                                    ,T2.DELORD
-	                                    ,T2.VACAANTIB
-	                                    ,CRIBA.criba1
-	                                    ,CRIBA.criba2
-	                                    ,CRIBA.criba3
-	                                    ,CRIBA.criba4
-	                                    ,T2.NOIDSES1
-	                                    ,T2.NOIDSES2
-	                                    ,T2.NOIDSES3
-	                            FROM
-	                            (
-		                            SELECT  T1.FECHA
-		                                    ,T1.TOTAL
-		                                    ,T1.ORDEÑO
-		                                    ,T1.SECAS
-		                                    ,T1.HATO
-		                                    ,T1.PLACT
-		                                    ,T1.PPROT
-		                                    ,T1.UREA
-		                                    ,T1.GRASA
-		                                    ,T1.CCS
-		                                    ,T1.CTD
-		                                    ,T1.LECPROD
-		                                    ,T1.ANTIB
-		                                    ,T1.X
-		                                    ,T1.TOTALP
-		                                    ,T1.DELORD
-		                                    ,T1.VACAANTIB
-		                                    ,T1.ILCA
-		                                    ,T1.IC
-		                                    ,T1.ILCA_P
-		                                    ,T1.IC_P
-		                                    ,T1.L
-		                                    ,T1.MH
-		                                    ,T1.PMS
-		                                    ,T1.MS
-		                                    ,T1.SA
-		                                    ,T1.MSS
-		                                    ,T1.EAS
-		                                    ,T1.S
-		                                    ,T1.COSTO
-		                                    ,T1.PRECMS
-		                                    ,CRIBA.criba1
-		                                    ,CRIBA.criba2
-		                                    ,CRIBA.criba3
-		                                    ,CRIBA.criba4
-		                                    ,T1.NOIDSES1
-		                                    ,T1.NOIDSES2
-		                                    ,T1.NOIDSES3
-		                            FROM
-		                            (
-			                            SELECT  T.FECHA
-			                                    ,T.TOTAL
-			                                    ,T.ORDEÑO
-			                                    ,T.SECAS
-			                                    ,T.HATO
-			                                    ,T.PLACT
-			                                    ,T.PPROT
-			                                    ,T.UREA
-			                                    ,T.GRASA
-			                                    ,T.CCS
-			                                    ,T.CTD
-			                                    ,T.LECPROD
-			                                    ,T.ANTIB
-			                                    ,T.X
-			                                    ,T.TOTALP
-			                                    ,i.delord
-			                                    ,T.VACAANTIB
-			                                    ,T.ILCA
-			                                    ,T.IC
-			                                    ,T.ILCA_P
-			                                    ,T.IC_P
-			                                    ,IIF(T.X > 0,T.COSTO / T.X,0)      AS L
-			                                    ,T.MH
-			                                    ,IIF(T.MH > 0,T.MS / T.MH * 100,0) AS PMS
-			                                    ,T.MS
-			                                    ,T.SA
-			                                    ,T.MSS
-			                                    ,T.EAS
-			                                    ,IIF(T.MH > 0,T.SA / T.MH * 100,0) AS S
-			                                    ,T.COSTO
-			                                    ,T.COSTO / T.MS                    AS PRECMS
-			                                    ,T.NOIDSES1
-			                                    ,T.NOIDSES2
-			                                    ,T.NOIDSES3
-			                            FROM
-			                            (
-				                            SELECT  m.FECHA
-				                                    ,(LECFEDERAL + LECPLANTA)                                          AS TOTAL
-				                                    ,VACASORDEÑA                                                       AS ORDEÑO
-				                                    ,VACASSECAS                                                        AS SECAS
-				                                    ,VACASHATO                                                         AS HATO
-				                                    ,LACTOSA                                                           AS PLACT
-				                                    ,PROTEINA                                                          AS PPROT
-				                                    ,d.UREA1                                                           AS UREA
-				                                    ,d.Grasa1                                                          AS GRASA
-				                                    ,d.CCS1                                                            AS CCS
-				                                    ,d.CTD1                                                            AS CTD
-				                                    ,M.LECPROD
-				                                    ,M.ANTPROD                                                         AS ANTIB
-				                                    ,IIF(vacasordeña > 0,ROUND((lecprod + antprod) / vacasordeña,2),0) AS X
-				                                    ,(M.LECPROD + M.ANTPROD)                                           AS TOTALP
-				                                    ,M.VACAANTIB
-				                                    ,M.ILCA
-				                                    ,M.IC
-				                                    ,M.EA
-				                                    ,M.ILCA_P
-				                                    ,M.IC_P
-				                                    ,M.COSTO
-				                                    ,M.MH
-				                                    ,M.MS
-				                                    ,M.SA
-				                                    ,M.MSS
-				                                    ,M.EAS
-				                                    ,M.NOIDSES1
-				                                    ,M.NOIDSES2
-				                                    ,M.NOIDSES3
-				                            FROM MPRODUC M
-				                            INNER JOIN
-				                            (
-					                            SELECT  FECHA
-					                                    ,AVG(proteina) AS Proteina1
-					                                    ,AVG(urea)     AS Urea1
-					                                    ,AVG(grasa)    AS Grasa1
-					                                    ,AVG(ccs)      AS CCS1
-					                                    ,AVG(ctd)      AS CTD1
-					                            FROM dproduc
-					                            WHERE FECHA BETWEEN @inicio AND @fin
-					                            GROUP BY  FECHA
-				                            ) d
-				                            ON m.FECHA = d.FECHA
-				                            WHERE m.FECHA BETWEEN @inicio AND @fin
-				                            ORDER BY m.FECHA 
-			                            ) T
-			                            LEFT JOIN inventario i
-			                            ON i.FECHA = T.FECHA
-			                            ORDER BY 1
-		                            ) T1
-		                            LEFT JOIN
-		                            (
-			                            SELECT  FECHA
-			                                    ,IIF(ISNULL(AVG(nivel1)),0,AVG(nivel1)) AS criba1
-			                                    ,IIF(ISNULL(AVG(nivel2)),0,AVG(nivel2)) AS criba2
-			                                    ,IIF(ISNULL(AVG(nivel3)),0,AVG(nivel3)) AS criba3
-			                                    ,IIF(ISNULL(AVG(nivel4)),0,AVG(nivel4)) AS criba4
-			                            FROM NIVELCRIBA
-			                            WHERE FECHA BETWEEN @inicio AND @fin
-			                            GROUP BY  FECHA
-		                            )CRIBA
-		                            ON T1.FECHA = CRIBA.FECHA
-	                            ) T2
-	                            LEFT JOIN PRECIOSTEORICOS p
-	                            ON T2.FECHA = p.FECHA
-	                            ORDER BY T2.FECHA
-                            ) T3 ";
+                string query = @"SELECT  IIF(SUM(IIF(T3.ORDEÑO <> 0,1,0)) > 0 ,SUM(T3.ORDEÑO)/SUM(IIF(T3.ORDEÑO <> 0,1,0)),0)                AS ORDEÑO
+                                        ,IIF(SUM(IIF(T3.SECAS <> 0,1,0)) > 0 ,SUM(T3.SECAS)/SUM(IIF(T3.SECAS <> 0,1,0)),0)                   AS SECAS
+                                        ,IIF(SUM(IIF(T3.HATO <> 0,1,0)) > 0 ,SUM(T3.HATO)/SUM(IIF(T3.HATO <> 0,1,0)),0)                      AS HATO
+                                        ,IIF(SUM(IIF(T3.PLACT <> 0,1,0)) > 0 ,SUM(T3.PLACT)/SUM(IIF(T3.PLACT <> 0,1,0)),0)                   AS LACT
+                                        ,IIF(SUM(IIF(T3.PPROT <> 0,1,0)) > 0 ,SUM(T3.PPROT)/SUM(IIF(T3.PPROT <> 0,1,0)),0)                   AS PROT
+                                        ,IIF(SUM(IIF(T3.UREA > 0,1,0)) > 0 ,SUM(T3.UREA)/SUM(IIF(T3.UREA > 0,1,0)),0)                      AS UREA
+                                        ,IIF(SUM(IIF(T3.GRASA <> 0,1,0)) > 0 ,SUM(T3.GRASA)/SUM(IIF(T3.GRASA <> 0,1,0)),0)                   AS GRASA
+                                        ,IIF(SUM(IIF(T3.CCS <> 0,1,0)) > 0 ,SUM(T3.CCS)/SUM(IIF(T3.CCS <> 0,1,0)),0)                         AS CCS
+                                        ,IIF(SUM(IIF(T3.CTD <> 0,1,0)) > 0 ,CInt(SUM(T3.CTD)/SUM(IIF(T3.CTD <> 0,1,0))),0)                   AS CTD
+                                        ,IIF(SUM(IIF(T3.LECPROD <> 0,1,0)) > 0 ,CLng(SUM(T3.LECPROD)/SUM(IIF(T3.LECPROD <> 0,1,0))),0)       AS LECHE
+                                        ,IIF(SUM(IIF(T3.ANTIB <> 0,1,0)) > 0 ,CInt(SUM(T3.ANTIB)/SUM(IIF(T3.ANTIB <> 0,1,0))),0)             AS ANTIB
+                                        ,IIF(SUM(IIF(T3.TOTALP <> 0,1,0)) > 0 ,CLng(SUM(T3.TOTALP)/SUM(IIF(T3.TOTALP <> 0,1,0))),0)          AS TOTAL2
+                                        ,IIF(SUM(IIF(T3.DELORD <> 0,1,0)) > 0 ,CInt(SUM(T3.DELORD)/SUM(IIF(T3.DELORD <> 0,1,0))),0)          AS DEL
+                                        ,IIF(SUM(IIF(T3.VACAANTIB <> 0,1,0)) > 0 ,CInt(SUM(T3.VACAANTIB)/SUM(IIF(T3.VACAANTIB <> 0,1,0))),0) AS ANT
+                                        ,IIF(SUM(IIF(T3.criba1 <> 0,1,0)) > 0 ,CInt(SUM(T3.criba1)/SUM(IIF(T3.criba1 <> 0,1,0))),0)          AS N1
+                                        ,IIF(SUM(IIF(T3.criba2 <> 0,1,0)) > 0 ,CInt(SUM(T3.criba2)/SUM(IIF(T3.criba2 <> 0,1,0))),0)          AS N2
+                                        ,IIF(SUM(IIF(T3.criba3 <> 0,1,0)) > 0 ,CInt(SUM(T3.criba3)/SUM(IIF(T3.criba3 <> 0,1,0))),0)          AS N3
+                                        ,IIF(SUM(IIF(T3.criba4 <> 0,1,0)) > 0 ,CInt(SUM(T3.criba4)/SUM(IIF(T3.criba4 <> 0,1,0))),0)          AS N4
+                                        ,IIF(SUM(T3.ContNOIDSES1) > 0,CINT(SUM(T3.NOIDSES1)/SUM(T3.ContNOIDSES1)) ,0)                        AS SES1
+                                        ,IIF(SUM(T3.ContNOIDSES2) > 0,CINT(SUM(T3.NOIDSES2)/SUM(T3.ContNOIDSES2)) ,0)                        AS SES2
+                                        ,IIF(SUM(T3.ContNOIDSES3) > 0,CINT(SUM(T3.NOIDSES3)/SUM(T3.ContNOIDSES3)) ,0)                        AS SES3
+                                FROM
+                                (
+	                                SELECT  T2.FECHA
+	                                        ,T2.TOTAL
+	                                        ,T2.ORDEÑO
+	                                        ,T2.SECAS
+	                                        ,T2.HATO
+	                                        ,T2.PLACT
+	                                        ,T2.PPROT
+	                                        ,T2.UREA
+	                                        ,T2.GRASA
+	                                        ,T2.CCS
+	                                        ,T2.CTD
+	                                        ,T2.LECPROD
+	                                        ,T2.ANTIB
+	                                        ,T2.X
+	                                        ,T2.TOTALP
+	                                        ,T2.DELORD
+	                                        ,T2.VACAANTIB
+	                                        ,CRIBA.criba1
+	                                        ,CRIBA.criba2
+	                                        ,CRIBA.criba3
+	                                        ,CRIBA.criba4
+	                                        ,T2.NOIDSES1
+	                                        ,T2.NOIDSES2
+	                                        ,T2.NOIDSES3
+	                                        ,T2.ContNOIDSES1
+	                                        ,T2.ContNOIDSES2
+	                                        ,T2.ContNOIDSES3
+	                                FROM
+	                                (
+		                                SELECT  T1.FECHA
+		                                        ,T1.TOTAL
+		                                        ,T1.ORDEÑO
+		                                        ,T1.SECAS
+		                                        ,T1.HATO
+		                                        ,T1.PLACT
+		                                        ,T1.PPROT
+		                                        ,T1.UREA
+		                                        ,T1.GRASA
+		                                        ,T1.CCS
+		                                        ,T1.CTD
+		                                        ,T1.LECPROD
+		                                        ,T1.ANTIB
+		                                        ,T1.X
+		                                        ,T1.TOTALP
+		                                        ,T1.DELORD
+		                                        ,T1.VACAANTIB
+		                                        ,T1.ILCA
+		                                        ,T1.IC
+		                                        ,T1.ILCA_P
+		                                        ,T1.IC_P
+		                                        ,T1.L
+		                                        ,T1.MH
+		                                        ,T1.PMS
+		                                        ,T1.MS
+		                                        ,T1.SA
+		                                        ,T1.MSS
+		                                        ,T1.EAS
+		                                        ,T1.S
+		                                        ,T1.COSTO
+		                                        ,T1.PRECMS
+		                                        ,CRIBA.criba1
+		                                        ,CRIBA.criba2
+		                                        ,CRIBA.criba3
+		                                        ,CRIBA.criba4
+		                                        ,T1.NOIDSES1
+		                                        ,T1.NOIDSES2
+		                                        ,T1.NOIDSES3
+		                                        ,T1.ContNOIDSES1
+		                                        ,T1.ContNOIDSES2
+		                                        ,T1.ContNOIDSES3
+		                                FROM
+		                                (
+			                                SELECT  T.FECHA
+			                                        ,T.TOTAL
+			                                        ,T.ORDEÑO
+			                                        ,T.SECAS
+			                                        ,T.HATO
+			                                        ,T.PLACT
+			                                        ,T.PPROT
+			                                        ,T.UREA
+			                                        ,T.GRASA
+			                                        ,T.CCS
+			                                        ,T.CTD
+			                                        ,T.LECPROD
+			                                        ,T.ANTIB
+			                                        ,T.X
+			                                        ,T.TOTALP
+			                                        ,i.delord
+			                                        ,T.VACAANTIB
+			                                        ,T.ILCA
+			                                        ,T.IC
+			                                        ,T.ILCA_P
+			                                        ,T.IC_P
+			                                        ,IIF(T.X > 0,T.COSTO / T.X,0)      AS L
+			                                        ,T.MH
+			                                        ,IIF(T.MH > 0,T.MS / T.MH * 100,0) AS PMS
+			                                        ,T.MS
+			                                        ,T.SA
+			                                        ,T.MSS
+			                                        ,T.EAS
+			                                        ,IIF(T.MH > 0,T.SA / T.MH * 100,0) AS S
+			                                        ,T.COSTO
+			                                        ,T.COSTO / T.MS                    AS PRECMS
+			                                        ,T.NOIDSES1
+			                                        ,T.NOIDSES2
+			                                        ,T.NOIDSES3
+			                                        ,T.ContNOIDSES1
+			                                        ,T.ContNOIDSES2
+			                                        ,T.ContNOIDSES3
+			                                FROM
+			                                (
+				                                SELECT  m.FECHA
+				                                        ,(LECFEDERAL + LECPLANTA)                                          AS TOTAL
+				                                        ,VACASORDEÑA                                                       AS ORDEÑO
+				                                        ,VACASSECAS                                                        AS SECAS
+				                                        ,VACASHATO                                                         AS HATO
+				                                        ,LACTOSA                                                           AS PLACT
+				                                        ,PROTEINA                                                          AS PPROT
+				                                        ,d.UREA1                                                           AS UREA
+				                                        ,d.Grasa1                                                          AS GRASA
+				                                        ,d.CCS1                                                            AS CCS
+				                                        ,d.CTD1                                                            AS CTD
+				                                        ,M.LECPROD
+				                                        ,M.ANTPROD                                                         AS ANTIB
+				                                        ,IIF(vacasordeña > 0,ROUND((lecprod + antprod) / vacasordeña,2),0) AS X
+				                                        ,(M.LECPROD + M.ANTPROD)                                           AS TOTALP
+				                                        ,M.VACAANTIB
+				                                        ,M.ILCA
+				                                        ,M.IC
+				                                        ,M.EA
+				                                        ,M.ILCA_P
+				                                        ,M.IC_P
+				                                        ,M.COSTO
+				                                        ,M.MH
+				                                        ,M.MS
+				                                        ,M.SA
+				                                        ,M.MSS
+				                                        ,M.EAS
+				                                        ,M.NOIDSES1
+				                                        ,M.NOIDSES2
+				                                        ,M.NOIDSES3
+				                                        ,IIF(M.NOIDSES1 > 0,1,0)                                           AS ContNOIDSES1
+				                                        ,IIF(M.NOIDSES2 > 0,1,0)                                           AS ContNOIDSES2
+				                                        ,IIF(M.NOIDSES3 > 0,1,0)                                           AS ContNOIDSES3
+				                                FROM MPRODUC M
+				                                INNER JOIN
+				                                (
+					                                SELECT  FECHA
+					                                        ,AVG(proteina) AS Proteina1
+					                                        ,AVG(urea)     AS Urea1
+					                                        ,AVG(grasa)    AS Grasa1
+					                                        ,AVG(ccs)      AS CCS1
+					                                        ,AVG(ctd)      AS CTD1
+					                                FROM dproduc
+					                                WHERE FECHA BETWEEN @inicio AND @fin
+					                                GROUP BY  FECHA
+				                                ) d
+				                                ON m.FECHA = d.FECHA
+				                                WHERE m.FECHA BETWEEN @inicio AND @fin
+				                                ORDER BY m.FECHA 
+			                                ) T
+			                                LEFT JOIN inventario i
+			                                ON i.FECHA = T.FECHA
+			                                ORDER BY 1
+		                                ) T1
+		                                LEFT JOIN
+		                                (
+			                                SELECT  FECHA
+			                                        ,IIF(ISNULL(AVG(nivel1)),0,AVG(nivel1)) AS criba1
+			                                        ,IIF(ISNULL(AVG(nivel2)),0,AVG(nivel2)) AS criba2
+			                                        ,IIF(ISNULL(AVG(nivel3)),0,AVG(nivel3)) AS criba3
+			                                        ,IIF(ISNULL(AVG(nivel4)),0,AVG(nivel4)) AS criba4
+			                                FROM NIVELCRIBA
+			                                WHERE FECHA BETWEEN @inicio AND @fin
+			                                GROUP BY  FECHA
+		                                )CRIBA
+		                                ON T1.FECHA = CRIBA.FECHA
+	                                ) T2
+	                                LEFT JOIN PRECIOSTEORICOS p
+	                                ON T2.FECHA = p.FECHA
+	                                ORDER BY T2.FECHA
+                                ) T3";
 
                 db.Conectar();
                 db.CrearComando(query, tipoComandoAccess.query);
@@ -3827,7 +4016,7 @@ namespace ReportePeriodo.Modelo
 
             try
             {
-                string query = @"SELECT SUM(m.LECPROD) AS LecheProd
+                string query = @"SELECT IIF( SUM(IIF(m.LECPROD > 0, 1,0)) > 0, CLng(SUM(m.LECPROD) /  SUM(IIF(m.LECPROD > 0, 1,0))), 0) AS LecheProd
                                  FROM MPRODUC m
                                  WHERE m.FECHA BETWEEN @fechaInicio AND @fechaFin";
 
@@ -4633,6 +4822,12 @@ namespace ReportePeriodo.Modelo
             return lista;
         }
 
+        private DateTime ConvertJulianaToGregoriana(int juliana)
+        {
+            DateTime date = new DateTime(1900, 1, 1);
+            date = date.AddDays(juliana).AddDays(-2);
+            return date;
+        }
         #endregion
     }
 
