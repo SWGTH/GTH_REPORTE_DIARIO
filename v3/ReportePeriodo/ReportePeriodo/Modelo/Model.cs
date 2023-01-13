@@ -804,6 +804,10 @@ namespace ReportePeriodo.Modelo
                 item.Color_Ses1 = item.NoID_Ses1 == null ? "" : item.Color_Ses1;
                 item.Color_Ses2 = item.NoID_Ses2 == null ? "" : item.Color_Ses2;
                 item.Color_Ses3 = item.NoID_Ses3 == null ? "" : item.Color_Ses3;
+
+                item.Color_HoraSes1 = item.SES1 == null ? "" : item.Color_HoraSes1;
+                item.Color_HoraSes2 = item.SES2 == null ? "" : item.Color_HoraSes2;
+                item.Color_HoraSes3 = item.SES3 == null ? "" : item.Color_HoraSes3;
             }
         }
 
@@ -1272,7 +1276,7 @@ namespace ReportePeriodo.Modelo
 
                 #region utilidad
                 difencia.Inventario_Total = promedio.Inventario_Total != null && promedioAñoAnt.Inventario_Total != null ? promedio.Inventario_Total - promedioAñoAnt.Inventario_Total : 0;
-               
+
                 difencia.CostoxAnimal = promedio.CostoxAnimal != null && promedioAñoAnt.CostoxAnimal != null ? promedio.CostoxAnimal - promedioAñoAnt.CostoxAnimal : 0;
                 difencia.UtilidadxAnimal = promedio.UtilidadxAnimal != null && promedioAñoAnt.UtilidadxAnimal != null ? promedio.UtilidadxAnimal - promedioAñoAnt.UtilidadxAnimal : 0;
                 difencia.IngresoxAnimal = promedio.IngresoxAnimal != null && promedioAñoAnt.IngresoxAnimal != null ? promedio.IngresoxAnimal - promedioAñoAnt.IngresoxAnimal : 0;
@@ -1546,7 +1550,7 @@ namespace ReportePeriodo.Modelo
                     item.Jaulas_Muertas = busquedaJaulasMuertas != null ? busquedaJaulasMuertas.Vacas : 0;
                     item.Destete_Vivas = busquedaDesteteVivas != null ? busquedaDesteteVivas.Vacas : 0;
                     item.Destete_Muertas = busquedaDesteteMuertas != null ? busquedaDesteteMuertas.Vacas : 0;
-                    item.Vaquillas_Muertas = busquedaDesteteMuertas != null ? busquedaDesteteMuertas.Vacas : 0;
+                    item.Vaquillas_Muertas = busquedaVaquillasMuertas != null ? busquedaVaquillasMuertas.Vacas : 0;
                     item.Vaquillas_Urgente = busquedaVaquillasUrgencia != null ? busquedaVaquillasUrgencia.Vacas : 0;
                     item.Vaquillas_RF = busquedaVaquillasDelgadas != null ? busquedaVaquillasDelgadas.Vacas : 0;
                     item.Vaquillas_RR = busquedaVaquillasRegulares != null ? busquedaVaquillasRegulares.Vacas : 0;
@@ -1640,7 +1644,7 @@ namespace ReportePeriodo.Modelo
                 response.Jaulas_Muertas = totalJaulasMuertas != null ? totalJaulasMuertas.Vacas : 0;
                 response.Destete_Vivas = totalDesteteVivas != null ? totalDesteteVivas.Vacas : 0;
                 response.Destete_Muertas = totalDesteteMuertas != null ? totalDesteteMuertas.Vacas : 0;
-                response.Vaquillas_Muertas = totalDesteteMuertas != null ? totalDesteteMuertas.Vacas : 0;
+                response.Vaquillas_Muertas = totalVaquillasMuertas != null ? totalVaquillasMuertas.Vacas : 0;
                 response.Vaquillas_Urgente = totalVaquillasUrgencia != null ? totalVaquillasUrgencia.Vacas : 0;
                 response.Vaquillas_RF = totalVaquillasDelgadas != null ? totalVaquillasDelgadas.Vacas : 0;
                 response.Vaquillas_RR = totalVaquillasRegulares != null ? totalVaquillasRegulares.Vacas : 0;
@@ -1842,9 +1846,9 @@ namespace ReportePeriodo.Modelo
                     if (item.Diferencia_Calostro == 0)
                     {
                         item.Diferencia_Calostro = null;
-                        
+
                     }
-                    
+
                 }
                 catch { }
             }
@@ -1922,23 +1926,29 @@ namespace ReportePeriodo.Modelo
             try
             {
                 List<DateTime> fechasReporte = ListaFechasReporte(fechaFin);
-                List<DatosVacas> datosUbre_MA = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 1 ", ref mensaje);
-                List<DatosVacas> datosUbre_SL = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 2 ", ref mensaje);
+                List<DatosVacas> datosUbre_MA = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 1 AND enfdetalle = 1 ", ref mensaje);
+                List<DatosVacas> datosUbre_SL = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 1 AND enfdetalle = 2 ", ref mensaje);
+
                 List<DatosVacas> datosMetabolicos_FL = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 1 ", ref mensaje);
                 List<DatosVacas> datosMetabolicos_CET = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 2 ", ref mensaje);
+
                 List<DatosVacas> datosLocomotores_BE = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 1 ", ref mensaje);
                 List<DatosVacas> datosLocomotores_TRA = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 2 ", ref mensaje);
                 List<DatosVacas> datosLocomotores_GA = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 3 ", ref mensaje);
+
                 List<DatosVacas> datosDigestivos_AC = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 1 ", ref mensaje);
                 List<DatosVacas> datosDigestivos_ES = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 2 ", ref mensaje);
                 List<DatosVacas> datosDigestivos_DI = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 3 ", ref mensaje);
                 List<DatosVacas> datosDigestivos_TI = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 2 AND enfdetalle = 4 ", ref mensaje);
+
                 List<DatosVacas> datosReproductivos_RE = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 1 ", ref mensaje);
                 List<DatosVacas> datosReproductivos_ME = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 2 ", ref mensaje);
                 List<DatosVacas> datosReproductivos_PIO = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 3 ", ref mensaje);
                 List<DatosVacas> datosReproductivos_QUI = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 4 ", ref mensaje);
                 List<DatosVacas> datosReproductivos_CS = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 3 AND enfdetalle = 5 ", ref mensaje);
+
                 List<DatosVacas> datosRespiratorios_Neu = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 7 AND enfdetalle = 1 ", ref mensaje);
+
                 List<DatosVacas> datosBecerras_Neu = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 2  AND enfermedad = 8 AND enfdetalle = 1 ", ref mensaje);
                 List<DatosVacas> datosBecerras_Fie = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 2  AND enfermedad = 8 AND enfdetalle = 2 ", ref mensaje);
                 List<DatosVacas> datosBecerras_Di = DatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 2  AND enfermedad = 8 AND enfdetalle = 3 ", ref mensaje);
@@ -2006,14 +2016,14 @@ namespace ReportePeriodo.Modelo
                     newItem.Vacas_Pren = busquedaValInventarios != null ? busquedaValInventarios.VacasPreñadas : 0;
                     newItem.Vacas_Vacias = busquedaValInventarios != null ? busquedaValInventarios.VacasVacias : 0;
                     newItem.Vacas_Diag = newItem.Vacas_Pren + newItem.Vacas_Vacias;
-                    newItem.Vacas_Porcentaje_Pren = newItem.Vacas_Diag > 0 ? (newItem.Vacas_Pren / newItem.Vacas_Diag) : 0;
-                    newItem.Vacas_Porcentaje_Vacias = newItem.Vacas_Diag > 0 ? (newItem.Vacas_Vacias / newItem.Vacas_Diag) : 0;
+                    newItem.Vacas_Porcentaje_Pren = newItem.Vacas_Diag > 0 ? (newItem.Vacas_Pren / newItem.Vacas_Diag) * 100 : 0;
+                    newItem.Vacas_Porcentaje_Vacias = newItem.Vacas_Diag > 0 ? (newItem.Vacas_Vacias / newItem.Vacas_Diag) * 100 : 0;
 
                     newItem.Vaquillas_Pren = busquedaValInventarios != null ? busquedaValInventarios.VaquillasPreñadas : 0;
                     newItem.Vaquillas_Vacias = busquedaValInventarios != null ? busquedaValInventarios.VaquillasVacias : 0;
                     newItem.Vaquillas_Diag = newItem.Vaquillas_Pren + newItem.Vaquillas_Vacias;
-                    newItem.Vaquillas_Porcentaje_Pren = newItem.Vaquillas_Diag > 0 ? (newItem.Vaquillas_Pren / newItem.Vaquillas_Diag) : 0;
-                    newItem.Vaquillas_Porcentaje_Vacias = newItem.Vaquillas_Diag > 0 ? (newItem.Vaquillas_Vacias / newItem.Vaquillas_Diag) : 0;
+                    newItem.Vaquillas_Porcentaje_Pren = newItem.Vaquillas_Diag > 0 ? (newItem.Vaquillas_Pren / newItem.Vaquillas_Diag) * 100 : 0;
+                    newItem.Vaquillas_Porcentaje_Vacias = newItem.Vaquillas_Diag > 0 ? (newItem.Vaquillas_Vacias / newItem.Vaquillas_Diag) * 100 : 0;
                     newItem.Abortos_Vaquillas = busquedaAbortosVaquillas != null ? busquedaAbortosVaquillas.Vacas : 0;
                     newItem.Abortos_Vacas = busquedaAbortosVacas != null ? busquedaAbortosVacas.Vacas : 0;
 
@@ -2036,8 +2046,8 @@ namespace ReportePeriodo.Modelo
 
             try
             {
-                DatosVacas datosUbre_MA = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 1 ", ref mensaje);
-                DatosVacas datosUbre_SL = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 2 ", ref mensaje);
+                DatosVacas datosUbre_MA = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 1 AND enfdetalle = 1 ", ref mensaje);
+                DatosVacas datosUbre_SL = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 1 AND enfdetalle = 2 ", ref mensaje);
                 DatosVacas datosMetabolicos_FL = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 1 ", ref mensaje);
                 DatosVacas datosMetabolicos_CET = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 5 AND enfdetalle = 2 ", ref mensaje);
                 DatosVacas datosLocomotores_BE = TotalDatosSalud(fechaInicio, fechaFin, @" AND vacvaq = 1  AND enfermedad = 4 AND enfdetalle = 1 ", ref mensaje);
@@ -2092,8 +2102,8 @@ namespace ReportePeriodo.Modelo
                 response.Vaquillas_Pren = datosValInventarios.VaquillasPreñadas;
                 response.Vaquillas_Vacias = datosValInventarios.VaquillasVacias;
                 response.Vaquillas_Diag = response.Vaquillas_Pren + response.Vaquillas_Vacias;
-                response.Vaquillas_Porcentaje_Pren = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Pren / response.Vaquillas_Diag) : 0;
-                response.Vaquillas_Porcentaje_Vacias = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Vacias / response.Vaquillas_Diag) : 0;
+                response.Vaquillas_Porcentaje_Pren = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Pren / response.Vaquillas_Diag) * 100: 0;
+                response.Vaquillas_Porcentaje_Vacias = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Vacias / response.Vaquillas_Diag) * 100 : 0;
 
                 response.Abortos_Vaquillas = datosAbortosVaquillas.Vacas;
                 response.Abortos_Vacas = datosAbortosVacas.Vacas;

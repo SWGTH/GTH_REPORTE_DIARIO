@@ -1730,7 +1730,6 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3","White")
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -5624,22 +5623,22 @@ Parameters!DEC_TRES.Value &gt;= 3.3, "#fff5d9"
                   <Width>0.6cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.65871cm</Width>
+                  <Width>0.63cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.63431cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.73cm</Width>
+                  <Width>0.63cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.7cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.66569cm</Width>
+                  <Width>0.73cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.63cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.7cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -10194,7 +10193,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             <Top>19.8383cm</Top>
             <Left>0.05185cm</Left>
             <Height>1.35cm</Height>
-            <Width>29.07871cm</Width>
+            <Width>29.11cm</Width>
             <ZIndex>8</ZIndex>
             <Style>
               <Border>
@@ -14447,19 +14446,19 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                   <Width>0.9cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.9cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.9cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.9cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.9cm</Width>
-                </TablixColumn>
-                <TablixColumn>
                   <Width>1cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.9cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.9cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.9cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.9cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1cm</Width>
@@ -17366,7 +17365,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>DiaG</Value>
+                                    <Value>DIAG</Value>
                                     <Style>
                                       <FontSize>5pt</FontSize>
                                     </Style>
@@ -17504,7 +17503,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>VACAS</Value>
+                                    <Value>VACIAS</Value>
                                     <Style>
                                       <FontSize>5pt</FontSize>
                                     </Style>
@@ -17652,7 +17651,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>DiaG</Value>
+                                    <Value>DIAG</Value>
                                     <Style>
                                       <FontSize>5pt</FontSize>
                                     </Style>

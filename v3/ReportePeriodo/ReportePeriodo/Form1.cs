@@ -90,9 +90,7 @@ namespace ReportePeriodo
             Close();
         }
 
-
-
-        private void Reporte(Rancho rancho, DateTime fechaInicio, DateTime fechaFin)
+        public void Reporte(Rancho rancho, DateTime fechaInicio, DateTime fechaFin)
         {
             bool validacionAlimento = true;
             bool validacionMedicina = true;
@@ -103,7 +101,7 @@ namespace ReportePeriodo
 
             if (fechaFin.Month == fechaActAux.Month && fechaFin.Year == fechaActAux.Year)
             {
-                _presentador.CierreMesCorrecto(rancho.Ran_ID, rancho.TimeShiftTracker, _conexionSIE, fechaInicio, fechaFin, out validacionAlimento, out validacionMedicina);
+                _presentador.CierreMesCorrecto(rancho.Ran_ID, rancho.TimeShiftTracker, _conexionSIE, fechaInicio, fechaFin, out validacionMedicina, out validacionAlimento);
                 validacionesVisibles = "si";
             }
             else 
