@@ -45,6 +45,7 @@ namespace ReportePeriodo
             {
                 DateTime fechaFin = DateTime.Today;
                 DateTime fechaInicio = new DateTime(fechaFin.Year, fechaFin.Month, 1);
+                _presentador.ValoresConsistentes(_rancho, fechaFin);
                 Reporte(_rancho, fechaInicio, fechaFin);
                 Close();
             }

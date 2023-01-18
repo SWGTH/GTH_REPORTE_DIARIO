@@ -122,8 +122,10 @@
     <Compile Include="Entidad\Mproduc.cs" />
     <Compile Include="Entidad\Mproduc2.cs" />
     <Compile Include="Entidad\PromedioHoja1.cs" />
+    <Compile Include="Entidad\PromedioMProducAlimentacion.cs" />
     <Compile Include="Entidad\Rancho.cs" />
     <Compile Include="Entidad\Utilidad.cs" />
+    <Compile Include="Entidad\ValConAlim.cs" />
     <Compile Include="Entidad\ValInventario.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

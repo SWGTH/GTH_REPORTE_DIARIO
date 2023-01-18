@@ -624,33 +624,33 @@ namespace ReportePeriodo
             {
                 //promedio
                 if (promedio.Litros_Sesion1 != 0)
-                    tabla.Rows[32]["HORARIOSES1"] = Math.Round(promedio.Litros_Sesion1,1);
+                    tabla.Rows[32]["HORARIOSES1"] = Math.Round(promedio.Litros_Sesion1, 1);
                 else
                     tabla.Rows[32]["HORARIOSES1"] = DBNull.Value;
 
                 if (promedio.Litros_Sesion2 != 0)
-                    tabla.Rows[32]["HORARIOSES2"] = Math.Round(promedio.Litros_Sesion2,1);
+                    tabla.Rows[32]["HORARIOSES2"] = Math.Round(promedio.Litros_Sesion2, 1);
                 else
                     tabla.Rows[32]["HORARIOSES2"] = DBNull.Value;
 
                 if (promedio.Litros_Sesion3 != 0)
-                    tabla.Rows[32]["HORARIOSES3"] = Math.Round(promedio.Litros_Sesion3,1);
+                    tabla.Rows[32]["HORARIOSES3"] = Math.Round(promedio.Litros_Sesion3, 1);
                 else
                     tabla.Rows[32]["HORARIOSES3"] = DBNull.Value;
 
                 //año anterior
                 if (añoAnterior.Litros_Sesion1 != 0)
-                    tabla.Rows[33]["HORARIOSES1"] = Math.Round(añoAnterior.Litros_Sesion1,1);
+                    tabla.Rows[33]["HORARIOSES1"] = Math.Round(añoAnterior.Litros_Sesion1, 1);
                 else
                     tabla.Rows[33]["HORARIOSES1"] = DBNull.Value;
 
                 if (añoAnterior.Litros_Sesion2 != 0)
-                    tabla.Rows[33]["HORARIOSES2"] = Math.Round(añoAnterior.Litros_Sesion2,1);
+                    tabla.Rows[33]["HORARIOSES2"] = Math.Round(añoAnterior.Litros_Sesion2, 1);
                 else
                     tabla.Rows[33]["HORARIOSES2"] = DBNull.Value;
 
                 if (añoAnterior.Litros_Sesion3 != 0)
-                    tabla.Rows[33]["HORARIOSES3"] = Math.Round(añoAnterior.Litros_Sesion3,1);
+                    tabla.Rows[33]["HORARIOSES3"] = Math.Round(añoAnterior.Litros_Sesion3, 1);
                 else
                     tabla.Rows[33]["HORARIOSES3"] = DBNull.Value;
             }
@@ -666,17 +666,17 @@ namespace ReportePeriodo
                 diferenciaL3 = promedio.Litros_Sesion3 - añoAnterior.Litros_Sesion3;
 
                 if (diferenciaL1 != 0)
-                    tabla.Rows[35]["HORARIOSES1"] = Math.Round(diferenciaL1,1);
+                    tabla.Rows[35]["HORARIOSES1"] = Math.Round(diferenciaL1, 1);
                 else
                     tabla.Rows[35]["HORARIOSES1"] = DBNull.Value;
 
                 if (diferenciaL2 != 0)
-                    tabla.Rows[35]["HORARIOSES2"] = Math.Round(diferenciaL2,1);
+                    tabla.Rows[35]["HORARIOSES2"] = Math.Round(diferenciaL2, 1);
                 else
                     tabla.Rows[35]["HORARIOSES2"] = DBNull.Value;
 
                 if (diferenciaL3 != 0)
-                    tabla.Rows[35]["HORARIOSES3"] = Math.Round(diferenciaL3,1);
+                    tabla.Rows[35]["HORARIOSES3"] = Math.Round(diferenciaL3, 1);
                 else
                     tabla.Rows[35]["HORARIOSES3"] = DBNull.Value;
 
@@ -685,17 +685,17 @@ namespace ReportePeriodo
                 porcentajeL3 = añoAnterior.Litros_Sesion3 != 0 ? diferenciaL3 / añoAnterior.Litros_Sesion3 : 0;
 
                 if (porcentajeL1 != 0)
-                    tabla.Rows[34]["HORARIOSES1"] = Math.Round(porcentajeL1,1);
+                    tabla.Rows[34]["HORARIOSES1"] = Math.Round(porcentajeL1, 1);
                 else
                     tabla.Rows[34]["HORARIOSES1"] = DBNull.Value;
 
                 if (porcentajeL2 != 0)
-                    tabla.Rows[34]["HORARIOSES2"] = Math.Round(porcentajeL2,1);
+                    tabla.Rows[34]["HORARIOSES2"] = Math.Round(porcentajeL2, 1);
                 else
                     tabla.Rows[34]["HORARIOSES2"] = DBNull.Value;
 
                 if (porcentajeL3 != 0)
-                    tabla.Rows[34]["HORARIOSES3"] = Math.Round(porcentajeL3,1);
+                    tabla.Rows[34]["HORARIOSES3"] = Math.Round(porcentajeL3, 1);
                 else
                     tabla.Rows[34]["HORARIOSES3"] = DBNull.Value;
 
@@ -999,7 +999,7 @@ namespace ReportePeriodo
                     }
                     else
                     {
-                        MsProd = promOrd > 0 ? (MsProdValor >= 18 && MsProdValor <= 30) ? true : false : true;
+                        MsProd = promOrd > 0 ? (MsProdValor >= 18 && MsProdValor <= 32) ? true : false : true;
                     }
                     //Evaluación de MS Destetadas Uno 
                     if (Convert.ToInt32(dtAnimalesEtapas.Rows[0]["DesteteUno"]) == 0)
@@ -2050,7 +2050,7 @@ namespace ReportePeriodo
             row[43] = calostro.Horario_Sesion2;
             row[44] = calostro.Horario_Sesion3;
             row[45] = calostro.Capacidad_Ordeño;
-            row[46] = Math.Round(calostro.Porcentaje_Revueltas,1);
+            row[46] = Math.Round(calostro.Porcentaje_Revueltas, 1);
             dt.Rows.Add(row);
         }
 
@@ -3868,7 +3868,7 @@ namespace ReportePeriodo
                                 dt.Rows[32][19] = ((_Ponderizado / Convert.ToDouble(dt.Rows[31][17])) / Convert.ToDouble(dt.Rows[32][18])) * 100;
                             }
                             dt.Rows[32][i] = _Ponderizado / Convert.ToDouble(dt.Rows[31][17]);
-                            if (i == 22) 
+                            if (i == 22)
                             {
                                 double v1, v2;
                                 double.TryParse(dt.Rows[32][20].ToString(), out v1);
@@ -6963,7 +6963,7 @@ namespace ReportePeriodo
                         color = "#FFF5D9";
                         break;
                     //Rojo
-                    case decimal n when (n < - 10):
+                    case decimal n when (n < -10):
                         color = "#FFC9C9";
                         break;
                 }

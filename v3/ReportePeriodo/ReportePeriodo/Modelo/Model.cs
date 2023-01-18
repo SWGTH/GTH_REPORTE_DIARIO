@@ -615,7 +615,14 @@ namespace ReportePeriodo.Modelo
                     item.Color_HoraSes3 = busquedaCalostro != null ? ColorSesionesHora(busquedaCalostro.Horario_Sesion3) : string.Empty;
                     item.Color_Ordeño = busquedaCalostro != null ? ColorSalaOrdeño(busquedaCalostro.Capacidad_Ordeño) : string.Empty;
 
+                    if (item.Color_HoraSes1 != "#FFC9C9" && item.Color_HoraSes1 != string.Empty && item.Color_HoraSes1 != "")
+                        item.Color_HoraSes1 = busquedaCalostro != null ? busquedaCalostro.Horario_Dif_Sesion1 < 10 ? "#FFC9C9" : item.Color_HoraSes1 : item.Color_HoraSes1;
 
+                    if (item.Color_HoraSes2 != "#FFC9C9" && item.Color_HoraSes1 != string.Empty && item.Color_HoraSes1 != "")
+                        item.Color_HoraSes2 = busquedaCalostro != null ? busquedaCalostro.Horario_Dif_Sesion2 < 10 ? "#FFC9C9" : item.Color_HoraSes2 : item.Color_HoraSes2;
+
+                    if (item.Color_HoraSes3 != "#FFC9C9" && item.Color_HoraSes1 != string.Empty && item.Color_HoraSes1 != "")
+                        item.Color_HoraSes3 = busquedaCalostro != null ? busquedaCalostro.Horario_Dif_Sesion3 < 10 ? "#FFC9C9" : item.Color_HoraSes3 : item.Color_HoraSes3;
                 }
             }
             catch { }
@@ -753,8 +760,9 @@ namespace ReportePeriodo.Modelo
         public void QuitarCeros(List<Hoja1> reporte)
         {
             foreach (Hoja1 item in reporte)
-            {
+            {                
                 item.Ordeño = item.Ordeño == 0 ? null : item.Ordeño;
+
                 item.Secas = item.Secas == 0 ? null : item.Secas;
                 item.Hato = item.Hato == 0 ? null : item.Hato;
                 item.Porcentaje_Lact = item.Porcentaje_Lact == 0 ? null : item.Porcentaje_Lact;
@@ -808,6 +816,8 @@ namespace ReportePeriodo.Modelo
                 item.Color_HoraSes1 = item.SES1 == null ? "" : item.Color_HoraSes1;
                 item.Color_HoraSes2 = item.SES2 == null ? "" : item.Color_HoraSes2;
                 item.Color_HoraSes3 = item.SES3 == null ? "" : item.Color_HoraSes3;
+                item.Color_Ordeño = item.Ordeño == null ? "" : item.Color_Ordeño;
+                item.Color_ANT = item.ANT == null ? "" : item.Color_ANT;
             }
         }
 
@@ -2096,13 +2106,13 @@ namespace ReportePeriodo.Modelo
                 response.Vacas_Pren = datosValInventarios.VacasPreñadas;
                 response.Vacas_Vacias = datosValInventarios.VacasVacias;
                 response.Vacas_Diag = response.Vacas_Pren + response.Vacas_Vacias;
-                response.Vacas_Porcentaje_Pren = response.Vacas_Diag > 0 ? (response.Vacas_Pren / response.Vacas_Diag) : 0;
-                response.Vacas_Porcentaje_Vacias = response.Vacas_Diag > 0 ? (response.Vacas_Vacias / response.Vacas_Diag) : 0;
+                response.Vacas_Porcentaje_Pren = response.Vacas_Diag > 0 ? (response.Vacas_Pren / response.Vacas_Diag) * 100: 0;
+                response.Vacas_Porcentaje_Vacias = response.Vacas_Diag > 0 ? (response.Vacas_Vacias / response.Vacas_Diag) *100 : 0;
 
                 response.Vaquillas_Pren = datosValInventarios.VaquillasPreñadas;
                 response.Vaquillas_Vacias = datosValInventarios.VaquillasVacias;
                 response.Vaquillas_Diag = response.Vaquillas_Pren + response.Vaquillas_Vacias;
-                response.Vaquillas_Porcentaje_Pren = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Pren / response.Vaquillas_Diag) * 100: 0;
+                response.Vaquillas_Porcentaje_Pren = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Pren / response.Vaquillas_Diag) * 100 : 0;
                 response.Vaquillas_Porcentaje_Vacias = response.Vaquillas_Diag > 0 ? (response.Vaquillas_Vacias / response.Vaquillas_Diag) * 100 : 0;
 
                 response.Abortos_Vaquillas = datosAbortosVaquillas.Vacas;
@@ -2374,6 +2384,267 @@ namespace ReportePeriodo.Modelo
             return fecha;
         }
         #endregion
+
+        #region ValoresConsistentes
+        public void ValoresConsistentes(Rancho rancho, DateTime fecha)
+        {
+            try
+            {
+                ValConAlim valconAlim = new ValConAlim() { Ran_ID = rancho.Ran_ID };
+
+
+                string mensaje = string.Empty;
+                bool configuraDiario = ConfiguraDiario(ref mensaje);
+                DateTime fechaFinal = !configuraDiario ? fecha.AddDays(-1) : fecha;
+                bool evaluacionValConAlim = EvaluacionValConAlim(fechaFinal, ref mensaje);
+
+                List<gth.ReportePeriodo> auxIngredientes = new List<gth.ReportePeriodo>();
+                gth.ReportePeriodo auxSobrante = new gth.ReportePeriodo();
+
+                gth.IndicadorReportePeriodo indicadoresProduccion = new gth.IndicadorReportePeriodo();
+                gth.IndicadorReportePeriodo indicadoresSecas = new gth.IndicadorReportePeriodo();
+                gth.IndicadorReportePeriodo indicadoresReto = new gth.IndicadorReportePeriodo();
+                gth.IndicadorReportePeriodo indicadoresCrecimiento = new gth.IndicadorReportePeriodo();
+                gth.IndicadorReportePeriodo indicadoresDesarrollo = new gth.IndicadorReportePeriodo();
+                gth.IndicadorReportePeriodo indicadoresVaquillas = new gth.IndicadorReportePeriodo();
+
+                if (evaluacionValConAlim)
+                {
+                    #region llamado dll Alimentacion
+                    GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "10,11,12,13", fechaFinal, fechaFinal, out auxIngredientes, out indicadoresProduccion, out auxSobrante);
+                    GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "21", fechaFinal, fechaFinal, out auxIngredientes, out indicadoresSecas, out auxSobrante);
+                    GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "22", fechaFinal, fechaFinal, out auxIngredientes, out indicadoresReto, out auxSobrante);
+                    GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "32", fechaFinal, fechaFinal, out auxIngredientes, out indicadoresCrecimiento, out auxSobrante);
+                    GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "33", fechaFinal, fechaFinal, out auxIngredientes, out indicadoresDesarrollo, out auxSobrante);
+                    GTH.ReportePeriodo(rancho.Ran_ID.ToString(), rancho.TimeShiftTracker, "34", fechaFinal, fechaFinal, out auxIngredientes, out indicadoresVaquillas, out auxSobrante);
+                    #endregion
+
+                    #region Evaluacion de Ea Producción
+                    if (indicadoresProduccion.ANIMELES == 0)
+                    {
+                        valconAlim.EAProd = true;
+                        valconAlim.EAProdValor = -1;
+
+                        valconAlim.MsProd = true;
+                        valconAlim.MsProdValor = -1;
+                    }
+                    else
+                    {
+                        valconAlim.EAProd = (indicadoresProduccion.EA >= 1.1 && indicadoresProduccion.EA <= 1.8) ? true : false;
+                        valconAlim.EAProdValor = indicadoresProduccion.EA;
+
+                        valconAlim.MsProd = (indicadoresProduccion.MSS >= 18 && indicadoresProduccion.MSS <= 32) ? true : false;
+                        valconAlim.MsProdValor = indicadoresProduccion.MS;
+                    }
+                    #endregion
+
+                    #region Evaluación de MS Destetadas Uno
+                    if (indicadoresCrecimiento.ANIMELES == 0)
+                    {
+                        valconAlim.MsCrecimiento = true;
+                        valconAlim.MsCrecimientosValor = -1;
+                    }
+                    else
+                    {
+                        valconAlim.MsCrecimiento = (indicadoresCrecimiento.MS >= 2 && indicadoresCrecimiento.MS <= 8) ? true : false;
+                        valconAlim.MsCrecimientosValor = indicadoresCrecimiento.MS;
+                    }
+                    #endregion
+
+                    #region Evaluación de Ms Destete Dos
+                    if (indicadoresDesarrollo.ANIMELES == 0)
+                    {
+                        valconAlim.MsDesarollo = true;
+                        valconAlim.MsDesarolloValor = -1;
+                    }
+                    else
+                    {
+                        valconAlim.MsDesarollo = (indicadoresDesarrollo.MS >= 6 && indicadoresDesarrollo.MS <= 11) ? true : false;
+                        valconAlim.MsDesarolloValor = indicadoresDesarrollo.MS;
+                    }
+                    #endregion
+
+                    #region Evaluación de Ms Vaquillas
+                    if (indicadoresVaquillas.ANIMELES == 0)
+                    {
+                        valconAlim.MsVaquillas = true;
+                        valconAlim.MsVaquillasValor = -1;
+                    }
+                    else
+                    {
+                        valconAlim.MsVaquillas = (indicadoresVaquillas.MS >= 8 && indicadoresVaquillas.MS <= 15) ? true : false;
+                        valconAlim.MsVaquillasValor = indicadoresVaquillas.MS;
+                    }
+                    #endregion
+
+                    #region Evaluación de MS Secas
+                    if (indicadoresSecas.ANIMELES == 0)
+                    {
+                        valconAlim.MsSecas = true;
+                        valconAlim.MsSecasValor = -1;
+                    }
+                    else
+                    {
+                        valconAlim.MsSecas = (indicadoresSecas.MS >= 10 && indicadoresSecas.MS <= 19) ? true : false;
+                        valconAlim.MsSecasValor = indicadoresSecas.MS;
+                    }
+                    #endregion
+
+                    #region Evaluación de MS Reto
+                    if (indicadoresReto.ANIMELES == 0)
+                    {
+                        valconAlim.MsReto = true;
+                        valconAlim.MsRetoValor = -1;
+                    }
+                    else
+                    {
+                        valconAlim.MsReto = (indicadoresReto.MS >= 9 && indicadoresReto.MS <= 19) ? true : false;
+                        valconAlim.MsRetoValor = indicadoresReto.MS;
+
+                    }
+                    #endregion
+
+                    #region Evaluación de todas la etapas
+                    if (valconAlim.EAProd && valconAlim.MsProd && valconAlim.MsCrecimiento && valconAlim.MsDesarollo && valconAlim.MsVaquillas && valconAlim.MsSecas && valconAlim.MsReto)
+                    {
+                        valconAlim.ValConsisitentes = true;
+                    }
+                    else
+                    {
+                        valconAlim.ValConsisitentes = false;
+                    }
+                    #endregion
+
+                    InsertarValConAlim(valconAlim, fechaFinal, ref mensaje);
+                }
+
+                EliminarValConAlimPeriodo(ref mensaje);
+
+                ValConAlim indicadorValConAlim = new ValConAlim();
+                for (int i = 0; i < 36; i++)
+                {
+                    indicadorValConAlim = new ValConAlim();
+                    InventarioAfiXDia invAFI = IventarioAFI(rancho.Ran_ID, fechaFinal.AddDays(-i), ref mensaje);
+                    InventarioAfiXDia promedioInvAFI = PromedioIventarioAFI(rancho.Ran_ID, fechaFinal.AddDays(-i - 4), fechaFinal.AddDays(-i - 1), ref mensaje);
+                    PromedioMProducAlimentacion infoValConAlimPerido = MProducAlim(fechaFinal.AddDays(-i - 4), fechaFinal.AddDays(-i - 1), ref mensaje);
+
+                    #region asignar los valores ValConAlim
+                    indicadorValConAlim.EAProdValor = Convert.ToDouble(infoValConAlimPerido.EA);
+                    indicadorValConAlim.MsProdValor = Convert.ToDouble(infoValConAlimPerido.Produccion);
+                    indicadorValConAlim.MsCrecimientosValor = Convert.ToDouble(infoValConAlimPerido.Crecimiento);
+                    indicadorValConAlim.MsDesarolloValor = Convert.ToDouble(infoValConAlimPerido.Desarrollo);
+                    indicadorValConAlim.MsVaquillasValor = Convert.ToDouble(infoValConAlimPerido.Vaquillas);
+                    indicadorValConAlim.MsSecasValor = Convert.ToDouble(infoValConAlimPerido.Secas);
+                    indicadorValConAlim.MsRetoValor = Convert.ToDouble(infoValConAlimPerido.Reto);
+                    #endregion
+
+                    if (invAFI != null)
+                    {
+                        #region evaluacion EA y MS PRODUCCION
+                        if (invAFI.Ordeño == null || invAFI.Ordeño == 0)
+                        {
+                            indicadorValConAlim.EAProd = true;
+                            indicadorValConAlim.EAProdValor = 0;
+
+                            indicadorValConAlim.MsProd = true;
+                            indicadorValConAlim.MsProdValor = 0;
+                        }
+                        else
+                        {
+                            indicadorValConAlim.EAProd = promedioInvAFI.Ordeño != null && promedioInvAFI.Ordeño > 0 ? (infoValConAlimPerido.EA >= 1.1M && infoValConAlimPerido.EA <= 1.8M) ? true : false : true;
+
+                            indicadorValConAlim.MsProd = promedioInvAFI.Ordeño != null && promedioInvAFI.Ordeño > 0 ? (infoValConAlimPerido.Produccion >= 18 && infoValConAlimPerido.Produccion <= 32) ? true : false : true;
+                        }
+                        #endregion
+
+                        #region evaluacion MS Crecimiento
+                        if (invAFI.Crecimiento == null || invAFI.Crecimiento == 0)
+                        {
+                            indicadorValConAlim.MsCrecimiento = true;
+                            indicadorValConAlim.MsCrecimientosValor = 0;
+                        }
+                        else
+                        {
+                            indicadorValConAlim.MsCrecimiento = promedioInvAFI.Crecimiento != null && promedioInvAFI.Crecimiento > 0 ? (infoValConAlimPerido.Crecimiento >= 2 && infoValConAlimPerido.Crecimiento <= 8) ? true : false : true;
+                        }
+                        #endregion
+
+                        #region evaluacion MS Desarrollo
+                        if (invAFI.Desarrollo == null || invAFI.Desarrollo == 0)
+                        {
+                            indicadorValConAlim.MsDesarollo = true;
+                            indicadorValConAlim.MsDesarolloValor = 0;
+                        }
+                        else
+                        {
+                            indicadorValConAlim.MsDesarollo = promedioInvAFI.Desarrollo != null && promedioInvAFI.Desarrollo > 0 ? (infoValConAlimPerido.Desarrollo >= 6 && infoValConAlimPerido.Desarrollo <= 11) ? true : false : true;
+                        }
+                        #endregion
+
+                        #region evaluacion MS Vaquillas
+                        if (invAFI.Vaquillas == null || invAFI.Vaquillas == 0)
+                        {
+                            indicadorValConAlim.MsVaquillas = true;
+                            indicadorValConAlim.MsVaquillasValor = 0;
+                        }
+                        else
+                        {
+                            indicadorValConAlim.MsVaquillas = promedioInvAFI.Vaquillas != null && promedioInvAFI.Vaquillas > 0 ? (infoValConAlimPerido.Vaquillas >= 8 && infoValConAlimPerido.Vaquillas <= 15) ? true : false : true;
+                        }
+                        #endregion
+
+                        #region evaluacion MS Secas
+                        if (invAFI.Vaquillas == null || invAFI.Vaquillas == 0)
+                        {
+                            indicadorValConAlim.MsSecas = true;
+                            indicadorValConAlim.MsSecasValor = 0;
+                        }
+                        else
+                        {
+                            indicadorValConAlim.MsSecas = promedioInvAFI.Secas != null && promedioInvAFI.Secas > 0 ? (infoValConAlimPerido.Secas >= 10 && infoValConAlimPerido.Secas <= 19) ? true : false : true;
+
+                        }
+                        #endregion
+
+                        #region evaluacion MS Reto
+                        if (invAFI.Reto == null || invAFI.Reto == 0)
+                        {
+                            indicadorValConAlim.MsReto = true;
+                            indicadorValConAlim.MsRetoValor = 0;
+                        }
+                        else
+                        {
+                            indicadorValConAlim.MsReto = promedioInvAFI.Reto != null && promedioInvAFI.Reto > 0 ? (infoValConAlimPerido.Reto >= 9 && infoValConAlimPerido.Reto <= 19) ? true : false : true;
+                        }
+                        #endregion
+
+                        #region evaluacion todas las etpas
+                        indicadorValConAlim.ValConsisitentes = indicadorValConAlim.EAProd && indicadorValConAlim.MsProd && indicadorValConAlim.MsCrecimiento && indicadorValConAlim.MsDesarollo && indicadorValConAlim.MsVaquillas && indicadorValConAlim.MsSecas && indicadorValConAlim.MsReto;
+
+                        #endregion
+                    }
+                    else
+                    {
+                        indicadorValConAlim.EAProd = (infoValConAlimPerido.EA >= 1.1M && infoValConAlimPerido.EA <= 1.8M) ? true : false;
+                        indicadorValConAlim.MsProd = (infoValConAlimPerido.Produccion >= 18 && infoValConAlimPerido.Produccion <= 32) ? true : false;
+                        indicadorValConAlim.MsCrecimiento = (infoValConAlimPerido.Crecimiento >= 2 && infoValConAlimPerido.Crecimiento <= 8) ? true : false;
+                        indicadorValConAlim.MsDesarollo = (infoValConAlimPerido.Desarrollo >= 6 && infoValConAlimPerido.Desarrollo <= 11) ? true : false;
+                        indicadorValConAlim.MsVaquillas = (infoValConAlimPerido.Vaquillas >= 8 && infoValConAlimPerido.Vaquillas <= 15) ? true : false;
+                        indicadorValConAlim.MsSecas = (infoValConAlimPerido.Secas >= 10 && infoValConAlimPerido.Secas <= 19) ? true : false;
+                        indicadorValConAlim.MsReto = (infoValConAlimPerido.Reto >= 9 && infoValConAlimPerido.Reto <= 19) ? true : false;
+
+                        indicadorValConAlim.ValConsisitentes = indicadorValConAlim.EAProd && indicadorValConAlim.MsProd && indicadorValConAlim.MsCrecimiento && indicadorValConAlim.MsDesarollo && indicadorValConAlim.MsVaquillas && indicadorValConAlim.MsSecas && indicadorValConAlim.MsReto;
+                    }
+
+                    InsertarValConAlimPeriodo(indicadorValConAlim, fechaFinal.AddDays(-i), ref mensaje);
+                }
+
+
+            }
+            catch { }
+        }
+        #endregion
+
 
         #endregion
 
@@ -2805,6 +3076,9 @@ namespace ReportePeriodo.Modelo
 										,LITROS1
 										,LITROS2
 										,LITROS3
+                                        ,HORARIO_DIF_FININI1
+                                        ,HORARIO_DIF_FININI2
+                                        ,HORARIO_DIF_FININI3
 									FROM CALOSTROYORDEÑODIA
 									WHERE FECHA BETWEEN @fechaInicio AND @fechaFin";
                 db.Conectar();
@@ -2824,7 +3098,10 @@ namespace ReportePeriodo.Modelo
                     Porcentaje_Revueltas = x["PORCENREVUELTAS"] != DBNull.Value ? Convert.ToDecimal(x["PORCENREVUELTAS"]) : 0,
                     Litros_Sesion1 = x["LITROS1"] != DBNull.Value ? Convert.ToDecimal(x["LITROS1"]) : 0,
                     Litros_Sesion2 = x["LITROS2"] != DBNull.Value ? Convert.ToDecimal(x["LITROS2"]) : 0,
-                    Litros_Sesion3 = x["LITROS3"] != DBNull.Value ? Convert.ToDecimal(x["LITROS3"]) : 0
+                    Litros_Sesion3 = x["LITROS3"] != DBNull.Value ? Convert.ToDecimal(x["LITROS3"]) : 0,
+                    Horario_Dif_Sesion1 = x["HORARIO_DIF_FININI1"] != DBNull.Value ? Convert.ToDecimal(x["HORARIO_DIF_FININI1"]) : 0,
+                    Horario_Dif_Sesion2 = x["HORARIO_DIF_FININI2"] != DBNull.Value ? Convert.ToDecimal(x["HORARIO_DIF_FININI2"]) : 0,
+                    Horario_Dif_Sesion3 = x["HORARIO_DIF_FININI3"] != DBNull.Value ? Convert.ToDecimal(x["HORARIO_DIF_FININI3"]) : 0
                 }).ToList();
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -4582,14 +4859,12 @@ namespace ReportePeriodo.Modelo
 
             try
             {
-                string query = @"SELECT  CDATE(FECHA) AS FechaG
-                                        ,preñvc       AS VacasPreñadas
-                                        ,vaciavc      AS VacasVacias
-                                        ,preñvq       AS VaquillasPreñadas
-                                        ,vaciavq      AS VaquillasVacias
+                string query = @"SELECT  SUM(preñvc)       AS VacasPreñadas
+                                        ,SUM(vaciavc)      AS VacasVacias
+                                        ,SUM(preñvq)       AS VaquillasPreñadas
+                                        ,SUM(vaciavq)      AS VaquillasVacias
                                 FROM VALINVENTARIO
-                                WHERE FECHA BETWEEN @fechaInicio AND @fechaFin
-                                ORDER BY FECHA";
+                                WHERE FECHA BETWEEN @fechaInicio AND @fechaFin";
 
                 db.Conectar();
                 db.CrearComando(query, tipoComandoAccess.query);
@@ -4838,8 +5113,337 @@ namespace ReportePeriodo.Modelo
             date = date.AddDays(juliana).AddDays(-2);
             return date;
         }
+
+        private bool ConfiguraDiario(ref string mensaje)
+        {
+            bool configura = true;
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = "Select Configura from ConfiguraDiario";
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                    configura = dt.Rows[0]["Configura"] != DBNull.Value ? Convert.ToBoolean(dt.Rows[0]["Configura"]) : true;
+
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return configura;
+        }
+
+        private bool EvaluacionValConAlim(DateTime fecha, ref string mensaje)
+        {
+            bool response = true;
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = "Select * from ValConAlim WHERE fecha = #@FechaDia#";
+                query = query.Replace("@FechaDia", fecha.ToString("yyyy/MM/dd"));
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                response = dt.Rows.Count == 0;
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private void InsertarValConAlim(ValConAlim valconAlim, DateTime fecha, ref string mensaje)
+        {
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"Insert into ValConAlim values (@Id, #@Fecha#, @EAProd, @MsProd, @MsCrecimiento, @MsDesarollo, @MsVaquillas, @MsSecas, @MsReto, @ValConsisitentes, @ValEAProd, @ValMsProd, @ValMsCrecimiento, @ValMsDesarollo, @ValMsVaquillas, @ValMsSecas, @ValMsReto)";
+                query = query.Replace("@Id", valconAlim.Ran_ID.ToString())
+                            .Replace("@Fecha", fecha.ToString("yyyy/MM/dd"))
+                            .Replace("@EAProd", valconAlim.EAProd.ToString())
+                            .Replace("@MsProd", valconAlim.MsProd.ToString())
+                            .Replace("@MsCrecimiento", valconAlim.MsCrecimiento.ToString())
+                            .Replace("@MsDesarollo", valconAlim.MsDesarollo.ToString())
+                            .Replace("@MsVaquillas", valconAlim.MsVaquillas.ToString())
+                            .Replace("@MsSecas", valconAlim.MsSecas.ToString())
+                            .Replace("@MsReto", valconAlim.MsReto.ToString())
+                            .Replace("@ValConsisitentes", valconAlim.ValConsisitentes.ToString())
+                            .Replace("@ValEAProd", valconAlim.EAProdValor.ToString())
+                            .Replace("@ValMsProd", valconAlim.MsProdValor.ToString())
+                            .Replace("@ValMsCrecimiento", valconAlim.MsCrecimientosValor.ToString())
+                            .Replace("@ValMsDesarollo", valconAlim.MsDesarolloValor.ToString())
+                            .Replace("@ValMsVaquillas", valconAlim.MsVaquillasValor.ToString())
+                            .Replace("@ValMsSecas", valconAlim.MsSecasValor.ToString())
+                            .Replace("@ValMsReto", valconAlim.MsRetoValor.ToString());
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                int insert = db.EjecutarComando();
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+        }
+
+        private void EliminarValConAlimPeriodo(ref string mensaje)
+        {
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"DELETE FROM ValConAlimPeriodo";
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                int delete = db.EjecutarComando();
+                Console.WriteLine("{0} Elementos Eliminados", delete);
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+        }
+
+        private void InsertarValConAlimPeriodo(ValConAlim valconAlim, DateTime fecha, ref string mensaje)
+        {
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = "Insert into ValConAlimPeriodo values (@Id, #@Fecha#, @EAProd, @MsProd, @MsCrecimiento, @MsDesarollo, @MsVaquillas, @MsSecas, @MsReto, @ValConsisitentes, @ValEAProd, @ValMsProd, @ValMsCrecimiento, @ValMsDesarollo, @ValMsVaquillas, @ValMsSecas, @ValMsReto)";
+
+                query = query.Replace("@Id", valconAlim.Ran_ID.ToString())
+                          .Replace("@Fecha", fecha.ToString("yyyy/MM/dd"))
+                          .Replace("@EAProd", valconAlim.EAProd.ToString())
+                          .Replace("@MsProd", valconAlim.MsProd.ToString())
+                          .Replace("@MsCrecimiento", valconAlim.MsCrecimiento.ToString())
+                          .Replace("@MsDesarollo", valconAlim.MsDesarollo.ToString())
+                          .Replace("@MsVaquillas", valconAlim.MsVaquillas.ToString())
+                          .Replace("@MsSecas", valconAlim.MsSecas.ToString())
+                          .Replace("@MsReto", valconAlim.MsReto.ToString())
+                          .Replace("@ValConsisitentes", valconAlim.ValConsisitentes.ToString())
+                          .Replace("@ValEAProd", valconAlim.EAProdValor.ToString())
+                          .Replace("@ValMsProd", valconAlim.MsProdValor.ToString())
+                          .Replace("@ValMsCrecimiento", valconAlim.MsCrecimientosValor.ToString())
+                          .Replace("@ValMsDesarollo", valconAlim.MsDesarolloValor.ToString())
+                          .Replace("@ValMsVaquillas", valconAlim.MsVaquillasValor.ToString())
+                          .Replace("@ValMsSecas", valconAlim.MsSecasValor.ToString())
+                          .Replace("@ValMsReto", valconAlim.MsRetoValor.ToString());
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                int insert = db.EjecutarComando();
+                Console.WriteLine("{0} Elemento Insertado", insert);
+
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+        }
+
+        private InventarioAfiXDia IventarioAFI(int ranId, DateTime fecha, ref string mensaje)
+        {
+            InventarioAfiXDia inventario = new InventarioAfiXDia();
+            ModeloDatosSQL db = new ModeloDatosSQL(conexionSQL);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT ran_id 
+	                             ,ia_fecha                                                          AS Fecha
+                                 ,IIF(ia_destetadas IS NOT NULL,ia_destetadas ,0)                   AS DesteteUno
+                                 ,IIF(ia_destetadas2 IS NOT NULL,ia_destetadas2,0)                  AS DesteteDos
+                                 ,IIF(ia_vaquillas IS NOT NULL,ia_vaquillas,0)                      AS Vaquillas
+                                 ,IIF(ia_vacas_secas IS NOT NULL,ia_vacas_secas,0)                  AS Secas
+                                 ,IIF(ia_vacas_ord IS NOT NULL,ia_vacas_ord,0)                      AS Ordeño
+                                 ,IIF((ia_vqreto + ia_vcreto) IS NOT NULL ,ia_vqreto + ia_vcreto,0) AS Reto
+                          FROM inventario_afi 
+                          WHERE ia_fecha = '@FechaFinal'
+                          AND ran_id = @Ran_ID";
+                query = query.Replace("@FechaFinal", fecha.Date.ToString("yyyy/MM/dd"))
+                             .Replace("@Ran_ID", ranId.ToString());
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoSQL.query);
+                inventario = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new InventarioAfiXDia()
+                {
+                    Fecha = fecha,
+                    Ordeño = x["Ordeño"] != DBNull.Value ? Convert.ToDecimal(x["Ordeño"]) : 0,
+                    Secas = x["Secas"] != DBNull.Value ? Convert.ToDecimal(x["Secas"]) : 0,
+                    Reto = x["Reto"] != DBNull.Value ? Convert.ToDecimal(x["Reto"]) : 0,
+                    Jaulas = 0,
+                    Crecimiento = x["DesteteUno"] != DBNull.Value ? Convert.ToDecimal(x["DesteteUno"]) : 0,
+                    Desarrollo = x["DesteteDos"] != DBNull.Value ? Convert.ToDecimal(x["DesteteDos"]) : 0,
+                    Vaquillas = x["Vaquillas"] != DBNull.Value ? Convert.ToDecimal(x["Vaquillas"]) : 0,
+                    InventarioTotal = 0
+                }).ToList().FirstOrDefault();
+
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return inventario;
+        }
+
+        private InventarioAfiXDia PromedioIventarioAFI(int ranId, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            InventarioAfiXDia inventario = new InventarioAfiXDia();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT  ROUND(AVG(d1))  AS Crecimiento
+                               ,ROUND(AVG(d2))  AS Desarrollo
+                               ,ROUND(AVG(v))  AS Vaquillas
+                               ,ROUND(AVG(s)) AS Secas
+                               ,ROUND(AVG(o)) AS Ordeño
+                               ,ROUND(AVG(r)) AS Reto
+                        FROM
+                        (
+	                        SELECT  IIF(destetadas IS NOT NULL,destetadas ,0)             AS d1
+	                               ,IIF(destetadas2 IS NOT NULL,destetadas2,0)            AS d2
+	                               ,IIF(vaquillas IS NOT NULL,vaquillas,0)                AS v
+	                               ,IIF(vacassecas IS NOT NULL,vacassecas,0)              AS s
+	                               ,IIF(vacasordeña IS NOT NULL,vacasordeña,0)            AS o
+	                               ,IIF((vqreto + vcreto) IS NOT NULL ,vqreto + vcreto,0) AS r
+	                        FROM INVENTARIOAFIXDIA i
+	                        WHERE FECHA BETWEEN @fechaI AND @fechaF
+                        ) Tabla";
+                query = query.Replace("@fechaI", ConvertToJulian(fechaInicio).ToString()).Replace("@fechaF", ConvertToJulian(fechaFin).ToString());
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                inventario = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new InventarioAfiXDia()
+                {
+                    Ordeño = x["Ordeño"] != DBNull.Value ? Convert.ToDecimal(x["Ordeño"]) : 0,
+                    Secas = x["Secas"] != DBNull.Value ? Convert.ToDecimal(x["Secas"]) : 0,
+                    Reto = x["Reto"] != DBNull.Value ? Convert.ToDecimal(x["Reto"]) : 0,
+                    Jaulas = 0,
+                    Crecimiento = x["Crecimiento"] != DBNull.Value ? Convert.ToDecimal(x["Crecimiento"]) : 0,
+                    Desarrollo = x["Desarrollo"] != DBNull.Value ? Convert.ToDecimal(x["Desarrollo"]) : 0,
+                    Vaquillas = x["Vaquillas"] != DBNull.Value ? Convert.ToDecimal(x["Vaquillas"]) : 0,
+                    InventarioTotal = 0
+                }).ToList().FirstOrDefault();
+
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return inventario;
+        }
+
+        private PromedioMProducAlimentacion MProducAlim(DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
+        {
+            PromedioMProducAlimentacion response = new PromedioMProducAlimentacion();
+            ModeloDatosAccess db = new ModeloDatosAccess(conexionAccess);
+            mensaje = string.Empty;
+
+            try
+            {
+                string query = @"SELECT  IIF(SUM(CONTEA) > 0,SUM(EA) / SUM(CONTEA),0)    AS EA2
+                                        ,IIF(SUM(CONTMS) > 0,SUM(MS) / SUM(CONTMS),0)    AS MS2
+                                        ,IIF(SUM(CONTDI) > 0,SUM(DI) / SUM(CONTDI),0)    AS DI2
+                                        ,IIF(SUM(CONTDII) > 0,SUM(DII) / SUM(CONTDII),0) AS DII2
+                                        ,IIF(SUM(CONTVQ) > 0,SUM(VQ) / SUM(CONTVQ),0)    AS VQ2
+                                        ,IIF(SUM(CONTS) > 0,SUM(S) / SUM(CONTS),0)       AS S2
+                                        ,IIF(SUM(CONTR) > 0,SUM(R) / SUM(CONTR),0)       AS R2
+                                FROM
+                                (
+	                              SELECT  m.EA
+                                       ,IIF(m.EA > 0,1,0)                    AS CONTEA
+                                       ,m.MS
+                                       ,IIF(MS > 0,1,IIF(i.VACASORDEÑA > 0,1,0)) AS CONTMS
+                                       ,MS_DI * MH_DI                         AS DI
+                                       ,IIF((MS_DI * MH_DI) > 0,1,IIF(i.destetadas > 0,1,0))          AS CONTDI
+                                       ,MS_DII * MH_DII                       AS DII
+                                       ,IIF((MS_DII * MH_DII) > 0,1,IIF(i.destetadas2 > 0,1,0))        AS CONTDII
+                                       ,MS_VQ * MH_VQ                         AS VQ
+                                       ,IIF((MS_VQ * MH_VQ ) > 0,1,IIF(i.vaquillas > 0,1,0))         AS CONTVQ
+                                       ,MS_S * MH_S                           AS S
+                                       ,IIF((MS_S * MH_S) > 0,1,IIF(i.vacassecas > 0,1,0))            AS CONTS
+                                       ,MS_R * MH_R                           AS R
+                                       ,IIF((MS_R * MH_R) > 0,1,IIF((i.vqreto + i.vcreto ) > 0,1,0))            AS CONTR
+                                FROM MPRODUC m
+                                INNER JOIN INVENTARIOAFIXDIA i
+                                ON m.FECHA = i.FECHA
+                                WHERE m.FECHA BETWEEN @fechaInicio AND @fechaFin ) Tabla";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoAccess.query);
+                db.AsignarParametro("@fechaInicio", ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", ConvertToJulian(fechaInicio));
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new PromedioMProducAlimentacion()
+                {
+                    EA = x["EA2"] != DBNull.Value ? Convert.ToDecimal(x["EA2"]) : 0,
+                    Produccion = x["MS2"] != DBNull.Value ? Convert.ToDecimal(x["MS2"]) : 0,
+                    Secas = x["S2"] != DBNull.Value ? Convert.ToDecimal(x["S2"]) : 0,
+                    Reto = x["R2"] != DBNull.Value ? Convert.ToDecimal(x["R2"]) : 0,
+                    Crecimiento = x["DI2"] != DBNull.Value ? Convert.ToDecimal(x["DI2"]) : 0,
+                    Desarrollo = x["DII2"] != DBNull.Value ? Convert.ToDecimal(x["DII2"]) : 0,
+                    Vaquillas = x["VQ2"] != DBNull.Value ? Convert.ToDecimal(x["VQ2"]) : 0,
+
+                }).ToList().FirstOrDefault();
+
+            }
+            catch (Exception ex) { mensaje = ex.Message; }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
         #endregion
     }
+
+
 
     internal class ConfiguracionRancho
     {

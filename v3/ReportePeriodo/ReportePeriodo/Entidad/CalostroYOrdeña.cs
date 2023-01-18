@@ -20,6 +20,9 @@ namespace ReportePeriodo.Entidad
         public decimal? Litros_Sesion1 { get; set; }
         public decimal? Litros_Sesion2 { get; set; }
         public decimal? Litros_Sesion3 { get; set; }
+        public decimal? Horario_Dif_Sesion1 { get; set; }
+        public decimal? Horario_Dif_Sesion2 { get; set; }
+        public decimal? Horario_Dif_Sesion3 { get; set; }
 
     }
 

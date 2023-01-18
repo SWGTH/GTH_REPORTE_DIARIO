@@ -213,5 +213,9 @@ namespace ReportePeriodo.Presentador
             _model.CierreMesCorrecto(ranId, horaCorte, urlWebService, fechaInicio, fechaFin, out validacionMedicina, out validacionAlimento);
         }
 
+        public void ValoresConsistentes(Rancho rancho, DateTime fecha)
+        {
+            _model.ValoresConsistentes(rancho, fecha);
+        }
     }
 }
