@@ -618,10 +618,10 @@ namespace ReportePeriodo.Modelo
                     if (item.Color_HoraSes1 != "#FFC9C9" && item.Color_HoraSes1 != string.Empty && item.Color_HoraSes1 != "")
                         item.Color_HoraSes1 = busquedaCalostro != null ? busquedaCalostro.Horario_Dif_Sesion1 < 10 ? "#FFC9C9" : item.Color_HoraSes1 : item.Color_HoraSes1;
 
-                    if (item.Color_HoraSes2 != "#FFC9C9" && item.Color_HoraSes1 != string.Empty && item.Color_HoraSes1 != "")
+                    if (item.Color_HoraSes2 != "#FFC9C9" && item.Color_HoraSes2 != string.Empty && item.Color_HoraSes2 != "")
                         item.Color_HoraSes2 = busquedaCalostro != null ? busquedaCalostro.Horario_Dif_Sesion2 < 10 ? "#FFC9C9" : item.Color_HoraSes2 : item.Color_HoraSes2;
 
-                    if (item.Color_HoraSes3 != "#FFC9C9" && item.Color_HoraSes1 != string.Empty && item.Color_HoraSes1 != "")
+                    if (item.Color_HoraSes3 != "#FFC9C9" && item.Color_HoraSes3 != string.Empty && item.Color_HoraSes3 != "")
                         item.Color_HoraSes3 = busquedaCalostro != null ? busquedaCalostro.Horario_Dif_Sesion3 < 10 ? "#FFC9C9" : item.Color_HoraSes3 : item.Color_HoraSes3;
                 }
             }
@@ -760,7 +760,7 @@ namespace ReportePeriodo.Modelo
         public void QuitarCeros(List<Hoja1> reporte)
         {
             foreach (Hoja1 item in reporte)
-            {                
+            {
                 item.Ordeño = item.Ordeño == 0 ? null : item.Ordeño;
 
                 item.Secas = item.Secas == 0 ? null : item.Secas;
@@ -1141,7 +1141,7 @@ namespace ReportePeriodo.Modelo
             InventarioAfiXDia inventario = PromedioInventariosAFI(fechaInicio, fechaFin, ref mensaje);
 
             bool esPrecioLecheFacturado = EsPrecioLecheFacturado(fechaFin);
-            decimal precioLecheX = esPrecioLecheFacturado ? PrecioLecheFacturado(fechaInicio, fechaFin, ref mensaje) : PrecioLecheCalculado(rancho.Ran_ID, ref mensaje);
+            decimal precioLecheX = esPrecioLecheFacturado ? PrecioLecheFacturado(fechaInicio, fechaFin, ref mensaje) : PrecioLecheCalculado(rancho.Ran_ID, fechaInicio, fechaFin, ref mensaje);
             decimal lecheProducida = LecheProducida(fechaInicio, fechaFin, ref mensaje);
 
             try
@@ -1436,11 +1436,11 @@ namespace ReportePeriodo.Modelo
                     item.Color_CostoMS_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_CostoMS, busquedaindicadorSecas.KGMS) : "";
                     item.Color_Costo_Secas = busquedaindicadorSecas != null ? ColorDato(item.Secas_Inventario, item.Secas_Costo, busquedaindicadorSecas.COSTO) : "";
 
-                    item.Color_MH_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_MH, busquedaindicadorReto.MH) : "";
-                    item.Color_MS_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_MS, busquedaindicadorReto.MS) : "";
-                    item.Color_PorcentajeMs_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_PorcentajeMS, busquedaindicadorReto.PORCENTAJE_MS) : "";
-                    item.Color_CostoMS_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_CostoMS, busquedaindicadorReto.KGMS) : "";
-                    item.Color_Costo_Reto = busquedaindicadorReto != null ? ColorDato(item.Secas_Inventario, item.Reto_Costo, busquedaindicadorReto.COSTO) : "";
+                    item.Color_MH_Reto = busquedaindicadorReto != null ? ColorDato(item.Reto_Inventario, item.Reto_MH, busquedaindicadorReto.MH) : "";
+                    item.Color_MS_Reto = busquedaindicadorReto != null ? ColorDato(item.Reto_Inventario, item.Reto_MS, busquedaindicadorReto.MS) : "";
+                    item.Color_PorcentajeMs_Reto = busquedaindicadorReto != null ? ColorDato(item.Reto_Inventario, item.Reto_PorcentajeMS, busquedaindicadorReto.PORCENTAJE_MS) : "";
+                    item.Color_CostoMS_Reto = busquedaindicadorReto != null ? ColorDato(item.Reto_Inventario, item.Reto_CostoMS, busquedaindicadorReto.KGMS) : "";
+                    item.Color_Costo_Reto = busquedaindicadorReto != null ? ColorDato(item.Reto_Inventario, item.Reto_Costo, busquedaindicadorReto.COSTO) : "";
 
                     item.Color_IXA = ColorUtilidad(item.IngresoxAnimal, utilidad.IXA, false);
                     item.Color_CXA = ColorUtilidad(item.CostoxAnimal, utilidad.CXA, true);
@@ -1458,7 +1458,7 @@ namespace ReportePeriodo.Modelo
             mensaje = string.Empty;
             bool esPrecioFacturado = EsPrecioLecheFacturado(fechaFin);
 
-            precioLeche = esPrecioFacturado ? PrecioLecheFacturado(fechaInicio, fechaFin, ref mensaje) : PrecioLecheCalculado(rancho.Ran_ID, ref mensaje);
+            precioLeche = esPrecioFacturado ? PrecioLecheFacturado(fechaInicio, fechaFin, ref mensaje) : PrecioLecheCalculado(rancho.Ran_ID, fechaInicio, fechaFin, ref mensaje);
         }
 
         #region hoja3
@@ -1504,8 +1504,8 @@ namespace ReportePeriodo.Modelo
                 List<DatosVacas> datosPartosVacasMacho = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
 
                 List<DatosVacas> datosPartosSinCria = DatosNacimiento(fechaInicio, fechaFin, @" AND tipopar <> 2 AND criaviva = 2  AND criasexo = 3 ", ref mensaje);
-                List<DatosVacas> datosPartosVacas = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2 ", ref mensaje);
-                List<DatosVacas> datosPartosVaquillas = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1 ", ref mensaje);
+                List<DatosVacas> datosPartosVacas = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1 ", ref mensaje);
+                List<DatosVacas> datosPartosVaquillas = DatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2 ", ref mensaje);
 
                 List<DatosVacas> datosMuertasDia = DatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 1 ", ref mensaje);
                 List<DatosVacas> datosMuertasNoche = DatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 2 ", ref mensaje);
@@ -1639,8 +1639,8 @@ namespace ReportePeriodo.Modelo
                 DatosVacas totalPartosVacasMacho = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1  AND criaviva = 1  AND criasexo = 2 ", ref mensaje);
 
                 DatosVacas totalPartosSinCria = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND tipopar <> 2 AND criaviva = 2  AND criasexo = 3 ", ref mensaje);
-                DatosVacas totalPartosVacas = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2 ", ref mensaje);
-                DatosVacas totalPartosVaquillas = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1 ", ref mensaje);
+                DatosVacas totalPartosVacas = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 1 ", ref mensaje);
+                DatosVacas totalPartosVaquillas = TotalDatosNacimiento(fechaInicio, fechaFin, @" AND vacvaq = 2 ", ref mensaje);
 
                 DatosVacas totalMuertasDia = TotalDatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 1 ", ref mensaje);
                 DatosVacas totalMuertasNoche = TotalDatosNacimientoMuertas(fechaInicio, fechaFin, @" AND criaviva = 2 AND (tipopar = 1 or tipopar = 3) AND criasexo < 3 AND dianoche = 2 ", ref mensaje);
@@ -2106,8 +2106,8 @@ namespace ReportePeriodo.Modelo
                 response.Vacas_Pren = datosValInventarios.VacasPreñadas;
                 response.Vacas_Vacias = datosValInventarios.VacasVacias;
                 response.Vacas_Diag = response.Vacas_Pren + response.Vacas_Vacias;
-                response.Vacas_Porcentaje_Pren = response.Vacas_Diag > 0 ? (response.Vacas_Pren / response.Vacas_Diag) * 100: 0;
-                response.Vacas_Porcentaje_Vacias = response.Vacas_Diag > 0 ? (response.Vacas_Vacias / response.Vacas_Diag) *100 : 0;
+                response.Vacas_Porcentaje_Pren = response.Vacas_Diag > 0 ? (response.Vacas_Pren / response.Vacas_Diag) * 100 : 0;
+                response.Vacas_Porcentaje_Vacias = response.Vacas_Diag > 0 ? (response.Vacas_Vacias / response.Vacas_Diag) * 100 : 0;
 
                 response.Vaquillas_Pren = datosValInventarios.VaquillasPreñadas;
                 response.Vaquillas_Vacias = datosValInventarios.VaquillasVacias;
@@ -2430,11 +2430,11 @@ namespace ReportePeriodo.Modelo
                     }
                     else
                     {
-                        valconAlim.EAProd = (indicadoresProduccion.EA >= 1.1 && indicadoresProduccion.EA <= 1.8) ? true : false;
+                        valconAlim.EAProd = (indicadoresProduccion.EAS >= 1.1 && indicadoresProduccion.EAS <= 1.8) ? true : false;
                         valconAlim.EAProdValor = indicadoresProduccion.EA;
 
                         valconAlim.MsProd = (indicadoresProduccion.MSS >= 18 && indicadoresProduccion.MSS <= 32) ? true : false;
-                        valconAlim.MsProdValor = indicadoresProduccion.MS;
+                        valconAlim.MsProdValor = indicadoresProduccion.MSS;
                     }
                     #endregion
 
@@ -2446,8 +2446,8 @@ namespace ReportePeriodo.Modelo
                     }
                     else
                     {
-                        valconAlim.MsCrecimiento = (indicadoresCrecimiento.MS >= 2 && indicadoresCrecimiento.MS <= 8) ? true : false;
-                        valconAlim.MsCrecimientosValor = indicadoresCrecimiento.MS;
+                        valconAlim.MsCrecimiento = (indicadoresCrecimiento.MSS >= 2 && indicadoresCrecimiento.MSS <= 8) ? true : false;
+                        valconAlim.MsCrecimientosValor = indicadoresCrecimiento.MSS;
                     }
                     #endregion
 
@@ -2459,8 +2459,8 @@ namespace ReportePeriodo.Modelo
                     }
                     else
                     {
-                        valconAlim.MsDesarollo = (indicadoresDesarrollo.MS >= 6 && indicadoresDesarrollo.MS <= 11) ? true : false;
-                        valconAlim.MsDesarolloValor = indicadoresDesarrollo.MS;
+                        valconAlim.MsDesarollo = (indicadoresDesarrollo.MSS >= 6 && indicadoresDesarrollo.MSS <= 11) ? true : false;
+                        valconAlim.MsDesarolloValor = indicadoresDesarrollo.MSS;
                     }
                     #endregion
 
@@ -2472,8 +2472,8 @@ namespace ReportePeriodo.Modelo
                     }
                     else
                     {
-                        valconAlim.MsVaquillas = (indicadoresVaquillas.MS >= 8 && indicadoresVaquillas.MS <= 15) ? true : false;
-                        valconAlim.MsVaquillasValor = indicadoresVaquillas.MS;
+                        valconAlim.MsVaquillas = (indicadoresVaquillas.MSS >= 8 && indicadoresVaquillas.MSS <= 15) ? true : false;
+                        valconAlim.MsVaquillasValor = indicadoresVaquillas.MSS;
                     }
                     #endregion
 
@@ -2485,8 +2485,8 @@ namespace ReportePeriodo.Modelo
                     }
                     else
                     {
-                        valconAlim.MsSecas = (indicadoresSecas.MS >= 10 && indicadoresSecas.MS <= 19) ? true : false;
-                        valconAlim.MsSecasValor = indicadoresSecas.MS;
+                        valconAlim.MsSecas = (indicadoresSecas.MSS >= 10 && indicadoresSecas.MSS <= 19) ? true : false;
+                        valconAlim.MsSecasValor = indicadoresSecas.MSS;
                     }
                     #endregion
 
@@ -2498,8 +2498,8 @@ namespace ReportePeriodo.Modelo
                     }
                     else
                     {
-                        valconAlim.MsReto = (indicadoresReto.MS >= 9 && indicadoresReto.MS <= 19) ? true : false;
-                        valconAlim.MsRetoValor = indicadoresReto.MS;
+                        valconAlim.MsReto = (indicadoresReto.MSS >= 9 && indicadoresReto.MSS <= 19) ? true : false;
+                        valconAlim.MsRetoValor = indicadoresReto.MSS;
 
                     }
                     #endregion
@@ -3873,22 +3873,25 @@ namespace ReportePeriodo.Modelo
             {
                 if (pesadores)
                 {
-                    decimal? porcentaje = vacasSesion / inventario * 100;
-
-                    switch (porcentaje)
+                    if (inventario > 0)
                     {
-                        case decimal n when (n >= 0 && n <= 3M):
-                            color = "#DEEDD3";
-                            break;
-                        case decimal n when (n > 3M && n <= 5M):
-                            color = "#F2F2F2";
-                            break;
-                        case decimal n when (n > 5M && n <= 8M):
-                            color = "#FFF5D9";
-                            break;
-                        case decimal n when n > 8M:
-                            color = "#FFC9C9";
-                            break;
+                        decimal? porcentaje = vacasSesion / inventario * 100;
+
+                        switch (porcentaje)
+                        {
+                            case decimal n when (n >= 0 && n <= 3M):
+                                color = "#DEEDD3";
+                                break;
+                            case decimal n when (n > 3M && n <= 5M):
+                                color = "#F2F2F2";
+                                break;
+                            case decimal n when (n > 5M && n <= 8M):
+                                color = "#FFF5D9";
+                                break;
+                            case decimal n when n > 8M:
+                                color = "#FFC9C9";
+                                break;
+                        }
                     }
                 }
             }
@@ -3929,41 +3932,81 @@ namespace ReportePeriodo.Modelo
 
             try
             {
-                if (valor != null)
+                if (inventario != null)
                 {
-                    if (valor != 0)
+                    if (inventario != 0)
                     {
-                        switch (valor)
+                        if (valor != null && valor != 0)
                         {
-                            //Color Verde
-                            case decimal n when ((n >= (promedio * 0.95M) && n <= (promedio * 1.05M))):
-                                color = "#DEEDD3";
-                                break;
-                            //Color Blanco
-                            case decimal n when (n >= (promedio * 0.9M) && n < (promedio * 0.95M)):
-                                color = "#F2F2F2";
-                                break;
-                            case decimal n when (n > (promedio * 1.05M) && n <= (promedio * 1.1M)):
-                                color = "#F2F2F2";
-                                break;
-                            //Color Amarillo
-                            case decimal n when (n >= (promedio * 0.85M) && n < (promedio * 0.9M)):
-                                color = "#FFF5D9";
-                                break;
-                            case decimal n when (n > (promedio * 1.1M) && n <= (promedio * 1.15M)):
-                                color = "#FFF5D9";
-                                break;
-                            //Color Rojo
-                            case decimal n when (n < (promedio * 0.85M) || n > (promedio * 1.15M)):
-                                color = "#FFC9C9";
-                                break;
+                            switch (valor)
+                            {
+                                //Color Verde
+                                case decimal n when ((n >= (promedio * 0.95M) && n <= (promedio * 1.05M))):
+                                    color = "#DEEDD3";
+                                    break;
+                                //Color Blanco
+                                case decimal n when (n >= (promedio * 0.9M) && n < (promedio * 0.95M)):
+                                    color = "#F2F2F2";
+                                    break;
+                                case decimal n when (n > (promedio * 1.05M) && n <= (promedio * 1.1M)):
+                                    color = "#F2F2F2";
+                                    break;
+                                //Color Amarillo
+                                case decimal n when (n >= (promedio * 0.85M) && n < (promedio * 0.9M)):
+                                    color = "#FFF5D9";
+                                    break;
+                                case decimal n when (n > (promedio * 1.1M) && n <= (promedio * 1.15M)):
+                                    color = "#FFF5D9";
+                                    break;
+                                //Color Rojo
+                                case decimal n when (n < (promedio * 0.85M) || n > (promedio * 1.15M)):
+                                    color = "#FFC9C9";
+                                    break;
+                            }
                         }
-                    }
-                    else if (inventario != 0)
-                    {
-                        color = "#FFC9C9";
+                        else
+                            color = "#FFC9C9";
+
                     }
                 }
+
+
+
+                //if (valor != null)
+                //{
+                //    if (valor != 0)
+                //    {
+                //        switch (valor)
+                //        {
+                //            //Color Verde
+                //            case decimal n when ((n >= (promedio * 0.95M) && n <= (promedio * 1.05M))):
+                //                color = "#DEEDD3";
+                //                break;
+                //            //Color Blanco
+                //            case decimal n when (n >= (promedio * 0.9M) && n < (promedio * 0.95M)):
+                //                color = "#F2F2F2";
+                //                break;
+                //            case decimal n when (n > (promedio * 1.05M) && n <= (promedio * 1.1M)):
+                //                color = "#F2F2F2";
+                //                break;
+                //            //Color Amarillo
+                //            case decimal n when (n >= (promedio * 0.85M) && n < (promedio * 0.9M)):
+                //                color = "#FFF5D9";
+                //                break;
+                //            case decimal n when (n > (promedio * 1.1M) && n <= (promedio * 1.15M)):
+                //                color = "#FFF5D9";
+                //                break;
+                //            //Color Rojo
+                //            case decimal n when (n < (promedio * 0.85M) || n > (promedio * 1.15M)):
+                //                color = "#FFC9C9";
+                //                break;
+                //        }
+                //    }
+                //    else if (inventario != 0)
+                //    {
+                //        color = "#FFC9C9";
+                //    }
+                //}
             }
             catch { }
 
@@ -4252,7 +4295,7 @@ namespace ReportePeriodo.Modelo
             return precio;
         }
 
-        private decimal PrecioLecheCalculado(int ranId, ref string mensaje)
+        private decimal PrecioLecheCalculado(int ranId, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
         {
             decimal precio = 0;
             ModeloDatosSQL db = new ModeloDatosSQL(conexionSQL);
@@ -4260,7 +4303,34 @@ namespace ReportePeriodo.Modelo
 
             try
             {
-                string query = @"WITH FechaPrecioLeche AS
+                DateTime hoy = DateTime.Today;
+                DateTime mesAnt = hoy.AddMonths(-1);
+                string query = "";
+
+                db.Conectar();
+                if (fechaInicio.Year == mesAnt.Year && fechaInicio.Month == mesAnt.Month && fechaFin.Month == mesAnt.Month && fechaFin.Year == mesAnt.Year && hoy.Day < 7)
+                {
+                    query = @"WITH FechaPrecioLeche AS
+                                (
+	                                SELECT  Ran_id
+	                                       ,MAX(Pre_fecha) AS Fecha
+	                                FROM PRECIO_LECHE_HISTORICO
+	                                WHERE Ran_id = @rancho
+                                        AND CONVERT(INT,FORMAT(Pre_Fecha, 'yyyyMM')) = @fecha
+	                                GROUP BY  Ran_id
+                                )
+                                SELECT  plh.Precio_leche AS Precio_Leche
+                                FROM PRECIO_LECHE_HISTORICO plh
+                                INNER JOIN FechaPrecioLeche fpl
+                                ON plh.Ran_id = fpl.Ran_id AND plh.Pre_Fecha = fpl.Fecha";
+
+                    db.CrearComando(query, tipoComandoSQL.query);
+                    db.AsignarParametro("@rancho", ranId);
+                    db.AsignarParametro("@fecha", Convert.ToInt32(fechaFin.ToString("yyyyMM")));
+                }
+                else
+                {
+                    query = @"WITH FechaPrecioLeche AS
                                 (
 	                                SELECT  Ran_id
 	                                       ,MAX(Pre_fecha) AS Fecha
@@ -4272,10 +4342,10 @@ namespace ReportePeriodo.Modelo
                                 FROM PRECIO_LECHE_HISTORICO plh
                                 INNER JOIN FechaPrecioLeche fpl
                                 ON plh.Ran_id = fpl.Ran_id AND plh.Pre_Fecha = fpl.Fecha";
+                    db.CrearComando(query, tipoComandoSQL.query);
+                    db.AsignarParametro("@rancho", ranId);
+                }
 
-                db.Conectar();
-                db.CrearComando(query, tipoComandoSQL.query);
-                db.AsignarParametro("@rancho", ranId);
                 DataTable dt = db.EjecutarConsultaTabla();
 
                 if (dt.Rows.Count > 0)
@@ -5394,23 +5464,23 @@ namespace ReportePeriodo.Modelo
                                         ,IIF(SUM(CONTR) > 0,SUM(R) / SUM(CONTR),0)       AS R2
                                 FROM
                                 (
-	                              SELECT  m.EA
-                                       ,IIF(m.EA > 0,1,0)                    AS CONTEA
-                                       ,m.MS
-                                       ,IIF(MS > 0,1,IIF(i.VACASORDEÑA > 0,1,0)) AS CONTMS
-                                       ,MS_DI * MH_DI                         AS DI
-                                       ,IIF((MS_DI * MH_DI) > 0,1,IIF(i.destetadas > 0,1,0))          AS CONTDI
-                                       ,MS_DII * MH_DII                       AS DII
-                                       ,IIF((MS_DII * MH_DII) > 0,1,IIF(i.destetadas2 > 0,1,0))        AS CONTDII
-                                       ,MS_VQ * MH_VQ                         AS VQ
-                                       ,IIF((MS_VQ * MH_VQ ) > 0,1,IIF(i.vaquillas > 0,1,0))         AS CONTVQ
-                                       ,MS_S * MH_S                           AS S
-                                       ,IIF((MS_S * MH_S) > 0,1,IIF(i.vacassecas > 0,1,0))            AS CONTS
-                                       ,MS_R * MH_R                           AS R
-                                       ,IIF((MS_R * MH_R) > 0,1,IIF((i.vqreto + i.vcreto ) > 0,1,0))            AS CONTR
-                                FROM MPRODUC m
-                                INNER JOIN INVENTARIOAFIXDIA i
-                                ON m.FECHA = i.FECHA
+	                                SELECT  m.EAS                                                                       AS EA
+	                                        ,IIF(m.EAS > 0,1,0)                                                          AS CONTEA
+	                                        ,m.MSS                                                                       AS MS
+	                                        ,IIF(MSS > 0,1,IIF(i.VACASORDEÑA > 0,1,0))                                   AS CONTMS
+	                                        ,(m.MH_DI - m.SA_DI) * m.MS_DI                                               AS DI
+	                                        ,IIF(((m.MH_DI - m.SA_DI) * m.MS_DI) > 0,1,IIF(i.destetadas > 0,1,0))        AS CONTDI
+	                                        ,(m.MH_DII - m.SA_DII) * m.MS_DII                                            AS DII
+	                                        ,IIF(((m.MH_DII - m.SA_DII) * m.MS_DII ) > 0,1,IIF(i.destetadas2 > 0,1,0))   AS CONTDII
+	                                        ,((m.MH_VQ - m.SA_VQ) * m.MS_VQ)                                             AS VQ
+	                                        ,IIF(((m.MH_VQ - m.SA_VQ) * m.MS_VQ) > 0,1,IIF(i.vaquillas > 0,1,0))         AS CONTVQ
+	                                        ,((m.MH_S - m.SA_S) * m.MS_S)                                                AS S
+	                                        ,IIF(((m.MH_S - m.SA_S) * m.MS_S) > 0,1,IIF(i.vacassecas > 0,1,0))           AS CONTS
+	                                        ,((m.MH_R - m.SA_R) * m.MS_R)                                                AS R
+	                                        ,IIF(((m.MH_R - m.SA_R) * m.MS_R) > 0,1,IIF((i.vqreto + i.vcreto ) > 0,1,0)) AS CONTR
+	                                FROM MPRODUC m
+	                                INNER JOIN INVENTARIOAFIXDIA i
+	                                ON m.FECHA = i.FECHA
                                 WHERE m.FECHA BETWEEN @fechaInicio AND @fechaFin ) Tabla";
 
                 db.Conectar();

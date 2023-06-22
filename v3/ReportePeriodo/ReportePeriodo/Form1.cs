@@ -40,6 +40,9 @@ namespace ReportePeriodo
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Process R = Process.GetCurrentProcess();
+            R.PriorityClass = ProcessPriorityClass.High;
+
             Configurar();
             if (_origen)
             {
@@ -84,7 +87,6 @@ namespace ReportePeriodo
         {
             DateTime fechaFin = monthCalendar1.SelectionRange.End.Date;
             DateTime fechaInicio = new DateTime(fechaFin.Year, fechaFin.Month, 1);
-
             Cursor = Cursors.WaitCursor;
             Reporte(_rancho, fechaInicio, fechaFin);
             Cursor = Cursors.Default;

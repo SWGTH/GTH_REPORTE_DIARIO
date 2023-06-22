@@ -1,0 +1,96 @@
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe.config
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.pdb
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\EnvDTE.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.Build.Framework.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\stdole.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.VSHelp.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.9.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.ProjectAggregator.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.ComponentModelHost.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TemplateWizardInterface.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Debugger.InteropA.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\EnvDTE80.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.Build.Tasks.Core.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Data.Services.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\VSLangProj.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.11.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Data.Core.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.10.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\VSLangProj80.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.ManagedInterfaces.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Debugger.Interop.11.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Newtonsoft.Json.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.GraphModel.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.MSXML.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.Build.Utilities.Core.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.10.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\VSLangProj2.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TemplateWizardInterface.xml
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.VisualStudio.Data.Services.resources.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.VisualStudio.Data.Core.resources.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.config
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Form1.resources
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Properties.Resources.resources
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.GenerateResource.cache
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.cache
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.compiled
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CoreCompileInputs.cache
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CopyComplete
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v3\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.AssemblyReference.cache
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe.config
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.exe
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\ReportePeriodo.pdb
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\FirebirdSql.Data.FirebirdClient.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\EnvDTE.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.Build.Framework.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\stdole.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.VSHelp.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.ProjectAggregator.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.ComponentModelHost.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TemplateWizardInterface.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\EnvDTE80.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.Build.Tasks.Core.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Data.Services.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\VSLangProj.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Data.Core.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\VSLangProj80.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.ManagedInterfaces.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Newtonsoft.Json.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.GraphModel.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.MSXML.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.Build.Utilities.Core.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\VSLangProj2.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TemplateWizardInterface.xml
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.VisualStudio.Data.Services.resources.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.VisualStudio.Data.Core.resources.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.AssemblyReference.cache
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.config
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Form1.resources
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Properties.Resources.resources
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.GenerateResource.cache
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CoreCompileInputs.cache
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CopyComplete
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v4 cambio de comparacion\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.SuggestedBindingRedirects.cache
