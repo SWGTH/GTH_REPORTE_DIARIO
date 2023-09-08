@@ -275,6 +275,158 @@
         <rd:TableAdapterName />
       </rd:DataSetInfo>
     </DataSet>
+    <DataSet Name="DataSet4">
+      <Query>
+        <DataSourceName>DSReporteDiario</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Dia">
+          <DataField>Dia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Ubre_MA">
+          <DataField>Ubre_MA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Ubre_SL">
+          <DataField>Ubre_SL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Metabolicos_FL">
+          <DataField>Metabolicos_FL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Metabolicos_CET">
+          <DataField>Metabolicos_CET</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Locomotores_BE">
+          <DataField>Locomotores_BE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Locomotores_TRA">
+          <DataField>Locomotores_TRA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Locomotores_GA">
+          <DataField>Locomotores_GA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Digestivos_AC">
+          <DataField>Digestivos_AC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Digestivos_ES">
+          <DataField>Digestivos_ES</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Digestivos_DI">
+          <DataField>Digestivos_DI</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Digestivos_TI">
+          <DataField>Digestivos_TI</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Reproductivos_RE">
+          <DataField>Reproductivos_RE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Reproductivos_ME">
+          <DataField>Reproductivos_ME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Reproductivos_PIO">
+          <DataField>Reproductivos_PIO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Reproductivos_QUI">
+          <DataField>Reproductivos_QUI</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Reproductivos_CS">
+          <DataField>Reproductivos_CS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Respiratorios_Neu">
+          <DataField>Respiratorios_Neu</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Becerras_Neu">
+          <DataField>Becerras_Neu</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Becerras_Fie">
+          <DataField>Becerras_Fie</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Becerras_Di">
+          <DataField>Becerras_Di</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Becerras_Conj">
+          <DataField>Becerras_Conj</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vacas_Diag">
+          <DataField>Vacas_Diag</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vacas_Pren">
+          <DataField>Vacas_Pren</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vacas_Porcentaje_Pren">
+          <DataField>Vacas_Porcentaje_Pren</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vacas_Vacias">
+          <DataField>Vacas_Vacias</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vacas_Porcentaje_Vacias">
+          <DataField>Vacas_Porcentaje_Vacias</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vaquillas_Diag">
+          <DataField>Vaquillas_Diag</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vaquillas_Pren">
+          <DataField>Vaquillas_Pren</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vaquillas_Porcentaje_Pren">
+          <DataField>Vaquillas_Porcentaje_Pren</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vaquillas_Vacias">
+          <DataField>Vaquillas_Vacias</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vaquillas_Porcentaje_Vacias">
+          <DataField>Vaquillas_Porcentaje_Vacias</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Abortos_Vaquillas">
+          <DataField>Abortos_Vaquillas</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Abortos_Vacas">
+          <DataField>Abortos_Vacas</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DSReporteDiario</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DiaRIO\v3\ReportePeriodo\ReportePeriodo\DSReporteDiario.xsd</rd:SchemaPath>
+        <rd:TableName>DTHoja4</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
     <DataSet Name="DataSet2">
       <Query>
         <DataSourceName>DSReporteDiario</DataSourceName>
@@ -283,6 +435,10 @@
       <Fields>
         <Field Name="Dia">
           <DataField>Dia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Crianza_Inventario">
+          <DataField>Crianza_Inventario</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Jaulas_Inventario">
@@ -584,7 +740,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DSReporteDiario</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DiaRIO\v3\ReportePeriodo\ReportePeriodo\DSReporteDiario.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v5 precio leche año anterior y actual\ReportePeriodo\ReportePeriodo\DSReporteDiario.xsd</rd:SchemaPath>
         <rd:TableName>DTHoja2</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -599,6 +755,10 @@
       <Fields>
         <Field Name="Dia">
           <DataField>Dia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Bp_Gem">
+          <DataField>Bp_Gem</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Jaulas_Vivas">
@@ -732,160 +892,8 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DSReporteDiario</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DiaRIO\v3\ReportePeriodo\ReportePeriodo\DSReporteDiario.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v5 precio leche año anterior y actual\ReportePeriodo\ReportePeriodo\DSReporteDiario.xsd</rd:SchemaPath>
         <rd:TableName>DTHoja3</rd:TableName>
-        <rd:TableAdapterFillMethod />
-        <rd:TableAdapterGetDataMethod />
-        <rd:TableAdapterName />
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DataSet4">
-      <Query>
-        <DataSourceName>DSReporteDiario</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="Dia">
-          <DataField>Dia</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Ubre_MA">
-          <DataField>Ubre_MA</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Ubre_SL">
-          <DataField>Ubre_SL</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Metabolicos_FL">
-          <DataField>Metabolicos_FL</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Metabolicos_CET">
-          <DataField>Metabolicos_CET</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Locomotores_BE">
-          <DataField>Locomotores_BE</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Locomotores_TRA">
-          <DataField>Locomotores_TRA</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Locomotores_GA">
-          <DataField>Locomotores_GA</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Digestivos_AC">
-          <DataField>Digestivos_AC</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Digestivos_ES">
-          <DataField>Digestivos_ES</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Digestivos_DI">
-          <DataField>Digestivos_DI</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Digestivos_TI">
-          <DataField>Digestivos_TI</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Reproductivos_RE">
-          <DataField>Reproductivos_RE</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Reproductivos_ME">
-          <DataField>Reproductivos_ME</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Reproductivos_PIO">
-          <DataField>Reproductivos_PIO</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Reproductivos_QUI">
-          <DataField>Reproductivos_QUI</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Reproductivos_CS">
-          <DataField>Reproductivos_CS</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Respiratorios_Neu">
-          <DataField>Respiratorios_Neu</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Becerras_Neu">
-          <DataField>Becerras_Neu</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Becerras_Fie">
-          <DataField>Becerras_Fie</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Becerras_Di">
-          <DataField>Becerras_Di</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Becerras_Conj">
-          <DataField>Becerras_Conj</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Vacas_Diag">
-          <DataField>Vacas_Diag</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Vacas_Pren">
-          <DataField>Vacas_Pren</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Vacas_Porcentaje_Pren">
-          <DataField>Vacas_Porcentaje_Pren</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Vacas_Vacias">
-          <DataField>Vacas_Vacias</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Vacas_Porcentaje_Vacias">
-          <DataField>Vacas_Porcentaje_Vacias</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Vaquillas_Diag">
-          <DataField>Vaquillas_Diag</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Vaquillas_Pren">
-          <DataField>Vaquillas_Pren</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Vaquillas_Porcentaje_Pren">
-          <DataField>Vaquillas_Porcentaje_Pren</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Vaquillas_Vacias">
-          <DataField>Vaquillas_Vacias</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Vaquillas_Porcentaje_Vacias">
-          <DataField>Vaquillas_Porcentaje_Vacias</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Abortos_Vaquillas">
-          <DataField>Abortos_Vaquillas</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Abortos_Vacas">
-          <DataField>Abortos_Vacas</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DSReporteDiario</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DiaRIO\v3\ReportePeriodo\ReportePeriodo\DSReporteDiario.xsd</rd:SchemaPath>
-        <rd:TableName>DTHoja4</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
@@ -1300,7 +1308,6 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -5510,22 +5517,16 @@ Parameters!DEC_TRES.Value &gt;= 3.3, "#fff5d9"
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.7cm</Width>
+                  <Width>0.8cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.6cm</Width>
+                  <Width>0.65cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.7cm</Width>
+                  <Width>0.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.6cm</Width>
+                  <Width>0.65cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.6cm</Width>
@@ -5534,7 +5535,52 @@ Parameters!DEC_TRES.Value &gt;= 3.3, "#fff5d9"
                   <Width>0.6cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.85cm</Width>
+                  <Width>0.63cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.6cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.6cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.65cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.6cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.6cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.63cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.6cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.6cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.65cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.6cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.6cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.63cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.6cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.6cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.65cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.6cm</Width>
@@ -5549,28 +5595,7 @@ Parameters!DEC_TRES.Value &gt;= 3.3, "#fff5d9"
                   <Width>0.6cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.7cm</Width>
+                  <Width>0.73cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.6cm</Width>
@@ -5585,9 +5610,6 @@ Parameters!DEC_TRES.Value &gt;= 3.3, "#fff5d9"
                   <Width>0.65cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.73cm</Width>
-                </TablixColumn>
-                <TablixColumn>
                   <Width>0.6cm</Width>
                 </TablixColumn>
                 <TablixColumn>
@@ -5597,19 +5619,7 @@ Parameters!DEC_TRES.Value &gt;= 3.3, "#fff5d9"
                   <Width>0.6cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.7cm</Width>
-                </TablixColumn>
-                <TablixColumn>
                   <Width>0.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.63cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.73cm</Width>
@@ -5624,28 +5634,79 @@ Parameters!DEC_TRES.Value &gt;= 3.3, "#fff5d9"
                   <Width>0.6cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.63cm</Width>
+                  <Width>0.6cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.63cm</Width>
+                  <Width>0.65cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.7cm</Width>
+                  <Width>0.65cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.73cm</Width>
+                  <Width>0.8cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.63cm</Width>
+                  <Width>0.6cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.7cm</Width>
+                  <Width>0.65cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
                   <Height>0.45cm</Height>
                   <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Crianza_Inventario">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Crianza_Inventario.Value</Value>
+                                  <Style>
+                                    <FontSize>4pt</FontSize>
+                                    <FontWeight>=IIF(Fields!Dia.Value="TOTAL" OR Fields!Dia.Value="PROM" OR Fields!Dia.Value="AÑO ANT" OR Fields!Dia.Value="DIF %" OR Fields!Dia.Value="DIF #","SemiBold","Thin")</FontWeight>
+                                    <Format>=IIF(Fields!Dia.Value  LIKE "DIF %", "P0", "n0")</Format>
+                                    <Language>es-MX</Language>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Crianza_Inventario</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>=IIF(Fields!Dia.Value="TOTAL" OR Fields!Dia.Value="PROM" OR Fields!Dia.Value="AÑO ANT" OR Fields!Dia.Value="DIF %" OR Fields!Dia.Value="DIF #","Solid","None")</Style>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>=IIF(Fields!Dia.Value="TOTAL" OR Fields!Dia.Value="PROM" OR Fields!Dia.Value="AÑO ANT" OR Fields!Dia.Value="DIF %" OR Fields!Dia.Value="DIF #","Solid","None")</Style>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                            </LeftBorder>
+                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Jaulas_Inventario">
@@ -7803,6 +7864,97 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                   <TablixHeader>
                     <Size>0.45cm</Size>
                     <CellContents>
+                      <Textbox Name="Textbox10">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>CZA</Value>
+                                <Style>
+                                  <FontSize>5pt</FontSize>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox10</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Style>Solid</Style>
+                          </Border>
+                          <BackgroundColor>#96cff7</BackgroundColor>
+                          <VerticalAlign>Middle</VerticalAlign>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <TablixMembers>
+                    <TablixMember>
+                      <TablixHeader>
+                        <Size>0.45cm</Size>
+                        <CellContents>
+                          <Textbox Name="Textbox12">
+                            <CanGrow>true</CanGrow>
+                            <KeepTogether>true</KeepTogether>
+                            <Paragraphs>
+                              <Paragraph>
+                                <TextRuns>
+                                  <TextRun>
+                                    <Value>INV</Value>
+                                    <Style>
+                                      <FontSize>5pt</FontSize>
+                                    </Style>
+                                  </TextRun>
+                                </TextRuns>
+                                <Style>
+                                  <TextAlign>Center</TextAlign>
+                                </Style>
+                              </Paragraph>
+                            </Paragraphs>
+                            <rd:DefaultName>Textbox12</rd:DefaultName>
+                            <Style>
+                              <Border>
+                                <Color>LightGrey</Color>
+                                <Style>Solid</Style>
+                              </Border>
+                              <TopBorder>
+                                <Color>Black</Color>
+                              </TopBorder>
+                              <BottomBorder>
+                                <Color>Black</Color>
+                              </BottomBorder>
+                              <LeftBorder>
+                                <Color>Black</Color>
+                              </LeftBorder>
+                              <RightBorder>
+                                <Style>None</Style>
+                              </RightBorder>
+                              <BackgroundColor>#96cff7</BackgroundColor>
+                              <VerticalAlign>Middle</VerticalAlign>
+                              <PaddingLeft>2pt</PaddingLeft>
+                              <PaddingRight>2pt</PaddingRight>
+                              <PaddingTop>2pt</PaddingTop>
+                              <PaddingBottom>2pt</PaddingBottom>
+                            </Style>
+                          </Textbox>
+                        </CellContents>
+                      </TablixHeader>
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.45cm</Size>
+                    <CellContents>
                       <Textbox Name="Textbox296">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
@@ -9183,7 +9335,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>MS (S)</Value>
+                                    <Value>MS(S)</Value>
                                     <Style>
                                       <FontSize>5pt</FontSize>
                                     </Style>
@@ -9633,7 +9785,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>MS (S)</Value>
+                                    <Value>MS(S)</Value>
                                     <Style>
                                       <FontSize>5pt</FontSize>
                                     </Style>
@@ -9910,7 +10062,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>C x A</Value>
+                                    <Value>CxA</Value>
                                     <Style>
                                       <FontSize>5pt</FontSize>
                                     </Style>
@@ -10042,7 +10194,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>U x A</Value>
+                                    <Value>UxA</Value>
                                     <Style>
                                       <FontSize>5pt</FontSize>
                                     </Style>
@@ -10194,7 +10346,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             <Top>19.8383cm</Top>
             <Left>0.05185cm</Left>
             <Height>1.35cm</Height>
-            <Width>29.11cm</Width>
+            <Width>29.15cm</Width>
             <ZIndex>8</ZIndex>
             <Style>
               <Border>
@@ -10409,55 +10561,46 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.95cm</Width>
+                  <Width>0.9cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.95cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
+                  <Width>0.8cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.9cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.9cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.85cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.9cm</Width>
@@ -10467,6 +10610,15 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.85cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.85cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.85cm</Width>
@@ -10494,6 +10646,9 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.85cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.85cm</Width>
@@ -11871,6 +12026,52 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                               <Style>=IIF(Fields!Dia.Value="TOTAL" OR Fields!Dia.Value="PROM" OR Fields!Dia.Value="AÑO ANT" OR Fields!Dia.Value="DIF %" OR Fields!Dia.Value="DIF #","Solid","None")</Style>
                             </BottomBorder>
                             <RightBorder>
+                              <Style>None</Style>
+                            </RightBorder>
+                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Bp_Gem">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Bp_Gem.Value</Value>
+                                  <Style>
+                                    <FontSize>5pt</FontSize>
+                                    <FontWeight>=IIF(Fields!Dia.Value="TOTAL" OR Fields!Dia.Value="PROM" OR Fields!Dia.Value="AÑO ANT" OR Fields!Dia.Value="DIF %" OR Fields!Dia.Value="DIF #","SemiBold","Thin")</FontWeight>
+                                    <Language>es-MX</Language>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Bp_Gem</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <TopBorder>
+                              <Style>=IIF(Fields!Dia.Value="TOTAL" OR Fields!Dia.Value="PROM" OR Fields!Dia.Value="AÑO ANT" OR Fields!Dia.Value="DIF %" OR Fields!Dia.Value="DIF #","Solid","None")</Style>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Style>=IIF(Fields!Dia.Value="TOTAL" OR Fields!Dia.Value="PROM" OR Fields!Dia.Value="AÑO ANT" OR Fields!Dia.Value="DIF %" OR Fields!Dia.Value="DIF #","Solid","None")</Style>
+                            </BottomBorder>
+                            <RightBorder>
                               <Style>Solid</Style>
                             </RightBorder>
                             <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
@@ -11881,6 +12082,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -12040,7 +12242,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                   <TablixHeader>
                     <Size>0.3865cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox652">
+                      <Textbox Name="Textbox55">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
@@ -12058,7 +12260,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox652</rd:DefaultName>
+                        <rd:DefaultName>Textbox55</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>Solid</Style>
@@ -12078,7 +12280,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                       <TablixHeader>
                         <Size>0.62483cm</Size>
                         <CellContents>
-                          <Textbox Name="Textbox301">
+                          <Textbox Name="Textbox77">
                             <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
@@ -12096,7 +12298,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                                 </Style>
                               </Paragraph>
                             </Paragraphs>
-                            <rd:DefaultName>Textbox297</rd:DefaultName>
+                            <rd:DefaultName>Textbox77</rd:DefaultName>
                             <Style>
                               <Border>
                                 <Style>None</Style>
@@ -13828,6 +14030,56 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                                   </BottomBorder>
                                   <RightBorder>
                                     <Color>Black</Color>
+                                    <Style>None</Style>
+                                  </RightBorder>
+                                  <BackgroundColor>#96cff7</BackgroundColor>
+                                  <VerticalAlign>Middle</VerticalAlign>
+                                  <PaddingLeft>2pt</PaddingLeft>
+                                  <PaddingRight>2pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
+                        </TablixMember>
+                        <TablixMember>
+                          <TablixHeader>
+                            <Size>0.646cm</Size>
+                            <CellContents>
+                              <Textbox Name="Textbox98">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value>BP/GEM</Value>
+                                        <Style>
+                                          <FontSize>5pt</FontSize>
+                                        </Style>
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style>
+                                      <TextAlign>Center</TextAlign>
+                                    </Style>
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>Textbox98</rd:DefaultName>
+                                <Style>
+                                  <Border>
+                                    <Color>LightGrey</Color>
+                                    <Style>None</Style>
+                                  </Border>
+                                  <TopBorder>
+                                    <Color>Black</Color>
+                                  </TopBorder>
+                                  <BottomBorder>
+                                    <Color>Black</Color>
+                                    <Style>Solid</Style>
+                                  </BottomBorder>
+                                  <RightBorder>
+                                    <Color>Black</Color>
                                     <Style>Solid</Style>
                                   </RightBorder>
                                   <BackgroundColor>#96cff7</BackgroundColor>
@@ -14042,7 +14294,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                 <TablixMember>
                   <Group Name="Dia2" />
                   <TablixHeader>
-                    <Size>1.2cm</Size>
+                    <Size>1.1cm</Size>
                     <CellContents>
                       <Textbox Name="Dia2">
                         <CanGrow>true</CanGrow>
@@ -14097,7 +14349,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             <Top>23.9cm</Top>
             <Left>0.07412cm</Left>
             <Height>1.8055cm</Height>
-            <Width>29.1cm</Width>
+            <Width>29cm</Width>
             <ZIndex>14</ZIndex>
             <Style>
               <Border>
@@ -18284,9 +18536,9 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             </Paragraphs>
             <rd:DefaultName>Textbox124</rd:DefaultName>
             <Top>25.8cm</Top>
-            <Left>4.87412cm</Left>
+            <Left>4.57412cm</Left>
             <Height>0.5339cm</Height>
-            <Width>5.25cm</Width>
+            <Width>4.95cm</Width>
             <ZIndex>29</ZIndex>
             <Style>
               <Border>
@@ -18318,9 +18570,9 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             </Paragraphs>
             <rd:DefaultName>Textbox124</rd:DefaultName>
             <Top>25.8cm</Top>
-            <Left>10.12412cm</Left>
+            <Left>9.52412cm</Left>
             <Height>0.5339cm</Height>
-            <Width>5.25cm</Width>
+            <Width>4.96724cm</Width>
             <ZIndex>30</ZIndex>
             <Style>
               <Border>
@@ -18474,7 +18726,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             <Top>21.1883cm</Top>
             <Left>0.05185cm</Left>
             <Height>0.5cm</Height>
-            <Width>2.25cm</Width>
+            <Width>2.9cm</Width>
             <ZIndex>34</ZIndex>
             <Style>
               <Border>
@@ -18511,9 +18763,9 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             </Paragraphs>
             <rd:DefaultName>Textbox123</rd:DefaultName>
             <Top>21.1883cm</Top>
-            <Left>2.29944cm</Left>
+            <Left>2.95185cm</Left>
             <Height>0.5cm</Height>
-            <Width>3.70086cm</Width>
+            <Width>3.69472cm</Width>
             <ZIndex>35</ZIndex>
             <Style>
               <Border>
@@ -18550,9 +18802,9 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             </Paragraphs>
             <rd:DefaultName>Textbox123</rd:DefaultName>
             <Top>21.1883cm</Top>
-            <Left>6.0003cm</Left>
+            <Left>6.64657cm</Left>
             <Height>0.5cm</Height>
-            <Width>3.85155cm</Width>
+            <Width>3.66528cm</Width>
             <ZIndex>36</ZIndex>
             <Style>
               <Border>
@@ -18589,9 +18841,9 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             </Paragraphs>
             <rd:DefaultName>Textbox123</rd:DefaultName>
             <Top>21.1883cm</Top>
-            <Left>9.85185cm</Left>
+            <Left>10.31185cm</Left>
             <Height>0.5cm</Height>
-            <Width>3.85155cm</Width>
+            <Width>3.68cm</Width>
             <ZIndex>37</ZIndex>
             <Style>
               <Border>
@@ -18628,9 +18880,9 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             </Paragraphs>
             <rd:DefaultName>Textbox123</rd:DefaultName>
             <Top>21.1883cm</Top>
-            <Left>13.70185cm</Left>
+            <Left>13.99185cm</Left>
             <Height>0.5cm</Height>
-            <Width>5.67845cm</Width>
+            <Width>5.58cm</Width>
             <ZIndex>38</ZIndex>
             <Style>
               <Border>
@@ -18667,9 +18919,9 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             </Paragraphs>
             <rd:DefaultName>Textbox123</rd:DefaultName>
             <Top>21.1883cm</Top>
-            <Left>19.38185cm</Left>
-            <Height>0.5cm</Height>
-            <Width>5.75155cm</Width>
+            <Left>19.57185cm</Left>
+            <Height>0.51295cm</Height>
+            <Width>5.68cm</Width>
             <ZIndex>39</ZIndex>
             <Style>
               <Border>
@@ -18706,9 +18958,9 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             </Paragraphs>
             <rd:DefaultName>Textbox123</rd:DefaultName>
             <Top>21.1883cm</Top>
-            <Left>25.1334cm</Left>
-            <Height>0.5cm</Height>
-            <Width>3.99716cm</Width>
+            <Left>25.25185cm</Left>
+            <Height>0.48705cm</Height>
+            <Width>3.95cm</Width>
             <ZIndex>40</ZIndex>
             <Style>
               <Border>
@@ -18836,7 +19088,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
           </Border>
         </Style>
       </Body>
-      <Width>11.50633in</Width>
+      <Width>11.51622in</Width>
       <Page>
         <PageHeight>21cm</PageHeight>
         <PageWidth>29.7cm</PageWidth>

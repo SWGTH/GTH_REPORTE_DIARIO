@@ -754,11 +754,44 @@ namespace ReportePeriodo.Modelo
         public List<Hoja1> EspaciosEnBlancoHoja1(int renglones)
         {
             List<Hoja1> response = new List<Hoja1>();
-            int renglonesTotal = 32 - renglones;
+            int renglonesTotal = 31 - renglones;
 
             for (int i = 0; i < renglonesTotal; i++)
             {
                 response.Add(new Hoja1());
+            }
+
+            return response;
+        }
+
+        public Hoja1 RenglonTotalHoja1(List<Hoja1> request)
+        {
+            Hoja1 response = new Hoja1();            
+
+            try
+            {
+                response.Dia = "TOTAL";
+                response.Ordeño = 0;
+                response.Secas = 0;
+                response.Hato = 0;
+                response.Leche = 0;
+                response.Antib = 0;
+                response.Total = 0;
+
+                foreach (Hoja1 item in request)
+                {
+                    response.Ordeño += item.Ordeño != null ? item.Ordeño : 0;
+                    response.Secas += item.Secas != null ? item.Secas : 0;
+                    response.Hato += item.Hato != null ? item.Hato : 0;
+                    response.Leche += item.Leche != null ? item.Leche : 0;
+                    response.Antib += item.Antib != null ? item.Antib : 0;
+                    response.Total += item.Total != null ? item.Total : 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
             }
 
             return response;
@@ -832,6 +865,9 @@ namespace ReportePeriodo.Modelo
         {
             foreach (Hoja2 item in reporte)
             {
+                #region Crianza
+                item.Crianza_Inventario = item.Crianza_Inventario == 0 ? null : item.Crianza_Inventario;
+                #endregion
 
                 #region Jaulas 
                 item.Jaulas_Inventario = item.Jaulas_Inventario == 0 ? null : item.Jaulas_Inventario;
@@ -906,6 +942,10 @@ namespace ReportePeriodo.Modelo
         {
             try
             {
+                #region Crianza 
+                item.Crianza_Inventario = item.Crianza_Inventario == 0 ? null : item.Crianza_Inventario;
+                #endregion
+
                 #region Jaulas 
                 item.Jaulas_Inventario = item.Jaulas_Inventario == 0 ? null : item.Jaulas_Inventario;
                 item.Jaulas_Costo = item.Jaulas_Costo == 0 ? null : item.Jaulas_Costo;
@@ -1041,8 +1081,6 @@ namespace ReportePeriodo.Modelo
                 List<InventarioAfiXDia> datosInventarioAFI = InventariosAFI(fechaInicio, fechaFin, ref mensaje);
                 List<Mproduc2> datosMProduc = MediaProduccion2(fechaInicio, fechaFin, ref mensaje);
 
-
-
                 foreach (DateTime fecha in fechasReporte)
                 {
                     InventarioAfiXDia busqudaInventarioAFI = (from x in datosInventarioAFI where x.Fecha == fecha select x).ToList().FirstOrDefault();
@@ -1050,6 +1088,10 @@ namespace ReportePeriodo.Modelo
 
                     Hoja2 item = new Hoja2();
                     item.Dia = fecha.Day.ToString();
+
+                    #region Crianza
+                    item.Crianza_Inventario = busqudaInventarioAFI != null ? busqudaInventarioAFI.Crianza : 0;
+                    #endregion 
 
                     #region Jaulas 
                     item.Jaulas_Inventario = busqudaInventarioAFI != null ? busqudaInventarioAFI.Jaulas : 0;
@@ -1153,6 +1195,8 @@ namespace ReportePeriodo.Modelo
 
             try
             {
+                promedio.Crianza_Inventario = inventario.Crianza;
+
                 promedio.Jaulas_Inventario = (decimal)indicadorJaulas.ANIMELES;
                 promedio.Jaulas_Costo = (decimal)indicadorJaulas.COSTO;
 
@@ -1235,6 +1279,10 @@ namespace ReportePeriodo.Modelo
 
             try
             {
+                #region Crianza
+                difencia.Crianza_Inventario = promedio.Crianza_Inventario != null && promedioAñoAnt.Crianza_Inventario != null ? promedio.Crianza_Inventario - promedioAñoAnt.Crianza_Inventario : 0;
+                #endregion
+
                 #region Jaulas 
                 difencia.Jaulas_Inventario = promedio.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != null ? promedio.Jaulas_Inventario - promedioAñoAnt.Jaulas_Inventario : 0;
                 difencia.Jaulas_Costo = promedio.Jaulas_Costo != null && promedioAñoAnt.Jaulas_Costo != null ? promedio.Jaulas_Costo - promedioAñoAnt.Jaulas_Costo : 0;
@@ -1312,6 +1360,10 @@ namespace ReportePeriodo.Modelo
 
             try
             {
+                #region Crianza 
+                porcentaje.Crianza_Inventario = diferencia.Crianza_Inventario != null && promedioAñoAnt.Crianza_Inventario != null && promedioAñoAnt.Crianza_Inventario != 0 ? diferencia.Crianza_Inventario / promedioAñoAnt.Crianza_Inventario : 0;
+                #endregion
+
                 #region Jaulas 
                 porcentaje.Jaulas_Inventario = diferencia.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != 0 ? diferencia.Jaulas_Inventario / promedioAñoAnt.Jaulas_Inventario : 0;
                 porcentaje.Jaulas_Costo = diferencia.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != null && promedioAñoAnt.Jaulas_Inventario != 0 ? diferencia.Jaulas_Inventario / promedioAñoAnt.Jaulas_Inventario : 0;
@@ -1391,11 +1443,45 @@ namespace ReportePeriodo.Modelo
         public List<Hoja2> EspaciosEnBlancoHoja2(int renglones)
         {
             List<Hoja2> response = new List<Hoja2>();
-            int renglonesTotal = 32 - renglones;
+            int renglonesTotal = 31 - renglones;
 
             for (int i = 0; i < renglonesTotal; i++)
             {
                 response.Add(new Hoja2());
+            }
+
+            return response;
+        }
+
+        public Hoja2 RenglonTotalHoja2(List<Hoja2> request)
+        {
+            Hoja2 response = new Hoja2();
+            response.Dia = "TOTAL";
+
+            try
+            {
+                response.Crianza_Inventario = 0;
+                response.Jaulas_Inventario = 0;
+                response.Crecimiento_Inventario = 0;
+                response.Desarrollo_Inventario = 0;
+                response.Secas_Inventario = 0;
+                response.Reto_Inventario = 0;
+                response.Inventario_Total = 0;
+
+                foreach(Hoja2 item in request)
+                {
+                    response.Crianza_Inventario += item.Crianza_Inventario != null ? item.Crianza_Inventario : 0;
+                    response.Jaulas_Inventario += item.Jaulas_Inventario != null ? item.Jaulas_Inventario : 0;
+                    response.Crecimiento_Inventario += item.Crecimiento_Inventario != null ? item.Crecimiento_Inventario : 0;
+                    response.Desarrollo_Inventario += item.Desarrollo_Inventario != null ? item.Desarrollo_Inventario : 0;
+                    response.Secas_Inventario += item.Secas_Inventario != null ? item.Secas_Inventario : 0;
+                    response.Reto_Inventario += item.Reto_Inventario != null ? item.Reto_Inventario : 0;
+                    response.Inventario_Total += item.Inventario_Total != null ? item.Inventario_Total : 0;
+                }
+            }
+            catch(Exception ex)
+            {
+
             }
 
             return response;
@@ -1484,6 +1570,9 @@ namespace ReportePeriodo.Modelo
 
                 #region Obtener Datos
                 List<CalostroYOrdeña> datosCalostro = CalostroOrdeño(fechaInicio, fechaFin);
+
+                List<DatosVacas> datosJaulasFuera = DatosDesecho(fechaInicio, fechaFin, @"AND LACTANCIA = 0 AND EDOVAC = 15", ref mensaje);
+
                 List<DatosVacas> datosJaulasVivas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
                 List<DatosVacas> datosJaulasMuertas = DatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
 
@@ -1533,6 +1622,7 @@ namespace ReportePeriodo.Modelo
 
                     #region obtener datos de la lista
                     CalostroYOrdeña busquedaCalostro = (from x in datosCalostro where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaJaulasFuera = (from x in datosJaulasFuera where x.Fecha == fecha select x).ToList().FirstOrDefault();
                     DatosVacas busquedaJaulasVivas = (from x in datosJaulasVivas where x.Fecha == fecha select x).ToList().FirstOrDefault();
                     DatosVacas busquedaJaulasMuertas = (from x in datosJaulasMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
                     DatosVacas busquedaDesteteVivas = (from x in datosDesteteVivas where x.Fecha == fecha select x).ToList().FirstOrDefault();
@@ -1567,6 +1657,7 @@ namespace ReportePeriodo.Modelo
                     #endregion
 
                     #region asignar datos
+                    item.Bp_Gem = busquedaJaulasFuera != null ? busquedaJaulasFuera.Vacas : 0;
                     item.Jaulas_Vivas = busquedaJaulasVivas != null ? busquedaJaulasVivas.Vacas : 0;
                     item.Jaulas_Muertas = busquedaJaulasMuertas != null ? busquedaJaulasMuertas.Vacas : 0;
                     item.Destete_Vivas = busquedaDesteteVivas != null ? busquedaDesteteVivas.Vacas : 0;
@@ -1619,6 +1710,7 @@ namespace ReportePeriodo.Modelo
             {
                 #region Obtener Datos
                 CalostroYOrdeña totalCalostro = PromedioCalostro(fechaInicio, fechaFin);
+                DatosVacas totalJaulasFuera = TotalDatosDesecho(fechaInicio, fechaFin, @" AND LACTANCIA = 0 AND EDOVAC = 15", ref mensaje);
                 DatosVacas totalJaulasVivas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
                 DatosVacas totalJaulasMuertas = TotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 1 OR edovac = 10) ", ref mensaje);
 
@@ -1661,6 +1753,7 @@ namespace ReportePeriodo.Modelo
                 #endregion
 
                 #region asignar datos
+                response.Bp_Gem = totalJaulasFuera != null ? totalJaulasFuera.Vacas : 0;
                 response.Jaulas_Vivas = totalJaulasVivas != null ? totalJaulasVivas.Vacas : 0;
                 response.Jaulas_Muertas = totalJaulasMuertas != null ? totalJaulasMuertas.Vacas : 0;
                 response.Destete_Vivas = totalDesteteVivas != null ? totalDesteteVivas.Vacas : 0;
@@ -1695,8 +1788,6 @@ namespace ReportePeriodo.Modelo
                 response.Porcentaje_Calostro = totalCalostro != null ? totalCalostro.Porcentaje : 0;
                 response.Calidad_Calostro = totalCalostro.Calidad != null ? totalCalostro.Calidad : 0;
                 #endregion
-
-
             }
             catch { }
 
@@ -1712,6 +1803,7 @@ namespace ReportePeriodo.Modelo
             try
             {
                 #region asignar datos
+                response.Bp_Gem = total.Bp_Gem != null && totalAñoAnt.Bp_Gem != null ? total.Bp_Gem - totalAñoAnt.Bp_Gem : total.Bp_Gem != null ? total.Bp_Gem * (-1) : 0;
                 response.Jaulas_Vivas = total.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != null ? total.Jaulas_Vivas - totalAñoAnt.Jaulas_Vivas : total.Jaulas_Vivas != null ? total.Jaulas_Vivas * (-1) : 0;
                 response.Jaulas_Muertas = total.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != null ? total.Jaulas_Muertas - totalAñoAnt.Jaulas_Muertas : total.Jaulas_Muertas != null ? total.Jaulas_Muertas * (-1) : 0;
 
@@ -1768,6 +1860,7 @@ namespace ReportePeriodo.Modelo
             try
             {
                 #region asignar datos
+                response.Bp_Gem = diferencia.Bp_Gem != null && totalAñoAnt.Bp_Gem != null && totalAñoAnt.Bp_Gem != 0 ? diferencia.Bp_Gem / totalAñoAnt.Bp_Gem : 0;
                 response.Jaulas_Vivas = diferencia.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != 0 ? diferencia.Jaulas_Vivas / totalAñoAnt.Jaulas_Vivas : 0;
                 response.Jaulas_Muertas = diferencia.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != 0 ? diferencia.Jaulas_Muertas / totalAñoAnt.Jaulas_Muertas : 0;
 
@@ -1822,6 +1915,7 @@ namespace ReportePeriodo.Modelo
             {
                 try
                 {
+                    item.Bp_Gem = item.Bp_Gem == 0 ? null : item.Bp_Gem;
                     item.Jaulas_Vivas = item.Jaulas_Vivas == 0 ? null : item.Jaulas_Vivas;
                     item.Jaulas_Muertas = item.Jaulas_Muertas == 0 ? null : item.Jaulas_Muertas;
 
@@ -1878,7 +1972,7 @@ namespace ReportePeriodo.Modelo
         public void QuitarCeros(Hoja3 item)
         {
             try
-            {
+            {                
                 item.Jaulas_Vivas = item.Jaulas_Vivas == 0 ? null : item.Jaulas_Vivas;
                 item.Jaulas_Muertas = item.Jaulas_Muertas == 0 ? null : item.Jaulas_Muertas;
 
@@ -1916,6 +2010,7 @@ namespace ReportePeriodo.Modelo
 
                 item.Muertas_Dia = item.Muertas_Dia == 0 ? null : item.Muertas_Dia;
                 item.Muertas_Noc = item.Muertas_Noc == 0 ? null : item.Muertas_Noc;
+                item.Bp_Gem = item.Bp_Gem == 0 ? null : item.Bp_Gem;
 
                 item.Diferencia_Calostro = item.Diferencia_Calostro == 0 ? null : item.Diferencia_Calostro;
                 item.Porcentaje_Calostro = item.Porcentaje_Calostro == 0 ? null : item.Porcentaje_Calostro;
@@ -4067,6 +4162,7 @@ namespace ReportePeriodo.Modelo
                                         ,vacassecas                                                                                   AS SECAS
                                         ,vacasordeña                                                                                  AS PRODUCCION
                                         ,(vqreto + vcreto)                                                                            AS RETO
+                                        ,(jaulas + destetadas + destetadas2 + vaquillas)                                              AS Crianza
                                         ,(jaulas + destetadas + destetadas2 + vaquillas + vacassecas + vacasordeña + vqreto + vcreto) AS InventarioTotal
                                 FROM INVENTARIOAFIXDIA
                                 WHERE fecha BETWEEN @fechaInicio AND @fechaFin
@@ -4086,6 +4182,7 @@ namespace ReportePeriodo.Modelo
                     Crecimiento = x["CRECIMIENTO"] != DBNull.Value ? Convert.ToDecimal(x["CRECIMIENTO"]) : 0,
                     Desarrollo = x["DESARROLLO"] != DBNull.Value ? Convert.ToDecimal(x["DESARROLLO"]) : 0,
                     Vaquillas = x["VAQUILLAS_"] != DBNull.Value ? Convert.ToDecimal(x["VAQUILLAS_"]) : 0,
+                    Crianza = x["Crianza"] != DBNull.Value ? Convert.ToDecimal(x["Crianza"]) : 0,
                     InventarioTotal = x["InventarioTotal"] != DBNull.Value ? Convert.ToDecimal(x["InventarioTotal"]) : 0
                 }).ToList();
             }
@@ -4118,6 +4215,7 @@ namespace ReportePeriodo.Modelo
                                         ,Round(SUM(vacassecas)/(@fechaFin - @fechaInicio + 1),0)                                                                                   AS SECAS
                                         ,Round(SUM(vacasordeña)/(@fechaFin - @fechaInicio + 1),0)                                                                                  AS PRODUCCION
                                         ,Round(SUM((vqreto + vcreto))/(@fechaFin - @fechaInicio + 1),0)                                                                            AS RETO
+                                        ,Round(SUM((jaulas + destetadas + destetadas2 + vaquillas))/(@fechaFin - @fechaInicio + 1),0) AS Crianza
                                         ,Round(SUM((jaulas + destetadas + destetadas2 + vaquillas + vacassecas + vacasordeña + vqreto + vcreto))/(@fechaFin - @fechaInicio + 1),0) AS InventarioTotal
                                 FROM INVENTARIOAFIXDIA
                                 WHERE fecha BETWEEN @fechaInicio AND @fechaFin";
@@ -4136,6 +4234,7 @@ namespace ReportePeriodo.Modelo
                     Crecimiento = x["CRECIMIENTO"] != DBNull.Value ? Convert.ToDecimal(x["CRECIMIENTO"]) : 0,
                     Desarrollo = x["DESARROLLO"] != DBNull.Value ? Convert.ToDecimal(x["DESARROLLO"]) : 0,
                     Vaquillas = x["VAQUILLAS_"] != DBNull.Value ? Convert.ToDecimal(x["VAQUILLAS_"]) : 0,
+                    Crianza = x["Crianza"] != DBNull.Value ? Convert.ToDecimal(x["Crianza"]) : 0,
                     InventarioTotal = x["InventarioTotal"] != DBNull.Value ? Convert.ToDecimal(x["InventarioTotal"]) : 0
                 }).ToList().FirstOrDefault();
             }

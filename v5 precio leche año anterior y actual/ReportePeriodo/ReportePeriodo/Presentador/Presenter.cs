@@ -79,6 +79,7 @@ namespace ReportePeriodo.Presentador
             Hoja1 diferencia = _model.DiferenciaHoja1(promedio, promedioAñoAnt);
             Hoja1 porcentajeDif = _model.PorcentajeDiferenciaHoja1(diferencia, promedioAñoAnt);
             List<Hoja1> espaciosEnBlanco = _model.EspaciosEnBlancoHoja1(response.Count);
+            Hoja1 renglonTotal = _model.RenglonTotalHoja1(response);
 
             _model.AsignarColorimetriaHoja1(rancho, response, datosCalostro, promedio, fechaInicio, fechaFin, ref mensaje);
             _model.QuitarCeros(response);
@@ -86,8 +87,10 @@ namespace ReportePeriodo.Presentador
             _model.QuitarCeros(promedioAñoAnt);
             _model.QuitarCeros(diferencia);
             _model.QuitarCeros(porcentajeDif);
+            _model.QuitarCeros(renglonTotal);
 
             response.AddRange(espaciosEnBlanco);
+            response.Add(renglonTotal);
             response.Add(promedio);
             response.Add(promedioAñoAnt);
             response.Add(porcentajeDif);
@@ -117,6 +120,7 @@ namespace ReportePeriodo.Presentador
             Hoja2 diferencia = _model.DiferenciaHoja2(promedio, promedioAñoAnt);
             Hoja2 porcentajeDiferencia = _model.PorcentajeDiferenciaHoja2(diferencia, promedioAñoAnt);
             List<Hoja2> espaciosEnBlanco = _model.EspaciosEnBlancoHoja2(response.Count);
+            Hoja2 renglonTotal = _model.RenglonTotalHoja2(response);
             Utilidad utilidad = new Utilidad();
             utilidad.IXA = promedio.IngresoxAnimal;
             utilidad.CXA = promedio.CostoxAnimal;
@@ -130,8 +134,10 @@ namespace ReportePeriodo.Presentador
             _model.QuitarCeros(promedioAñoAnt);
             _model.QuitarCeros(diferencia);
             _model.QuitarCeros(porcentajeDiferencia);
+            _model.QuitarCeros(renglonTotal);
 
             response.AddRange(espaciosEnBlanco);
+            response.Add(renglonTotal);
             response.Add(promedio);
             response.Add(promedioAñoAnt);
             response.Add(porcentajeDiferencia);

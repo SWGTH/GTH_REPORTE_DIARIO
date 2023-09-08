@@ -84,6 +84,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Dia" msprop:Generator_ColumnVarNameInTable="columnDia" msprop:Generator_ColumnPropNameInRow="Dia" msprop:Generator_ColumnPropNameInTable="DiaColumn" msprop:Generator_UserColumnName="Dia" type="xs:string" minOccurs="0" />
+              <xs:element name="Crianza_Inventario" msprop:Generator_ColumnVarNameInTable="columnCrianza_Inventario" msprop:Generator_ColumnPropNameInRow="Crianza_Inventario" msprop:Generator_ColumnPropNameInTable="Crianza_InventarioColumn" msprop:Generator_UserColumnName="Crianza_Inventario" type="xs:string" minOccurs="0" />
               <xs:element name="Jaulas_Inventario" msprop:Generator_ColumnVarNameInTable="columnJaulas_Inventario" msprop:Generator_ColumnPropNameInRow="Jaulas_Inventario" msprop:Generator_ColumnPropNameInTable="Jaulas_InventarioColumn" msprop:Generator_UserColumnName="Jaulas_Inventario" type="xs:string" minOccurs="0" />
               <xs:element name="Jaulas_Costo" msprop:Generator_ColumnVarNameInTable="columnJaulas_Costo" msprop:Generator_ColumnPropNameInRow="Jaulas_Costo" msprop:Generator_ColumnPropNameInTable="Jaulas_CostoColumn" msprop:Generator_UserColumnName="Jaulas_Costo" type="xs:string" minOccurs="0" />
               <xs:element name="Crecimiento_Inventario" msprop:Generator_ColumnVarNameInTable="columnCrecimiento_Inventario" msprop:Generator_ColumnPropNameInRow="Crecimiento_Inventario" msprop:Generator_ColumnPropNameInTable="Crecimiento_InventarioColumn" msprop:Generator_UserColumnName="Crecimiento_Inventario" type="xs:string" minOccurs="0" />
@@ -165,6 +166,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Dia" msprop:Generator_ColumnVarNameInTable="columnDia" msprop:Generator_ColumnPropNameInRow="Dia" msprop:Generator_ColumnPropNameInTable="DiaColumn" msprop:Generator_UserColumnName="Dia" type="xs:string" minOccurs="0" />
+              <xs:element name="Bp_Gem" msprop:Generator_ColumnVarNameInTable="columnBp_Gem" msprop:Generator_ColumnPropNameInRow="Bp_Gem" msprop:Generator_ColumnPropNameInTable="Bp_GemColumn" msprop:Generator_UserColumnName="Bp_Gem" type="xs:string" minOccurs="0" />
               <xs:element name="Jaulas_Vivas" msprop:Generator_ColumnVarNameInTable="columnJaulas_Vivas" msprop:Generator_ColumnPropNameInRow="Jaulas_Vivas" msprop:Generator_ColumnPropNameInTable="Jaulas_VivasColumn" msprop:Generator_UserColumnName="Jaulas_Vivas" type="xs:string" minOccurs="0" />
               <xs:element name="Jaulas_Muertas" msprop:Generator_ColumnVarNameInTable="columnJaulas_Muertas" msprop:Generator_ColumnPropNameInRow="Jaulas_Muertas" msprop:Generator_ColumnPropNameInTable="Jaulas_MuertasColumn" msprop:Generator_UserColumnName="Jaulas_Muertas" type="xs:string" minOccurs="0" />
               <xs:element name="Destete_Vivas" msprop:Generator_ColumnVarNameInTable="columnDestete_Vivas" msprop:Generator_ColumnPropNameInRow="Destete_Vivas" msprop:Generator_ColumnPropNameInTable="Destete_VivasColumn" msprop:Generator_UserColumnName="Destete_Vivas" type="xs:string" minOccurs="0" />

@@ -16,6 +16,7 @@ namespace ReportePeriodo.Entidad
         public decimal? Crecimiento { get; set; }
         public decimal? Desarrollo { get; set; }
         public decimal? Vaquillas { get; set; }
+        public decimal? Crianza { get; set; }
         public decimal? InventarioTotal { get; set; }
     }
 }

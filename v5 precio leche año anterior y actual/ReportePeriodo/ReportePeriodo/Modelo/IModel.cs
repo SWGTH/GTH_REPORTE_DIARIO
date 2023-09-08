@@ -42,6 +42,7 @@ namespace ReportePeriodo.Modelo
         Hoja1 DiferenciaHoja1(Hoja1 promedio, Hoja1 añoAnterior);
         Hoja1 PorcentajeDiferenciaHoja1(Hoja1 diferencia, Hoja1 añoAnterior);
         List<Hoja1> EspaciosEnBlancoHoja1(int renglones);
+        Hoja1 RenglonTotalHoja1(List<Hoja1> request);
         List<Hoja2> ReporteHoja2(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje);
         decimal PrecioLeche { get; set; }
         void CargarPrecioLeche(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje);
@@ -51,6 +52,7 @@ namespace ReportePeriodo.Modelo
         Hoja2 DiferenciaHoja2(Hoja2 promedio, Hoja2 promedioAñoAnt);
         Hoja2 PorcentajeDiferenciaHoja2(Hoja2 diferencia, Hoja2 promedioAñoAnt);
         List<Hoja2> EspaciosEnBlancoHoja2(int renglones);
+        Hoja2 RenglonTotalHoja2(List<Hoja2> request);
         void AsignarColorimetriaHoja2(List<Hoja2> reporte, Utilidad utilidad);
         List<Hoja3> ReporteHoja3(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje);
         Hoja3 TotalReporteHoja3(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje);

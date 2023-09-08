@@ -8,7 +8,7 @@ namespace ReportePeriodo.Entidad
 {
     public class Hoja3
     {
-        public string Dia { get; set; }
+        public string Dia { get; set; }        
 
         public decimal? Jaulas_Vivas { get; set; }
         public decimal? Jaulas_Muertas { get; set; }
@@ -47,6 +47,7 @@ namespace ReportePeriodo.Entidad
 
         public decimal? Muertas_Dia { get; set; }
         public decimal? Muertas_Noc { get; set; }
+        public decimal? Bp_Gem { get; set; }
 
         public decimal? Diferencia_Calostro { get; set; }
         public decimal? Porcentaje_Calostro { get; set; }

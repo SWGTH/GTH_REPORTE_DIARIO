@@ -1549,6 +1549,8 @@ namespace ReportePeriodo {
             
             private global::System.Data.DataColumn columnDia;
             
+            private global::System.Data.DataColumn columnCrianza_Inventario;
+            
             private global::System.Data.DataColumn columnJaulas_Inventario;
             
             private global::System.Data.DataColumn columnJaulas_Costo;
@@ -1735,6 +1737,14 @@ namespace ReportePeriodo {
             public global::System.Data.DataColumn DiaColumn {
                 get {
                     return this.columnDia;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Crianza_InventarioColumn {
+                get {
+                    return this.columnCrianza_Inventario;
                 }
             }
             
@@ -2369,6 +2379,7 @@ namespace ReportePeriodo {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DTHoja2Row AddDTHoja2Row(
                         string Dia, 
+                        string Crianza_Inventario, 
                         string Jaulas_Inventario, 
                         string Jaulas_Costo, 
                         string Crecimiento_Inventario, 
@@ -2446,6 +2457,7 @@ namespace ReportePeriodo {
                 DTHoja2Row rowDTHoja2Row = ((DTHoja2Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Dia,
+                        Crianza_Inventario,
                         Jaulas_Inventario,
                         Jaulas_Costo,
                         Crecimiento_Inventario,
@@ -2543,6 +2555,7 @@ namespace ReportePeriodo {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
                 this.columnDia = base.Columns["Dia"];
+                this.columnCrianza_Inventario = base.Columns["Crianza_Inventario"];
                 this.columnJaulas_Inventario = base.Columns["Jaulas_Inventario"];
                 this.columnJaulas_Costo = base.Columns["Jaulas_Costo"];
                 this.columnCrecimiento_Inventario = base.Columns["Crecimiento_Inventario"];
@@ -2624,6 +2637,8 @@ namespace ReportePeriodo {
             private void InitClass() {
                 this.columnDia = new global::System.Data.DataColumn("Dia", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDia);
+                this.columnCrianza_Inventario = new global::System.Data.DataColumn("Crianza_Inventario", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCrianza_Inventario);
                 this.columnJaulas_Inventario = new global::System.Data.DataColumn("Jaulas_Inventario", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnJaulas_Inventario);
                 this.columnJaulas_Costo = new global::System.Data.DataColumn("Jaulas_Costo", typeof(string), null, global::System.Data.MappingType.Element);
@@ -2907,6 +2922,8 @@ namespace ReportePeriodo {
             
             private global::System.Data.DataColumn columnDia;
             
+            private global::System.Data.DataColumn columnBp_Gem;
+            
             private global::System.Data.DataColumn columnJaulas_Vivas;
             
             private global::System.Data.DataColumn columnJaulas_Muertas;
@@ -3009,6 +3026,14 @@ namespace ReportePeriodo {
             public global::System.Data.DataColumn DiaColumn {
                 get {
                     return this.columnDia;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Bp_GemColumn {
+                get {
+                    return this.columnBp_Gem;
                 }
             }
             
@@ -3307,6 +3332,7 @@ namespace ReportePeriodo {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DTHoja3Row AddDTHoja3Row(
                         string Dia, 
+                        string Bp_Gem, 
                         string Jaulas_Vivas, 
                         string Jaulas_Muertas, 
                         string Destete_Vivas, 
@@ -3342,6 +3368,7 @@ namespace ReportePeriodo {
                 DTHoja3Row rowDTHoja3Row = ((DTHoja3Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Dia,
+                        Bp_Gem,
                         Jaulas_Vivas,
                         Jaulas_Muertas,
                         Destete_Vivas,
@@ -3397,6 +3424,7 @@ namespace ReportePeriodo {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
                 this.columnDia = base.Columns["Dia"];
+                this.columnBp_Gem = base.Columns["Bp_Gem"];
                 this.columnJaulas_Vivas = base.Columns["Jaulas_Vivas"];
                 this.columnJaulas_Muertas = base.Columns["Jaulas_Muertas"];
                 this.columnDestete_Vivas = base.Columns["Destete_Vivas"];
@@ -3436,6 +3464,8 @@ namespace ReportePeriodo {
             private void InitClass() {
                 this.columnDia = new global::System.Data.DataColumn("Dia", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDia);
+                this.columnBp_Gem = new global::System.Data.DataColumn("Bp_Gem", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBp_Gem);
                 this.columnJaulas_Vivas = new global::System.Data.DataColumn("Jaulas_Vivas", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnJaulas_Vivas);
                 this.columnJaulas_Muertas = new global::System.Data.DataColumn("Jaulas_Muertas", typeof(string), null, global::System.Data.MappingType.Element);
@@ -6153,6 +6183,22 @@ namespace ReportePeriodo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Crianza_Inventario {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTHoja2.Crianza_InventarioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Crianza_Inventario\' de la tabla \'DTHoja2\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTHoja2.Crianza_InventarioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string Jaulas_Inventario {
                 get {
                     try {
@@ -7362,6 +7408,18 @@ namespace ReportePeriodo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCrianza_InventarioNull() {
+                return this.IsNull(this.tableDTHoja2.Crianza_InventarioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCrianza_InventarioNull() {
+                this[this.tableDTHoja2.Crianza_InventarioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsJaulas_InventarioNull() {
                 return this.IsNull(this.tableDTHoja2.Jaulas_InventarioColumn);
             }
@@ -8281,6 +8339,22 @@ namespace ReportePeriodo {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Bp_Gem {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTHoja3.Bp_GemColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Bp_Gem\' de la tabla \'DTHoja3\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTHoja3.Bp_GemColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string Jaulas_Vivas {
                 get {
                     try {
@@ -8801,6 +8875,18 @@ namespace ReportePeriodo {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetDiaNull() {
                 this[this.tableDTHoja3.DiaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsBp_GemNull() {
+                return this.IsNull(this.tableDTHoja3.Bp_GemColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetBp_GemNull() {
+                this[this.tableDTHoja3.Bp_GemColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

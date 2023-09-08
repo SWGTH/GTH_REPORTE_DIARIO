@@ -9,6 +9,7 @@ namespace ReportePeriodo.Entidad
     public class Hoja2
     {
         public string Dia { get; set; }
+        public decimal? Crianza_Inventario { get; set; }
         public decimal? Jaulas_Inventario { get; set; }
         public decimal? Jaulas_Costo { get; set; }
         public decimal? Crecimiento_Inventario { get; set; }
