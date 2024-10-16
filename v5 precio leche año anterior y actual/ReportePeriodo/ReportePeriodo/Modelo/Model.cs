@@ -2674,7 +2674,7 @@ namespace ReportePeriodo.Modelo
                             indicadorValConAlim.MsCrecimiento = promedioInvAFI.Crecimiento != null && promedioInvAFI.Crecimiento > 0 ? (infoValConAlimPerido.Crecimiento >= 2 && infoValConAlimPerido.Crecimiento <= 8) ? true : false : true;
                         }
                         #endregion
-
+                        Evaluación de todas la etapas
                         #region evaluacion MS Desarrollo
                         if (invAFI.Desarrollo == null || invAFI.Desarrollo == 0)
                         {
