@@ -4432,7 +4432,7 @@ namespace ReportePeriodo.Modelo
         private decimal PrecioLecheCalculado(int ranId, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
         {
             decimal precio = 0;
-            ModeloDatosSQL db = new ModeloDatosSQL(conexionSQL);
+            ModeloDatosSQL db = new ModeloDatosSQL(conexionDBConsumo);
             mensaje = string.Empty;
 
             try

@@ -135,7 +135,6 @@ C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriod
 C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.VisualStudio.Data.Services.resources.dll
 C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\es\Microsoft.VisualStudio.Data.Core.resources.dll
 C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.AssemblyReference.cache
-C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.SuggestedBindingRedirects.cache
 C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe.config
 C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Form1.resources
 C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.Properties.Resources.resources
@@ -144,3 +143,17 @@ C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriod
 C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.csproj.CopyComplete
 C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.exe
 C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\obj\Debug\ReportePeriodo.pdb
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.9.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Debugger.InteropA.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.11.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Shell.Interop.10.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.Debugger.Interop.11.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.10.0.dll
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.cache
+C:\Users\GTH\Documents\GitHub\GTH_REPORTE_DIARIO\v6 cambio de base\ReportePeriodo\ReportePeriodo\obj\Debug\RdlCompile.compiled

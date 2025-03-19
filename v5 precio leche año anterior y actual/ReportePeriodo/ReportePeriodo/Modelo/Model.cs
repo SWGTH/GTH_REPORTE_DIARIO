@@ -476,12 +476,12 @@ namespace ReportePeriodo.Modelo
 
         public void CargarDatosTeoricos(Rancho rancho, DateTime fechaFin, ref string mensaje)
         {
-            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "10,11,12,13,91", fechaFin, out indicadorProduccion, ref mensaje);
-            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "21,92", fechaFin, out indicadorSecas, ref mensaje);
-            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "22,94", fechaFin, out indicadorReto, ref mensaje);
-            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "32,96", fechaFin, out indicadorCrecimiento, ref mensaje);
-            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "33,97", fechaFin, out indicadorDesarrollo, ref mensaje);
-            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, "34,98", fechaFin, out indicadorVaquillas, ref mensaje);
+            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, rancho.TimeShiftTracker,"10,11,12,13,91", fechaFin, out indicadorProduccion, ref mensaje);
+            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, rancho.TimeShiftTracker, "21,92", fechaFin, out indicadorSecas, ref mensaje);
+            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, rancho.TimeShiftTracker, "22,94", fechaFin, out indicadorReto, ref mensaje);
+            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, rancho.TimeShiftTracker, "32,96", fechaFin, out indicadorCrecimiento, ref mensaje);
+            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, rancho.TimeShiftTracker, "33,97", fechaFin, out indicadorDesarrollo, ref mensaje);
+            GTH.IndicadoresTeoricosxEstablo(rancho.Ran_ID, rancho.TimeShiftTracker, "34,98", fechaFin, out indicadorVaquillas, ref mensaje);
         }
 
         public void CargarPromediosDatosAlimentacion(Rancho rancho, DateTime fechaInicio, DateTime fechaFin, ref string mensaje)
@@ -2674,7 +2674,7 @@ namespace ReportePeriodo.Modelo
                             indicadorValConAlim.MsCrecimiento = promedioInvAFI.Crecimiento != null && promedioInvAFI.Crecimiento > 0 ? (infoValConAlimPerido.Crecimiento >= 2 && infoValConAlimPerido.Crecimiento <= 8) ? true : false : true;
                         }
                         #endregion
-                        Evaluación de todas la etapas
+                        //Evaluación de todas la etapas
                         #region evaluacion MS Desarrollo
                         if (invAFI.Desarrollo == null || invAFI.Desarrollo == 0)
                         {
