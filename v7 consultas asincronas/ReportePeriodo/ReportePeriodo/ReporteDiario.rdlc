@@ -1130,6 +1130,7 @@
                         </Style>
                       </Textbox>
                       <RowSpan>2</RowSpan>
+                      <rd:Selected>true</rd:Selected>
                     </CellContents>
                   </TablixCornerCell>
                 </TablixCornerRow>

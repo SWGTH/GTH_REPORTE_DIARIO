@@ -483,6 +483,7 @@ namespace ReportePeriodo.Model
             var calostroTask = new Task(() => { PromedioCalostro(fechaInicio, fechaFin); });
             var dpTask = new Task(() => { TotalDatosDeProduccion(fechaInicio, fechaFin); });
             var lecheTask = new Task(() => { PrecioLecheTask(centro, fechaInicio, fechaFin); });
+            var leche2Task = new Task(() => { LecheProducidaTask(centro, fechaInicio, fechaFin); });
 
             hoja1Task.Start();
             hoja3Task.Start();
@@ -492,6 +493,7 @@ namespace ReportePeriodo.Model
             calostroTask.Start();
             dpTask.Start();
             lecheTask.Start();
+            leche2Task.Start();
 
             var info = new List<Task>
             {
@@ -502,7 +504,8 @@ namespace ReportePeriodo.Model
                 inventarioTask,
                 calostroTask,
                 dpTask,
-                lecheTask
+                lecheTask,
+                leche2Task
             };
 
             Task.WaitAll(info.ToArray());
@@ -1317,6 +1320,13 @@ namespace ReportePeriodo.Model
             _precioLeche = GetPrecioLeche(centro.CentroClave, fechaInicio, fechaFin);
             _precioLecheAñoAnt = GetPrecioLeche(centro.CentroClave, fechaInicio.AddYears(-1), fechaFin.AddYears(-1));
             Console.WriteLine("Proceso {0} Ejecutado.", "PrecioLeche");
+            return true;
+        }
+
+        private async Task<bool> LecheProducidaTask(gthEntity.CentroTyp centro, DateTime fechaInicio, DateTime fechaFin)
+        {
+            _lecheProducida = GetLecheProducida(fechaInicio, fechaFin);
+            _lecheProducidaAñoAnt = GetLecheProducida(fechaInicio.AddYears(-1), fechaFin.AddYears(-1));
             return true;
         }
         #endregion
@@ -2214,6 +2224,41 @@ namespace ReportePeriodo.Model
             else
                 response = GetPrecioLecheCalculado(centroId, fechaFin, fechaInicio);
 
+
+            return response;
+        }
+
+        private decimal GetLecheProducida(DateTime fechaInicio, DateTime fechaFin)
+        {
+            decimal response = 0;
+            ModeloDatosOleDb db = new ModeloDatosOleDb(_oleDbConnection);
+
+            try
+            {
+                string query = @"SELECT IIF( SUM(IIF(m.LECPROD > 0, 1,0)) > 0, CLng(SUM(m.LECPROD) /  SUM(IIF(m.LECPROD > 0, 1,0))), 0) AS LecheProd
+                                 FROM MPRODUC m
+                                 WHERE m.FECHA BETWEEN @fechaInicio AND @fechaFin";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoOleDb.query);
+                db.AsignarParametro("@fechaInicio", LibreriaGTH.Utils.ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@fechaFin", LibreriaGTH.Utils.ConvertToJulian(fechaFin));
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                    response = dt.Rows[0]["LecheProd"] != DBNull.Value ? Convert.ToDecimal(dt.Rows[0]["LecheProd"]) : 0;
+            }
+            catch (DbException ex)
+            {
+                Guid guid;
+                guid = Guid.NewGuid();
+                InsLog("ReporteDiario", "PrecioLecheFacturado", $"Error in {nameof(GetLecheProducida)} with query", ex.Message, ex.Message, ex.StackTrace, guid);
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
 
             return response;
         }
