@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using gth = LibreriaGTH.Consumos.Modelo;
 using gthEntity = LibreriaGTH.Consumos.Entidad;
+using gthDll = LibreriaGTH;
 
 namespace ReportePeriodo.Model
 {
@@ -110,6 +111,7 @@ namespace ReportePeriodo.Model
         List<DatosVacas> _datosJaulasFuera;
         List<DatosVacas> _datosJaulasVivas;
         List<DatosVacas> _datosJaulasMuertas;
+        List<DatosVacas> _datosJaulasBpGem;
 
         List<DatosVacas> _datosDesteteVivas;
         List<DatosVacas> _datosDesteteMuertas;
@@ -790,7 +792,9 @@ namespace ReportePeriodo.Model
 
                     #region obtener datos de la lista
                     CalostroYOrdeña busquedaCalostro = (from x in _datosCalostro where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    
                     DatosVacas busquedaJaulasFuera = (from x in _datosJaulasFuera where x.Fecha == fecha select x).ToList().FirstOrDefault();
+                    DatosVacas busquedaJaulasBpGem = (from x in _datosJaulasBpGem where x.Fecha == fecha select x).ToList().FirstOrDefault();
                     DatosVacas busquedaJaulasVivas = (from x in _datosJaulasVivas where x.Fecha == fecha select x).ToList().FirstOrDefault();
                     DatosVacas busquedaJaulasMuertas = (from x in _datosJaulasMuertas where x.Fecha == fecha select x).ToList().FirstOrDefault();
                     DatosVacas busquedaDesteteVivas = (from x in _datosDesteteVivas where x.Fecha == fecha select x).ToList().FirstOrDefault();
@@ -826,6 +830,8 @@ namespace ReportePeriodo.Model
                     item.Bp_Gem = busquedaJaulasFuera != null ? busquedaJaulasFuera.Vacas : 0;
                     item.Jaulas_Vivas = busquedaJaulasVivas != null ? busquedaJaulasVivas.Vacas : 0;
                     item.Jaulas_Muertas = busquedaJaulasMuertas != null ? busquedaJaulasMuertas.Vacas : 0;
+                    item.Jaulas_BpGem = busquedaJaulasBpGem != null ? busquedaJaulasBpGem.Vacas : 0;
+
                     item.Destete_Vivas = busquedaDesteteVivas != null ? busquedaDesteteVivas.Vacas : 0;
                     item.Destete_Muertas = busquedaDesteteMuertas != null ? busquedaDesteteMuertas.Vacas : 0;
                     item.Vaquillas_Muertas = busquedaVaquillasMuertas != null ? busquedaVaquillasMuertas.Vacas : 0;
@@ -964,6 +970,583 @@ namespace ReportePeriodo.Model
 
         #endregion
 
+        #region Valores Consistentes
+
+        public void ValoresConsistentes(gthEntity.CentroTyp centro, Rancho rancho, DateTime fecha, bool configuraDiario)
+        {
+            try
+            {
+                ValConAlim valConAlim = new ValConAlim() { Ran_ID = rancho.Id };
+
+                DateTime fechaFinal = !configuraDiario ? fecha.AddDays(-1) : fecha;
+                bool evaluacionValConAlim = EvaluacionValConAlim(fechaFinal);
+
+                #region indicadores
+                List<gthEntity.CentroTyp> auxCentros = new List<gthEntity.CentroTyp>();
+                gthEntity.IndicadorReportePeriodoTyp produccion = new gthEntity.IndicadorReportePeriodoTyp();
+                gthEntity.IndicadorReportePeriodoTyp secas = new gthEntity.IndicadorReportePeriodoTyp();
+                gthEntity.IndicadorReportePeriodoTyp reto = new gthEntity.IndicadorReportePeriodoTyp();
+                gthEntity.IndicadorReportePeriodoTyp crecimiento = new gthEntity.IndicadorReportePeriodoTyp();
+                gthEntity.IndicadorReportePeriodoTyp jaulas = new gthEntity.IndicadorReportePeriodoTyp();
+                gthEntity.IndicadorReportePeriodoTyp desarrollo = new gthEntity.IndicadorReportePeriodoTyp();
+                gthEntity.IndicadorReportePeriodoTyp vaquillas = new gthEntity.IndicadorReportePeriodoTyp();
+                #endregion
+
+                #region Etapas
+                gthEntity.EtapaTyp etapaProduccion = new gthEntity.EtapaTyp() { Id = 1, Clave = "10", Nombre = "Produccion" };
+                gthEntity.EtapaTyp etapaSecas = new gthEntity.EtapaTyp() { Id = 2, Clave = "21", Nombre = "Secas" };
+                gthEntity.EtapaTyp etapaReto = new gthEntity.EtapaTyp() { Id = 3, Clave = "22", Nombre = "Reto" };
+                gthEntity.EtapaTyp etapaJaulas = new gthEntity.EtapaTyp() { Id = 4, Clave = "31", Nombre = "Jaulas" };
+                gthEntity.EtapaTyp etapaCrecimiento = new gthEntity.EtapaTyp() { Id = 5, Clave = "32", Nombre = "Crecimiento" };
+                gthEntity.EtapaTyp etapaDesarrollo = new gthEntity.EtapaTyp() { Id = 6, Clave = "33", Nombre = "Desarrollo" };
+                gthEntity.EtapaTyp etapaVaquillas = new gthEntity.EtapaTyp() { Id = 7, Clave = "34", Nombre = "Vaquillas Preñadas" };
+                #endregion
+
+                if (evaluacionValConAlim)
+                {
+                    #region obtener indicadores
+                    produccion = consumoModel.GetIndicadorReportePeriodo(auxCentros, etapaProduccion, fechaFinal, fechaFinal);
+                    secas = consumoModel.GetIndicadorReportePeriodo(auxCentros, etapaSecas, fechaFinal, fechaFinal);
+                    reto = consumoModel.GetIndicadorReportePeriodo(auxCentros, etapaReto, fechaFinal, fechaFinal);
+                    jaulas = consumoModel.GetIndicadorReportePeriodo(auxCentros, etapaJaulas, fechaFinal, fechaFinal);
+                    crecimiento = consumoModel.GetIndicadorReportePeriodo(auxCentros, etapaCrecimiento, fechaFinal, fechaFinal);
+                    desarrollo = consumoModel.GetIndicadorReportePeriodo(auxCentros, etapaDesarrollo, fechaFinal, fechaFinal);
+                    vaquillas = consumoModel.GetIndicadorReportePeriodo(auxCentros, etapaVaquillas, fechaFinal, fechaFinal);
+                    #endregion
+
+                    #region Evaluacion de EA
+                    if (produccion.NumeroAnimal == 0)
+                    {
+                        valConAlim.EAProd = true;
+                        valConAlim.EAProdValor = -1;
+
+                        valConAlim.MsProd = true;
+                        valConAlim.MsProdValor = -1;
+                    }
+                    else
+                    {
+                        valConAlim.EAProd = (produccion.EficienciaAlimentacionSob >= 1.1M && produccion.EficienciaAlimentacionSob <= 1.8M) ? true : false;
+                        valConAlim.EAProdValor = produccion.EficienciaAlimentacionSob;
+
+                        valConAlim.MsProd = (produccion.MateriaSecaSob >= 18.0M && produccion.MateriaSecaSob <= 32.0M) ? true : false;
+                        valConAlim.MsProdValor = produccion.MateriaSecaSob;
+                    }
+                    #endregion
+
+                    #region Evaluacion MS Crecimiento
+                    valConAlim.MsCrecimiento = crecimiento.NumeroAnimal == 0 ? true : (crecimiento.MateriaSecaSob >= 2.0M && crecimiento.MateriaSecaSob <= 8.0M) ? true : false;
+                    valConAlim.MsCrecimientosValor = crecimiento.NumeroAnimal == 0 ? -1 : crecimiento.MateriaSecaSob;
+                    #endregion
+
+                    #region Evaluacion MS Desarrollo
+                    valConAlim.MsDesarollo = desarrollo.NumeroAnimal == 0 ? true : (desarrollo.MateriaSecaSob >= 6.0M && desarrollo.MateriaSecaSob <= 11.0M) ? true : false;
+                    valConAlim.MsDesarolloValor = desarrollo.NumeroAnimal == 0 ? -1 : desarrollo.MateriaSecaSob;
+                    #endregion
+
+                    #region Evaluacion MS Vaquillas
+                    valConAlim.MsVaquillas = vaquillas.NumeroAnimal == 0 ? true : (vaquillas.MateriaSecaSob >= 8.0M && vaquillas.MateriaSecaSob <= 15.0M) ? true : false;
+                    valConAlim.MsVaquillasValor = vaquillas.NumeroAnimal == 0 ? -1 : vaquillas.MateriaSecaSob;
+                    #endregion
+
+                    #region Evaluacion MS Secas
+                    valConAlim.MsSecas = secas.NumeroAnimal == 0 ? true : (secas.MateriaSecaSob >= 10.0M && secas.MateriaSecaSob <= 19.0M) ? true : false;
+                    valConAlim.MsSecasValor = secas.NumeroAnimal == 0 ? -1 : secas.MateriaSecaSob;
+                    #endregion
+
+                    #region Evaluacion MS Reto
+                    valConAlim.MsReto = reto.NumeroAnimal == 0 ? true : (reto.MateriaSecaSob >= 9.0M && reto.MateriaSecaSob <= 19.0M) ? true : false;
+                    valConAlim.MsRetoValor = reto.NumeroAnimal == 0 ? -1 : reto.MateriaSecaSob;
+                    #endregion
+
+                    #region Evaluacion Etapas 
+                    if (valConAlim.EAProd && valConAlim.MsProd && valConAlim.MsCrecimiento && valConAlim.MsDesarollo && valConAlim.MsVaquillas && valConAlim.MsSecas && valConAlim.MsReto)
+                        valConAlim.ValConsisitentes = true;
+                    else
+                        valConAlim.ValConsisitentes = false;
+                    #endregion
+
+                    InsertarValConAlim(valConAlim, fechaFinal);
+                }
+
+                EliminarValConAlimPeriodo();
+                ValConAlim indicadorValConAlim = new ValConAlim();
+                for (int i = 0; i < 36; i++)
+                {
+                    indicadorValConAlim = new ValConAlim();
+                    InventarioAfiXDia invAFI = GetInventarioAFI(centro, fechaFinal.AddDays(-1));
+                    InventarioAfiXDia promedioInvAFI = GetPromedioInventarioAFI(rancho, fechaFinal.AddDays(-i - 4), fechaFinal.AddDays(-i - 1));
+                    PromedioMProducAlimentacion infoValConAlim = GetMProducAlim(fechaFinal.AddDays(-i - 4), fechaFinal.AddDays(-i - 1));
+
+                    #region asignar los valores ValConAlim
+                    indicadorValConAlim.EAProdValor = infoValConAlim.EA;
+                    indicadorValConAlim.MsProdValor = infoValConAlim.Produccion;
+                    indicadorValConAlim.MsCrecimientosValor = infoValConAlim.Crecimiento;
+                    indicadorValConAlim.MsDesarolloValor = infoValConAlim.Desarrollo;
+                    indicadorValConAlim.MsVaquillasValor = infoValConAlim.Vaquillas;
+                    indicadorValConAlim.MsSecasValor = infoValConAlim.Secas;
+                    indicadorValConAlim.MsRetoValor = infoValConAlim.Reto;
+                    #endregion
+
+                    if (invAFI != null)
+                    {
+                        #region EA y MS
+                        if (invAFI.Ordeño == null || invAFI.Ordeño == 0)
+                        {
+                            indicadorValConAlim.EAProd = true;
+                            indicadorValConAlim.EAProdValor = 0;
+
+                            indicadorValConAlim.MsProd = true;
+                            indicadorValConAlim.MsProdValor = 0;
+                        }
+                        else
+                        {
+                            indicadorValConAlim.EAProd = promedioInvAFI.Ordeño != null && promedioInvAFI.Ordeño > 0 ? (infoValConAlim.EA >= 1.1M && infoValConAlim.EA <= 1.8M) ? true : false : true;
+
+                            indicadorValConAlim.MsProd = promedioInvAFI.Ordeño != null && promedioInvAFI.Ordeño > 0 ? (infoValConAlim.Produccion >= 18.0M && infoValConAlim.Produccion <= 32.0M) ? true : false : true;
+                        }
+                        #endregion
+
+                        #region MS Crecimiento
+                        if (invAFI.Crecimiento == null || invAFI.Crecimiento == 0)
+                        {
+                            indicadorValConAlim.MsCrecimiento = true;
+                            indicadorValConAlim.MsCrecimientosValor = 0;
+                        }
+                        else
+                        {
+                            indicadorValConAlim.MsCrecimiento = promedioInvAFI.Crecimiento != null && promedioInvAFI.Crecimiento > 0 ? (infoValConAlim.Crecimiento >= 2.0M && infoValConAlim.Crecimiento <= 8.0M) ? true : false : true;
+                        }
+
+                        #endregion
+
+                        #region MS Desarrollo
+                        if (invAFI.Desarrollo == null || invAFI.Desarrollo == 0)
+                        {
+                            indicadorValConAlim.MsDesarollo = true;
+                            indicadorValConAlim.MsDesarolloValor = 0;
+                        }
+                        else
+                        {
+                            indicadorValConAlim.MsDesarollo = promedioInvAFI.Desarrollo != null && promedioInvAFI.Desarrollo > 0 ? (infoValConAlim.Desarrollo >= 6.0M && infoValConAlim.Desarrollo <= 11.0M) ? true : false : true;
+                        }
+                        #endregion
+
+                        #region MS Vaquillas
+                        if (invAFI.Vaquillas == null || invAFI.Vaquillas == 0)
+                        {
+                            indicadorValConAlim.MsVaquillas = true;
+                            indicadorValConAlim.MsVaquillasValor = 0;
+                        }
+                        else
+                        {
+                            indicadorValConAlim.MsVaquillas = promedioInvAFI.Vaquillas != null && promedioInvAFI.Vaquillas > 0 ? (infoValConAlim.Vaquillas >= 8.0M && infoValConAlim.Vaquillas <= 15.0M) ? true : false : true;
+                        }
+                        #endregion
+
+                        #region MS Secas
+                        if (invAFI.Vaquillas == null || invAFI.Vaquillas == 0)
+                        {
+                            indicadorValConAlim.MsSecas = true;
+                            indicadorValConAlim.MsSecasValor = 0;
+                        }
+                        else
+                        {
+                            indicadorValConAlim.MsSecas = promedioInvAFI.Secas != null && promedioInvAFI.Secas > 0 ? (infoValConAlim.Secas >= 10.0M && infoValConAlim.Secas <= 19.0M) ? true : false : true;
+                        }
+                        #endregion
+
+                        #region MS Reto
+                        if (invAFI.Reto == null || invAFI.Reto == 0)
+                        {
+                            indicadorValConAlim.MsReto = true;
+                            indicadorValConAlim.MsRetoValor = 0;
+                        }
+                        else
+                        {
+                            indicadorValConAlim.MsReto = promedioInvAFI.Reto != null && promedioInvAFI.Reto > 0 ? (infoValConAlim.Reto >= 9.0M && infoValConAlim.Reto <= 19.0M) ? true : false : true;
+                        }
+                        #endregion
+
+                        #region Evaluacion todas las etapas
+                        indicadorValConAlim.ValConsisitentes = indicadorValConAlim.EAProd && indicadorValConAlim.MsProd && indicadorValConAlim.MsCrecimiento && indicadorValConAlim.MsDesarollo && indicadorValConAlim.MsVaquillas && indicadorValConAlim.MsSecas && indicadorValConAlim.MsReto;
+                        #endregion
+                    }
+                    else
+                    {
+                        indicadorValConAlim.EAProd = (infoValConAlim.EA >= 1.1M && infoValConAlim.EA <= 1.8M) ? true : false;
+                        indicadorValConAlim.MsProd = (infoValConAlim.Produccion >= 18.0M && infoValConAlim.Produccion <= 32.0M) ? true : false;
+                        indicadorValConAlim.MsCrecimiento = (infoValConAlim.Crecimiento >= 2.0M && infoValConAlim.Crecimiento <= 8.0M) ? true : false;
+                        indicadorValConAlim.MsDesarollo = (infoValConAlim.Desarrollo >= 6.0M && infoValConAlim.Desarrollo <= 11.0M) ? true : false;
+                        indicadorValConAlim.MsVaquillas = (infoValConAlim.Vaquillas >= 8.0M && infoValConAlim.Vaquillas <= 15.0M) ? true : false;
+                        indicadorValConAlim.MsSecas = (infoValConAlim.Secas >= 10.0M && infoValConAlim.Secas <= 19.0M) ? true : false;
+                        indicadorValConAlim.MsReto = (infoValConAlim.Reto >= 9.0M && infoValConAlim.Reto <= 19.0M) ? true : false;
+
+                        indicadorValConAlim.ValConsisitentes = indicadorValConAlim.EAProd && indicadorValConAlim.MsProd && indicadorValConAlim.MsCrecimiento && indicadorValConAlim.MsDesarollo && indicadorValConAlim.MsVaquillas && indicadorValConAlim.MsSecas && indicadorValConAlim.MsReto;
+                    }
+
+
+                    InsertarValConAlimPeriodo(indicadorValConAlim, fechaFinal.AddDays(-i));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Guid guid;
+                guid = Guid.NewGuid();
+                InsLog("ReporteDiario", "ValoresConsistentes", $"Error in {nameof(ValoresConsistentes)}", ex.Message, ex.Message, ex.StackTrace, guid);
+            }
+        }
+
+        public bool ConfiguraDiario()
+        {
+            bool response = true;
+            ModeloDatosOleDb db = new ModeloDatosOleDb(_oleDbConnection);
+
+            try
+            {
+                string query = "Select Configura from ConfiguraDiario";
+                db.Conectar();
+                db.CrearComando(query, tipoComandoOleDb.query);
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                if (dt.Rows.Count > 0)
+                    response = dt.Rows[0]["Configura"] != DBNull.Value ? Convert.ToBoolean(dt.Rows[0]["Configura"]) : true;
+            }
+            catch (DbException ex)
+            {
+                Guid guid;
+                guid = Guid.NewGuid();
+                InsLog("ReporteDiario", "ConfiguraDiario", $"Error in {nameof(ConfiguraDiario)}", ex.Message, ex.Message, ex.StackTrace, guid);
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private bool EvaluacionValConAlim(DateTime fecha)
+        {
+            bool response = true;
+            ModeloDatosOleDb db = new ModeloDatosOleDb(_oleDbConnection);
+
+            try
+            {
+                string query = "Select * from ValConAlim WHERE fecha = #@FechaDia#";
+                query = query.Replace("@FechaDia", fecha.ToString("yyyy/MM/dd"));
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoOleDb.query);
+                DataTable dt = db.EjecutarConsultaTabla();
+
+                response = dt.Rows.Count == 0;
+            }
+            catch (DbException ex)
+            {
+                Guid guid;
+                guid = Guid.NewGuid();
+                InsLog("ReporteDiario", "EvaluacionValConAlim", $"Error in {nameof(EvaluacionValConAlim)}", ex.Message, ex.Message, ex.StackTrace, guid);
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private void InsertarValConAlim(ValConAlim valconAlim, DateTime fecha)
+        {
+            ModeloDatosOleDb db = new ModeloDatosOleDb(OleDbConnection);
+
+            try
+            {
+                string query = @"Insert into ValConAlim values (@Id, #@Fecha#, @EAProd, @MsProd, @MsCrecimiento, @MsDesarollo, @MsVaquillas, @MsSecas, @MsReto, @ValConsisitentes, @ValEAProd, @ValMsProd, @ValMsCrecimiento, @ValMsDesarollo, @ValMsVaquillas, @ValMsSecas, @ValMsReto)";
+                query = query.Replace("@Id", valconAlim.Ran_ID.ToString())
+                            .Replace("@Fecha", fecha.ToString("yyyy/MM/dd"))
+                            .Replace("@EAProd", valconAlim.EAProd.ToString())
+                            .Replace("@MsProd", valconAlim.MsProd.ToString())
+                            .Replace("@MsCrecimiento", valconAlim.MsCrecimiento.ToString())
+                            .Replace("@MsDesarollo", valconAlim.MsDesarollo.ToString())
+                            .Replace("@MsVaquillas", valconAlim.MsVaquillas.ToString())
+                            .Replace("@MsSecas", valconAlim.MsSecas.ToString())
+                            .Replace("@MsReto", valconAlim.MsReto.ToString())
+                            .Replace("@ValConsisitentes", valconAlim.ValConsisitentes.ToString())
+                            .Replace("@ValEAProd", valconAlim.EAProdValor.ToString())
+                            .Replace("@ValMsProd", valconAlim.MsProdValor.ToString())
+                            .Replace("@ValMsCrecimiento", valconAlim.MsCrecimientosValor.ToString())
+                            .Replace("@ValMsDesarollo", valconAlim.MsDesarolloValor.ToString())
+                            .Replace("@ValMsVaquillas", valconAlim.MsVaquillasValor.ToString())
+                            .Replace("@ValMsSecas", valconAlim.MsSecasValor.ToString())
+                            .Replace("@ValMsReto", valconAlim.MsRetoValor.ToString());
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoOleDb.query);
+                int insert = db.EjecutarComando();
+            }
+            catch (DbException ex)
+            {
+                Guid guid;
+                guid = Guid.NewGuid();
+                InsLog("ReporteDiario", "InsertarValConAlim", $"Error in {nameof(InsertarValConAlim)}", ex.Message, ex.Message, ex.StackTrace, guid);
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+        }
+
+        private void EliminarValConAlimPeriodo()
+        {
+            ModeloDatosOleDb db = new ModeloDatosOleDb(_oleDbConnection);
+
+            try
+            {
+                string query = @"DELETE FROM ValConAlimPeriodo";
+                db.Conectar();
+                db.CrearComando(query, tipoComandoOleDb.query);
+                int delete = db.EjecutarComando();
+                Console.WriteLine("{0} Elementos Eliminados", delete);
+            }
+            catch (DbException ex)
+            {
+                Guid guid;
+                guid = Guid.NewGuid();
+                InsLog("ReporteDiario", "EliminarValConAlimPeriodo", $"Error in {nameof(EliminarValConAlimPeriodo)}", ex.Message, ex.Message, ex.StackTrace, guid);
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+
+        }
+
+        private InventarioAfiXDia GetInventarioAFI(gthEntity.CentroTyp centro, DateTime fecha)
+        {
+            InventarioAfiXDia response = new InventarioAfiXDia();
+            ModeloDatosSQL db = new ModeloDatosSQL(_sqlConnection);
+
+            try
+            {
+                string query = @"SELECT Fecha                                           AS Fecha
+		                                ,ISNULL(VacasProduccion,0)                      AS Ordeño
+		                                ,ISNULL(VacasSecas,0)                           AS Secas
+		                                ,ISNULL(VacasReto,0) + ISNULL(VaquillasReto,0)  AS Reto
+		                                ,ISNULL(Jaulas,0)                               AS Jaulas
+		                                ,ISNULL(Destetadas,0)                           AS Crecimiento
+		                                ,ISNULL(Destetadas2,0)                          AS Desarrollo
+		                                ,ISNULL(Vaquillas,0)                            AS Vaquillas
+		                                ,ISNULL(Jaulas,0) + ISNULL(Destetadas,0)+ ISNULL(Destetadas2,0) + ISNULL(Vaquillas,0) AS Crianza
+		                                ,ISNULL(VacasProduccion,0) 
+			                                + ISNULL(VacasSecas,0) 
+			                                + ISNULL(VacasReto,0) + ISNULL(VaquillasReto,0) 
+			                                + ISNULL(Jaulas,0) 
+			                                + ISNULL(Destetadas,0)
+			                                + ISNULL(Destetadas2,0) 
+			                                + ISNULL(Vaquillas,0) AS InventarioTotal
+                                FROM InventarioAFITbl
+                                WHERE CentroId = @CentroId
+                                AND Fecha = @Fecha";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoSQL.query);
+                db.AsignarParametro("@CentroId", centro.CentroClave);
+                db.AsignarParametro("@Fecha", fecha);
+                response = gthDll.Utils.ConvertToList<InventarioAfiXDia>(db.EjecutarConsultaTabla()).FirstOrDefault();
+
+            }
+            catch (DbException ex)
+            {
+                Guid guid;
+                guid = Guid.NewGuid();
+                InsLog("ReporteDiario", "GetInventarioAFI", $"Error in {nameof(GetInventarioAFI)}", ex.Message, ex.Message, ex.StackTrace, guid);
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private InventarioAfiXDia GetPromedioInventarioAFI(Rancho rancho, DateTime fechaInicio, DateTime fechaFin)
+        {
+            InventarioAfiXDia response = new InventarioAfiXDia();
+            ModeloDatosOleDb db = new ModeloDatosOleDb(_oleDbConnection);
+
+            try
+            {
+                string query = @"SELECT  ROUND(AVG(d1))     AS Crecimiento
+                                        ,ROUND(AVG(d2))     AS Desarrollo
+                                        ,ROUND(AVG(v))      AS Vaquillas
+                                        ,ROUND(AVG(s))      AS Secas
+                                        ,ROUND(AVG(o))      AS Ordeño
+                                        ,ROUND(AVG(r))      AS Reto
+                        FROM
+                        (
+	                        SELECT  IIF(destetadas IS NOT NULL,destetadas ,0)             AS d1
+	                               ,IIF(destetadas2 IS NOT NULL,destetadas2,0)            AS d2
+	                               ,IIF(vaquillas IS NOT NULL,vaquillas,0)                AS v
+	                               ,IIF(vacassecas IS NOT NULL,vacassecas,0)              AS s
+	                               ,IIF(vacasordeña IS NOT NULL,vacasordeña,0)            AS o
+	                               ,IIF((vqreto + vcreto) IS NOT NULL ,vqreto + vcreto,0) AS r
+	                        FROM INVENTARIOAFIXDIA i
+	                        WHERE FECHA BETWEEN @FechaInicio AND @FechaFin
+                        ) Tabla";
+                query = query.Replace("@FechaInicio", gthDll.Utils.ConvertToJulian(fechaInicio).ToString())
+                            .Replace("@FechaFin", gthDll.Utils.ConvertToJulian(fechaFin).ToString());
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoOleDb.query);
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new InventarioAfiXDia()
+                {
+                    Ordeño = x["Ordeño"] != DBNull.Value ? Convert.ToDecimal(x["Ordeño"]) : 0,
+                    Secas = x["Secas"] != DBNull.Value ? Convert.ToDecimal(x["Secas"]) : 0,
+                    Reto = x["Reto"] != DBNull.Value ? Convert.ToDecimal(x["Reto"]) : 0,
+                    Jaulas = 0,
+                    Crecimiento = x["Crecimiento"] != DBNull.Value ? Convert.ToDecimal(x["Crecimiento"]) : 0,
+                    Desarrollo = x["Desarrollo"] != DBNull.Value ? Convert.ToDecimal(x["Desarrollo"]) : 0,
+                    Vaquillas = x["Vaquillas"] != DBNull.Value ? Convert.ToDecimal(x["Vaquillas"]) : 0,
+                    InventarioTotal = 0
+                }).ToList().FirstOrDefault();
+
+
+            }
+            catch (DbException ex)
+            {
+                Guid guid;
+                guid = Guid.NewGuid();
+                InsLog("ReporteDiario", "GetPromedioInventarioAFI", $"Error in {nameof(GetPromedioInventarioAFI)}", ex.Message, ex.Message, ex.StackTrace, guid);
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private PromedioMProducAlimentacion GetMProducAlim(DateTime fechaInicio, DateTime fechaFin)
+        {
+            PromedioMProducAlimentacion response = new PromedioMProducAlimentacion();
+            ModeloDatosOleDb db = new ModeloDatosOleDb(_oleDbConnection);
+
+            try
+            {
+                string query = @"SELECT  IIF(SUM(CONTEA) > 0,SUM(EA) / SUM(CONTEA),0)    AS EA2
+                                        ,IIF(SUM(CONTMS) > 0,SUM(MS) / SUM(CONTMS),0)    AS MS2
+                                        ,IIF(SUM(CONTDI) > 0,SUM(DI) / SUM(CONTDI),0)    AS DI2
+                                        ,IIF(SUM(CONTDII) > 0,SUM(DII) / SUM(CONTDII),0) AS DII2
+                                        ,IIF(SUM(CONTVQ) > 0,SUM(VQ) / SUM(CONTVQ),0)    AS VQ2
+                                        ,IIF(SUM(CONTS) > 0,SUM(S) / SUM(CONTS),0)       AS S2
+                                        ,IIF(SUM(CONTR) > 0,SUM(R) / SUM(CONTR),0)       AS R2
+                                FROM
+                                (
+	                                SELECT  m.EAS                                                                       AS EA
+	                                        ,IIF(m.EAS > 0,1,0)                                                          AS CONTEA
+	                                        ,m.MSS                                                                       AS MS
+	                                        ,IIF(MSS > 0,1,IIF(i.VACASORDEÑA > 0,1,0))                                   AS CONTMS
+	                                        ,(m.MH_DI - m.SA_DI) * m.MS_DI                                               AS DI
+	                                        ,IIF(((m.MH_DI - m.SA_DI) * m.MS_DI) > 0,1,IIF(i.destetadas > 0,1,0))        AS CONTDI
+	                                        ,(m.MH_DII - m.SA_DII) * m.MS_DII                                            AS DII
+	                                        ,IIF(((m.MH_DII - m.SA_DII) * m.MS_DII ) > 0,1,IIF(i.destetadas2 > 0,1,0))   AS CONTDII
+	                                        ,((m.MH_VQ - m.SA_VQ) * m.MS_VQ)                                             AS VQ
+	                                        ,IIF(((m.MH_VQ - m.SA_VQ) * m.MS_VQ) > 0,1,IIF(i.vaquillas > 0,1,0))         AS CONTVQ
+	                                        ,((m.MH_S - m.SA_S) * m.MS_S)                                                AS S
+	                                        ,IIF(((m.MH_S - m.SA_S) * m.MS_S) > 0,1,IIF(i.vacassecas > 0,1,0))           AS CONTS
+	                                        ,((m.MH_R - m.SA_R) * m.MS_R)                                                AS R
+	                                        ,IIF(((m.MH_R - m.SA_R) * m.MS_R) > 0,1,IIF((i.vqreto + i.vcreto ) > 0,1,0)) AS CONTR
+	                                FROM MPRODUC m
+	                                INNER JOIN INVENTARIOAFIXDIA i
+	                                ON m.FECHA = i.FECHA
+                                WHERE m.FECHA BETWEEN @FechaInicio AND @FechaFin ) Tabla";
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoOleDb.query);
+                db.AsignarParametro("@FechaInicio", gthDll.Utils.ConvertToJulian(fechaInicio));
+                db.AsignarParametro("@FechaFin", gthDll.Utils.ConvertToJulian(fechaFin));
+                response = db.EjecutarConsultaTabla().AsEnumerable().Select(x => new PromedioMProducAlimentacion()
+                {
+                    EA = x["EA2"] != DBNull.Value ? Convert.ToDecimal(x["EA2"]) : 0,
+                    Produccion = x["MS2"] != DBNull.Value ? Convert.ToDecimal(x["MS2"]) : 0,
+                    Secas = x["S2"] != DBNull.Value ? Convert.ToDecimal(x["S2"]) : 0,
+                    Reto = x["R2"] != DBNull.Value ? Convert.ToDecimal(x["R2"]) : 0,
+                    Crecimiento = x["DI2"] != DBNull.Value ? Convert.ToDecimal(x["DI2"]) : 0,
+                    Desarrollo = x["DII2"] != DBNull.Value ? Convert.ToDecimal(x["DII2"]) : 0,
+                    Vaquillas = x["VQ2"] != DBNull.Value ? Convert.ToDecimal(x["VQ2"]) : 0,
+
+                }).ToList().FirstOrDefault();
+            }
+            catch (DbException ex)
+            {
+                Guid guid;
+                guid = Guid.NewGuid();
+                InsLog("ReporteDiario", "GetMProducAlim", $"Error in {nameof(GetMProducAlim)}", ex.Message, ex.Message, ex.StackTrace, guid);
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+
+            return response;
+        }
+
+        private void InsertarValConAlimPeriodo(ValConAlim valconAlim, DateTime fecha)
+        {
+            ModeloDatosOleDb db = new ModeloDatosOleDb(_oleDbConnection);
+
+            try
+            {
+                string query = "Insert into ValConAlimPeriodo values (@Id, #@Fecha#, @EAProd, @MsProd, @MsCrecimiento, @MsDesarollo, @MsVaquillas, @MsSecas, @MsReto, @ValConsisitentes, @ValEAProd, @ValMsProd, @ValMsCrecimiento, @ValMsDesarollo, @ValMsVaquillas, @ValMsSecas, @ValMsReto)";
+
+                query = query.Replace("@Id", valconAlim.Ran_ID.ToString())
+                          .Replace("@Fecha", fecha.ToString("yyyy/MM/dd"))
+                          .Replace("@EAProd", valconAlim.EAProd.ToString())
+                          .Replace("@MsProd", valconAlim.MsProd.ToString())
+                          .Replace("@MsCrecimiento", valconAlim.MsCrecimiento.ToString())
+                          .Replace("@MsDesarollo", valconAlim.MsDesarollo.ToString())
+                          .Replace("@MsVaquillas", valconAlim.MsVaquillas.ToString())
+                          .Replace("@MsSecas", valconAlim.MsSecas.ToString())
+                          .Replace("@MsReto", valconAlim.MsReto.ToString())
+                          .Replace("@ValConsisitentes", valconAlim.ValConsisitentes.ToString())
+                          .Replace("@ValEAProd", valconAlim.EAProdValor.ToString())
+                          .Replace("@ValMsProd", valconAlim.MsProdValor.ToString())
+                          .Replace("@ValMsCrecimiento", valconAlim.MsCrecimientosValor.ToString())
+                          .Replace("@ValMsDesarollo", valconAlim.MsDesarolloValor.ToString())
+                          .Replace("@ValMsVaquillas", valconAlim.MsVaquillasValor.ToString())
+                          .Replace("@ValMsSecas", valconAlim.MsSecasValor.ToString())
+                          .Replace("@ValMsReto", valconAlim.MsRetoValor.ToString());
+
+                db.Conectar();
+                db.CrearComando(query, tipoComandoOleDb.query);
+                int insert = db.EjecutarComando();
+                Console.WriteLine("{0} Elemento Insertado", insert);
+            }
+            catch(DbException ex)
+            {
+                Guid guid;
+                guid = Guid.NewGuid();
+                InsLog("ReporteDiario", "InsertarValConAlimPeriodo", $"Error in {nameof(InsertarValConAlimPeriodo)}", ex.Message, ex.Message, ex.StackTrace, guid);
+            }
+            finally
+            {
+                if (db.isConnected)
+                    db.Desconectar();
+            }
+        }
+        #endregion
+
+
         #region  metodos Auxiliares
         private List<DateTime> GetFechas(DateTime fechaFin)
         {
@@ -1067,7 +1650,7 @@ namespace ReportePeriodo.Model
             var reproductivosTask = new Task(() => { DatosReproductivos(fechaInicio, fechaFin); });
             var enfermedadesTask = new Task(() => { DatosEnFermedadesBecerras(fechaInicio, fechaFin); });
             var valInventarioTask = new Task(() => { DatosValInventarios(fechaInicio, fechaFin); });
-            var abortosTask = new Task(() => { DatosAbortos(fechaInicio, fechaFin); });            
+            var abortosTask = new Task(() => { DatosAbortos(fechaInicio, fechaFin); });
 
             ubresTask.Start();
             metabolicosTask.Start();
@@ -1160,7 +1743,7 @@ namespace ReportePeriodo.Model
         private async Task<bool> IndicadoresTeoricoDesarrollo(List<gthEntity.CentroTyp> centro, DateTime fechaInicio, DateTime fechaFin)
         {
             indicadorDesarrollo = consumoModel.GetIndicadorReporteTeorico(centro, etapaDesarrollo, fechaInicio, fechaFin);
-           Console.WriteLine("Proceso {0} Ejecutado.", "IndicadoresTeoricoDesarrollo");
+            Console.WriteLine("Proceso {0} Ejecutado.", "IndicadoresTeoricoDesarrollo");
             return true;
         }
 
@@ -1337,6 +1920,7 @@ namespace ReportePeriodo.Model
             _datosJaulasFuera = GetDatosDesecho(fechaInicio, fechaFin, @"AND LACTANCIA = 0 AND EDOVAC = 15");
             _datosJaulasVivas = GetDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 1 OR edovac = 10) ");
             _datosJaulasMuertas = GetDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 1 OR edovac = 10) ");
+            _datosJaulasBpGem = GetDatosDesecho(fechaInicio, fechaFin, @"AND LACTANCIA = 0 AND EDOVAC > 15");
             return true;
         }
 
@@ -2707,6 +3291,7 @@ namespace ReportePeriodo.Model
                 DatosVacas totalJaulasFuera = GetTotalDatosDesecho(fechaInicio, fechaFin, @" AND LACTANCIA = 0 AND EDOVAC = 15");
                 DatosVacas totalJaulasVivas = GetTotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 1 OR edovac = 10) ");
                 DatosVacas totalJaulasMuertas = GetTotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 1 OR edovac = 10) ");
+                DatosVacas totalJaulasBpGem = GetTotalDatosDesecho(fechaInicio, fechaFin, @" AND LACTANCIA = 0 AND EDOVAC > 15");
 
                 DatosVacas totalDesteteVivas = GetTotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 2 OR edovac = 7) ");
                 DatosVacas totalDesteteMuertas = GetTotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 2 OR edovac = 7) ");
@@ -2750,6 +3335,7 @@ namespace ReportePeriodo.Model
                 response.Bp_Gem = totalJaulasFuera != null ? totalJaulasFuera.Vacas : 0;
                 response.Jaulas_Vivas = totalJaulasVivas != null ? totalJaulasVivas.Vacas : 0;
                 response.Jaulas_Muertas = totalJaulasMuertas != null ? totalJaulasMuertas.Vacas : 0;
+                response.Jaulas_BpGem = totalJaulasBpGem != null ? totalJaulasBpGem.Vacas : 0;
                 response.Destete_Vivas = totalDesteteVivas != null ? totalDesteteVivas.Vacas : 0;
                 response.Destete_Muertas = totalDesteteMuertas != null ? totalDesteteMuertas.Vacas : 0;
                 response.Vaquillas_Muertas = totalVaquillasMuertas != null ? totalVaquillasMuertas.Vacas : 0;
@@ -3351,7 +3937,7 @@ namespace ReportePeriodo.Model
 				                                    ,IIF(M.NOIDSES2REAL > 0,1,0)                                       AS ContNOIDSES2
 				                                    ,IIF(M.NOIDSES3REAL > 0,1,0)                                       AS ContNOIDSES3
 				                            FROM MPRODUC M
-				                            INNER JOIN
+				                            LEFT JOIN
 				                            (
 					                            SELECT  FECHA
 					                                    ,AVG(proteina) AS Proteina1
@@ -3609,7 +4195,7 @@ namespace ReportePeriodo.Model
 				                                        ,IIF(M.NOIDSES2 > 0,1,0)                                           AS ContNOIDSES2
 				                                        ,IIF(M.NOIDSES3 > 0,1,0)                                           AS ContNOIDSES3
 				                                FROM MPRODUC M
-				                                INNER JOIN
+				                                LEFT JOIN
 				                                (
 					                                SELECT  FECHA
 					                                        ,AVG(proteina) AS Proteina1
@@ -4060,6 +4646,7 @@ namespace ReportePeriodo.Model
                 response.Bp_Gem = total.Bp_Gem != null && totalAñoAnt.Bp_Gem != null ? total.Bp_Gem - totalAñoAnt.Bp_Gem : total.Bp_Gem != null ? total.Bp_Gem * (-1) : 0;
                 response.Jaulas_Vivas = total.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != null ? total.Jaulas_Vivas - totalAñoAnt.Jaulas_Vivas : total.Jaulas_Vivas != null ? total.Jaulas_Vivas * (-1) : 0;
                 response.Jaulas_Muertas = total.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != null ? total.Jaulas_Muertas - totalAñoAnt.Jaulas_Muertas : total.Jaulas_Muertas != null ? total.Jaulas_Muertas * (-1) : 0;
+                response.Jaulas_BpGem = total.Jaulas_BpGem != null && totalAñoAnt.Jaulas_BpGem != null ? total.Jaulas_BpGem - totalAñoAnt.Jaulas_BpGem : total.Jaulas_BpGem != null ? total.Jaulas_BpGem * (-1) : 0;               
 
                 response.Destete_Vivas = total.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != null ? total.Destete_Vivas - totalAñoAnt.Destete_Vivas : total.Destete_Vivas != null ? total.Destete_Vivas * (-1) : 0;
                 response.Destete_Muertas = total.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != null ? total.Destete_Muertas - totalAñoAnt.Destete_Muertas : total.Destete_Muertas != null ? total.Destete_Muertas * (-1) : 0;
@@ -4328,6 +4915,7 @@ namespace ReportePeriodo.Model
                 response.Bp_Gem = diferencia.Bp_Gem != null && totalAñoAnt.Bp_Gem != null && totalAñoAnt.Bp_Gem != 0 ? diferencia.Bp_Gem / totalAñoAnt.Bp_Gem : 0;
                 response.Jaulas_Vivas = diferencia.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != null && totalAñoAnt.Jaulas_Vivas != 0 ? diferencia.Jaulas_Vivas / totalAñoAnt.Jaulas_Vivas : 0;
                 response.Jaulas_Muertas = diferencia.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != null && totalAñoAnt.Jaulas_Muertas != 0 ? diferencia.Jaulas_Muertas / totalAñoAnt.Jaulas_Muertas : 0;
+                response.Jaulas_BpGem = diferencia.Jaulas_BpGem != null && totalAñoAnt.Jaulas_BpGem != null && totalAñoAnt.Jaulas_BpGem != 0 ? diferencia.Jaulas_BpGem / totalAñoAnt.Jaulas_BpGem : 0;
 
                 response.Destete_Vivas = diferencia.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != null && totalAñoAnt.Destete_Vivas != 0 ? diferencia.Destete_Vivas / totalAñoAnt.Destete_Vivas : 0;
                 response.Destete_Muertas = diferencia.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != null && totalAñoAnt.Destete_Muertas != 0 ? diferencia.Destete_Muertas / totalAñoAnt.Destete_Muertas : 0;
@@ -5224,6 +5812,7 @@ namespace ReportePeriodo.Model
                     item.Bp_Gem = item.Bp_Gem == 0 ? null : item.Bp_Gem;
                     item.Jaulas_Vivas = item.Jaulas_Vivas == 0 ? null : item.Jaulas_Vivas;
                     item.Jaulas_Muertas = item.Jaulas_Muertas == 0 ? null : item.Jaulas_Muertas;
+                    item.Jaulas_BpGem = item.Jaulas_BpGem == 0 ? null : item.Jaulas_BpGem;
 
                     item.Destete_Vivas = item.Destete_Vivas == 0 ? null : item.Destete_Vivas;
                     item.Destete_Muertas = item.Destete_Muertas == 0 ? null : item.Destete_Muertas;
@@ -5281,6 +5870,7 @@ namespace ReportePeriodo.Model
             {
                 item.Jaulas_Vivas = item.Jaulas_Vivas == 0 ? null : item.Jaulas_Vivas;
                 item.Jaulas_Muertas = item.Jaulas_Muertas == 0 ? null : item.Jaulas_Muertas;
+                item.Jaulas_BpGem = item.Jaulas_BpGem == 0 ? null : item.Jaulas_BpGem;
 
                 item.Destete_Vivas = item.Destete_Vivas == 0 ? null : item.Destete_Vivas;
                 item.Destete_Muertas = item.Destete_Muertas == 0 ? null : item.Destete_Muertas;

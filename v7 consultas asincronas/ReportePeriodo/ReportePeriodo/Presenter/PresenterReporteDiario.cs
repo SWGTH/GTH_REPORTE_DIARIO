@@ -190,6 +190,10 @@ namespace ReportePeriodo.Presenter
             _model.GenerarPromedios(rancho, fechaInicio, fechaFin);
         }
 
+        public bool ConfiguraDiario()
+        {
+            return _model.ConfiguraDiario();
+        }
 
         #region generar informacion
         private async Task<bool> GenerarInformacionHojas(CentroTyp centro, Rancho rancho, DateTime fechaInicio, DateTime fechaFin)
@@ -334,6 +338,13 @@ namespace ReportePeriodo.Presenter
             _datosHoja4.Add(diferencia);
 
             return true;
+        }
+        #endregion
+
+        #region valores consistentes
+        public void ValoresConsistentes(CentroTyp centro, Rancho rancho, DateTime fecha, bool configuraDiario)
+        {
+            _model.ValoresConsistentes(centro, rancho, fecha, configuraDiario);
         }
         #endregion
 

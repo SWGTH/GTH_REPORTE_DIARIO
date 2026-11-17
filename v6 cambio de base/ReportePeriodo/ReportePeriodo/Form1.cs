@@ -161,7 +161,7 @@ namespace ReportePeriodo
                 string cadenaPrecioLeche = "VENTA (PRECIO DE LA LECHE Actual: @actual / Año Anterior: @anterior)";
                 cadenaPrecioLeche = cadenaPrecioLeche.Replace("@actual", _presentador.PrecioLeche.ToString("C3")).Replace("@anterior", _presentador.PrecioLecheAñoAnt.ToString("C3"));
 
-                ReportParameter[] parameters = new ReportParameter[12];
+                ReportParameter[] parameters = new ReportParameter[9];
                 parameters[0] = new ReportParameter("EMPRESA", _rancho.Ran_Nombre.ToUpper(), true);
                 parameters[1] = new ReportParameter("MES", fechaFin.ToString("MMMM yyyy").ToUpper(), true);
                 parameters[2] = new ReportParameter("DEC_UNO", dec1.ToString(), true);
@@ -171,9 +171,9 @@ namespace ReportePeriodo
                 parameters[6] = new ReportParameter("VACAS", cadenaVacas.ToString(), true);
                 parameters[7] = new ReportParameter("PRECIO_LECHE", cadenaPrecioLeche, true);
                 parameters[8] = new ReportParameter("TITULONOID", tituloNoid, true);
-                parameters[9] = new ReportParameter("VALIDACIONALIMENTO", validacionAlimento ? "si" : "no");
-                parameters[10] = new ReportParameter("VALIDACIONMEDICINA", validacionMedicina ? "si" : "no");
-                parameters[11] = new ReportParameter("VALIDACIONESVISIBLES", validacionesVisibles);
+                //parameters[9] = new ReportParameter("VALIDACIONALIMENTO", validacionAlimento ? "si" : "no");
+                //parameters[10] = new ReportParameter("VALIDACIONMEDICINA", validacionMedicina ? "si" : "no");
+                //parameters[11] = new ReportParameter("VALIDACIONESVISIBLES", validacionesVisibles);
 
                 rvDiario.LocalReport.DataSources.Clear();
                 ReportDataSource source = new ReportDataSource("DataSet1", dtHoja1);

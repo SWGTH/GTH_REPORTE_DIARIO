@@ -29,6 +29,7 @@ namespace ReportePeriodo
         //PresentReporter _reportPrensenter;
         PresenterReporteDiario _reportPrensenter;
 
+        bool configuraDiario;
 
         public Form1()
         {
@@ -43,6 +44,7 @@ namespace ReportePeriodo
             _centro = new CentroTyp();
             //_reportPrensenter = new PresentReporter(this, _oleDbConnection, _sqlConnection, _fdbConnection);
             _reportPrensenter = new PresenterReporteDiario(this, _oleDbConnection, _sqlConnection, _fdbConnection);
+            configuraDiario = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -52,6 +54,7 @@ namespace ReportePeriodo
 
             _rancho = _reportPrensenter.GetRancho();
             _centro = _reportPrensenter.GetCentro();
+            configuraDiario = _reportPrensenter.ConfiguraDiario();
 
             DateTime fechaMinima = _reportPrensenter.GetFechaMinima();
             DateTime fechaMaxima = _reportPrensenter.GetFechaMaxima();
@@ -65,7 +68,7 @@ namespace ReportePeriodo
                 DateTime fechaFin = DateTime.Today;
                 DateTime fechaInicio = new DateTime(fechaFin.Year, fechaFin.Month, 1);
                 Reporte(_centro, _rancho, fechaInicio, fechaFin);
-
+                _reportPrensenter.ValoresConsistentes(_centro, _rancho, fechaFin, configuraDiario);
                 Close();
             }
 

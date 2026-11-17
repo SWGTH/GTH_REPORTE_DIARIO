@@ -191,6 +191,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="ReporteDiario2.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

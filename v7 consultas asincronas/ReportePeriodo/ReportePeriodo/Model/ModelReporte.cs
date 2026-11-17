@@ -70,6 +70,7 @@ namespace ReportePeriodo.Model
         List<DatosVacas> _datosJaulasFuera;
         List<DatosVacas> _datosJaulasVivas;
         List<DatosVacas> _datosJaulasMuertas;
+        List<DatosVacas> _datosJaulasBpGem;
         List<DatosVacas> _datosDesteteVivas;
         List<DatosVacas> _datosDesteteMuertas;
         List<DatosVacas> _datosVaquillasMuertas;
@@ -1279,6 +1280,13 @@ namespace ReportePeriodo.Model
             return true;
         }
 
+        private async Task<bool>JaulasBpGem(DateTime fechaInicio, DateTime fechaFin)
+        {
+            _datosJaulasBpGem = GetDatosDesecho(fechaInicio, fechaFin, "");
+            Console.WriteLine("Proceso {0} Ejecutado.", "JaulasMuertas");
+            return true;
+        }
+
         private async Task<bool> DesteteVivas(DateTime fechaInicio, DateTime fechaFin)
         {
             _datosDesteteVivas = GetDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 2 OR edovac = 7) ");
@@ -2319,7 +2327,7 @@ namespace ReportePeriodo.Model
 				                                    ,IIF(M.NOIDSES2REAL > 0,1,0)                                       AS ContNOIDSES2
 				                                    ,IIF(M.NOIDSES3REAL > 0,1,0)                                       AS ContNOIDSES3
 				                            FROM MPRODUC M
-				                            INNER JOIN
+				                            LEFT JOIN
 				                            (
 					                            SELECT  FECHA
 					                                    ,AVG(proteina) AS Proteina1
@@ -2577,7 +2585,7 @@ namespace ReportePeriodo.Model
 				                                        ,IIF(M.NOIDSES2 > 0,1,0)                                           AS ContNOIDSES2
 				                                        ,IIF(M.NOIDSES3 > 0,1,0)                                           AS ContNOIDSES3
 				                                FROM MPRODUC M
-				                                INNER JOIN
+				                                LEFT JOIN
 				                                (
 					                                SELECT  FECHA
 					                                        ,AVG(proteina) AS Proteina1
@@ -3493,6 +3501,8 @@ namespace ReportePeriodo.Model
                 #region Obtener Datos
                 CalostroYOrdeña totalCalostro = GetPromedioCalostro(fechaInicio, fechaFin);
                 DatosVacas totalJaulasFuera = GetTotalDatosDesecho(fechaInicio, fechaFin, @" AND LACTANCIA = 0 AND EDOVAC = 15");
+                DatosVacas totalJaulasBpGem = GetTotalDatosDesecho(fechaInicio, fechaFin, @" AND LACTANCIA = 0 AND EDOVAC > 15");
+
                 DatosVacas totalJaulasVivas = GetTotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo <> 1 AND destino <> 2 AND (edovac = 1 OR edovac = 10) ");
                 DatosVacas totalJaulasMuertas = GetTotalDatosDesecho(fechaInicio, fechaFin, @" AND vacvaq = 2  AND motivo = 1 AND (edovac = 1 OR edovac = 10) ");
 
@@ -3538,6 +3548,7 @@ namespace ReportePeriodo.Model
                 response.Bp_Gem = totalJaulasFuera != null ? totalJaulasFuera.Vacas : 0;
                 response.Jaulas_Vivas = totalJaulasVivas != null ? totalJaulasVivas.Vacas : 0;
                 response.Jaulas_Muertas = totalJaulasMuertas != null ? totalJaulasMuertas.Vacas : 0;
+                response.Jaulas_BpGem = totalJaulasBpGem != null ? totalJaulasBpGem.Vacas : 0;
                 response.Destete_Vivas = totalDesteteVivas != null ? totalDesteteVivas.Vacas : 0;
                 response.Destete_Muertas = totalDesteteMuertas != null ? totalDesteteMuertas.Vacas : 0;
                 response.Vaquillas_Muertas = totalVaquillasMuertas != null ? totalVaquillasMuertas.Vacas : 0;

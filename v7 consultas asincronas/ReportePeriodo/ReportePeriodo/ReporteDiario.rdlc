@@ -617,6 +617,10 @@
           <DataField>Jaulas_Muertas</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Jaulas_BpGem">
+          <DataField>Jaulas_BpGem</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Destete_Vivas">
           <DataField>Destete_Vivas</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -1130,7 +1134,6 @@
                         </Style>
                       </Textbox>
                       <RowSpan>2</RowSpan>
-                      <rd:Selected>true</rd:Selected>
                     </CellContents>
                   </TablixCornerCell>
                 </TablixCornerRow>
@@ -10565,7 +10568,10 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                   <Width>0.9cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.8cm</Width>
+                  <Width>0.9cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.9cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.9cm</Width>
@@ -10586,7 +10592,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                   <Width>0.8cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.9cm</Width>
+                  <Width>0.8cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.85cm</Width>
@@ -10604,7 +10610,43 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                   <Width>0.8cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.9cm</Width>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.85cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.85cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.85cm</Width>
@@ -10623,42 +10665,6 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.8cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.85cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -10717,7 +10723,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Jaulas_Muertas">
+                        <Textbox Name="Jaulas_Muertas1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -10725,6 +10731,55 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Jaulas_Muertas.Value</Value>
+                                  <Style>
+                                    <FontSize>5pt</FontSize>
+                                    <FontWeight>=IIF(Fields!Dia.Value="TOTAL" OR Fields!Dia.Value="PROM" OR Fields!Dia.Value="AÑO ANT" OR Fields!Dia.Value="DIF %" OR Fields!Dia.Value="DIF #","SemiBold","Thin")</FontWeight>
+                                    <Language>es-MX</Language>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Jaulas_Muertas1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>=IIF(Fields!Dia.Value="TOTAL" OR Fields!Dia.Value="PROM" OR Fields!Dia.Value="AÑO ANT" OR Fields!Dia.Value="DIF %" OR Fields!Dia.Value="DIF #","Solid","None")</Style>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>=IIF(Fields!Dia.Value="TOTAL" OR Fields!Dia.Value="PROM" OR Fields!Dia.Value="AÑO ANT" OR Fields!Dia.Value="DIF %" OR Fields!Dia.Value="DIF #","Solid","None")</Style>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                            </LeftBorder>
+                            <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White")</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Jaulas_BpGem">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Jaulas_BpGem.Value</Value>
                                   <Style>
                                     <FontSize>5pt</FontSize>
                                     <FontWeight>=IIF(Fields!Dia.Value="TOTAL" OR Fields!Dia.Value="PROM" OR Fields!Dia.Value="AÑO ANT" OR Fields!Dia.Value="DIF %" OR Fields!Dia.Value="DIF #","SemiBold","Thin")</FontWeight>
@@ -10738,7 +10793,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Jaulas_Muertas</rd:DefaultName>
+                          <rd:DefaultName>Jaulas_BpGem</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -12381,7 +12436,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                           <TablixHeader>
                             <Size>0.34417cm</Size>
                             <CellContents>
-                              <Textbox Name="Textbox154">
+                              <Textbox Name="Textbox1">
                                 <CanGrow>true</CanGrow>
                                 <KeepTogether>true</KeepTogether>
                                 <Paragraphs>
@@ -12389,6 +12444,55 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                                     <TextRuns>
                                       <TextRun>
                                         <Value>MTAS</Value>
+                                        <Style>
+                                          <FontSize>5pt</FontSize>
+                                        </Style>
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style>
+                                      <TextAlign>Center</TextAlign>
+                                    </Style>
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>Textbox1</rd:DefaultName>
+                                <Style>
+                                  <Border>
+                                    <Color>LightGrey</Color>
+                                    <Style>None</Style>
+                                  </Border>
+                                  <TopBorder>
+                                    <Color>Black</Color>
+                                  </TopBorder>
+                                  <BottomBorder>
+                                    <Color>Black</Color>
+                                    <Style>Solid</Style>
+                                  </BottomBorder>
+                                  <LeftBorder>
+                                    <Color>Black</Color>
+                                  </LeftBorder>
+                                  <BackgroundColor>#96cff7</BackgroundColor>
+                                  <VerticalAlign>Middle</VerticalAlign>
+                                  <PaddingLeft>2pt</PaddingLeft>
+                                  <PaddingRight>2pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
+                        </TablixMember>
+                        <TablixMember>
+                          <TablixHeader>
+                            <Size>0.34417cm</Size>
+                            <CellContents>
+                              <Textbox Name="Textbox154">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value>BP</Value>
                                         <Style>
                                           <FontSize>5pt</FontSize>
                                         </Style>
@@ -14055,7 +14159,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                                   <Paragraph>
                                     <TextRuns>
                                       <TextRun>
-                                        <Value>BP/GEM</Value>
+                                        <Value>GEM</Value>
                                         <Style>
                                           <FontSize>5pt</FontSize>
                                         </Style>
@@ -14091,6 +14195,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                                   <PaddingBottom>2pt</PaddingBottom>
                                 </Style>
                               </Textbox>
+                              <rd:Selected>true</rd:Selected>
                             </CellContents>
                           </TablixHeader>
                         </TablixMember>
@@ -14247,7 +14352,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>CALIDAD</Value>
+                                    <Value>CAL.</Value>
                                     <Style>
                                       <FontSize>5pt</FontSize>
                                     </Style>
@@ -14350,7 +14455,7 @@ IIF(RowNumber(Nothing) Mod 2 = 0, "#BDDCF3", "White"))</BackgroundColor>
             <Top>23.9cm</Top>
             <Left>0.07412cm</Left>
             <Height>1.8055cm</Height>
-            <Width>29cm</Width>
+            <Width>29.05cm</Width>
             <ZIndex>14</ZIndex>
             <Style>
               <Border>

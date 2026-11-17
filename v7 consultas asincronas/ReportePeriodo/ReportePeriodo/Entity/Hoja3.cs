@@ -12,6 +12,7 @@ namespace ReportePeriodo.Entity
 
         public decimal? Jaulas_Vivas { get; set; }
         public decimal? Jaulas_Muertas { get; set; }
+        public decimal? Jaulas_BpGem { get; set; }
 
         public decimal? Destete_Vivas { get; set; }
         public decimal? Destete_Muertas { get; set; }
